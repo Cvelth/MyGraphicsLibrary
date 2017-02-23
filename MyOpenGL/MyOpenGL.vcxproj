@@ -130,18 +130,21 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AbstractException.hpp" />
     <ClInclude Include="Enums.hpp" />
     <ClInclude Include="Functions.hpp" />
     <ClInclude Include="MyOpenGL.hpp" />
     <ClInclude Include="OpenGL_header.h" />
     <ClInclude Include="Program.hpp" />
     <ClInclude Include="Shader.hpp" />
+    <ClInclude Include="Vector.hpp" />
     <ClInclude Include="Window.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Functions.cpp" />
     <ClCompile Include="Program.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="Vector.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

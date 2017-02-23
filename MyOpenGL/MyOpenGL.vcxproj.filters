@@ -22,6 +22,12 @@
     <ClInclude Include="Enums.hpp">
       <Filter>Headers</Filter>
     </ClInclude>
+    <ClInclude Include="Vector.hpp">
+      <Filter>Math\Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="AbstractException.hpp">
+      <Filter>Headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Window.cpp">
@@ -36,6 +42,9 @@
     <ClCompile Include="Shader.cpp">
       <Filter>Program</Filter>
     </ClCompile>
+    <ClCompile Include="Vector.cpp">
+      <Filter>Math\Vector</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Window">
@@ -49,6 +58,12 @@
     </Filter>
     <Filter Include="Program">
       <UniqueIdentifier>{8997b2af-53e5-4584-b48b-443ecfb0023d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Math">
+      <UniqueIdentifier>{f4551336-7ff8-4237-a3de-8483f2bb1e5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Math\Vector">
+      <UniqueIdentifier>{2fb04cf3-013f-48d3-9735-58922482564b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

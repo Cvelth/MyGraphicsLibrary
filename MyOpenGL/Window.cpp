@@ -3,7 +3,7 @@
 
 mgl::Window::Window(std::string title, size_t x, size_t y, size_t width, size_t height) {
 	initSDL();
-	m_window = SDL_CreateWindow(title.c_str(), x, y, width, height, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
+	m_window = SDL_CreateWindow(title.c_str(), int(x), int(y), int(width), int(height), SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
 	if (m_window == NULL)
 		throw InitializationException(std::string("Window couldn't be created. Error:") += SDL_GetError());
 
@@ -18,9 +18,9 @@ mgl::Window::Window(std::string title, DefaultWindowPos defaultPos, size_t width
 	initSDL();
 	switch (defaultPos) {
 		case DefaultWindowPos::Centered: m_window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 
-																	 width, height, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN); break;
+																	 int(width), int(height), SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN); break;
 		case DefaultWindowPos::Undefined: m_window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-																	 width, height, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN); break;
+																	 int(width), int(height), SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN); break;
 	}
 	if (m_window == NULL)
 		throw InitializationException(std::string("Window couldn't be created. Error:") += SDL_GetError());
