@@ -34,6 +34,11 @@ void mgl::AbstractVector<Type>::normalize() {
 }
 
 template<typename Type>
+const mgl::AbstractVector<Type> mgl::AbstractVector<Type>::normalized() const {
+	return mgl::AbstractVector<Type>(*this / length());
+}
+
+template<typename Type>
 void mgl::AbstractVector<Type>::x(const Type & t) {
 	m_data[0] = t;
 }
@@ -97,6 +102,19 @@ mgl::AbstractVector<Type>& mgl::AbstractVector<Type>::operator/=(const Type & q)
 	for (int i = 0; i < 4; i++)
 		m_data[i] /= q;
 	return this;
+}
+
+template<typename Type>
+bool mgl::AbstractVector<Type>::operator==(const AbstractVector<Type>& vector) {
+	return !operator!=(vector);
+}
+
+template<typename Type>
+bool mgl::AbstractVector<Type>::operator!=(const AbstractVector<Type>& vector) {
+	for (int i = 0; i < 4; i++)
+		if (vector.m_data[i] == m_data[i])
+			return false;
+	return true;
 }
 
 template<typename Type>

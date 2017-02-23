@@ -16,6 +16,7 @@ namespace mgl {
 		bool isNull() const;
 		Type length() const;
 		void normalize();
+		const AbstractVector normalized() const;
 
 		void x(const Type& t);
 		void y(const Type& t);
@@ -32,7 +33,9 @@ namespace mgl {
 		AbstractVector<Type>& operator-=(const AbstractVector<Type>& vector);
 		AbstractVector<Type>& operator*=(const Type& q);
 		AbstractVector<Type>& operator/=(const Type& q);
-
+		bool operator==(const AbstractVector<Type>& vector);
+		bool operator!=(const AbstractVector<Type>& vector);
+		
 		friend const AbstractVector<Type> operator+(const AbstractVector<Type>& v1, const AbstractVector<Type>& v2);
 		friend const AbstractVector<Type> operator-(const AbstractVector<Type>& v1, const AbstractVector<Type>& v2);
 		friend const Type operator*(const AbstractVector<Type>& v1, const AbstractVector<Type>& v2);

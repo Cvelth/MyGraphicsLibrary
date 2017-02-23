@@ -28,6 +28,9 @@
     <ClInclude Include="AbstractException.hpp">
       <Filter>Headers</Filter>
     </ClInclude>
+    <ClInclude Include="Matrix.hpp">
+      <Filter>Math\Matrix</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Window.cpp">
@@ -44,6 +47,9 @@
     </ClCompile>
     <ClCompile Include="Vector.cpp">
       <Filter>Math\Vector</Filter>
+    </ClCompile>
+    <ClCompile Include="Matrix.cpp">
+      <Filter>Math\Matrix</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -64,6 +70,9 @@
     </Filter>
     <Filter Include="Math\Vector">
       <UniqueIdentifier>{2fb04cf3-013f-48d3-9735-58922482564b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Math\Matrix">
+      <UniqueIdentifier>{6674f3c9-fe98-45f4-baa5-b1fdc78190fb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
