@@ -1,0 +1,29 @@
+#pragma once
+#include "AbstractException.hpp"
+
+namespace mgl {
+	using BufferException = AbstractStringException;
+
+	class Buffer {
+	private:
+		unsigned int m_id;
+	public:
+		Buffer();
+		Buffer(unsigned int id);
+		~Buffer();
+
+		unsigned int id() const;
+	};
+
+	class BufferArray{
+	private:
+		unsigned int size;
+		unsigned int* m_id;
+	public:
+		BufferArray(unsigned int n = 1);
+		~BufferArray();
+
+		unsigned int id(unsigned int n) const;
+		Buffer operator[](unsigned int n);
+	};
+}

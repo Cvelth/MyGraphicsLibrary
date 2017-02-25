@@ -1,6 +1,7 @@
 #include "OpenGL_header.h"
 #include "Functions.hpp"
 #include "Color.hpp"
+#include "Buffer.hpp"
 
 void mgl::setOpenGLVersion(int major, int minor, OpenGLVersionMask mask) {
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, major);
@@ -28,6 +29,10 @@ void mgl::setPointSize(float s) {
 void mgl::enableBlend(BlendEnum s, BlendEnum d) {
 	glBlendFunc(_enumSwitch(s), _enumSwitch(d));
 	glEnable(GL_BLEND);
+}
+
+void mgl::enableBlend(const Buffer & b, BlendEnum s, BlendEnum d) {
+	glBlendFunci(b.id(), _enumSwitch(s), _enumSwitch(d));
 }
 
 void mgl::enableLineSmooth(SmoothMode mode) {

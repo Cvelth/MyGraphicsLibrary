@@ -8,7 +8,7 @@ namespace mgl {
 
 	class Program {
 	protected:
-		GLuint m_id;
+		unsigned int m_id;
 	public:
 		explicit Program();
 		explicit Program(const std::initializer_list<Shader>& list);

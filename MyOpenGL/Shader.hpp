@@ -1,6 +1,5 @@
 #pragma once
 #include "AbstractException.hpp"
-typedef unsigned int GLuint;
 
 namespace mgl {
 	enum class ShaderType {
@@ -13,7 +12,7 @@ namespace mgl {
 
 	class Shader {
 	private:
-		GLuint m_id;
+		unsigned int m_id;
 	public:
 		Shader(ShaderType type);
 		Shader(ShaderType type, const std::string& filename);
@@ -21,6 +20,6 @@ namespace mgl {
 
 		void compileFile(const std::string& filename);
 		void compileSource(const std::string& sourceText);
-		GLuint id();
+		unsigned int id();
 	};
 }

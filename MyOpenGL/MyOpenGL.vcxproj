@@ -137,6 +137,7 @@
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Buffer.hpp" />
     <ClInclude Include="Color.hpp" />
     <ClInclude Include="DefaultProgram.hpp" />
     <ClInclude Include="AbstractException.hpp" />
@@ -153,6 +154,7 @@
     <ClInclude Include="Window.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Buffer.cpp" />
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="DefaultProgram.cpp" />
     <ClCompile Include="ExperimentalFunctions.cpp" />

@@ -43,6 +43,9 @@
     <ClInclude Include="FunctionEnums.hpp">
       <Filter>Functions</Filter>
     </ClInclude>
+    <ClInclude Include="Buffer.hpp">
+      <Filter>DataOperations</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Window.cpp">
@@ -75,6 +78,9 @@
     <ClCompile Include="FunctionEnums.cpp">
       <Filter>Functions</Filter>
     </ClCompile>
+    <ClCompile Include="Buffer.cpp">
+      <Filter>DataOperations</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Window">
@@ -103,6 +109,9 @@
     </Filter>
     <Filter Include="Program\Default">
       <UniqueIdentifier>{622fb0d5-a1b7-4fb3-ad4f-4f2a4ac43c5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DataOperations">
+      <UniqueIdentifier>{f1278099-75ac-4365-8701-5f6d678a79de}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
