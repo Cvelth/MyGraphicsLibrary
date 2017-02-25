@@ -19,9 +19,6 @@
     <ClInclude Include="Shader.hpp">
       <Filter>Program</Filter>
     </ClInclude>
-    <ClInclude Include="Enums.hpp">
-      <Filter>Headers</Filter>
-    </ClInclude>
     <ClInclude Include="Vector.hpp">
       <Filter>Math\Vector</Filter>
     </ClInclude>
@@ -30,6 +27,15 @@
     </ClInclude>
     <ClInclude Include="Color.hpp">
       <Filter>Additional</Filter>
+    </ClInclude>
+    <ClInclude Include="DefaultProgram.hpp">
+      <Filter>Program\Default</Filter>
+    </ClInclude>
+    <ClInclude Include="AbstractException.hpp">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="SharedEnums.hpp">
+      <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -53,6 +59,9 @@
     </ClCompile>
     <ClCompile Include="Color.cpp">
       <Filter>Additional</Filter>
+    </ClCompile>
+    <ClCompile Include="DefaultProgram.cpp">
+      <Filter>Program\Default</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -79,6 +88,9 @@
     </Filter>
     <Filter Include="Additional">
       <UniqueIdentifier>{55a5f37b-3906-4907-bda9-9f96fc77ee99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Program\Default">
+      <UniqueIdentifier>{622fb0d5-a1b7-4fb3-ad4f-4f2a4ac43c5b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

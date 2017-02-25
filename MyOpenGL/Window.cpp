@@ -1,6 +1,7 @@
 #include "OpenGL_header.h"
 #include "Functions.hpp"
 #include "Window.hpp"
+#include "DefaultProgram.hpp"
 
 mgl::Window::Window(std::string title, size_t x, size_t y, size_t width, size_t height) {
 	initSDL();
@@ -43,22 +44,26 @@ void mgl::Window::keyEvent(unsigned char key, int mouseX, int mouseY) {
 	//Does nothing when a key is pressed.
 }
 
+mgl::Program* mgl::Window::linkDefaultProgram(DefaulProgramType type) {
+	return new DefaultProgram(type);
+}
+
 int mgl::Window::loop() {
 	quit = false;
+	SDL_Event event;
 	init();
 	
 	SDL_StartTextInput();
 	while (!quit) {
-		/*/
-		while (SDL_PollEvent(m_event) != 0) 
-			if (m_event->type == SDL_QUIT)
+		while (SDL_PollEvent(&event) != 0)
+			if (event.type == SDL_QUIT)
 				quit = true;
-			else if (m_event->type == SDL_TEXTINPUT) {
+			else if (event.type == SDL_TEXTINPUT) {
 				int x, y;
 				SDL_GetMouseState(&x, &y);
-				keyEvent(m_event->text.text[0], x, y);
+				keyEvent(event.text.text[0], x, y);
 			}			
-			*/
+
 			render();
 			SDL_GL_SwapWindow(m_window);
 	}

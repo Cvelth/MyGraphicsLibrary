@@ -1,5 +1,5 @@
 #pragma once
-#include "Enums.hpp"
+#include "AbstractException.hpp"
 typedef unsigned int GLuint;
 
 namespace mgl {
@@ -15,11 +15,12 @@ namespace mgl {
 	private:
 		GLuint m_id;
 	public:
+		Shader(ShaderType type);
 		Shader(ShaderType type, const std::string& filename);
 		~Shader();
 
-		void create(ShaderType type);
-		void compile(const std::string& filename);
+		void compileFile(const std::string& filename);
+		void compileSource(const std::string& sourceText);
 		GLuint id();
 	};
 }

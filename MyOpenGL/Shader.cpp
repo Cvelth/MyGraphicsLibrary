@@ -2,32 +2,34 @@
 #include "OpenGL_header.h"
 #include <fstream>
 
-mgl::Shader::Shader(ShaderType type, const std::string& filename) {
-	create(type);
-	compile(filename);
+mgl::Shader::Shader(ShaderType type) {
+	switch (type) {
+		case ShaderType::Compute: m_id = glCreateShader(GL_COMPUTE_SHADER); break;
+		case ShaderType::Fragment: m_id = glCreateShader(GL_FRAGMENT_SHADER); break;
+		case ShaderType::Geometry: m_id = glCreateShader(GL_GEOMETRY_SHADER); break;
+		case ShaderType::Vertex: m_id = glCreateShader(GL_VERTEX_SHADER); break;
+		case ShaderType::TessControl: m_id = glCreateShader(GL_TESS_CONTROL_SHADER); break;
+		case ShaderType::TessEvaluation: m_id = glCreateShader(GL_TESS_EVALUATION_SHADER); break;
+	}
+}
+
+mgl::Shader::Shader(ShaderType type, const std::string& filename) : Shader(type) {
+	compileFile(filename);
 }
 
 mgl::Shader::~Shader() {
 	glDeleteShader(m_id);
 }
 
-void mgl::Shader::create(ShaderType type) {
-	switch (type) {
-		case ShaderType::Compute: m_id = glCreateShader(GL_COMPUTE_SHADER);
-		case ShaderType::Fragment: m_id = glCreateShader(GL_FRAGMENT_SHADER);
-		case ShaderType::Geometry: m_id = glCreateShader(GL_GEOMETRY_SHADER);
-		case ShaderType::Vertex: m_id = glCreateShader(GL_VERTEX_SHADER);
-		case ShaderType::TessControl: m_id = glCreateShader(GL_TESS_CONTROL_SHADER);
-		case ShaderType::TessEvaluation: m_id = glCreateShader(GL_TESS_EVALUATION_SHADER);
-	}
+void mgl::Shader::compileFile(const std::string& filename) {
+	compileSource(std::string(std::istreambuf_iterator<char>(std::ifstream(filename)), std::istreambuf_iterator<char>()));
 }
 
-void mgl::Shader::compile(const std::string& filename) {
-	std::string s = std::string(std::istreambuf_iterator<char>(std::ifstream(filename)), std::istreambuf_iterator<char>());
-	const GLchar* source = static_cast<const GLchar*>(s.c_str());
-	if (source == "") throw ShaderException("The source file is empty.");
+void mgl::Shader::compileSource(const std::string& sourceText) {
+	const GLchar* source = static_cast<const GLchar*>(sourceText.c_str());
+	if (source == "") throw ShaderException("The source string or file is empty.");
 
-	const size_t t = (s.size());
+	const size_t t = (sourceText.size());
 	glShaderSource(m_id, 1, &source, NULL);
 	glCompileShader(m_id);
 

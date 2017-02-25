@@ -1,17 +1,21 @@
 #pragma once
 #include <string>
-#include "Enums.hpp"
+#include "SharedEnums.hpp"
 
 struct SDL_Window;
 typedef void* SDL_GLContext;
-union SDL_Event;
 
 namespace mgl {
+	enum class DefaultWindowPos {
+		Undefined, Centered
+	};
+
+	class Program;
+
 	class Window {
 	private:
 		SDL_Window* m_window;
 		SDL_GLContext* m_context;
-		SDL_Event* m_event;
 		bool quit;
 	protected:
 		void initSDL();
@@ -25,6 +29,7 @@ namespace mgl {
 		explicit Window(std::string title, DefaultWindowPos defaultPos = DefaultWindowPos::Centered, size_t width = 640, size_t height = 480);
 		virtual ~Window();
 
+		Program* linkDefaultProgram(DefaulProgramType type = DefaulProgramType::Vertex1Matrix);
 		int loop();
 	};
 }

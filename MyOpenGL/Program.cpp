@@ -5,6 +5,10 @@ mgl::Program::Program() {
 	m_id = glCreateProgram();
 }
 
+mgl::Program::Program(const std::initializer_list<Shader>& list) : Program() {
+	link(list);
+}
+
 mgl::Program::~Program() {
 	glDeleteProgram(m_id);
 }

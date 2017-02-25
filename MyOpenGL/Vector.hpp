@@ -1,5 +1,5 @@
 #pragma once
-#include "Enums.hpp"
+#include "AbstractException.hpp"
 
 namespace mgl {
 	class VectorException : public AbstractStringException {

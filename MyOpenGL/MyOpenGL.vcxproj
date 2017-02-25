@@ -89,9 +89,12 @@
       <AdditionalIncludeDirectories>..\..\Libs\GL\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Lib>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;</AdditionalDependencies>
+      <AdditionalDependencies>glew32.lib;OpenGL32.lib;SDL2.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\..\Libs\GL\libs\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
+    <ProjectReference>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -135,18 +138,21 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Color.hpp" />
-    <ClInclude Include="Enums.hpp" />
+    <ClInclude Include="DefaultProgram.hpp" />
+    <ClInclude Include="AbstractException.hpp" />
     <ClInclude Include="Functions.hpp" />
     <ClInclude Include="Matrix.hpp" />
     <ClInclude Include="MyOpenGL.hpp" />
     <ClInclude Include="OpenGL_header.h" />
     <ClInclude Include="Program.hpp" />
     <ClInclude Include="Shader.hpp" />
+    <ClInclude Include="SharedEnums.hpp" />
     <ClInclude Include="Vector.hpp" />
     <ClInclude Include="Window.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Color.cpp" />
+    <ClCompile Include="DefaultProgram.cpp" />
     <ClCompile Include="Functions.cpp" />
     <ClCompile Include="Matrix.cpp" />
     <ClCompile Include="Program.cpp" />

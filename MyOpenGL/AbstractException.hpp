@@ -2,15 +2,6 @@
 #include <string>
 
 namespace mgl {
-	enum class OpenGLVersionMask {
-		Core, Compatibility, ES
-	};
-	enum class DefaultWindowPos {
-		Undefined, Centered
-	};
-}
-
-namespace mgl {
 	class AbstractStringException {
 	protected:
 		std::string m_error;
