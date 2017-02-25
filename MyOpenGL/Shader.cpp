@@ -1,4 +1,5 @@
 #include "Shader.hpp"
+#include "OpenGL_header.h"
 #include <fstream>
 
 mgl::Shader::Shader(ShaderType type, const std::string& filename) {

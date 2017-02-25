@@ -1,4 +1,5 @@
 #include "Program.hpp"
+#include "OpenGL_header.h"
 
 mgl::Program::Program() {
 	m_id = glCreateProgram();

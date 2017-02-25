@@ -125,12 +125,16 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <Lib>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;</AdditionalDependencies>
+      <AdditionalDependencies>glew32.lib;OpenGL32.lib;SDL2.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\..\Libs\GL\libs\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <SuppressStartupBanner>false</SuppressStartupBanner>
     </Lib>
+    <ProjectReference>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="AbstractException.hpp" />
+    <ClInclude Include="Color.hpp" />
     <ClInclude Include="Enums.hpp" />
     <ClInclude Include="Functions.hpp" />
     <ClInclude Include="Matrix.hpp" />
@@ -142,6 +146,7 @@
     <ClInclude Include="Window.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Color.cpp" />
     <ClCompile Include="Functions.cpp" />
     <ClCompile Include="Matrix.cpp" />
     <ClCompile Include="Program.cpp" />

@@ -1,5 +1,6 @@
 #pragma once
-#include "OpenGL_header.h"
+#include "Enums.hpp"
+typedef unsigned int GLuint;
 
 namespace mgl {
 	enum class ShaderType {

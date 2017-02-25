@@ -1,5 +1,4 @@
 #pragma once
-#include "OpenGL_header.h"
 #include "Shader.hpp"
 
 namespace mgl {
