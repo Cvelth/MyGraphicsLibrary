@@ -140,6 +140,8 @@
     <ClInclude Include="Color.hpp" />
     <ClInclude Include="DefaultProgram.hpp" />
     <ClInclude Include="AbstractException.hpp" />
+    <ClInclude Include="ExperimentalFunctions.hpp" />
+    <ClInclude Include="FunctionEnums.hpp" />
     <ClInclude Include="Functions.hpp" />
     <ClInclude Include="Matrix.hpp" />
     <ClInclude Include="MyOpenGL.hpp" />
@@ -153,6 +155,8 @@
   <ItemGroup>
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="DefaultProgram.cpp" />
+    <ClCompile Include="ExperimentalFunctions.cpp" />
+    <ClCompile Include="FunctionEnums.cpp" />
     <ClCompile Include="Functions.cpp" />
     <ClCompile Include="Matrix.cpp" />
     <ClCompile Include="Program.cpp" />

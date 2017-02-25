@@ -5,10 +5,10 @@ mgl::Color::Color(float r, float g, float b, float a)
 mgl::Color::Color(size_t r, size_t g, size_t b, size_t a, size_t MAXIMUM_VALUE)
 	: m_data{float(r) / MAXIMUM_VALUE, float(g) / MAXIMUM_VALUE, float(b) / MAXIMUM_VALUE, float(a) / MAXIMUM_VALUE} {}
 
-float mgl::Color::r() { return m_data[0]; }
-float mgl::Color::g() { return m_data[1]; }
-float mgl::Color::b() { return m_data[2]; }
-float mgl::Color::a() { return m_data[3]; }
+float mgl::Color::r() const { return m_data[0]; }
+float mgl::Color::g() const { return m_data[1]; }
+float mgl::Color::b() const { return m_data[2]; }
+float mgl::Color::a() const { return m_data[3]; }
 void  mgl::Color::r(float value) { m_data[0] = value; }
 void  mgl::Color::g(float value) { m_data[1] = value; }
 void  mgl::Color::b(float value) { m_data[2] = value; }

@@ -29,7 +29,6 @@ void mgl::Shader::compileSource(const std::string& sourceText) {
 	const GLchar* source = static_cast<const GLchar*>(sourceText.c_str());
 	if (source == "") throw ShaderException("The source string or file is empty.");
 
-	const size_t t = (sourceText.size());
 	glShaderSource(m_id, 1, &source, NULL);
 	glCompileShader(m_id);
 

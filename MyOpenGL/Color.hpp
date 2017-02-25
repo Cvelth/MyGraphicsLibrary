@@ -8,10 +8,10 @@ namespace mgl {
 		Color(float r = 0.f, float g = 0.f, float b = 0.f, float a = 1.f);
 		Color(size_t r, size_t g, size_t b, size_t a = 255, size_t MAXIMUM_VALUE = 255);
 
-		float r();
-		float g();
-		float b();
-		float a();
+		float r() const;
+		float g() const;
+		float b() const;
+		float a() const;
 		void r(float value);
 		void g(float value);
 		void b(float value);
