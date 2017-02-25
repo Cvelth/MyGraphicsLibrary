@@ -35,6 +35,9 @@ namespace mgl {
 		AbstractVector<Type>& operator/=(const Type& q);
 		bool operator==(const AbstractVector<Type>& vector);
 		bool operator!=(const AbstractVector<Type>& vector);
+
+		const Type& operator[](size_t i) const;
+		Type& operator[](size_t i);
 		
 		friend const AbstractVector<Type> operator+(const AbstractVector<Type>& v1, const AbstractVector<Type>& v2);
 		friend const AbstractVector<Type> operator-(const AbstractVector<Type>& v1, const AbstractVector<Type>& v2);

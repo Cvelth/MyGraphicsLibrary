@@ -2,6 +2,8 @@
 #include "Vector.hpp"
 
 namespace mgl {
+	enum InitialValue {UnitializedMatrix = 0, IdentityMatrix = 1};
+
 	template<typename Type>
 	class AbstractMatrix {
 	private:
@@ -12,6 +14,8 @@ namespace mgl {
 					   const Type& e20, const Type& e21, const Type& e22, const Type& e23,
 					   const Type& e30, const Type& e31, const Type& e32, const Type& e33);
 		AbstractMatrix(const Type* const m);
+		AbstractMatrix(const Type& v);
+		AbstractMatrix(InitialValue init = IdentityMatrix);
 
 		const AbstractVector<Type>& column(const size_t& c) const;
 		const AbstractVector<Type>& row(const size_t& c) const;
@@ -42,7 +46,36 @@ namespace mgl {
 		AbstractMatrix<Type>& operator*=(const AbstractMatrix<Type>& matrix);
 		AbstractMatrix<Type>& operator*=(const Type& q);
 		AbstractMatrix<Type>& operator/=(const Type& q);
+
+		Type& operator()(size_t row, size_t col);
+		const Type& operator()(size_t row, size_t col) const;
+
+		friend const AbstractMatrix<Type>& operator+(const AbstractMatrix<Type>& m1, const AbstractMatrix<Type>& m2);
+		friend const AbstractMatrix<Type>& operator-(const AbstractMatrix<Type>& m1, const AbstractMatrix<Type>& m2);		
+		friend const AbstractMatrix<Type>& operator*(const AbstractMatrix<Type>& m1, const AbstractMatrix<Type>& m2);		
+		friend const AbstractVector<Type>& operator*(const AbstractMatrix<Type>& m, const AbstractVector<Type>& v);		
+		friend const AbstractVector<Type>& operator*(const AbstractVector<Type>& v, const AbstractMatrix<Type>& m);		
+		friend const AbstractMatrix<Type>& operator*(const Type& q, const AbstractMatrix<Type>& m);		
+		friend const AbstractMatrix<Type>& operator*(const AbstractMatrix<Type>& m, const Type& q);		
+		friend const AbstractMatrix<Type>& operator/(const AbstractMatrix<Type>& m, const Type& q);	
 	};
+
+	template<typename Type>
+	const AbstractMatrix<Type>& operator+(const AbstractMatrix<Type>& m1, const AbstractMatrix<Type>& m2);
+	template<typename Type>
+	const AbstractMatrix<Type>& operator-(const AbstractMatrix<Type>& m1, const AbstractMatrix<Type>& m2);
+	template<typename Type>
+	const AbstractMatrix<Type>& operator*(const AbstractMatrix<Type>& m1, const AbstractMatrix<Type>& m2);
+	template<typename Type>
+	const AbstractVector<Type>& operator*(const AbstractMatrix<Type>& m, const AbstractVector<Type>& v);
+	template<typename Type>
+	const AbstractVector<Type>& operator*(const AbstractVector<Type>& v, const AbstractMatrix<Type>& m);
+	template<typename Type>
+	const AbstractMatrix<Type>& operator*(const Type& q, const AbstractMatrix<Type>& m);
+	template<typename Type>
+	const AbstractMatrix<Type>& operator*(const AbstractMatrix<Type>& m, const Type& q);
+	template<typename Type>
+	const AbstractMatrix<Type>& operator/(const AbstractMatrix<Type>& m, const Type& q);
 
 	using Matrix = AbstractMatrix<float>;
 }

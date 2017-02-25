@@ -118,6 +118,16 @@ bool mgl::AbstractVector<Type>::operator!=(const AbstractVector<Type>& vector) {
 }
 
 template<typename Type>
+const Type & mgl::AbstractVector<Type>::operator[](size_t i) const {
+	return m_data[i];
+}
+
+template<typename Type>
+Type & mgl::AbstractVector<Type>::operator[](size_t i) {
+	return m_data[i];
+}
+
+template<typename Type>
 const Type & mgl::AbstractVector<Type>::y() const {
 	return m_data[1];
 }
