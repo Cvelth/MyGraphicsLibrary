@@ -36,3 +36,7 @@ mgl::Buffer::~Buffer() {
 unsigned int mgl::Buffer::id() const {
 	return m_id;
 }
+
+void mgl::Buffer::bind(BufferBindingPoint p) {
+	glBindBuffer(_enumSwitch(p), m_id);
+}

@@ -1,5 +1,6 @@
 #pragma once
 #include "AbstractException.hpp"
+#include "FunctionEnums.hpp"
 
 namespace mgl {
 	using BufferException = AbstractStringException;
@@ -13,6 +14,7 @@ namespace mgl {
 		~Buffer();
 
 		unsigned int id() const;
+		void bind(BufferBindingPoint p = BufferBindingPoint::ArrayBuffer);
 	};
 
 	class BufferArray{

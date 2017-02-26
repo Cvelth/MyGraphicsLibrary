@@ -32,3 +32,51 @@ GLenum mgl::_enumSwitch(SmoothMode e) {
 		case SmoothMode::Fastest: return GL_FASTEST;
 	}
 }
+
+GLenum mgl::_enumSwitch(VertexConnectionType e) {
+	switch (e) {
+		case VertexConnectionType::Points: return GL_POINTS;
+		case VertexConnectionType::Lines: return GL_LINES;
+		case VertexConnectionType::LineStrip: return GL_LINE_STRIP;
+		case VertexConnectionType::LineLoop: return GL_LINE_LOOP;
+		case VertexConnectionType::Triangles: return GL_TRIANGLES;
+		case VertexConnectionType::TriangleStrip: return GL_TRIANGLE_STRIP;
+		case VertexConnectionType::TriangleFan: return GL_TRIANGLE_FAN;
+		case VertexConnectionType::Quads: return GL_QUADS;
+		case VertexConnectionType::QuadStrip: return GL_QUAD_STRIP;
+		case VertexConnectionType::Polygon: return GL_POLYGON;
+	}
+}
+
+GLenum mgl::_enumSwitch(BufferBindingPoint e) {
+	switch (e) {
+		case BufferBindingPoint::ArrayBuffer: return GL_ARRAY_BUFFER;
+		case BufferBindingPoint::AtomicCounterBuffer: return GL_ATOMIC_COUNTER_BUFFER;
+		case BufferBindingPoint::CopyReadBuffer: return GL_COPY_READ_BUFFER;
+		case BufferBindingPoint::CopyWriteBuffer: return GL_COPY_WRITE_BUFFER;
+		case BufferBindingPoint::DispatchIndirectBuffer: return GL_DISPATCH_INDIRECT_BUFFER;
+		case BufferBindingPoint::DrawIndirectBuffer: return GL_DRAW_INDIRECT_BUFFER;
+		case BufferBindingPoint::ElementArrayBuffer: return GL_ELEMENT_ARRAY_BUFFER;
+		case BufferBindingPoint::PixelPackBuffer: return GL_PIXEL_PACK_BUFFER;
+		case BufferBindingPoint::PixelUnpackBuffer: return GL_PIXEL_UNPACK_BUFFER;
+		case BufferBindingPoint::QueryBuffer: return GL_QUERY_BUFFER;
+		case BufferBindingPoint::ShaderStorageBuffer: return GL_SHADER_STORAGE_BUFFER;
+		case BufferBindingPoint::TextureBuffer: return GL_TEXTURE_BUFFER;
+		case BufferBindingPoint::TransformFeedbackBuffer: return GL_TRANSFORM_FEEDBACK_BUFFER;
+		case BufferBindingPoint::UniformBuffer: return GL_UNIFORM_BUFFER;
+	}
+}
+
+GLenum mgl::_enumSwitch(DataUsage e) {
+	switch (e) {
+		case DataUsage::StreamDraw: return GL_STREAM_DRAW;
+		case DataUsage::StreamRead: return GL_STREAM_READ;
+		case DataUsage::StreamCopy: return GL_STREAM_COPY;
+		case DataUsage::StaticDraw: return GL_STATIC_DRAW;
+		case DataUsage::StaticRead: return GL_STATIC_READ;
+		case DataUsage::StaticCopy: return GL_STATIC_COPY;
+		case DataUsage::DynamicDraw: return GL_DYNAMIC_DRAW;
+		case DataUsage::DynamicRead: return GL_DYNAMIC_READ;
+		case DataUsage::DynamicCopy: return GL_DYNAMIC_COPY;
+	}
+}

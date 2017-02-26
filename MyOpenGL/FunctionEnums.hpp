@@ -18,4 +18,24 @@ namespace mgl {
 		Nicest, Fastest, DontCare
 	};
 	GLenum _enumSwitch(SmoothMode e);
+	
+	enum class VertexConnectionType {
+		Points, Lines, LineStrip, LineLoop, Triangles, TriangleStrip, TriangleFan, Quads, QuadStrip, Polygon
+	};
+	GLenum _enumSwitch(VertexConnectionType e);
+
+	enum class BufferBindingPoint {
+		ArrayBuffer, AtomicCounterBuffer, CopyReadBuffer, CopyWriteBuffer,
+		DispatchIndirectBuffer, DrawIndirectBuffer, ElementArrayBuffer,
+		PixelPackBuffer, PixelUnpackBuffer, QueryBuffer, ShaderStorageBuffer,
+		TextureBuffer, TransformFeedbackBuffer, UniformBuffer
+	};
+	GLenum _enumSwitch(BufferBindingPoint e);
+
+	enum class DataUsage {
+		StreamDraw, StreamRead, StreamCopy,
+		StaticDraw, StaticRead, StaticCopy,
+		DynamicDraw, DynamicRead, DynamicCopy
+	};
+	GLenum _enumSwitch(DataUsage e);
 }
