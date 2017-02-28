@@ -2,8 +2,11 @@
 #include "Functions.hpp"
 #include "Window.hpp"
 #include "DefaultProgram.hpp"
+#include "Matrix.hpp"
 
-mgl::Window::Window(std::string title, size_t x, size_t y, size_t width, size_t height) {
+mgl::Window::Window() : projection(new Matrix()) { }
+
+mgl::Window::Window(std::string title, size_t x, size_t y, size_t width, size_t height) : Window() {
 	initSDL();
 	m_window = SDL_CreateWindow(title.c_str(), int(x), int(y), int(width), int(height), SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
 	if (m_window == NULL)
@@ -16,7 +19,7 @@ mgl::Window::Window(std::string title, size_t x, size_t y, size_t width, size_t 
 	initGLEW();
 }
 
-mgl::Window::Window(std::string title, DefaultWindowPos defaultPos, size_t width, size_t height) {
+mgl::Window::Window(std::string title, DefaultWindowPos defaultPos, size_t width, size_t height) : Window() {
 	initSDL();
 	switch (defaultPos) {
 		case DefaultWindowPos::Centered: m_window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 
@@ -44,15 +47,25 @@ void mgl::Window::keyEvent(unsigned char key, int mouseX, int mouseY) {
 	//Does nothing when a key is pressed.
 }
 
+void mgl::Window::resizeEvent(int width, int height) {
+	aspectRatio = float(width) / height;
+	glViewport(0, 0, width, height);
+	if (aspectRatio > 1.f) {
+		*projection = Matrix::orthographicMatrix(-aspectRatio, +aspectRatio, -1.f, +1.f, -1.f, +1.f);
+	} else {
+		*projection = Matrix::orthographicMatrix(-1.f, +1.f, -1.f / aspectRatio, +1.f / aspectRatio, -1.f, +1.f);
+	}
+}
+
 mgl::Program* mgl::Window::linkDefaultProgram(DefaulProgramType type) {
 	return new DefaultProgram(type);
 }
 
 int mgl::Window::loop() {
 	quit = false;
-	SDL_Event event;
 	init();
-	
+
+	SDL_Event event;
 	SDL_StartTextInput();
 	while (!quit) {
 		while (SDL_PollEvent(&event) != 0)
@@ -62,7 +75,9 @@ int mgl::Window::loop() {
 				int x, y;
 				SDL_GetMouseState(&x, &y);
 				keyEvent(event.text.text[0], x, y);
-			}			
+			}
+			else if (event.type == SDL_WINDOWEVENT)
+				resizeEvent(event.window.data1, event.window.data2);
 
 			render();
 			SDL_GL_SwapWindow(m_window);

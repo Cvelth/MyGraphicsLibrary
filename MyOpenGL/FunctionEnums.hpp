@@ -3,6 +3,7 @@
 typedef unsigned int GLenum;
 
 namespace mgl {
+	class IncorrectEnumException {};
 	enum class OpenGLVersionMask {
 		Core, Compatibility, ES
 	};

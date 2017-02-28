@@ -19,9 +19,6 @@
     <ClInclude Include="Shader.hpp">
       <Filter>Program</Filter>
     </ClInclude>
-    <ClInclude Include="Matrix.hpp">
-      <Filter>Math\Matrix</Filter>
-    </ClInclude>
     <ClInclude Include="Color.hpp">
       <Filter>Data\Additional</Filter>
     </ClInclude>
@@ -50,6 +47,9 @@
       <Filter>Data\Simple</Filter>
     </ClInclude>
     <ClInclude Include="Vector.hpp">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix.hpp">
       <Filter>Math</Filter>
     </ClInclude>
   </ItemGroup>
@@ -87,6 +87,12 @@
     <ClCompile Include="DefaultPrimitives.cpp">
       <Filter>Data\Simple</Filter>
     </ClCompile>
+    <ClCompile Include="Vector.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Matrix.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Window">
@@ -100,12 +106,6 @@
     </Filter>
     <Filter Include="Program">
       <UniqueIdentifier>{8997b2af-53e5-4584-b48b-443ecfb0023d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Math">
-      <UniqueIdentifier>{f4551336-7ff8-4237-a3de-8483f2bb1e5f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Math\Matrix">
-      <UniqueIdentifier>{6674f3c9-fe98-45f4-baa5-b1fdc78190fb}</UniqueIdentifier>
     </Filter>
     <Filter Include="Program\Default">
       <UniqueIdentifier>{622fb0d5-a1b7-4fb3-ad4f-4f2a4ac43c5b}</UniqueIdentifier>
@@ -121,6 +121,9 @@
     </Filter>
     <Filter Include="Data\Additional">
       <UniqueIdentifier>{55a5f37b-3906-4907-bda9-9f96fc77ee99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Math">
+      <UniqueIdentifier>{a727abeb-b278-4edd-88c4-be0f31a8e8b5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

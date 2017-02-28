@@ -1,5 +1,6 @@
 #include "Program.hpp"
 #include "OpenGL_header.h"
+#include "Matrix.hpp"
 
 mgl::Program::Program() {
 	m_id = glCreateProgram();
@@ -39,4 +40,19 @@ void mgl::Program::link(const std::initializer_list<Shader>& list) {
 
 void mgl::Program::use() {
 	glUseProgram(m_id);
+}
+
+void mgl::Program::send(const std::string fieldName, const float & data) {
+	GLuint temp = glGetUniformLocation(m_id, fieldName.c_str());
+	glUniform1f(temp, data);
+}
+
+void mgl::Program::send(const std::string fieldName, const Vector & data) {
+	GLuint temp = glGetUniformLocation(m_id, fieldName.c_str());
+	glUniform4f(temp, data.x(),data.y(), data.z(), data.w());
+}
+
+void mgl::Program::send(const std::string fieldName, const Matrix & data) {
+	GLuint temp = glGetUniformLocation(m_id, fieldName.c_str());
+	glUniformMatrix4fv(temp, 1, GL_FALSE, data.data()[0]);
 }

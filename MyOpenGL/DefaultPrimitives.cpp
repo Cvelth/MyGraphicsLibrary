@@ -8,7 +8,7 @@ mgl::Primitive mgl::generateN_Polygon(size_t n) {
 	Primitive res(VertexConnectionType::LineLoop);
 	float STEP = PI / n * 2;
 	for (float f = 0.f; f < PI * 2; f += STEP)
-		res.insert(new Vertex(cosf(f), sinf(f)));
+		res.insert(new Vector(cosf(f), sinf(f)));
 		return res;
 	return Primitive();
 }
@@ -16,19 +16,18 @@ mgl::Primitive mgl::generateN_Polygon(size_t n) {
 mgl::Primitive mgl::generateRectangle(float aspectRatio) {
 	mgl::Primitive res(mgl::VertexConnectionType::LineLoop);
 	if (aspectRatio < 1.f && aspectRatio > 0.f) {
-		res.insert(new Vertex(-aspectRatio, -1.f));
-		res.insert(new Vertex(+aspectRatio, -1.f));
-		res.insert(new Vertex(+aspectRatio, +1.f));
-		res.insert(new Vertex(-aspectRatio, +1.f));
-	} else if (aspectRatio > 1.f) {
-		res.insert(new Vertex(-1.f, -1.f / aspectRatio));
-		res.insert(new Vertex(-1.f, +1.f / aspectRatio));
-		res.insert(new Vertex(+1.f, +1.f / aspectRatio));
-		res.insert(new Vertex(+1.f, -1.f / aspectRatio));
+		res.insert(new Vector(-aspectRatio, -1.f));
+		res.insert(new Vector(+aspectRatio, -1.f));
+		res.insert(new Vector(+aspectRatio, +1.f));
+		res.insert(new Vector(-aspectRatio, +1.f));
+	} else if (aspectRatio >= 1.f) {
+		res.insert(new Vector(-1.f, -1.f / aspectRatio));
+		res.insert(new Vector(-1.f, +1.f / aspectRatio));
+		res.insert(new Vector(+1.f, +1.f / aspectRatio));
+		res.insert(new Vector(+1.f, -1.f / aspectRatio));
 	} else
 		throw mgl::PrimitiveException("Incorrect input data(aspectRatio).");
-		return res;
-	return Primitive();
+	return res;
 }
 
 mgl::Primitive mgl::generateCircle(size_t n) {

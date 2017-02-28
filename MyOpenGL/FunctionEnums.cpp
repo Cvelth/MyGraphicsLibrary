@@ -22,6 +22,7 @@ GLenum mgl::_enumSwitch(BlendEnum e) {
 		case BlendEnum::Color_OneMinusSRC1: return GL_ONE_MINUS_SRC1_COLOR;
 		case BlendEnum::Alpha_SRC1: return GL_SRC1_ALPHA;
 		case BlendEnum::Alpha_OneMinusSRC1: return GL_ONE_MINUS_SRC1_ALPHA;
+		default: throw IncorrectEnumException();
 	}
 }
 
@@ -30,6 +31,7 @@ GLenum mgl::_enumSwitch(SmoothMode e) {
 		case SmoothMode::DontCare: return GL_DONT_CARE;
 		case SmoothMode::Nicest: return GL_NICEST;
 		case SmoothMode::Fastest: return GL_FASTEST;
+		default: throw IncorrectEnumException();
 	}
 }
 
@@ -45,6 +47,7 @@ GLenum mgl::_enumSwitch(VertexConnectionType e) {
 		case VertexConnectionType::Quads: return GL_QUADS;
 		case VertexConnectionType::QuadStrip: return GL_QUAD_STRIP;
 		case VertexConnectionType::Polygon: return GL_POLYGON;
+		default: throw IncorrectEnumException();
 	}
 }
 
@@ -64,6 +67,7 @@ GLenum mgl::_enumSwitch(BufferBindingPoint e) {
 		case BufferBindingPoint::TextureBuffer: return GL_TEXTURE_BUFFER;
 		case BufferBindingPoint::TransformFeedbackBuffer: return GL_TRANSFORM_FEEDBACK_BUFFER;
 		case BufferBindingPoint::UniformBuffer: return GL_UNIFORM_BUFFER;
+		default: throw IncorrectEnumException();
 	}
 }
 
@@ -78,5 +82,6 @@ GLenum mgl::_enumSwitch(DataUsage e) {
 		case DataUsage::DynamicDraw: return GL_DYNAMIC_DRAW;
 		case DataUsage::DynamicRead: return GL_DYNAMIC_READ;
 		case DataUsage::DynamicCopy: return GL_DYNAMIC_COPY;
+		default: throw IncorrectEnumException(	);
 	}
 }
