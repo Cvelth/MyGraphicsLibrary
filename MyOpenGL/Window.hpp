@@ -29,6 +29,7 @@ namespace mgl {
 		virtual void render() abstract;
 		virtual void keyEvent(unsigned char key, int mouseX, int mouseY);
 		virtual void resizeEvent(int width, int height);
+		virtual void resizer();
 	private:
 		Window();
 	public:
@@ -38,5 +39,7 @@ namespace mgl {
 
 		Program* linkDefaultProgram(DefaulProgramType type = DefaulProgramType::Vertex1Matrix);
 		int loop();
+
+		void getSize(int* w, int* h) const;
 	};
 }

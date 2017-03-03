@@ -9,6 +9,12 @@ mgl::Matrix::Matrix(const float & e00, const float & e01, const float & e02, con
 							  {e20, e21, e22, e23},	
 							  {e30, e31, e32, e33}};
 }
+mgl::Matrix::Matrix(const Matrix & m) {
+	m_data = new float[4][4]();
+	for (int i = 0; i < 4; i++)
+		for (int j = 0; j < 4; j++)
+			m_data[i][j] = m.m_data[i][j];
+}
 mgl::Matrix::Matrix(const float & v) {
 	m_data = new float[4][4] {{v, v, v, v},
 							  {v, v, v, v},
@@ -249,29 +255,26 @@ const mgl::Matrix mgl::operator-(const Matrix& m1, const Matrix& m2) {
 	return res;
 }
 const mgl::Matrix mgl::operator*(const Matrix& m1, const Matrix& m2) {
-	Matrix res(UnitializedMatrix);
+	return mgl::Matrix(
+		m1.m_data[0][0] * m2.m_data[0][0] + m1.m_data[1][0] * m2.m_data[0][1] + m1.m_data[2][0] * m2.m_data[0][2] + m1.m_data[3][0] * m2.m_data[0][3],
+		m1.m_data[0][1] * m2.m_data[0][0] + m1.m_data[1][1] * m2.m_data[0][1] + m1.m_data[2][1] * m2.m_data[0][2] + m1.m_data[3][1] * m2.m_data[0][3],
+		m1.m_data[0][2] * m2.m_data[0][0] + m1.m_data[1][2] * m2.m_data[0][1] + m1.m_data[2][2] * m2.m_data[0][2] + m1.m_data[3][2] * m2.m_data[0][3],
+		m1.m_data[0][3] * m2.m_data[0][0] + m1.m_data[1][3] * m2.m_data[0][1] + m1.m_data[2][3] * m2.m_data[0][2] + m1.m_data[3][3] * m2.m_data[0][3],
 
-	res.m_data[0][0] = m1.m_data[0][0] * m2.m_data[0][0] + m1.m_data[1][0] * m2.m_data[0][1] + m1.m_data[2][0] * m2.m_data[0][2] + m1.m_data[3][0] * m2.m_data[0][3];
-	res.m_data[0][1] = m1.m_data[0][1] * m2.m_data[0][0] + m1.m_data[1][1] * m2.m_data[0][1] + m1.m_data[2][1] * m2.m_data[0][2] + m1.m_data[3][1] * m2.m_data[0][3];
-	res.m_data[0][2] = m1.m_data[0][2] * m2.m_data[0][0] + m1.m_data[1][2] * m2.m_data[0][1] + m1.m_data[2][2] * m2.m_data[0][2] + m1.m_data[3][2] * m2.m_data[0][3];
-	res.m_data[0][3] = m1.m_data[0][3] * m2.m_data[0][0] + m1.m_data[1][3] * m2.m_data[0][1] + m1.m_data[2][3] * m2.m_data[0][2] + m1.m_data[3][3] * m2.m_data[0][3];
+		m1.m_data[0][0] * m2.m_data[1][0] + m1.m_data[1][0] * m2.m_data[1][1] + m1.m_data[2][0] * m2.m_data[1][2] + m1.m_data[3][0] * m2.m_data[1][3],
+		m1.m_data[0][1] * m2.m_data[1][0] + m1.m_data[1][1] * m2.m_data[1][1] + m1.m_data[2][1] * m2.m_data[1][2] + m1.m_data[3][1] * m2.m_data[1][3],
+		m1.m_data[0][2] * m2.m_data[1][0] + m1.m_data[1][2] * m2.m_data[1][1] + m1.m_data[2][2] * m2.m_data[1][2] + m1.m_data[3][2] * m2.m_data[1][3],
+		m1.m_data[0][3] * m2.m_data[1][0] + m1.m_data[1][3] * m2.m_data[1][1] + m1.m_data[2][3] * m2.m_data[1][2] + m1.m_data[3][3] * m2.m_data[1][3],
 
-	res.m_data[1][0] = m1.m_data[0][0] * m2.m_data[1][0] + m1.m_data[1][0] * m2.m_data[1][1] + m1.m_data[2][0] * m2.m_data[1][2] + m1.m_data[3][0] * m2.m_data[1][3];
-	res.m_data[1][1] = m1.m_data[0][1] * m2.m_data[1][0] + m1.m_data[1][1] * m2.m_data[1][1] + m1.m_data[2][1] * m2.m_data[1][2] + m1.m_data[3][1] * m2.m_data[1][3];
-	res.m_data[1][2] = m1.m_data[0][2] * m2.m_data[1][0] + m1.m_data[1][2] * m2.m_data[1][1] + m1.m_data[2][2] * m2.m_data[1][2] + m1.m_data[3][2] * m2.m_data[1][3];
-	res.m_data[1][3] = m1.m_data[0][3] * m2.m_data[1][0] + m1.m_data[1][3] * m2.m_data[1][1] + m1.m_data[2][3] * m2.m_data[1][2] + m1.m_data[3][3] * m2.m_data[1][3];
-
-	res.m_data[2][0] = m1.m_data[0][0] * m2.m_data[2][0] + m1.m_data[1][0] * m2.m_data[2][1] + m1.m_data[2][0] * m2.m_data[2][2] + m1.m_data[3][0] * m2.m_data[2][3];
-	res.m_data[2][1] = m1.m_data[0][1] * m2.m_data[2][0] + m1.m_data[1][1] * m2.m_data[2][1] + m1.m_data[2][1] * m2.m_data[2][2] + m1.m_data[3][1] * m2.m_data[2][3];
-	res.m_data[2][2] = m1.m_data[0][2] * m2.m_data[2][0] + m1.m_data[1][2] * m2.m_data[2][1] + m1.m_data[2][2] * m2.m_data[2][2] + m1.m_data[3][2] * m2.m_data[2][3];
-	res.m_data[2][3] = m1.m_data[0][3] * m2.m_data[2][0] + m1.m_data[1][3] * m2.m_data[2][1] + m1.m_data[2][3] * m2.m_data[2][2] + m1.m_data[3][3] * m2.m_data[2][3];
-
-	res.m_data[3][0] = m1.m_data[0][0] * m2.m_data[3][0] + m1.m_data[1][0] * m2.m_data[3][1] + m1.m_data[2][0] * m2.m_data[3][2] + m1.m_data[3][0] * m2.m_data[3][3];
-	res.m_data[3][1] = m1.m_data[0][1] * m2.m_data[3][0] + m1.m_data[1][1] * m2.m_data[3][1] + m1.m_data[2][1] * m2.m_data[3][2] + m1.m_data[3][1] * m2.m_data[3][3];
-	res.m_data[3][2] = m1.m_data[0][2] * m2.m_data[3][0] + m1.m_data[1][2] * m2.m_data[3][1] + m1.m_data[2][2] * m2.m_data[3][2] + m1.m_data[3][2] * m2.m_data[3][3];
-	res.m_data[3][3] = m1.m_data[0][3] * m2.m_data[3][0] + m1.m_data[1][3] * m2.m_data[3][1] + m1.m_data[2][3] * m2.m_data[3][2] + m1.m_data[3][3] * m2.m_data[3][3];
-
-	return res;
+		m1.m_data[0][0] * m2.m_data[2][0] + m1.m_data[1][0] * m2.m_data[2][1] + m1.m_data[2][0] * m2.m_data[2][2] + m1.m_data[3][0] * m2.m_data[2][3],
+		m1.m_data[0][1] * m2.m_data[2][0] + m1.m_data[1][1] * m2.m_data[2][1] + m1.m_data[2][1] * m2.m_data[2][2] + m1.m_data[3][1] * m2.m_data[2][3],
+		m1.m_data[0][2] * m2.m_data[2][0] + m1.m_data[1][2] * m2.m_data[2][1] + m1.m_data[2][2] * m2.m_data[2][2] + m1.m_data[3][2] * m2.m_data[2][3],
+		m1.m_data[0][3] * m2.m_data[2][0] + m1.m_data[1][3] * m2.m_data[2][1] + m1.m_data[2][3] * m2.m_data[2][2] + m1.m_data[3][3] * m2.m_data[2][3],
+		
+		m1.m_data[0][0] * m2.m_data[3][0] + m1.m_data[1][0] * m2.m_data[3][1] + m1.m_data[2][0] * m2.m_data[3][2] + m1.m_data[3][0] * m2.m_data[3][3],
+		m1.m_data[0][1] * m2.m_data[3][0] + m1.m_data[1][1] * m2.m_data[3][1] + m1.m_data[2][1] * m2.m_data[3][2] + m1.m_data[3][1] * m2.m_data[3][3],
+		m1.m_data[0][2] * m2.m_data[3][0] + m1.m_data[1][2] * m2.m_data[3][1] + m1.m_data[2][2] * m2.m_data[3][2] + m1.m_data[3][2] * m2.m_data[3][3],
+		m1.m_data[0][3] * m2.m_data[3][0] + m1.m_data[1][3] * m2.m_data[3][1] + m1.m_data[2][3] * m2.m_data[3][2] + m1.m_data[3][3] * m2.m_data[3][3]);
 }
 const mgl::Vector mgl::operator*(const Matrix& m, const Vector& v) {
 	return Vector(m.m_data[0][0] * v[0] + m.m_data[0][1] * v[1] + m.m_data[0][2] * v[2] + m.m_data[0][3] * v[3],

@@ -6,6 +6,7 @@ namespace mgl {
 	class Buffer;
 
 	void clearColorBuffer();
+	void viewport(size_t x, size_t y, size_t width, size_t height);
 
 	void setOpenGLVersion(int major = 4, int minor = 3, OpenGLVersionMask mask = OpenGLVersionMask::Core);
 	void setClearColor(const Color& c);

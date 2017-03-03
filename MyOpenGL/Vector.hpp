@@ -10,7 +10,7 @@ namespace mgl {
 	private:
 		float m_data[4];
 	public:
-		Vector(float x = 0.f, float y = 0.f, float z = 0.f, float w = 0.f);		
+		Vector(float x = 0.f, float y = 0.f, float z = 0.f, float w = 1.f);		
 		Vector(const float* const data);
 		Vector(const Vector& v);
 		Vector(Vector&& v);

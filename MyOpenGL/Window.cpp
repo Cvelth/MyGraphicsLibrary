@@ -4,7 +4,7 @@
 #include "DefaultProgram.hpp"
 #include "Matrix.hpp"
 
-mgl::Window::Window() : projection(new Matrix()) { }
+mgl::Window::Window() { }
 
 mgl::Window::Window(std::string title, size_t x, size_t y, size_t width, size_t height) : Window() {
 	initSDL();
@@ -49,12 +49,20 @@ void mgl::Window::keyEvent(unsigned char key, int mouseX, int mouseY) {
 
 void mgl::Window::resizeEvent(int width, int height) {
 	aspectRatio = float(width) / height;
-	glViewport(0, 0, width, height);
+	mgl::viewport(0, 0, width, height);
 	if (aspectRatio > 1.f) {
-		*projection = Matrix::orthographicMatrix(-aspectRatio, +aspectRatio, -1.f, +1.f, -1.f, +1.f);
+		projection = new mgl::Matrix(mgl::Matrix::orthographicMatrix(
+			-aspectRatio, +aspectRatio, -1.f, +1.f, -1.f, +1.f));
 	} else {
-		*projection = Matrix::orthographicMatrix(-1.f, +1.f, -1.f / aspectRatio, +1.f / aspectRatio, -1.f, +1.f);
+		projection = new mgl::Matrix(mgl::Matrix::orthographicMatrix(
+			-1.f, +1.f, -1.f / aspectRatio, +1.f / aspectRatio, -1.f, +1.f));
 	}
+}
+
+void mgl::Window::resizer() {
+	int w, h;
+	SDL_GetWindowSize(m_window, &w, &h);
+	resizeEvent(w, h);
 }
 
 mgl::Program* mgl::Window::linkDefaultProgram(DefaulProgramType type) {
@@ -62,11 +70,13 @@ mgl::Program* mgl::Window::linkDefaultProgram(DefaulProgramType type) {
 }
 
 int mgl::Window::loop() {
-	quit = false;
 	init();
+	resizer();
 
 	SDL_Event event;
 	SDL_StartTextInput();
+
+	quit = false;
 	while (!quit) {
 		while (SDL_PollEvent(&event) != 0)
 			if (event.type == SDL_QUIT)
@@ -75,16 +85,19 @@ int mgl::Window::loop() {
 				int x, y;
 				SDL_GetMouseState(&x, &y);
 				keyEvent(event.text.text[0], x, y);
-			}
-			else if (event.type == SDL_WINDOWEVENT)
-				resizeEvent(event.window.data1, event.window.data2);
+			} else if (event.type == SDL_WINDOWEVENT)
+				resizer();//resizeEvent(event.window.data1, event.window.data2);*/
 
-			render();
-			SDL_GL_SwapWindow(m_window);
+		render();
+		SDL_GL_SwapWindow(m_window);
 	}
 	SDL_StopTextInput();
 	
 	return 0;
+}
+
+void mgl::Window::getSize(int* w, int* h) const {
+	SDL_GetWindowSize(m_window, w, h);
 }
 
 void mgl::Window::initSDL() {
@@ -93,13 +106,16 @@ void mgl::Window::initSDL() {
 	setOpenGLVersion(4, 3);
 	
 	m_context = new SDL_GLContext;
+	*m_context = SDL_GL_CreateContext(m_window);
 }
 
 void mgl::Window::initGLEW() {
 	glewExperimental = GL_TRUE;
 	GLenum glewError = glewInit();
 	if (glewError != GLEW_OK)
-		throw InitializationException(std::string("GLEW inititalization error:") += (const char*)(glewGetErrorString(glewError)));
+		throw InitializationException(std::string("GLEW inititalization error:") 
+									  += (const char*)(glewGetErrorString(glewError)));
 	if (SDL_GL_SetSwapInterval(1) < 0)
-		throw InitializationException(std::string("VSync inititalization error:") += SDL_GetError());
+		throw InitializationException(std::string("VSync inititalization error:") 
+									  += SDL_GetError());
 }

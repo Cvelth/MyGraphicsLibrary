@@ -25,21 +25,21 @@ mgl::DefaultProgram::~DefaultProgram() {
 const std::string mgl::DefaultProgram::Vertex_1Matrix_Source =
 "#version 430		   											   \n"
 "																   \n"
-"in layout(location = 0) vec2 position;							   \n"
+"in layout(location = 0) vec4 position;							   \n"
 "out vec4 theColor;												   \n"
 "																   \n"
 "uniform vec4 drawingColor;										   \n"
 "uniform mat4 transformationMatrix;								   \n"
 "																   \n"
 "void main() {													   \n"
-"	gl_Position = transformationMatrix * vec4(position, 0.0, 1.0); \n"
+"	gl_Position = transformationMatrix * position; \n"
 "	theColor = drawingColor;									   \n"
 "}																   \n";
 
 const std::string mgl::DefaultProgram::Vertex_6Matrices_Source =
 "#version 430																  \n"
 "																			  \n"
-"in layout(location = 0) vec3 position;										  \n"
+"in layout(location = 0) vec4 position;										  \n"
 "out vec4 theColor;															  \n"
 "																			  \n"
 "uniform vec4 drawingColor;													  \n"
@@ -53,7 +53,7 @@ const std::string mgl::DefaultProgram::Vertex_6Matrices_Source =
 "void main() {																  \n"
 "	gl_Position = projectionMatrix * rotationSceneMatrix * scalingSceneMatrix \n"
 "		* translationMatrix * rotationElementMatrix * scalingElementMatrix	  \n"
-"		* vec4(position, 1.0);												  \n"
+"		* position;												  \n"
 "	theColor = drawingColor;												  \n"
 "}																			  \n";
 

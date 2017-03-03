@@ -53,3 +53,7 @@ void mgl::enablePointSmooth(SmoothMode mode) {
 void mgl::clearColorBuffer() {
 	glClear(GL_COLOR_BUFFER_BIT);
 }
+
+void mgl::viewport(size_t x, size_t y, size_t width, size_t height) {
+	glViewport(x, y, width, height);
+}

@@ -14,17 +14,17 @@ mgl::Program::~Program() {
 	glDeleteProgram(m_id);
 }
 
-void mgl::Program::link(const std::initializer_list<Shader>& list) {
-	if (list.size() == 0u)
+void mgl::Program::link(const std::initializer_list<Shader>& shaders) {
+	if (shaders.size() == 0u)
 		throw ProgramException("There is no shaders to attach");
 
-	for (auto shader : list)
+	for (auto shader : shaders)
 		glAttachShader(m_id, shader.id());
 
 	glLinkProgram(m_id);
+
 	GLint isLinked;
 	glGetProgramiv(m_id, GL_LINK_STATUS, &isLinked);
-
 	if (!isLinked) {
 		GLsizei len;
 		glGetShaderiv(m_id, GL_INFO_LOG_LENGTH, &len);
@@ -43,16 +43,22 @@ void mgl::Program::use() {
 }
 
 void mgl::Program::send(const std::string fieldName, const float & data) {
-	GLuint temp = glGetUniformLocation(m_id, fieldName.c_str());
-	glUniform1f(temp, data);
+	auto loc = glGetUniformLocation(m_id, fieldName.c_str());
+	if (loc == -1)
+		throw ProgramException("The location is not valid.");
+	glUniform1f(loc, data);
 }
 
 void mgl::Program::send(const std::string fieldName, const Vector & data) {
-	GLuint temp = glGetUniformLocation(m_id, fieldName.c_str());
-	glUniform4f(temp, data.x(),data.y(), data.z(), data.w());
+	auto loc = glGetUniformLocation(m_id, fieldName.c_str());
+	if (loc == -1)
+		throw ProgramException("The location is not valid.");
+	glUniform4f(loc, data.x(),data.y(), data.z(), data.w());
 }
 
 void mgl::Program::send(const std::string fieldName, const Matrix & data) {
-	GLuint temp = glGetUniformLocation(m_id, fieldName.c_str());
-	glUniformMatrix4fv(temp, 1, GL_FALSE, data.data()[0]);
+	auto loc = glGetUniformLocation(m_id, fieldName.c_str());
+	if (loc == -1)
+		throw ProgramException("The location is not valid.");
+	glUniformMatrix4fv(loc, 1, GL_FALSE, data.data());
 }

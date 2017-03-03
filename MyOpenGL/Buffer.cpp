@@ -13,7 +13,7 @@ mgl::BufferArray::~BufferArray() {
 
 unsigned int mgl::BufferArray::id(unsigned int n) const {
 	if (n > size)
-		throw BufferException("There are no such buffer generated");
+		throw BufferException("The index is out of array bounds");
 	return m_id[n];
 }
 

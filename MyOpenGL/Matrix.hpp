@@ -12,6 +12,7 @@ namespace mgl {
 			   const float& e10, const float& e11, const float& e12, const float& e13,
 			   const float& e20, const float& e21, const float& e22, const float& e23,
 			   const float& e30, const float& e31, const float& e32, const float& e33);
+		Matrix(const Matrix& m);
 		Matrix(const float& v);
 		Matrix(InitialValue i = IdentityMatrix);
 		~Matrix();
@@ -22,8 +23,8 @@ namespace mgl {
 		void setColumn(const size_t& c, const Vector& v);
 		void setRow(const size_t& c, const Vector& v);
 		
-		float (*data())[4] { return m_data; }
-		const float (*data() const)[4] { return m_data; }
+		inline float* data() { return m_data[0]; }
+		inline const float* data() const { return m_data[0]; }
 
 		void fill(const float& v);
 		const float determinant() const;
@@ -33,7 +34,7 @@ namespace mgl {
 		void rotate(const float& angle, const Vector& v);
 		void rotate(const float& angle, const float& x = 0, const float& y = 0, const float& z = 0);
 		void scale(const float& q);
-		void scale(const float& x = 1.f, const float& y = 1.f, const float& z = 1.f);
+		void scale(const float& x, const float& y, const float& z = 1.f);
 		void scale(const Vector& v);
 		
 		static const Matrix orthographicMatrix(const float& left, const float& right,
@@ -47,15 +48,15 @@ namespace mgl {
 													  const float& near, const float& far);
 		
 		static const Matrix translationMatrix(const Vector& v);
-		static const Matrix translationMatrix(const float& x = 0, const float& y = 0, const float& z = 0);				
+		static const Matrix translationMatrix(const float& x = 0.f, const float& y = 0.f, const float& z = 0.f);				
 		static const Matrix rotationMatrix(const float& angle, const Vector& v);		
-		static const Matrix rotationMatrix(const float& angle, const float& x = 0, const float& y = 0, const float& z = 1);
+		static const Matrix rotationMatrix(const float& angle, const float& x = 0.f, const float& y = 0.f, const float& z = 1.f);
 		static const Matrix scalingMatrix(const float& q);		
-		static const Matrix scalingMatrix(const float& x = 1, const float& y = 1, const float& z = 1);
+		static const Matrix scalingMatrix(const float& x, const float& y, const float& z = 1.f);
 		static const Matrix scalingMatrix(const Vector& v);
 		
 	public:
-		const Vector operator[](size_t i) const;
+		const Vector operator[](size_t i) const;	
 		Vector operator[](size_t i);
 		bool operator==(const Matrix& matrix);		
 		bool operator!=(const Matrix& matrix);

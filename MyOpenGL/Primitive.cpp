@@ -34,7 +34,7 @@ mgl::Primitive::Primitive(VertexConnectionType type, const std::list<Vector*>& l
 }
 
 mgl::Primitive::~Primitive() {
-	delete m_buffer;
+	//delete m_buffer;
 }
 
 size_t mgl::Primitive::getSize() const {
@@ -60,6 +60,7 @@ void mgl::Primitive::send(DataUsage u) {
 		temp[i++] = v->w();
 	}
 	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * getSize(), temp, _enumSwitch(u));
+	delete[] temp;
 }
 
 void mgl::Primitive::bind() {
@@ -78,7 +79,7 @@ std::list<mgl::Vector*>& mgl::Primitive::operator*() {
 const std::list<mgl::Vector*>& mgl::Primitive::operator*() const {
 	return m_data;
 }
-
+///////////////////////////////////////////////////////////
 mgl::PrimitiveSet::PrimitiveSet() {
 }
 

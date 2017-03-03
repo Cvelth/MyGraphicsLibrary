@@ -7,12 +7,9 @@ mgl::Vector::Vector(float x, float y, float z, float w) {
 	m_data[2] = z;
 	m_data[3] = w;
 }
-mgl::Vector::Vector(const float * const data) : Vector(data[0], data[1], data[2], data[3]) {
-}
-mgl::Vector::Vector(const Vector & v) : Vector(v.x(), v.y(), v.z(), v.w()) {
-}
-mgl::Vector::Vector(Vector && v) : Vector(v.x(), v.y(), v.z(), v.w()) {
-}
+mgl::Vector::Vector(const float * const data) : Vector(data[0], data[1], data[2], data[3]) {}
+mgl::Vector::Vector(const Vector & v) : Vector(v.x(), v.y(), v.z(), v.w()) {}
+mgl::Vector::Vector(Vector && v) : Vector(v.x(), v.y(), v.z(), v.w()) {}
 
 bool mgl::Vector::isNull() const {
 	for (int i = 0; i < 4; i++)
