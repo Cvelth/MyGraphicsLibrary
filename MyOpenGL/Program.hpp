@@ -19,9 +19,11 @@ namespace mgl {
 
 		void link(const std::initializer_list<Shader>& list);
 		void use();
-		void send(const std::string fieldName, const float& data);
-		void send(const std::string fieldName, const Vector& data);
-		void send(const std::string fieldName, const Matrix& data);
+		void sendUniform(const std::string fieldName, const float& data);
+		void sendUniform(const std::string fieldName, const Vector& data);
+		void sendUniform(const std::string fieldName, const Matrix& data);
+		void enableAttrib(const std::string fieldName, size_t size = 4, 
+						 bool normalized = false, size_t stride = 4, size_t shift = 0);
 	};
 
 	using CustomProgram = Program;

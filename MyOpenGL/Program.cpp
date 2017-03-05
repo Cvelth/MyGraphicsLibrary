@@ -2,6 +2,8 @@
 #include "OpenGL_header.h"
 #include "Matrix.hpp"
 
+#include "Functions.hpp"
+
 mgl::Program::Program() {
 	m_id = glCreateProgram();
 }
@@ -42,23 +44,34 @@ void mgl::Program::use() {
 	glUseProgram(m_id);
 }
 
-void mgl::Program::send(const std::string fieldName, const float & data) {
+void mgl::Program::sendUniform(const std::string fieldName, const float & data) {
 	auto loc = glGetUniformLocation(m_id, fieldName.c_str());
 	if (loc == -1)
 		throw ProgramException("The location is not valid.");
 	glUniform1f(loc, data);
 }
 
-void mgl::Program::send(const std::string fieldName, const Vector & data) {
+void mgl::Program::sendUniform(const std::string fieldName, const Vector & data) {
 	auto loc = glGetUniformLocation(m_id, fieldName.c_str());
 	if (loc == -1)
 		throw ProgramException("The location is not valid.");
 	glUniform4f(loc, data.x(),data.y(), data.z(), data.w());
 }
 
-void mgl::Program::send(const std::string fieldName, const Matrix & data) {
+void mgl::Program::sendUniform(const std::string fieldName, const Matrix & data) {
 	auto loc = glGetUniformLocation(m_id, fieldName.c_str());
 	if (loc == -1)
 		throw ProgramException("The location is not valid.");
 	glUniformMatrix4fv(loc, 1, GL_FALSE, data.data());
+}
+
+void mgl::Program::enableAttrib(const std::string fieldName, size_t size,
+							    bool normalized, size_t stride, size_t shift) {
+	auto loc = glGetAttribLocation(m_id, fieldName.c_str());
+	if (loc == -1)
+		throw ProgramException("The location is not valid.");
+	glEnableVertexAttribArray(loc);
+	throw AbstractStringException(getError());
+	glVertexAttribPointer(loc, size, GL_FLOAT, normalized, 
+						  sizeof(float) * stride, (const void*)shift);
 }

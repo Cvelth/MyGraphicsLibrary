@@ -2,6 +2,7 @@
 #include "Primitive.hpp"
 #include "Buffer.hpp"
 #include "Vector.hpp"
+#include "Functions.hpp"
 
 mgl::Primitive::Primitive(VertexConnectionType type) {
 	m_buffer = new Buffer();
@@ -50,7 +51,6 @@ void mgl::Primitive::insert(Vector* v) {
 }
 
 void mgl::Primitive::send(DataUsage u) {
-	m_buffer->bind();
 	float* temp = new float[getSize()];
 	size_t i = 0;
 	for (auto v : m_data) {
@@ -59,16 +59,17 @@ void mgl::Primitive::send(DataUsage u) {
 		temp[i++] = v->z();
 		temp[i++] = v->w();
 	}
+	m_buffer->bind();
 	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * getSize(), temp, _enumSwitch(u));
 	delete[] temp;
 }
 
 void mgl::Primitive::bind() {
 	m_buffer->bind();
-	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, 0);
 }
 
 void mgl::Primitive::draw() { 
+	m_buffer->bind();
 	glDrawArrays(_enumSwitch(m_connection), 0, getNumber()); 
 }
 

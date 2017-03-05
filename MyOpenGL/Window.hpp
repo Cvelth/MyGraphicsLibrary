@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include "SharedEnums.hpp"
+#include "AbstractException.hpp"
 
 struct SDL_Window;
 typedef void* SDL_GLContext;
@@ -8,6 +9,9 @@ typedef void* SDL_GLContext;
 namespace mgl {
 	enum class DefaultWindowPos {
 		Undefined, Centered
+	};
+	class InitializationException : public AbstractStringException {
+		using AbstractStringException::AbstractStringException;
 	};
 
 	class Program;
@@ -24,6 +28,7 @@ namespace mgl {
 	protected:
 		void initSDL();
 		void initGLEW();
+		void initializer(std::string title, size_t x, size_t y, size_t width, size_t height);
 	protected:
 		virtual void init() abstract;
 		virtual void render() abstract;

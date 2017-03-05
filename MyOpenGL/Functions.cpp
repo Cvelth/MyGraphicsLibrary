@@ -50,6 +50,10 @@ void mgl::enablePointSmooth(SmoothMode mode) {
 	glHint(GL_POINT_SMOOTH_HINT, _enumSwitch(mode));
 }
 
+std::string mgl::getError() {
+	return (const char*) glewGetErrorString(glGetError());
+}
+
 void mgl::clearColorBuffer() {
 	glClear(GL_COLOR_BUFFER_BIT);
 }

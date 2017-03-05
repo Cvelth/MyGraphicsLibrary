@@ -23,23 +23,23 @@ mgl::DefaultProgram::~DefaultProgram() {
 }
 
 const std::string mgl::DefaultProgram::Vertex_1Matrix_Source =
-"#version 430		   											   \n"
+"#version 140		   											   \n"
 "																   \n"
-"in layout(location = 0) vec4 position;							   \n"
+"in vec4 positionVector;										   \n"
 "out vec4 theColor;												   \n"
 "																   \n"
 "uniform vec4 drawingColor;										   \n"
 "uniform mat4 transformationMatrix;								   \n"
 "																   \n"
 "void main() {													   \n"
-"	gl_Position = transformationMatrix * position; \n"
+"	gl_Position = transformationMatrix * positionVector;		   \n"
 "	theColor = drawingColor;									   \n"
 "}																   \n";
 
 const std::string mgl::DefaultProgram::Vertex_6Matrices_Source =
-"#version 430																  \n"
+"#version 140																  \n"
 "																			  \n"
-"in layout(location = 0) vec4 position;										  \n"
+"in vec4 positionVector;													  \n"
 "out vec4 theColor;															  \n"
 "																			  \n"
 "uniform vec4 drawingColor;													  \n"
@@ -53,12 +53,12 @@ const std::string mgl::DefaultProgram::Vertex_6Matrices_Source =
 "void main() {																  \n"
 "	gl_Position = projectionMatrix * rotationSceneMatrix * scalingSceneMatrix \n"
 "		* translationMatrix * rotationElementMatrix * scalingElementMatrix	  \n"
-"		* position;												  \n"
+"		* positionVector;												      \n"
 "	theColor = drawingColor;												  \n"
 "}																			  \n";
 
 const std::string mgl::DefaultProgram::Fragment_Source =
-"#version 430				  \n"
+"#version 140				  \n"
 "							  \n"
 "in vec4 theColor;			  \n"
 "							  \n"

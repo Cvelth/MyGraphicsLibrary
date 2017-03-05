@@ -1,12 +1,40 @@
 #pragma once
 #include "Vector.hpp"
+#include "AbstractException.hpp"
 
 namespace mgl {
 	enum InitialValue { UnitializedMatrix = 0, IdentityMatrix = 1 };
+	class MatrixException : AbstractStringException {
+		using AbstractStringException::AbstractStringException;
+	};
+
+	struct MatrixHolder {
+		float m[16];
+
+		MatrixHolder() {}
+		MatrixHolder(const float& e00, const float& e01, const float& e02, const float& e03,
+					 const float& e10, const float& e11, const float& e12, const float& e13,
+					 const float& e20, const float& e21, const float& e22, const float& e23,
+					 const float& e30, const float& e31, const float& e32, const float& e33);
+
+		void fill(const float& v);
+		void identityFill();
+
+		inline float* data() { return m; }
+		inline const float* data() const { return m; }
+
+		inline float& operator()(const size_t i, const size_t j) {
+			return m[i * 4 + j];
+		}
+		inline const float& operator()(const size_t i, const size_t j) const {
+			return m[i * 4 + j];
+		}
+		MatrixHolder& operator=(const MatrixHolder& h);
+	};
 
 	class Matrix {
 	private:
-		float (*m_data)[4];
+		MatrixHolder m_data;
 	public:
 		Matrix(const float& e00, const float& e01, const float& e02, const float& e03,
 			   const float& e10, const float& e11, const float& e12, const float& e13,
@@ -23,8 +51,8 @@ namespace mgl {
 		void setColumn(const size_t& c, const Vector& v);
 		void setRow(const size_t& c, const Vector& v);
 		
-		inline float* data() { return m_data[0]; }
-		inline const float* data() const { return m_data[0]; }
+		inline float* data() { return m_data.data(); }
+		inline const float* data() const { return m_data.data(); }
 
 		void fill(const float& v);
 		const float determinant() const;
@@ -67,8 +95,8 @@ namespace mgl {
 		Matrix& operator*=(const float& q);		
 		Matrix& operator/=(const float& q);		
 
-		float& operator()(size_t row, size_t col) { return m_data[row][col]; }
-		const float& operator()(size_t row, size_t col) const { return m_data[row][col]; }
+		float& operator()(size_t row, size_t col) { return m_data(row, col); }
+		const float& operator()(size_t row, size_t col) const { return m_data(row, col); }
 
 		friend const Matrix operator+(const Matrix& m1, const Matrix& m2);
 		friend const Matrix operator-(const Matrix& m1, const Matrix& m2);

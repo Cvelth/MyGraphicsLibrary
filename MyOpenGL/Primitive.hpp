@@ -24,7 +24,7 @@ namespace mgl {
 		Primitive(VertexConnectionType type, Vector* array, size_t size);
 		Primitive(VertexConnectionType type, const std::initializer_list<Vector*>& list);
 		Primitive(VertexConnectionType type, const std::list<Vector*>& list);
-		virtual ~Primitive();
+		~Primitive();
 		
 		virtual size_t getSize() const;
 		virtual size_t getNumber() const;
@@ -37,6 +37,7 @@ namespace mgl {
 		std::list<Vector*>& operator*();
 		const std::list<Vector*>& operator*() const;
 	};
+
 	class PrimitiveSet {
 	protected:
 		std::list<Primitive> m_data;

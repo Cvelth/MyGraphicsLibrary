@@ -1,9 +1,12 @@
 #pragma once
 #include "FunctionEnums.hpp"
+#include <string>
 
 namespace mgl {
 	class Color;
 	class Buffer;
+
+	std::string getError();
 
 	void clearColorBuffer();
 	void viewport(size_t x, size_t y, size_t width, size_t height);
