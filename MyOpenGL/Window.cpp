@@ -74,14 +74,14 @@ mgl::Program* mgl::Window::linkDefaultProgram(DefaulProgramType type) {
 }
 
 int mgl::Window::loop() {
-	resize();
 	init();
 
 	while (!glfwWindowShouldClose(m_window)) {
+		resize();
 		render();
 
 		glfwSwapBuffers(m_window);
-		glfwWaitEvents();
+		glfwPollEvents();
 	}
 	return 0;
 }

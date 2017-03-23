@@ -13,7 +13,7 @@ namespace mgl {
 		const static std::string Vertex_6Matrices_Source;
 		const static std::string Fragment_Source;
 	public:
-		DefaultProgram(DefaulProgramType type = DefaulProgramType::Vertex1Matrix);
+		DefaultProgram(DefaulProgramType type = DefaulProgramType::Vertex2Matrices);
 		~DefaultProgram();
 	};
 }
