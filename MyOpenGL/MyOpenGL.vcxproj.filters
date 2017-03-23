@@ -52,6 +52,9 @@
     <ClInclude Include="Matrix.hpp">
       <Filter>Math</Filter>
     </ClInclude>
+    <ClInclude Include="AbstractEventHandler.hpp">
+      <Filter>Window\Event Handlers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Window.cpp">
@@ -124,6 +127,9 @@
     </Filter>
     <Filter Include="Math">
       <UniqueIdentifier>{a727abeb-b278-4edd-88c4-be0f31a8e8b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Window\Event Handlers">
+      <UniqueIdentifier>{bee607e1-2f4d-4d0f-82d9-8813917966a8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

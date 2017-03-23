@@ -7,30 +7,28 @@
 mgl::Window::Window() : projection(new Matrix()) { }
 
 mgl::Window::Window(std::string title, size_t x, size_t y, size_t width, size_t height) : Window() {
-	initializer(title, x, y, width, height);
+	initializeWindow(title, x, y, width, height);
 }
 
 mgl::Window::Window(std::string title, DefaultWindowPos defaultPos, size_t width, size_t height) : Window() {
 	switch (defaultPos) {
 		case DefaultWindowPos::Centered: 
-			initializer(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, int(width), int(height)); break;
+			initializeWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, int(width), int(height)); break;
 		case DefaultWindowPos::Undefined: 
-			initializer(title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, int(width), int(height)); break;
+			initializeWindow(title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, int(width), int(height)); break;
 	}
 }
 
 mgl::Window::~Window() {
+	for (auto it : m_events)
+		delete it;
 	SDL_GL_DeleteContext(*m_context);
 	delete m_context;
 	SDL_DestroyWindow(m_window);
 	SDL_Quit();
 }
 
-void mgl::Window::keyEvent(unsigned char key, int mouseX, int mouseY) {
-	//Does nothing when a key is pressed.
-}
-
-void mgl::Window::resizeEvent(int width, int height) {
+void mgl::Window::calculateProjection(int width, int height) {
 	aspectRatio = float(width) / height;
 	mgl::viewport(0, 0, width, height);
 	delete projection;
@@ -43,10 +41,22 @@ void mgl::Window::resizeEvent(int width, int height) {
 	));
 }
 
-void mgl::Window::resizer() {
+void mgl::Window::initializeWindowResize() {
 	int w, h;
 	SDL_GetWindowSize(m_window, &w, &h);
-	resizeEvent(w, h);
+	calculateProjection(w, h);
+}
+
+void mgl::Window::addEventsHandler(AbstractEventHandler * h) {
+	m_events.insert(h);
+}
+
+void mgl::Window::removeEventsHandler(AbstractEventHandler * h) {
+	m_events.erase(h);
+}
+
+void mgl::Window::removeAllEventsHandlers() {
+	m_events.clear();
 }
 
 mgl::Program* mgl::Window::linkDefaultProgram(DefaulProgramType type) {
@@ -54,31 +64,43 @@ mgl::Program* mgl::Window::linkDefaultProgram(DefaulProgramType type) {
 }
 
 int mgl::Window::loop() {
-	resizer();
+	initializeWindowResize();
 	init();
 
-	SDL_Event event;
-	SDL_StartTextInput();
+	SDL_Event ev;
 
 	quit = false;
 	while (!quit) {
-		while (SDL_PollEvent(&event) != 0)
-			if (event.type == SDL_QUIT)
+		while (SDL_PollEvent(&ev) != 0) {
+			if (ev.type == SDL_QUIT)
 				quit = true;
-			else if (event.type == SDL_TEXTINPUT) {
-				int x, y;
-				SDL_GetMouseState(&x, &y);
-				keyEvent(event.text.text[0], x, y);
-			} else if (event.type == SDL_WINDOWEVENT) {
-				resizer();
-				render();
-			}
+			else if (ev.type == SDL_WINDOWEVENT)
+				switch (ev.window.event) {
+					case SDL_WINDOWEVENT_RESIZED:
+					case SDL_WINDOWEVENT_SIZE_CHANGED:
+					case SDL_WINDOWEVENT_MAXIMIZED:
+					case SDL_WINDOWEVENT_RESTORED:
+						initializeWindowResize();
+						render();
+						break;
+					case SDL_WINDOWEVENT_SHOWN:
+					case SDL_WINDOWEVENT_EXPOSED:
+					case SDL_WINDOWEVENT_MOVED:
+					case SDL_WINDOWEVENT_FOCUS_GAINED:
+					case SDL_WINDOWEVENT_TAKE_FOCUS:
+					case SDL_WINDOWEVENT_ENTER:
+						render();
+						break;
+					case SDL_WINDOWEVENT_CLOSE:
+						quit = true;
+						break;
+				}
 
-		render();
+			for (auto it : m_events)
+				it->handle(&ev);
+		}
 		SDL_GL_SwapWindow(m_window);
 	}
-	SDL_StopTextInput();
-	
 	return 0;
 }
 
@@ -103,7 +125,7 @@ void mgl::Window::initGLEW() {
 									  += SDL_GetError());
 }
 
-void mgl::Window::initializer(std::string title, size_t x, size_t y, size_t width, size_t height) {
+void mgl::Window::initializeWindow(std::string title, size_t x, size_t y, size_t width, size_t height) {
 	initSDL();
 	m_window = SDL_CreateWindow(title.c_str(), int(x), int(y), int(width), int(height), SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
 	if (m_window == NULL)
