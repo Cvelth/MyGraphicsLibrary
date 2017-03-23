@@ -88,7 +88,7 @@ void mgl::Window::getSize(int* w, int* h) const {
 
 void mgl::Window::initSDL() {
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
-		throw InitializationException(std::string("SDL inititalization error:") += SDL_GetError());
+		throw InitializationException(std::string("SDL inititalization error: ") += SDL_GetError());
 	setOpenGLVersion(3, 1);
 }
 
@@ -96,10 +96,10 @@ void mgl::Window::initGLEW() {
 	glewExperimental = GL_TRUE;
 	GLenum glewError = glewInit();
 	if (glewError != GLEW_OK)
-		throw InitializationException(std::string("GLEW inititalization error:") 
+		throw InitializationException(std::string("GLEW inititalization error: ") 
 									  += (const char*)(glewGetErrorString(glewError)));
 	if (SDL_GL_SetSwapInterval(1) < 0)
-		throw InitializationException(std::string("VSync inititalization error:") 
+		throw InitializationException(std::string("VSync inititalization error: ") 
 									  += SDL_GetError());
 }
 
@@ -107,12 +107,12 @@ void mgl::Window::initializer(std::string title, size_t x, size_t y, size_t widt
 	initSDL();
 	m_window = SDL_CreateWindow(title.c_str(), int(x), int(y), int(width), int(height), SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
 	if (m_window == NULL)
-		throw InitializationException(std::string("Window couldn't be created. Error:") += SDL_GetError());
+		throw InitializationException(std::string("Window couldn't be created. Error: ") += SDL_GetError());
 
 	m_context = new SDL_GLContext();
 	*m_context = SDL_GL_CreateContext(m_window);
 	if (m_context == NULL)
-		throw InitializationException(std::string("OpenGL context couldn't be created. Error:") += SDL_GetError());
+		throw InitializationException(std::string("OpenGL context couldn't be created. Error: ") += SDL_GetError());
 
 	initGLEW();
 }

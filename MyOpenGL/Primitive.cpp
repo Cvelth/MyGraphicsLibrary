@@ -70,7 +70,7 @@ void mgl::Primitive::bind() {
 
 void mgl::Primitive::draw() { 
 	m_buffer->bind();
-	glDrawArrays(_enumSwitch(m_connection), 0, getNumber()); 
+	glDrawArrays(_enumSwitch(m_connection), 0, getSize()); 
 }
 
 std::list<mgl::Vector*>& mgl::Primitive::operator*() {
