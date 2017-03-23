@@ -1,9 +1,8 @@
 #pragma once
 #include <string>
-#include <set>
 #include "SharedEnums.hpp"
 #include "AbstractException.hpp"
-#include "AbstractEventHandler.hpp"
+#include "EventsSystem.hpp"
 
 struct GLFWwindow;
 
@@ -21,7 +20,6 @@ namespace mgl {
 	class Window {
 	private:
 		GLFWwindow* m_window;
-		std::set<AbstractEventHandler*> m_events;
 	protected:
 		float aspectRatio;
 		Matrix* projection;
@@ -29,11 +27,7 @@ namespace mgl {
 		virtual void init() abstract;
 		virtual void resize();
 		virtual void render() abstract;
-
-		void addEventsHandler(AbstractEventHandler* h);
-		void removeEventsHandler(AbstractEventHandler* h);
-		void removeAllEventsHandlers();
-
+		
 		void setOpenGLVersion(int major = 4, int minor = 3);
 	private:
 		Window();
@@ -44,7 +38,7 @@ namespace mgl {
 		Program* linkDefaultProgram(DefaulProgramType type = DefaulProgramType::Vertex1Matrix);
 		int loop();
 
-		void setErrorHandler(void(*handler)(int, const char*));
-		void setWindowCloseHandler(void(*handler)(GLFWwindow*));
+		void initializeEventHandling();
+		void changleEventHandler(AbstractHandler* h);
 	};
 }

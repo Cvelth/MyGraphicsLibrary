@@ -142,10 +142,13 @@
     <ClInclude Include="DefaultPrimitives.hpp" />
     <ClInclude Include="DefaultProgram.hpp" />
     <ClInclude Include="AbstractException.hpp" />
-    <ClInclude Include="AbstractEventHandler.hpp" />
+    <ClInclude Include="EmptyHandler.hpp" />
+    <ClInclude Include="EventEnums.hpp" />
+    <ClInclude Include="AbstractHandler.hpp" />
     <ClInclude Include="ExperimentalFunctions.hpp" />
     <ClInclude Include="FunctionEnums.hpp" />
     <ClInclude Include="Functions.hpp" />
+    <ClInclude Include="EventsSystem.hpp" />
     <ClInclude Include="Matrix.hpp" />
     <ClInclude Include="MyOpenGL.hpp" />
     <ClInclude Include="OpenGL_header.h" />
@@ -161,6 +164,8 @@
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="DefaultPrimitives.cpp" />
     <ClCompile Include="DefaultProgram.cpp" />
+    <ClCompile Include="EventEnums.cpp" />
+    <ClCompile Include="EventsSystem.cpp" />
     <ClCompile Include="ExperimentalFunctions.cpp" />
     <ClCompile Include="FunctionEnums.cpp" />
     <ClCompile Include="Functions.cpp" />

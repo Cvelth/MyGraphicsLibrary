@@ -3,6 +3,7 @@
 #include "Window.hpp"
 #include "DefaultProgram.hpp"
 #include "Matrix.hpp"
+#include "EmptyHandler.hpp"
 
 mgl::Window::Window() : projection(new Matrix()) { }
 
@@ -24,13 +25,9 @@ mgl::Window::Window(std::string title, int width, int height, DefaultWindowMode 
 	if (glewError != GLEW_OK)
 		throw InitializationException(std::string("GLEW inititalization error: ")
 									  += (const char*) (glewGetErrorString(glewError)));
-
-	setOpenGLVersion(3, 3);
 }
 
 mgl::Window::~Window() {
-	for (auto it : m_events)
-		delete it;
 	glfwDestroyWindow(m_window);
 	glfwTerminate();
 }
@@ -52,18 +49,6 @@ void mgl::Window::resize() {
 	));
 }
 
-void mgl::Window::addEventsHandler(AbstractEventHandler * h) {
-	m_events.insert(h);
-}
-
-void mgl::Window::removeEventsHandler(AbstractEventHandler * h) {
-	m_events.erase(h);
-}
-
-void mgl::Window::removeAllEventsHandlers() {
-	m_events.clear();
-}
-
 void mgl::Window::setOpenGLVersion(int major, int minor) {
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, major);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, minor);
@@ -74,22 +59,34 @@ mgl::Program* mgl::Window::linkDefaultProgram(DefaulProgramType type) {
 }
 
 int mgl::Window::loop() {
+	initializeEventHandling();
+	resize();
 	init();
 
 	while (!glfwWindowShouldClose(m_window)) {
-		resize();
 		render();
 
 		glfwSwapBuffers(m_window);
-		glfwPollEvents();
+		glfwWaitEvents();
 	}
 	return 0;
 }
 
-void mgl::Window::setErrorHandler(void(*handler)(int, const char *)) {
-	glfwSetErrorCallback(handler);
+void mgl::Window::changleEventHandler(AbstractHandler * h) {
+	EventsSystem::setHandler(h);
 }
 
-void mgl::Window::setWindowCloseHandler(void(*handler)(GLFWwindow*)) {
-	glfwSetWindowCloseCallback(m_window, handler);
+void mgl::Window::initializeEventHandling() {
+	EventsSystem::setHandler(new EmptyHandler());
+	glfwSetKeyCallback(m_window, EventsSystem::keyEvent);
+	glfwSetMouseButtonCallback(m_window, EventsSystem::mouseButtonEvent);
+	glfwSetCharCallback(m_window, EventsSystem::characterEvent);
+	glfwSetCharModsCallback(m_window, EventsSystem::characterEventWithModificators);
+	glfwSetCursorEnterCallback(m_window, EventsSystem::mouseEnterEvent);
+	glfwSetCursorPosCallback(m_window, EventsSystem::mouseMoveEvent);
+	glfwSetDropCallback(m_window, EventsSystem::fileDropEvent);
+	glfwSetScrollCallback(m_window, EventsSystem::scrollEvent);
+	glfwSetFramebufferSizeCallback(m_window, EventsSystem::resizeEvent);
+	glfwSetJoystickCallback(EventsSystem::joystickEvent);
+	glfwSetErrorCallback(EventsSystem::errorEvent);
 }

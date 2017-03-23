@@ -52,8 +52,17 @@
     <ClInclude Include="Matrix.hpp">
       <Filter>Math</Filter>
     </ClInclude>
-    <ClInclude Include="AbstractEventHandler.hpp">
-      <Filter>Window\Event Handlers</Filter>
+    <ClInclude Include="EventsSystem.hpp">
+      <Filter>Window\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="EventEnums.hpp">
+      <Filter>Window\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="AbstractHandler.hpp">
+      <Filter>Window\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="EmptyHandler.hpp">
+      <Filter>Window\Events</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -96,6 +105,12 @@
     <ClCompile Include="Matrix.cpp">
       <Filter>Math</Filter>
     </ClCompile>
+    <ClCompile Include="EventEnums.cpp">
+      <Filter>Window\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="EventsSystem.cpp">
+      <Filter>Window\Events</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Window">
@@ -128,8 +143,8 @@
     <Filter Include="Math">
       <UniqueIdentifier>{a727abeb-b278-4edd-88c4-be0f31a8e8b5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Window\Event Handlers">
-      <UniqueIdentifier>{bee607e1-2f4d-4d0f-82d9-8813917966a8}</UniqueIdentifier>
+    <Filter Include="Window\Events">
+      <UniqueIdentifier>{ed22d8e2-4818-4f3a-9ba0-e3aa796c513f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
