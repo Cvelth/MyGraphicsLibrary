@@ -6,31 +6,42 @@
 
 mgl::Window::Window() : projection(new Matrix()) { }
 
-mgl::Window::Window(std::string title, size_t x, size_t y, size_t width, size_t height) : Window() {
-	initializeWindow(title, x, y, width, height);
-}
+mgl::Window::Window(std::string title, int width, int height, DefaultWindowMode mode) : Window() {
 
-mgl::Window::Window(std::string title, DefaultWindowPos defaultPos, size_t width, size_t height) : Window() {
-	switch (defaultPos) {
-		case DefaultWindowPos::Centered: 
-			initializeWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, int(width), int(height)); break;
-		case DefaultWindowPos::Undefined: 
-			initializeWindow(title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, int(width), int(height)); break;
-	}
+	if (!glfwInit())
+		throw InitializationException(std::string("GLFW inititalization error."));
+
+	if (mode == DefaultWindowMode::Fullscreen)
+		m_window = glfwCreateWindow(width, height, title.c_str(), glfwGetPrimaryMonitor(), NULL);
+	else
+		m_window = glfwCreateWindow(width, height, title.c_str(), NULL, NULL);
+
+	glfwMakeContextCurrent(m_window);
+	glfwSwapInterval(1);
+
+	glewExperimental = GL_TRUE;
+	GLenum glewError = glewInit();
+	if (glewError != GLEW_OK)
+		throw InitializationException(std::string("GLEW inititalization error: ")
+									  += (const char*) (glewGetErrorString(glewError)));
+
+	setOpenGLVersion(3, 3);
 }
 
 mgl::Window::~Window() {
 	for (auto it : m_events)
 		delete it;
-	SDL_GL_DeleteContext(*m_context);
-	delete m_context;
-	SDL_DestroyWindow(m_window);
-	SDL_Quit();
+	glfwDestroyWindow(m_window);
+	glfwTerminate();
 }
 
-void mgl::Window::calculateProjection(int width, int height) {
+void mgl::Window::resize() {
+	int width, height;
+	glfwGetFramebufferSize(m_window, &width, &height);
+
 	aspectRatio = float(width) / height;
 	mgl::viewport(0, 0, width, height);
+
 	delete projection;
 	projection = new mgl::Matrix(mgl::Matrix::orthographicMatrix(
 		aspectRatio > 1.f ? -aspectRatio : -1.f, 
@@ -39,12 +50,6 @@ void mgl::Window::calculateProjection(int width, int height) {
 		+1.f / (aspectRatio > 1.f ? 1.f : aspectRatio),
 		+1.f, -1.f
 	));
-}
-
-void mgl::Window::initializeWindowResize() {
-	int w, h;
-	SDL_GetWindowSize(m_window, &w, &h);
-	calculateProjection(w, h);
 }
 
 void mgl::Window::addEventsHandler(AbstractEventHandler * h) {
@@ -59,82 +64,32 @@ void mgl::Window::removeAllEventsHandlers() {
 	m_events.clear();
 }
 
+void mgl::Window::setOpenGLVersion(int major, int minor) {
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, major);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, minor);
+}
+
 mgl::Program* mgl::Window::linkDefaultProgram(DefaulProgramType type) {
 	return new DefaultProgram(type);
 }
 
 int mgl::Window::loop() {
-	initializeWindowResize();
+	resize();
 	init();
 
-	SDL_Event ev;
+	while (!glfwWindowShouldClose(m_window)) {
+		render();
 
-	quit = false;
-	while (!quit) {
-		while (SDL_PollEvent(&ev) != 0) {
-			if (ev.type == SDL_QUIT)
-				quit = true;
-			else if (ev.type == SDL_WINDOWEVENT)
-				switch (ev.window.event) {
-					case SDL_WINDOWEVENT_RESIZED:
-					case SDL_WINDOWEVENT_SIZE_CHANGED:
-					case SDL_WINDOWEVENT_MAXIMIZED:
-					case SDL_WINDOWEVENT_RESTORED:
-						initializeWindowResize();
-						render();
-						break;
-					case SDL_WINDOWEVENT_SHOWN:
-					case SDL_WINDOWEVENT_EXPOSED:
-					case SDL_WINDOWEVENT_MOVED:
-					case SDL_WINDOWEVENT_FOCUS_GAINED:
-					case SDL_WINDOWEVENT_TAKE_FOCUS:
-					case SDL_WINDOWEVENT_ENTER:
-						render();
-						break;
-					case SDL_WINDOWEVENT_CLOSE:
-						quit = true;
-						break;
-				}
-
-			for (auto it : m_events)
-				it->handle(&ev);
-		}
-		SDL_GL_SwapWindow(m_window);
+		glfwSwapBuffers(m_window);
+		glfwWaitEvents();
 	}
 	return 0;
 }
 
-void mgl::Window::getSize(int* w, int* h) const {
-	SDL_GetWindowSize(m_window, w, h);
+void mgl::Window::setErrorHandler(void(*handler)(int, const char *)) {
+	glfwSetErrorCallback(handler);
 }
 
-void mgl::Window::initSDL() {
-	if (SDL_Init(SDL_INIT_VIDEO) < 0)
-		throw InitializationException(std::string("SDL inititalization error: ") += SDL_GetError());
-	setOpenGLVersion(3, 1);
-}
-
-void mgl::Window::initGLEW() {
-	glewExperimental = GL_TRUE;
-	GLenum glewError = glewInit();
-	if (glewError != GLEW_OK)
-		throw InitializationException(std::string("GLEW inititalization error: ") 
-									  += (const char*)(glewGetErrorString(glewError)));
-	if (SDL_GL_SetSwapInterval(1) < 0)
-		throw InitializationException(std::string("VSync inititalization error: ") 
-									  += SDL_GetError());
-}
-
-void mgl::Window::initializeWindow(std::string title, size_t x, size_t y, size_t width, size_t height) {
-	initSDL();
-	m_window = SDL_CreateWindow(title.c_str(), int(x), int(y), int(width), int(height), SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
-	if (m_window == NULL)
-		throw InitializationException(std::string("Window couldn't be created. Error: ") += SDL_GetError());
-
-	m_context = new SDL_GLContext();
-	*m_context = SDL_GL_CreateContext(m_window);
-	if (m_context == NULL)
-		throw InitializationException(std::string("OpenGL context couldn't be created. Error: ") += SDL_GetError());
-
-	initGLEW();
+void mgl::Window::setWindowCloseHandler(void(*handler)(GLFWwindow*)) {
+	glfwSetWindowCloseCallback(m_window, handler);
 }

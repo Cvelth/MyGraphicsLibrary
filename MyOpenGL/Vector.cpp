@@ -1,5 +1,4 @@
 #include "Vector.hpp"
-#include "boost\qvm\vec.hpp"
 
 mgl::Vector::Vector(float x, float y, float z, float w) {
 	m_data[0] = x;

@@ -1,18 +1,22 @@
 #include "DefaultProgram.hpp"
 
 mgl::DefaultProgram::DefaultProgram(DefaulProgramType type) : Program() {
-	vertexShader = new Shader(ShaderType::Vertex);
 	fragmentShader = new Shader(ShaderType::Fragment);
+	fragmentShader->compileSource(Fragment_Source);
+
+	vertexShader = new Shader(ShaderType::Vertex);
 	switch (type) {
 		case DefaulProgramType::Vertex1Matrix:
 			vertexShader->compileSource(Vertex_1Matrix_Source);
-			fragmentShader->compileSource(Fragment_Source);
+			break;
+		case DefaulProgramType::Vertex2Matrices:
+			vertexShader->compileSource(Vertex_2Matrices_Source);
 			break;
 		case DefaulProgramType::Vertex6Matrices:
 			vertexShader->compileSource(Vertex_6Matrices_Source);
-			fragmentShader->compileSource(Fragment_Source);
 			break;
 	}
+
 	link({*vertexShader, *fragmentShader});
 }
 
@@ -23,24 +27,39 @@ mgl::DefaultProgram::~DefaultProgram() {
 }
 
 const std::string mgl::DefaultProgram::Vertex_1Matrix_Source =
-"#version 140		   											   \n"
-"																   \n"
-"in vec4 positionVector;										   \n"
-"out vec4 theColor;												   \n"
-"																   \n"
-"uniform vec4 drawingColor;										   \n"
-"uniform mat4 transformationMatrix;								   \n"
-"																   \n"
-"void main() {													   \n"
-"	gl_Position = transformationMatrix * positionVector;		   \n"
-"	theColor = drawingColor;									   \n"
-"}																   \n";
+"#version 330		   														  \n"
+"																			  \n"
+"attribute vec4 positionVector;												  \n"
+"varying vec4 theColor;														  \n"
+"																			  \n"
+"uniform vec4 drawingColor;													  \n"
+"uniform mat4 transformationMatrix;											  \n"
+"																			  \n"
+"void main() {																  \n"
+"	gl_Position = transformationMatrix * positionVector;					  \n"
+"	theColor = drawingColor;												  \n"
+"}																			  \n";
+																			  
+const std::string mgl::DefaultProgram::Vertex_2Matrices_Source =			  
+"#version 330																  \n"
+"																			  \n"
+"attribute vec4 positionVector;												  \n"
+"varying vec4 theColor;														  \n"
+"																			  \n"
+"uniform vec4 drawingColor;													  \n"
+"uniform mat4 transformationMatrix;											  \n"
+"uniform mat4 projectionMatrix;												  \n"
+"																			  \n"
+"void main() {																  \n"
+"	gl_Position = projectionMatrix * transformationMatrix * positionVector;	  \n"
+"	theColor = drawingColor;												  \n"
+"}																			  \n";
 
 const std::string mgl::DefaultProgram::Vertex_6Matrices_Source =
-"#version 140																  \n"
+"#version 330																  \n"
 "																			  \n"
-"in vec4 positionVector;													  \n"
-"out vec4 theColor;															  \n"
+"attribute vec4 positionVector;												  \n"
+"varying vec4 theColor;														  \n"
 "																			  \n"
 "uniform vec4 drawingColor;													  \n"
 "uniform mat4 translationMatrix;											  \n"
@@ -58,10 +77,10 @@ const std::string mgl::DefaultProgram::Vertex_6Matrices_Source =
 "}																			  \n";
 
 const std::string mgl::DefaultProgram::Fragment_Source =
-"#version 140				  \n"
-"							  \n"
-"in vec4 theColor;			  \n"
-"							  \n"
-"void main() {				  \n"
-"	gl_FragColor = theColor;  \n"
-"}							  \n";
+"#version 140																  \n"
+"																			  \n"
+"varying vec4 theColor;													      \n"
+"																			  \n"
+"void main() {																  \n"
+"	gl_FragColor = theColor;												  \n"
+"}																			  \n";

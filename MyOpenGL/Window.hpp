@@ -5,12 +5,11 @@
 #include "AbstractException.hpp"
 #include "AbstractEventHandler.hpp"
 
-struct SDL_Window;
-typedef void* SDL_GLContext;
+struct GLFWwindow;
 
 namespace mgl {
-	enum class DefaultWindowPos {
-		Undefined, Centered
+	enum class DefaultWindowMode {
+		Windowed = 0, Fullscreen
 	};
 	class InitializationException : public AbstractStringException {
 		using AbstractStringException::AbstractStringException;
@@ -21,36 +20,31 @@ namespace mgl {
 
 	class Window {
 	private:
-		SDL_Window* m_window;
-		SDL_GLContext* m_context;
+		GLFWwindow* m_window;
 		std::set<AbstractEventHandler*> m_events;
-		bool quit;
 	protected:
 		float aspectRatio;
 		Matrix* projection;
 	protected:
-		void initSDL();
-		void initGLEW();
-		void initializeWindow(std::string title, size_t x, size_t y, size_t width, size_t height);
-	protected:
 		virtual void init() abstract;
+		virtual void resize();
 		virtual void render() abstract;
-		virtual void calculateProjection(int width, int height);
-		virtual void initializeWindowResize();
-		void initializeDefaultEventHandler();
+
 		void addEventsHandler(AbstractEventHandler* h);
 		void removeEventsHandler(AbstractEventHandler* h);
 		void removeAllEventsHandlers();
+
+		void setOpenGLVersion(int major = 4, int minor = 3);
 	private:
 		Window();
 	public:
-		explicit Window(std::string title, size_t x, size_t y, size_t width = 640, size_t height = 480);
-		explicit Window(std::string title, DefaultWindowPos defaultPos = DefaultWindowPos::Centered, size_t width = 640, size_t height = 480);
+		explicit Window(std::string title, int width = 640, int height = 480, DefaultWindowMode mode = DefaultWindowMode::Windowed);
 		virtual ~Window();
 
 		Program* linkDefaultProgram(DefaulProgramType type = DefaulProgramType::Vertex1Matrix);
 		int loop();
 
-		void getSize(int* w, int* h) const;
+		void setErrorHandler(void(*handler)(int, const char*));
+		void setWindowCloseHandler(void(*handler)(GLFWwindow*));
 	};
 }
