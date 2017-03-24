@@ -142,9 +142,9 @@
     <ClInclude Include="DefaultPrimitives.hpp" />
     <ClInclude Include="DefaultProgram.hpp" />
     <ClInclude Include="AbstractException.hpp" />
-    <ClInclude Include="EmptyHandler.hpp" />
+    <ClInclude Include="EmptyEventHandler.hpp" />
     <ClInclude Include="EventEnums.hpp" />
-    <ClInclude Include="AbstractHandler.hpp" />
+    <ClInclude Include="AbstractEventHandler.hpp" />
     <ClInclude Include="ExperimentalFunctions.hpp" />
     <ClInclude Include="FunctionEnums.hpp" />
     <ClInclude Include="Functions.hpp" />

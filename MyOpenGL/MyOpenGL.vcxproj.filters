@@ -58,10 +58,10 @@
     <ClInclude Include="EventEnums.hpp">
       <Filter>Window\Events</Filter>
     </ClInclude>
-    <ClInclude Include="AbstractHandler.hpp">
+    <ClInclude Include="EmptyEventHandler.hpp">
       <Filter>Window\Events</Filter>
     </ClInclude>
-    <ClInclude Include="EmptyHandler.hpp">
+    <ClInclude Include="AbstractEventHandler.hpp">
       <Filter>Window\Events</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,15 +1,15 @@
 #pragma once
-#include "AbstractHandler.hpp"
+#include "AbstractEventHandler.hpp"
 
 struct GLFWwindow;
 
 namespace mgl {
 	class EventsSystem {
 	protected:
-		static AbstractHandler* e;
+		static AbstractEventHandler* e;
 
 	public:
-		static void setHandler(AbstractHandler* h) {
+		static void setHandler(AbstractEventHandler* h) {
 			e = h;
 		}
 	public:

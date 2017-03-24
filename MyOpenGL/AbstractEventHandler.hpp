@@ -5,7 +5,7 @@
 struct GLFWwindow;
 
 namespace mgl {
-	class AbstractHandler {
+	class AbstractEventHandler {
 
 	public:
 		virtual void mouseButtonEvent(GLFWwindow* w, MouseButton button, 

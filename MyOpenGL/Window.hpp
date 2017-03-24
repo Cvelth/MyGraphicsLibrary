@@ -2,7 +2,7 @@
 #include <string>
 #include "SharedEnums.hpp"
 #include "AbstractException.hpp"
-#include "EventsSystem.hpp"
+#include "EmptyEventHandler.hpp"
 
 struct GLFWwindow;
 
@@ -16,8 +16,10 @@ namespace mgl {
 
 	class Program;
 	class Matrix;
+	class DefaultEventHandler;
 
 	class Window {
+		friend DefaultEventHandler;
 	private:
 		GLFWwindow* m_window;
 	protected:
@@ -25,7 +27,7 @@ namespace mgl {
 		Matrix* projection;
 	protected:
 		virtual void init() abstract;
-		virtual void resize();
+		virtual void resize(int width, int height);
 		virtual void render() abstract;
 		
 		void setOpenGLVersion(int major = 4, int minor = 3);
@@ -37,8 +39,18 @@ namespace mgl {
 
 		Program* linkDefaultProgram(DefaulProgramType type = DefaulProgramType::Vertex1Matrix);
 		int loop();
+		void update();
 
 		void initializeEventHandling();
-		void changleEventHandler(AbstractHandler* h);
+		void changleEventHandler(AbstractEventHandler* h);
+	};
+
+	class DefaultEventHandler : public EmptyEventHandler {
+	protected:
+		Window* m_window;
+	public:
+		DefaultEventHandler(Window* w) : m_window(w) {}
+
+		virtual void resizeEvent(GLFWwindow* w, int x, int y) override;
 	};
 }

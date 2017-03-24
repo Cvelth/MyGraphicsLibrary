@@ -1,3 +1,3 @@
 #include "EventsSystem.hpp"
 
-mgl::AbstractHandler* mgl::EventsSystem::e = nullptr;
+mgl::AbstractEventHandler* mgl::EventsSystem::e = nullptr;

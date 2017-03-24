@@ -1,8 +1,8 @@
 #pragma once
-#include "AbstractHandler.hpp"
+#include "AbstractEventHandler.hpp"
 
 namespace mgl {
-	class EmptyHandler : public AbstractHandler {
+	class EmptyEventHandler : public AbstractEventHandler {
 
 	public:
 		virtual void mouseButtonEvent(GLFWwindow* w, MouseButton button,

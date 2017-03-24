@@ -1,9 +1,9 @@
 #include "OpenGL_header.h"
-#include "Functions.hpp"
 #include "Window.hpp"
+#include "Functions.hpp"
 #include "DefaultProgram.hpp"
 #include "Matrix.hpp"
-#include "EmptyHandler.hpp"
+#include "EventsSystem.hpp"
 
 mgl::Window::Window() : projection(new Matrix()) { }
 
@@ -32,10 +32,7 @@ mgl::Window::~Window() {
 	glfwTerminate();
 }
 
-void mgl::Window::resize() {
-	int width, height;
-	glfwGetFramebufferSize(m_window, &width, &height);
-
+void mgl::Window::resize(int width, int height) {
 	aspectRatio = float(width) / height;
 	mgl::viewport(0, 0, width, height);
 
@@ -60,8 +57,11 @@ mgl::Program* mgl::Window::linkDefaultProgram(DefaulProgramType type) {
 
 int mgl::Window::loop() {
 	initializeEventHandling();
-	resize();
 	init();
+
+	int width, height;
+	glfwGetFramebufferSize(m_window, &width, &height);
+	resize(width, height);
 
 	while (!glfwWindowShouldClose(m_window)) {
 		render();
@@ -72,12 +72,17 @@ int mgl::Window::loop() {
 	return 0;
 }
 
-void mgl::Window::changleEventHandler(AbstractHandler * h) {
+void mgl::Window::update() {
+	render();
+	glfwSwapBuffers(m_window);
+}
+
+void mgl::Window::changleEventHandler(AbstractEventHandler * h) {
 	EventsSystem::setHandler(h);
 }
 
 void mgl::Window::initializeEventHandling() {
-	EventsSystem::setHandler(new EmptyHandler());
+	EventsSystem::setHandler(new DefaultEventHandler(this));
 	glfwSetKeyCallback(m_window, EventsSystem::keyEvent);
 	glfwSetMouseButtonCallback(m_window, EventsSystem::mouseButtonEvent);
 	glfwSetCharCallback(m_window, EventsSystem::characterEvent);
@@ -89,4 +94,9 @@ void mgl::Window::initializeEventHandling() {
 	glfwSetFramebufferSizeCallback(m_window, EventsSystem::resizeEvent);
 	glfwSetJoystickCallback(EventsSystem::joystickEvent);
 	glfwSetErrorCallback(EventsSystem::errorEvent);
+}
+
+void mgl::DefaultEventHandler::resizeEvent(GLFWwindow * w, int x, int y) {
+	m_window->resize(x, y);
+	m_window->update();
 }
