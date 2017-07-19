@@ -20,7 +20,7 @@ mgl::Primitive::Primitive(VertexConnectionType type, const float* array, size_t 
 }
 
 mgl::Primitive::Primitive(VertexConnectionType type, Vector * array, size_t size) : Primitive(type) {
-	for (int i = 0; i < size; i++)
+	for (size_t i = 0; i < size; i++)
 		m_data.push_back(&array[i]);
 }
 
@@ -70,7 +70,7 @@ void mgl::Primitive::bind() {
 
 void mgl::Primitive::draw() { 
 	m_buffer->bind();
-	glDrawArrays(_enumSwitch(m_connection), 0, getSize()); 
+	glDrawArrays(_enumSwitch(m_connection), 0, (GLsizei)getSize()); 
 }
 
 std::list<mgl::Vector*>& mgl::Primitive::operator*() {
@@ -85,7 +85,7 @@ mgl::PrimitiveSet::PrimitiveSet() {
 }
 
 mgl::PrimitiveSet::PrimitiveSet(const Primitive * array, size_t size) {
-	for (int i = 0; i < size; i++)
+	for (size_t i = 0; i < size; i++)
 		m_data.push_back(array[i]);
 }
 

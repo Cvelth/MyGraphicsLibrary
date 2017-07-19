@@ -70,7 +70,7 @@ void mgl::Program::enableAttrib(const std::string fieldName, size_t size,
 	auto loc = glGetAttribLocation(m_id, fieldName.c_str());
 	if (loc == -1)
 		throw ProgramException("The location is not valid.");
-	glVertexAttribPointer(loc, size, GL_FLOAT, normalized, 
-						  sizeof(float) * stride, (const void*)shift);
+	glVertexAttribPointer(loc, (GLint) size, GL_FLOAT, normalized, 
+						  (GLsizei) sizeof(float) * (GLsizei) stride, (const void*)shift);
 	glEnableVertexAttribArray(loc);
 }
