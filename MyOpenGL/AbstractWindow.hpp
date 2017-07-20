@@ -34,11 +34,13 @@ namespace mgl {
 	protected:
 		virtual void resize(int width, int height);
 		void setOpenGLVersion(int major = 4, int minor = 3);
-	protected:
-		AbstractWindow();
 	public:
+		explicit AbstractWindow();
 		explicit AbstractWindow(std::string title, int width = 640, int height = 480, DefaultWindowMode mode = DefaultWindowMode::Windowed);
 		virtual ~AbstractWindow();
+
+		void initialize(std::string title, int width = 640, int height = 480, DefaultWindowMode mode = DefaultWindowMode::Windowed);
+		void clean();
 
 		Program* linkDefaultProgram(DefaulProgramType type = DefaulProgramType::Vertex1Matrix);
 		void update();

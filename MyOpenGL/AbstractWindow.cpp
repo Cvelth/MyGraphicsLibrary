@@ -8,6 +8,14 @@
 mgl::AbstractWindow::AbstractWindow() : m_projection(new Matrix()) {}
 
 mgl::AbstractWindow::AbstractWindow(std::string title, int width, int height, DefaultWindowMode mode) : AbstractWindow() {
+	initialize(title, width, height, mode);
+}
+
+mgl::AbstractWindow::~AbstractWindow() {
+	clean();
+}
+
+void mgl::AbstractWindow::initialize(std::string title, int width, int height , DefaultWindowMode mode) {
 	if (!glfwInit())
 		throw Exceptions::WindowInitializationException(std::string("GLFW inititalization error."));
 
@@ -26,7 +34,7 @@ mgl::AbstractWindow::AbstractWindow(std::string title, int width, int height, De
 														+= (const char*) (glewGetErrorString(glewError)));
 }
 
-mgl::AbstractWindow::~AbstractWindow() {
+void mgl::AbstractWindow::clean() {
 	glfwDestroyWindow(m_window);
 	glfwTerminate();
 }
