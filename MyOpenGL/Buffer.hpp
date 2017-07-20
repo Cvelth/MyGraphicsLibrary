@@ -3,7 +3,7 @@
 #include "FunctionEnums.hpp"
 
 namespace mgl {
-	using BufferException = AbstractStringException;
+	using BufferException = Exceptions::AbstractStringException;
 
 	class Buffer {
 	private:

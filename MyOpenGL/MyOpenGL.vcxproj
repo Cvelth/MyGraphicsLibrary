@@ -143,6 +143,8 @@
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AbstractLoopWindow.hpp" />
+    <ClInclude Include="AbstractWindow.hpp" />
     <ClInclude Include="Buffer.hpp" />
     <ClInclude Include="Color.hpp" />
     <ClInclude Include="DefaultPrimitives.hpp" />
@@ -163,9 +165,11 @@
     <ClInclude Include="Shader.hpp" />
     <ClInclude Include="SharedEnums.hpp" />
     <ClInclude Include="Vector.hpp" />
-    <ClInclude Include="Window.hpp" />
+    <ClInclude Include="Windows.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AbstractLoopWindow.cpp" />
+    <ClCompile Include="AbstractWindow.cpp" />
     <ClCompile Include="Buffer.cpp" />
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="DefaultPrimitives.cpp" />
@@ -180,7 +184,6 @@
     <ClCompile Include="Program.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Vector.cpp" />
-    <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

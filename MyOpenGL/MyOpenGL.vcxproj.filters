@@ -1,9 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClInclude Include="Window.hpp">
-      <Filter>Window</Filter>
-    </ClInclude>
     <ClInclude Include="Functions.hpp">
       <Filter>Functions</Filter>
     </ClInclude>
@@ -64,11 +61,17 @@
     <ClInclude Include="AbstractEventHandler.hpp">
       <Filter>Window\Events</Filter>
     </ClInclude>
+    <ClInclude Include="AbstractLoopWindow.hpp">
+      <Filter>Window</Filter>
+    </ClInclude>
+    <ClInclude Include="AbstractWindow.hpp">
+      <Filter>Window</Filter>
+    </ClInclude>
+    <ClInclude Include="Windows.hpp">
+      <Filter>Window</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Window.cpp">
-      <Filter>Window</Filter>
-    </ClCompile>
     <ClCompile Include="Functions.cpp">
       <Filter>Functions</Filter>
     </ClCompile>
@@ -110,6 +113,12 @@
     </ClCompile>
     <ClCompile Include="EventsSystem.cpp">
       <Filter>Window\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="AbstractLoopWindow.cpp">
+      <Filter>Window</Filter>
+    </ClCompile>
+    <ClCompile Include="AbstractWindow.cpp">
+      <Filter>Window</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

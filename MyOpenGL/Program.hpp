@@ -2,9 +2,11 @@
 #include "Shader.hpp"
 
 namespace mgl {
-	class ProgramException : public AbstractStringException {
-		using AbstractStringException::AbstractStringException;
-	};
+	namespace Exceptions {
+		class ProgramException : public AbstractStringException {
+			using AbstractStringException::AbstractStringException;
+		};
+	}
 
 	class Vector;
 	class Matrix;

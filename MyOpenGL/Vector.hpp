@@ -2,9 +2,11 @@
 #include "AbstractException.hpp"
 
 namespace mgl {
-	class VectorException : public AbstractStringException {
-		using AbstractStringException::AbstractStringException;
-	};
+	namespace Exceptions {
+		class VectorException : public AbstractStringException {
+			using AbstractStringException::AbstractStringException;
+		};
+	}
 
 	class Vector {
 	private:

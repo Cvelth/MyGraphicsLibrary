@@ -11,7 +11,7 @@ mgl::Primitive::Primitive(VertexConnectionType type) {
 
 mgl::Primitive::Primitive(VertexConnectionType type, const float* array, size_t size, size_t POINTS_NUMBER) : Primitive(type) {
 	if (size % POINTS_NUMBER != 0)
-		throw PrimitiveException("Wrong elements number.");
+		throw Exceptions::PrimitiveException("Wrong elements number.");
 	for (size_t i = 0; i < size; i += POINTS_NUMBER)
 		m_data.push_back(new Vector(POINTS_NUMBER >= 0 ? array[i + 0] : 0,
 								POINTS_NUMBER >= 1 ? array[i + 1] : 0,

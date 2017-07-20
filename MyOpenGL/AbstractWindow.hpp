@@ -8,48 +8,52 @@ struct GLFWwindow;
 
 namespace mgl {
 	enum class DefaultWindowMode {
-		Windowed = 0, Fullscreen
+		Windowed = 0, Fullscreen = 1
 	};
-	class InitializationException : public AbstractStringException {
-		using AbstractStringException::AbstractStringException;
-	};
+	namespace Exceptions {
+		class WindowInitializationException : public AbstractStringException {
+			using AbstractStringException::AbstractStringException;
+		};
+	}
 
 	class Program;
 	class Matrix;
 	class DefaultEventHandler;
 
-	class Window {
+	class AbstractWindow {
 		friend DefaultEventHandler;
 	private:
 		GLFWwindow* m_window;
 	protected:
-		float aspectRatio;
-		Matrix* projection;
+		float m_aspectRatio;
+		Matrix* m_projection;
 	protected:
-		virtual void init() abstract;
-		virtual void resize(int width, int height);
+		virtual void initializeRender() abstract;
 		virtual void render() abstract;
-		
+		virtual void cleanRender() abstract;
+	protected:
+		virtual void resize(int width, int height);
 		void setOpenGLVersion(int major = 4, int minor = 3);
-	private:
-		Window();
+	protected:
+		AbstractWindow();
 	public:
-		explicit Window(std::string title, int width = 640, int height = 480, DefaultWindowMode mode = DefaultWindowMode::Windowed);
-		virtual ~Window();
+		explicit AbstractWindow(std::string title, int width = 640, int height = 480, DefaultWindowMode mode = DefaultWindowMode::Windowed);
+		virtual ~AbstractWindow();
 
 		Program* linkDefaultProgram(DefaulProgramType type = DefaulProgramType::Vertex1Matrix);
-		int loop();
 		void update();
 
 		void initializeEventHandling();
 		void changleEventHandler(AbstractEventHandler* h);
+
+		inline GLFWwindow* window() { return m_window; }
 	};
 
 	class DefaultEventHandler : public EmptyEventHandler {
 	protected:
-		Window* m_window;
+		AbstractWindow* m_window;
 	public:
-		DefaultEventHandler(Window* w) : m_window(w) {}
+		DefaultEventHandler(AbstractWindow* w) : m_window(w) {}
 
 		virtual void resizeEvent(GLFWwindow* w, int x, int y) override;
 	};

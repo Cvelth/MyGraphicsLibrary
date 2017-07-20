@@ -27,7 +27,7 @@ void mgl::Shader::compileFile(const std::string& filename) {
 
 void mgl::Shader::compileSource(const std::string& sourceText) {
 	const GLchar* source = static_cast<const GLchar*>(sourceText.c_str());
-	if (source == "") throw ShaderException("The source string or file is empty.");
+	if (source == "") throw Exceptions::ShaderException("The source string or file is empty.");
 
 	glShaderSource(m_id, 1, &source, NULL);
 	glCompileShader(m_id);
@@ -44,7 +44,7 @@ void mgl::Shader::compileSource(const std::string& sourceText) {
 		std::string t = std::string(log);
 		delete[] log;
 
-		throw ShaderException(std::string("Shader compilation error: ") + t);
+		throw Exceptions::ShaderException(std::string("Shader compilation error: ") + t);
 	}
 }
 

@@ -6,9 +6,11 @@ namespace mgl {
 		Fragment, Vertex, Geometry, Compute, TessControl, TessEvaluation
 	};
 
-	class ShaderException : public AbstractStringException {
-		using AbstractStringException::AbstractStringException;
-	};
+	namespace Exceptions {
+		class ShaderException : public AbstractStringException {
+			using AbstractStringException::AbstractStringException;
+		};
+	}
 
 	class Shader {
 	private:

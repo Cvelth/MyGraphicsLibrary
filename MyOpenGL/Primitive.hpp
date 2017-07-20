@@ -9,9 +9,11 @@ namespace mgl {
 	class Vector;
 	class Matrix;
 
-	class PrimitiveException : public AbstractStringException {
-		using AbstractStringException::AbstractStringException;
-	};
+	namespace Exceptions {
+		class PrimitiveException : public AbstractStringException {
+			using AbstractStringException::AbstractStringException;
+		};
+	}
 
 	class Primitive {
 	protected:

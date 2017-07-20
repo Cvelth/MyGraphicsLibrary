@@ -26,7 +26,7 @@ mgl::Primitive mgl::generateRectangle(float aspectRatio) {
 		res.insert(new Vector(+1.f, +1.f / aspectRatio));
 		res.insert(new Vector(+1.f, -1.f / aspectRatio));
 	} else
-		throw mgl::PrimitiveException("Incorrect input data(aspectRatio).");
+		throw mgl::Exceptions::PrimitiveException("Incorrect input data(aspectRatio).");
 	return res;
 }
 

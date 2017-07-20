@@ -4,9 +4,12 @@
 
 namespace mgl {
 	enum InitialValue { UnitializedMatrix = 0, IdentityMatrix = 1 };
-	class MatrixException : AbstractStringException {
-		using AbstractStringException::AbstractStringException;
-	};
+
+	namespace Exceptions {
+		class MatrixException : AbstractStringException {
+			using AbstractStringException::AbstractStringException;
+		};
+	}
 
 	struct MatrixHolder {
 		float m[16];

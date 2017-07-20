@@ -18,7 +18,7 @@ mgl::Program::~Program() {
 
 void mgl::Program::link(const std::initializer_list<Shader>& shaders) {
 	if (shaders.size() == 0u)
-		throw ProgramException("There is no shaders to attach");
+		throw Exceptions::ProgramException("There is no shaders to attach");
 
 	for (auto shader : shaders)
 		glAttachShader(m_id, shader.id());
@@ -36,7 +36,7 @@ void mgl::Program::link(const std::initializer_list<Shader>& shaders) {
 		std::string t = std::string(log);
 		delete[] log;
 
-		throw ProgramException(std::string("Program linking error: ") + t);
+		throw Exceptions::ProgramException(std::string("Program linking error: ") + t);
 	}
 }
 
@@ -47,21 +47,21 @@ void mgl::Program::use() {
 void mgl::Program::sendUniform(const std::string fieldName, const float & data) {
 	auto loc = glGetUniformLocation(m_id, fieldName.c_str());
 	if (loc == -1)
-		throw ProgramException("The location is not valid.");
+		throw Exceptions::ProgramException("The location is not valid.");
 	glUniform1f(loc, data);
 }
 
 void mgl::Program::sendUniform(const std::string fieldName, const Vector & data) {
 	auto loc = glGetUniformLocation(m_id, fieldName.c_str());
 	if (loc == -1)
-		throw ProgramException("The location is not valid.");
+		throw Exceptions::ProgramException("The location is not valid.");
 	glUniform4f(loc, data.x(),data.y(), data.z(), data.w());
 }
 
 void mgl::Program::sendUniform(const std::string fieldName, const Matrix & data) {
 	auto loc = glGetUniformLocation(m_id, fieldName.c_str());
 	if (loc == -1)
-		throw ProgramException("The location is not valid.");
+		throw Exceptions::ProgramException("The location is not valid.");
 	glUniformMatrix4fv(loc, 1, GL_FALSE, data.data());
 }
 
@@ -69,7 +69,7 @@ void mgl::Program::enableAttrib(const std::string fieldName, size_t size,
 							    bool normalized, size_t stride, size_t shift) {
 	auto loc = glGetAttribLocation(m_id, fieldName.c_str());
 	if (loc == -1)
-		throw ProgramException("The location is not valid.");
+		throw Exceptions::ProgramException("The location is not valid.");
 	glVertexAttribPointer(loc, (GLint) size, GL_FLOAT, normalized, 
 						  (GLsizei) sizeof(float) * (GLsizei) stride, (const void*)shift);
 	glEnableVertexAttribArray(loc);

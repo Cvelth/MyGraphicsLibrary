@@ -1,16 +1,15 @@
 #include "OpenGL_header.h"
-#include "Window.hpp"
+#include "AbstractWindow.hpp"
 #include "Functions.hpp"
 #include "DefaultProgram.hpp"
 #include "Matrix.hpp"
 #include "EventsSystem.hpp"
 
-mgl::Window::Window() : projection(new Matrix()) { }
+mgl::AbstractWindow::AbstractWindow() : m_projection(new Matrix()) {}
 
-mgl::Window::Window(std::string title, int width, int height, DefaultWindowMode mode) : Window() {
-
+mgl::AbstractWindow::AbstractWindow(std::string title, int width, int height, DefaultWindowMode mode) : AbstractWindow() {
 	if (!glfwInit())
-		throw InitializationException(std::string("GLFW inititalization error."));
+		throw Exceptions::WindowInitializationException(std::string("GLFW inititalization error."));
 
 	if (mode == DefaultWindowMode::Fullscreen)
 		m_window = glfwCreateWindow(width, height, title.c_str(), glfwGetPrimaryMonitor(), NULL);
@@ -23,65 +22,48 @@ mgl::Window::Window(std::string title, int width, int height, DefaultWindowMode 
 	glewExperimental = GL_TRUE;
 	GLenum glewError = glewInit();
 	if (glewError != GLEW_OK)
-		throw InitializationException(std::string("GLEW inititalization error: ")
-									  += (const char*) (glewGetErrorString(glewError)));
+		throw Exceptions::WindowInitializationException(std::string("GLEW inititalization error: ")
+														+= (const char*) (glewGetErrorString(glewError)));
 }
 
-mgl::Window::~Window() {
+mgl::AbstractWindow::~AbstractWindow() {
 	glfwDestroyWindow(m_window);
 	glfwTerminate();
 }
 
-void mgl::Window::resize(int width, int height) {
-	aspectRatio = float(width) / height;
+void mgl::AbstractWindow::resize(int width, int height) {
+	m_aspectRatio = float(width) / height;
 	mgl::viewport(0, 0, width, height);
 
-	delete projection;
-	projection = new mgl::Matrix(mgl::Matrix::orthographicMatrix(
-		aspectRatio > 1.f ? -aspectRatio : -1.f, 
-		aspectRatio > 1.f ? aspectRatio : 1.f,
-		-1.f / (aspectRatio > 1.f ? 1.f : aspectRatio),
-		+1.f / (aspectRatio > 1.f ? 1.f : aspectRatio),
+	if (m_projection) delete m_projection;
+	m_projection = new mgl::Matrix(mgl::Matrix::orthographicMatrix(
+		m_aspectRatio > 1.f ? -m_aspectRatio : -1.f,
+		m_aspectRatio > 1.f ? m_aspectRatio : 1.f,
+		-1.f / (m_aspectRatio > 1.f ? 1.f : m_aspectRatio),
+		+1.f / (m_aspectRatio > 1.f ? 1.f : m_aspectRatio),
 		+1.f, -1.f
 	));
 }
 
-void mgl::Window::setOpenGLVersion(int major, int minor) {
+void mgl::AbstractWindow::setOpenGLVersion(int major, int minor) {
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, major);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, minor);
 }
 
-mgl::Program* mgl::Window::linkDefaultProgram(DefaulProgramType type) {
+mgl::Program* mgl::AbstractWindow::linkDefaultProgram(DefaulProgramType type) {
 	return new DefaultProgram(type);
 }
 
-int mgl::Window::loop() {
-	initializeEventHandling();
-	init();
-
-	int width, height;
-	glfwGetFramebufferSize(m_window, &width, &height);
-	resize(width, height);
-
-	while (!glfwWindowShouldClose(m_window)) {
-		render();
-
-		glfwSwapBuffers(m_window);
-		glfwWaitEvents();
-	}
-	return 0;
-}
-
-void mgl::Window::update() {
+void mgl::AbstractWindow::update() {
 	render();
 	glfwSwapBuffers(m_window);
 }
 
-void mgl::Window::changleEventHandler(AbstractEventHandler * h) {
+void mgl::AbstractWindow::changleEventHandler(AbstractEventHandler * h) {
 	EventsSystem::setHandler(h);
 }
 
-void mgl::Window::initializeEventHandling() {
+void mgl::AbstractWindow::initializeEventHandling() {
 	EventsSystem::setHandler(new DefaultEventHandler(this));
 	glfwSetKeyCallback(m_window, EventsSystem::keyEvent);
 	glfwSetMouseButtonCallback(m_window, EventsSystem::mouseButtonEvent);
