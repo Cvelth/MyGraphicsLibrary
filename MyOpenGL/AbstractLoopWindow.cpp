@@ -3,18 +3,18 @@
 
 int mgl::AbstractLoopWindow::loop() {
 	initializeEventHandling();
-	initializeRender();
+	initializeRenderProcess();
 
 	int width, height;
 	glfwGetFramebufferSize(window(), &width, &height);
 	resize(width, height);
 
 	while (!glfwWindowShouldClose(window())) {
-		render();
+		renderProcess();
 
 		glfwSwapBuffers(window());
 		glfwWaitEvents();
 	}
-	cleanRender();
+	clearRenderProcess();
 	return 0;
 }

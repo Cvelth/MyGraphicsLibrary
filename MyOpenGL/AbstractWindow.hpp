@@ -28,9 +28,9 @@ namespace mgl {
 		float m_aspectRatio;
 		Matrix* m_projection;
 	protected:
-		virtual void initializeRender() abstract;
-		virtual void render() abstract;
-		virtual void cleanRender() abstract;
+		virtual void initializeRenderProcess() abstract;
+		virtual void renderProcess() abstract;
+		virtual void clearRenderProcess() abstract;
 	protected:
 		virtual void resize(int width, int height);
 		void setOpenGLVersion(int major = 4, int minor = 3);

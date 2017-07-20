@@ -63,7 +63,7 @@ mgl::Program* mgl::AbstractWindow::linkDefaultProgram(DefaulProgramType type) {
 }
 
 void mgl::AbstractWindow::update() {
-	render();
+	renderProcess();
 	glfwSwapBuffers(m_window);
 }
 
