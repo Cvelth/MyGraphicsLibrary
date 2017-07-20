@@ -71,6 +71,10 @@ void mgl::AbstractWindow::changleEventHandler(AbstractEventHandler * h) {
 	EventsSystem::setHandler(h);
 }
 
+bool mgl::AbstractWindow::isWindowClosed() {
+	return glfwWindowShouldClose(m_window);
+}
+
 void mgl::AbstractWindow::initializeEventHandling() {
 	EventsSystem::setHandler(new DefaultEventHandler(this));
 	glfwSetKeyCallback(m_window, EventsSystem::keyEvent);

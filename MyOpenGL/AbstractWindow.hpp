@@ -49,6 +49,7 @@ namespace mgl {
 		void changleEventHandler(AbstractEventHandler* h);
 
 		inline GLFWwindow* window() { return m_window; }
+		bool isWindowClosed();
 	};
 
 	class DefaultEventHandler : public EmptyEventHandler {
