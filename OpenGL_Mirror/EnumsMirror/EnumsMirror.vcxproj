@@ -19,9 +19,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{7628CEAD-492C-4E8A-BF05-39E2EC369B05}</ProjectGuid>
-    <RootNamespace>MyOpenGL</RootNamespace>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{3B48CF5B-97C0-43D0-A21F-57377DD93DAF}</ProjectGuid>
+    <RootNamespace>EnumsMirror</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -69,21 +70,32 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>..\..\;</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\;</AdditionalIncludeDirectories>
     </ClCompile>
-    <Lib>
-      <AdditionalDependencies>
-      </AdditionalDependencies>
-      <AdditionalLibraryDirectories>
-      </AdditionalLibraryDirectories>
-    </Lib>
     <ProjectReference>
-      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -91,16 +103,10 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\;</AdditionalIncludeDirectories>
     </ClCompile>
-    <Lib>
-      <AdditionalDependencies>
-      </AdditionalDependencies>
-      <AdditionalLibraryDirectories>
-      </AdditionalLibraryDirectories>
-    </Lib>
     <ProjectReference>
-      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -110,80 +116,26 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
-    <Lib>
-      <AdditionalDependencies>
-      </AdditionalDependencies>
-      <AdditionalLibraryDirectories>
-      </AdditionalLibraryDirectories>
-    </Lib>
     <ProjectReference>
-      <LinkLibraryDependencies>true</LinkLibraryDependencies>
-    </ProjectReference>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <Optimization>MaxSpeed</Optimization>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-    </ClCompile>
-    <Link>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <OptimizeReferences>true</OptimizeReferences>
-    </Link>
-    <Lib>
-      <AdditionalDependencies>
-      </AdditionalDependencies>
-      <AdditionalLibraryDirectories>
-      </AdditionalLibraryDirectories>
-      <SuppressStartupBanner>false</SuppressStartupBanner>
-    </Lib>
-    <ProjectReference>
-      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="lib.cpp" />
+    <ClCompile Include="EnumsMirror.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Math\Math.vcxproj">
-      <Project>{85ec2964-de12-4a7e-8cc6-8608e8eb32cc}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\OpenGL_Mirror\BasicTypes\BasicTypes.vcxproj">
-      <Project>{2643848e-8439-4b92-abfe-2b61a8585ca8}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\OpenGL_Mirror\EnumsMirror\EnumsMirror.vcxproj">
-      <Project>{3b48cf5b-97c0-43d0-a21f-57377dd93daf}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\OpenGL_Mirror\FunctionsMirror\FunctionsMirror.vcxproj">
-      <Project>{0a189a93-b2c6-4c2c-9f31-f764c995d2d9}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\OpenGL_Mirror\OpenGL_Dependency\OpenGL_Dependency.vcxproj">
+    <ClInclude Include="EnumsMirror.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OpenGL_Dependency\OpenGL_Dependency.vcxproj">
       <Project>{14be552e-a4ed-49b7-9301-f43a206af594}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\OpenGL_Mirror\ShaderProgramMirror\ShaderProgramMirror.vcxproj">
-      <Project>{b5a97b51-4a1b-41a3-90be-d1af9b7e1feb}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\Primitive\Primitive.vcxproj">
-      <Project>{e02ada57-4ab9-450f-b371-d4b1a3d80c53}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\SharedHeaders\SharedHeaders.vcxproj">
-      <Project>{7097b003-9d8b-453e-a35b-3db7289c240d}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\Windows\Windows.vcxproj">
-      <Project>{d0604608-5d0a-4320-aaba-270dc712ede1}</Project>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\MyOpenGL.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
