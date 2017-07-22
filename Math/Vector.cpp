@@ -76,10 +76,10 @@ namespace mgl {
 			}
 
 			const float& get(const size_t index) const {
-				return m_data[index];
+				return m_data[(unsigned) index];
 			}
 			float& get(const size_t index) {
-				return m_data[index];
+				return m_data[(unsigned) index];
 			}
 
 			bool isNull() const {

@@ -39,12 +39,12 @@ namespace mgl {
 			explicit MatrixInnerStructure(const float* v) {
 				for (size_t i = 0; i < 4; i++)
 					for (size_t j = 0; j < 4; j++)
-						m_data[i][j] = v[i * 4 + j];
+						m_data[(unsigned) i][(unsigned) j] = v[i * 4 + j];
 			}
 			explicit MatrixInnerStructure(const float** v) {
 				for (size_t i = 0; i < 4; i++)
 					for (size_t j = 0; j < 4; j++)
-						m_data[i][j] = v[i][j];
+						m_data[(unsigned) i][(unsigned) j] = v[i][j];
 			}
 			explicit MatrixInnerStructure() {
 			}
@@ -52,32 +52,32 @@ namespace mgl {
 			void fill(const float v) {
 				for (size_t i = 0; i < 4; i++)
 					for (size_t j = 0; j < 4; j++)
-						m_data[i][j] = v;
+						m_data[(unsigned) i][(unsigned) j] = v;
 			}
 			void identityFill(const float v = 1.f) {
 				for (size_t i = 0; i < 4; i++)
 					for (size_t j = 0; j < 4; j++)
-						m_data[i][j] = (i == j) ? v : 0.f;
+						m_data[(unsigned) i][(unsigned) j] = (i == j) ? v : 0.f;
 			}
 
 			const float& get(const size_t i, const size_t j) const {
-				return m_data[i][j];
+				return m_data[(unsigned) i][(unsigned) j];
 			}
 			float& get(const size_t i, const size_t j) {
-				return m_data[i][j];
+				return m_data[(unsigned) i][(unsigned) j];
 			}
 
 			float* data(float* data = nullptr) const {
 				if (!data) data = new float[16];
 				for (size_t i = 0; i < 4; i++)
 					for (size_t j = 0; j < 4; j++)
-						data[i * 4 + j] = m_data[i][j];
+						data[i * 4 + j] = m_data[(unsigned) i][(unsigned) j];
 				return data;
 			}
 			float** data(float** data) const {
 				for (size_t i = 0; i < 4; i++)
 					for (size_t j = 0; j < 4; j++)
-						data[i][j] = m_data[i][j];
+						data[i][j] = m_data[(unsigned) i][(unsigned) j];
 				return data;
 			}
 			const float det() const {
