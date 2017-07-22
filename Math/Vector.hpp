@@ -33,8 +33,8 @@ namespace mgl {
 			const float y() const;
 			const float z() const;
 			const float w() const;
-			const float* const get() const;
-			const float* const get(float* a) const;
+			const float* const get(float* a = nullptr) const;
+			float* const get(float* a = nullptr);
 
 			bool isNull() const;
 			float length() const;
@@ -42,8 +42,9 @@ namespace mgl {
 			const Vector normalized() const;
 
 		public:
-			const float& operator[](size_t i) const;
-			float& operator[](size_t i);
+			const float& operator[](const size_t i) const;
+			float& operator[](const size_t i);
+
 			//Are vectors equal?
 			bool operator==(const Vector& vector);
 			//Are vectors equal?

@@ -60,20 +60,26 @@ namespace mgl {
 			const float w() const {
 				return m_data.q;
 			}
-			const float* const get() const {
-				auto ret = new float[4];
-				ret[0] = m_data.x;
-				ret[1] = m_data.y;
-				ret[2] = m_data.z;
-				ret[3] = m_data.w;
-				return ret;
-			}
 			const float* const get(float* a) const {
 				a[0] = m_data.x;
 				a[1] = m_data.y;
 				a[2] = m_data.z;
 				a[3] = m_data.w;
 				return a;
+			}
+			float* const get(float* a) {
+				a[0] = m_data.x;
+				a[1] = m_data.y;
+				a[2] = m_data.z;
+				a[3] = m_data.w;
+				return a;
+			}
+
+			const float& get(const size_t index) const {
+				return m_data[index];
+			}
+			float& get(const size_t index) {
+				return m_data[index];
 			}
 
 			bool isNull() const {
@@ -251,10 +257,13 @@ const float mgl::math::Vector::z() const {
 const float mgl::math::Vector::w() const {
 	return m_data->w();
 }
-const float* const mgl::math::Vector::get() const {
-	return m_data->get();
-}
 const float* const mgl::math::Vector::get(float* a) const {
+	if (a == nullptr) a = new float[4];
+	return m_data->get(a);
+}
+
+float * const mgl::math::Vector::get(float * a) {
+	if (a == nullptr) a = new float[4];
 	return m_data->get(a);
 }
 
@@ -269,6 +278,13 @@ void mgl::math::Vector::normalize() {
 }
 const mgl::math::Vector mgl::math::Vector::normalized() const {
 	return m_data->normalized();
+}
+
+const float & mgl::math::Vector::operator[](const size_t i) const {
+	return m_data->get(i);
+}
+float & mgl::math::Vector::operator[](const size_t i) {
+	return m_data->get(i);
 }
 
 mgl::math::Vector & mgl::math::Vector::operator+=(const Vector & vector) {
