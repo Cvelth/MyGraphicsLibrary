@@ -2,113 +2,102 @@
 #include "SharedHeaders\Exceptions.hpp"
 
 namespace mgl {
-	enum InitialValue { UnitializedMatrix = 0, IdentityMatrix = 1 };
-
 	namespace Exceptions {
 		class MatrixException : AbstractStringException {
 			using AbstractStringException::AbstractStringException;
 		};
 	}
+	namespace math {
+		enum InitialMatrixValue { UnitializedMatrix = 0, IdentityMatrix = 1 };
 
-	struct MatrixHolder {
-		float m[16];
+		class Vector;
+		class MatrixInnerStructure;
 
-		MatrixHolder() {}
-		MatrixHolder(const float& e00, const float& e01, const float& e02, const float& e03,
-					 const float& e10, const float& e11, const float& e12, const float& e13,
-					 const float& e20, const float& e21, const float& e22, const float& e23,
-					 const float& e30, const float& e31, const float& e32, const float& e33);
+		class Matrix {
+		private:
+			MatrixInnerStructure *m_data;
+		protected:
+			Matrix(MatrixInnerStructure* data);
+			Matrix(const MatrixInnerStructure& data);
+			Matrix(MatrixInnerStructure&& data);
+		public:
+			explicit Matrix(const float e00, const float e01, const float e02, const float e03,
+				   const float e10, const float e11, const float e12, const float e13,
+				   const float e20, const float e21, const float e22, const float e23,
+				   const float e30, const float e31, const float e32, const float e33);
+			Matrix(const float v);
+			Matrix(const float* v);
+			Matrix(const float** v);
+			Matrix(InitialMatrixValue i = IdentityMatrix);
+			~Matrix();
 
-		void fill(const float& v);
-		void identityFill();
+			const Vector column(const size_t c) const;
+			const Vector row(const size_t c) const;
 
-		inline float* data() { return m; }
-		inline const float* data() const { return m; }
+			void setColumn(const size_t c, const Vector& v);
+			void setRow(const size_t c, const Vector& v);
 
-		inline float& operator()(const size_t i, const size_t j) {
-			return m[i * 4 + j];
-		}
-		inline const float& operator()(const size_t i, const size_t j) const {
-			return m[i * 4 + j];
-		}
-		MatrixHolder& operator=(const MatrixHolder& h);
-	};
+			float* data(float* data = nullptr) const;
+			float** data(float** data) const;
 
-	class Vector;
+			void fill(const float v);
+			const float determinant() const;
 
-	class Matrix {
-	private:
-		MatrixHolder m_data;
-	public:
-		Matrix(const float& e00, const float& e01, const float& e02, const float& e03,
-			   const float& e10, const float& e11, const float& e12, const float& e13,
-			   const float& e20, const float& e21, const float& e22, const float& e23,
-			   const float& e30, const float& e31, const float& e32, const float& e33);
-		Matrix(const Matrix& m);
-		Matrix(const float& v);
-		Matrix(InitialValue i = IdentityMatrix);
-		~Matrix();
+			Matrix& translate(const Vector& v);
+			Matrix& translate(const float x = 0.f, const float y = 0.f, const float z = 0.f);
+			Matrix& rotate(const float angle, const Vector& v);
+			Matrix& rotate(const float angle, const float x = 0.f, const float y = 0.f, const float z = 1.f);
+			Matrix& scale(const float q);
+			Matrix& scale(const float x, const float y, const float z = 1.f);
+			Matrix& scale(const Vector& v);
 
-		const Vector column(const size_t& c) const;
-		const Vector row(const size_t& c) const;
+			static const Matrix orthographicMatrix(const float left, const float right,
+												   const float top, const float bottom,
+												   const float near, const float far);
+			static const Matrix perspectiveMatrix(const float left, const float right,
+												  const float top, const float bottom,
+												  const float near, const float far);
 
-		void setColumn(const size_t& c, const Vector& v);
-		void setRow(const size_t& c, const Vector& v);
-		
-		inline float* data() { return m_data.data(); }
-		inline const float* data() const { return m_data.data(); }
+			static const Matrix translationMatrix(const Vector& v);
+			static const Matrix translationMatrix(const float x = 0.f, const float y = 0.f, const float z = 0.f);
+			static const Matrix rotationMatrix(const float angle, const Vector& v);
+			static const Matrix rotationMatrix(const float angle, const float x = 0.f, const float y = 0.f, const float z = 1.f);
+			static const Matrix scalingMatrix(const float q);
+			static const Matrix scalingMatrix(const float x, const float y, const float z = 1.f);
+			static const Matrix scalingMatrix(const Vector& v);
 
-		void fill(const float& v);
-		const float determinant() const;
+		public:
+			const Vector operator[](size_t i) const;
+			Vector operator[](size_t i);
+			bool operator==(const Matrix& matrix);
+			bool operator!=(const Matrix& matrix);
 
-		void translate(const Vector& v);
-		void translate(const float& x = 0, const float& y = 0, const float& z = 0);
-		void rotate(const float& angle, const Vector& v);
-		void rotate(const float& angle, const float& x = 0, const float& y = 0, const float& z = 0);
-		void scale(const float& q);
-		void scale(const float& x, const float& y, const float& z = 1.f);
-		void scale(const Vector& v);
-		
-		static const Matrix orthographicMatrix(const float& left, const float& right,
-												const float& top, const float& bottom,
-												const float& near, const float& far);
-		static const Matrix orthographicUnprojectionMatrix(const float& left, const float& right,
-														   const float& top, const float& bottom,
-														   const float& near, const float& far);
-		static const Matrix perspectiveMatrix(const float& left, const float& right,
-													  const float& top, const float& bottom,
-													  const float& near, const float& far);
-		
-		static const Matrix translationMatrix(const Vector& v);
-		static const Matrix translationMatrix(const float& x = 0.f, const float& y = 0.f, const float& z = 0.f);				
-		static const Matrix rotationMatrix(const float& angle, const Vector& v);		
-		static const Matrix rotationMatrix(const float& angle, const float& x = 0.f, const float& y = 0.f, const float& z = 1.f);
-		static const Matrix scalingMatrix(const float& q);		
-		static const Matrix scalingMatrix(const float& x, const float& y, const float& z = 1.f);
-		static const Matrix scalingMatrix(const Vector& v);
-		
-	public:
-		const Vector operator[](size_t i) const;	
-		Vector operator[](size_t i);
-		bool operator==(const Matrix& matrix);		
-		bool operator!=(const Matrix& matrix);
-		
-		Matrix& operator+=(const Matrix& matrix);
-		Matrix& operator-=(const Matrix& matrix);		
-		Matrix& operator*=(const Matrix& matrix);		
-		Matrix& operator*=(const float& q);		
-		Matrix& operator/=(const float& q);		
+			Matrix& operator+=(const Matrix& matrix);
+			Matrix& operator-=(const Matrix& matrix);
+			Matrix& operator*=(const Matrix& matrix);
+			Matrix& operator*=(const float q);
+			Matrix& operator/=(const float q);
 
-		float& operator()(size_t row, size_t col) { return m_data(row, col); }
-		const float& operator()(size_t row, size_t col) const { return m_data(row, col); }
+			float operator()(size_t row, size_t col);
+			const float operator()(size_t row, size_t col) const;
 
-		friend const Matrix operator+(const Matrix& m1, const Matrix& m2);
-		friend const Matrix operator-(const Matrix& m1, const Matrix& m2);
-		friend const Matrix operator*(const Matrix& m1, const Matrix& m2);
-		friend const Vector operator*(const Matrix& m, const Vector& v);
-		friend const Vector operator*(const Vector& v, const Matrix& m);
-		friend const Matrix operator*(const float& q, const Matrix& m);
-		friend const Matrix operator*(const Matrix& m, const float& q);
-		friend const Matrix operator/(const Matrix& m, const float& q);
-	};
+			friend const Matrix operator+(const Matrix& m1, const Matrix& m2);
+			friend const Matrix operator-(const Matrix& m1, const Matrix& m2);
+			friend const Matrix operator*(const Matrix& m1, const Matrix& m2);
+			friend const Vector operator*(const Matrix& m, const Vector& v);
+			friend const Vector operator*(const Vector& v, const Matrix& m);
+			friend const Matrix operator*(const Matrix& m, const float q);
+			friend const Matrix operator*(const float q, const Matrix& m);
+			friend const Matrix operator/(const Matrix& m, const float q);
+		};
+
+		const Matrix operator+(const Matrix& m1, const Matrix& m2);
+		const Matrix operator-(const Matrix& m1, const Matrix& m2);
+		const Matrix operator*(const Matrix& m1, const Matrix& m2);
+		const Vector operator*(const Matrix& m, const Vector& v);
+		const Vector operator*(const Vector& v, const Matrix& m);
+		const Matrix operator*(const float q, const Matrix& m);
+		const Matrix operator*(const Matrix& m, const float q);
+		const Matrix operator/(const Matrix& m, const float q);
+	}
 }
