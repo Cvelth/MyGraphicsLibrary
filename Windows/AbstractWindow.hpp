@@ -16,6 +16,7 @@ namespace mgl {
 		};
 	}
 
+	class Color;
 	class Program;
 	namespace math {
 		class Matrix;
@@ -46,6 +47,10 @@ namespace mgl {
 
 		Program* linkDefaultProgram(DefaulProgramType type = DefaulProgramType::Vertex1Matrix);
 		void update();
+		void pollEvents();
+		void clearWindow();
+		void setClearColor(const mgl::Color& color);
+		void setClearColor(const float r = 0.f, const float g = 0.f, const float b = 0.f, const float a = 1.f);
 
 		void initializeEventHandling();
 		void changleEventHandler(AbstractEventHandler* h);

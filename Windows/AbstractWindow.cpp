@@ -1,6 +1,7 @@
 #include "OpenGL_Mirror\OpenGL_Dependency\OpenGL.h"
 #include "AbstractWindow.hpp"
 #include "OpenGL_Mirror\FunctionsMirror\FunctionsMirror.hpp"
+#include "OpenGL_Mirror\BasicTypes\Color.hpp"
 #include "OpenGL_Mirror\ShaderProgramMirror\DefaultProgram.hpp"
 #include "Math\Matrix.hpp"
 #include "Events\EventsSystem.hpp"
@@ -26,7 +27,7 @@ mgl::AbstractWindow::~AbstractWindow() {
 	clean();
 }
 
-void mgl::AbstractWindow::initialize(std::string title, int width, int height , DefaultWindowMode mode) {
+void mgl::AbstractWindow::initialize(std::string title, int width, int height, DefaultWindowMode mode) {
 	if (!glfwInit())
 		throw Exceptions::WindowInitializationException(std::string("GLFW inititalization error."));
 
@@ -74,8 +75,23 @@ mgl::Program* mgl::AbstractWindow::linkDefaultProgram(DefaulProgramType type) {
 }
 
 void mgl::AbstractWindow::update() {
-	renderProcess();
 	glfwSwapBuffers(m_window);
+}
+
+void mgl::AbstractWindow::pollEvents() {
+	glfwPollEvents();
+}
+
+void mgl::AbstractWindow::clearWindow() {
+	mgl::clearColorBuffer();
+}
+
+void mgl::AbstractWindow::setClearColor(const mgl::Color & color) {
+	mgl::setClearColor(color);
+}
+
+void mgl::AbstractWindow::setClearColor(const float r, const float g, const float b, const float a) {
+	mgl::setClearColor(mgl::Color(r, g, b, a));
 }
 
 void mgl::AbstractWindow::changleEventHandler(AbstractEventHandler * h) {

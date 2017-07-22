@@ -57,6 +57,7 @@
 
 #if defined MGL_INCLUDE_OPENGL_FUNCTIONS_MIRROR
 	#include "OpenGL_Mirror\FunctionsMirror\FunctionsMirror.hpp"
+	#define MGL_INCLUDE_OPENGL_BASIC_TYPES_MIRROR
 #endif
 #if defined MGL_INCLUDE_OPENGL_EXPERIMENTAL_FUNCTIONS_MIRROR
 	#include "OpenGL_Mirror\FunctionsMirror\ExperimentalFunctionsMirror.hpp"
