@@ -7,55 +7,126 @@ namespace mgl {
 			using AbstractStringException::AbstractStringException;
 		};
 	}
+	namespace math {
+		class VectorInnerStructure;
 
-	class Vector {
-	private:
-		float m_data[4];
-	public:
-		Vector(float x = 0.f, float y = 0.f, float z = 0.f, float w = 1.f);		
-		Vector(const float* const data);
-		Vector(const Vector& v);
-		Vector(Vector&& v);
-		
-		bool isNull() const;
-		float length() const;
-		void normalize();		
-		const Vector normalized() const;		
+		class Vector {
+		private:
+			VectorInnerStructure *m_data;
+		protected:
+			Vector(VectorInnerStructure* data);
+			Vector(const VectorInnerStructure& data);
+			Vector(VectorInnerStructure&& data);
+		public:
+			explicit Vector(const float x = 0.f, const float y = 0.f, const float z = 0.f, const float w = 0.f);
+			Vector(const float* const data);
 
-		void x(const float& t) { m_data[0] = t; }
-		void y(const float& t) { m_data[1] = t; }
-		void z(const float& t) { m_data[2] = t; }
-		void w(const float& t) { m_data[3] = t; }
-		void set(const float& x = 0, const float& y = 0, const float& z = 0, const float& w = 0) { m_data[0] = x; m_data[1] = y; m_data[2] = z; m_data[3] = w; }
-		const float& x() const { return m_data[0]; }
-		const float& y() const { return m_data[1]; }
-		const float& z() const { return m_data[2]; }
-		const float& w() const { return m_data[3]; }
-		const float* const get() const { return m_data; }
+			~Vector();
 
-	public:
-		const float& operator[](size_t i) const { return m_data[i]; }
-		float& operator[](size_t i) { return m_data[i]; }
-		bool operator==(const Vector& vector);
-		bool operator!=(const Vector& vector);
+			void x(const float a);
+			void y(const float a);
+			void z(const float a);
+			void w(const float a);
+			void set(const float x = 0, const float y = 0, const float z = 0, const float w = 0);
+			void set(const float *a);
+			const float x() const;
+			const float y() const;
+			const float z() const;
+			const float w() const;
+			const float* const get() const;
+			const float* const get(float* a) const;
 
-		Vector& operator+=(const Vector& vector);		
-		Vector& operator-=(const Vector& vector);		
-		Vector& operator*=(const float& q);		
-		Vector& operator/=(const float& q);		
+			bool isNull() const;
+			float length() const;
+			void normalize();
+			const Vector normalized() const;
 
-		friend const Vector operator+(const Vector& v1, const Vector& v2);
-		friend const Vector operator-(const Vector& v1, const Vector& v2);
-		friend const float  operator*(const Vector& v1, const Vector& v2);
-		friend const Vector operator*(const Vector& v1, const float& q);
-		friend const Vector operator*(const float& q, const Vector& v1);
-		friend const Vector operator/(const Vector& v1, const float& q);
-	};
+		public:
+			const float& operator[](size_t i) const;
+			float& operator[](size_t i);
+			//Are vectors equal?
+			bool operator==(const Vector& vector);
+			//Are vectors equal?
+			bool operator==(Vector&& vector);
+			//Are vectors equal?
+			bool operator==(Vector* vector);
+			//Are vectors not equal?
+			bool operator!=(const Vector& vector);
+			//Are vectors not equal?
+			bool operator!=(Vector&& vector);
+			//Are vectors not equal?
+			bool operator!=(Vector* vector);
 
-	const Vector operator+(const Vector& v1, const Vector& v2);	
-	const Vector operator-(const Vector& v1, const Vector& v2);
-	const float  operator*(const Vector& v1, const Vector& v2);
-	const Vector operator*(const Vector& v1, const float& q);	
-	const Vector operator*(const float& q, const Vector& v1);	
-	const Vector operator/(const Vector& v1, const float& q);
+			//Sum of two vectors
+			Vector& operator+=(const Vector& vector);
+			//Sum of two vectors
+			Vector& operator+=(Vector&& vector);
+			//Difference of two vectors
+			Vector& operator-=(const Vector& vector);
+			//Difference of two vectors
+			Vector& operator-=(Vector&& vector);
+			//A multiplication of vector with a coefficient.
+			Vector& operator*=(const float q);
+			//A multiplication of vector with a coefficient.
+			Vector& operator/=(const float q);
+
+			//Sum of two vectors.
+			friend const Vector operator+(const Vector& v1, const Vector& v2);
+			//Sum of two vectors.
+			friend const Vector operator+(Vector&& v1, Vector&& v2);
+			//Difference of two vectors
+			friend const Vector operator-(const Vector& v1, const Vector& v2);
+			//Difference of two vectors
+			friend const Vector operator-(Vector&& v1, Vector&& v2);
+			//Dot product of two vectors
+			friend const float operator*(const Vector& v1, const Vector& v2);
+			//Dot product of two vectors
+			friend const float operator*(Vector&& v1, Vector&& v2);
+			//A multiplication of vector with a coefficient.
+			friend const Vector operator*(const Vector& v1, const float q);
+			//A multiplication of vector with a coefficient.
+			friend const Vector operator*(Vector&& v1, const float q);
+			//A multiplication of vector with a coefficient.
+			friend const Vector operator*(const float& q, const Vector& v1);
+			//A multiplication of vector with a coefficient.
+			friend const Vector operator*(const float q, Vector&& v1);
+			//A division of vector with a coefficient.
+			friend const Vector operator/(const Vector& v1, const float q);
+			//A division of vector with a coefficient.
+			friend const Vector operator/(Vector&& v1, const float q);
+			//Cross product of two 3-dimentional vectors.
+			friend const Vector operator^(const Vector& v1, const Vector& v2);
+			//Cross product of two 3-dimentional vectors.
+			friend const Vector operator^(Vector&& v1, Vector&& v2);
+		};
+
+		//Sum of two vectors.
+		const Vector operator+(const Vector& v1, const Vector& v2);
+		//Sum of two vectors.
+		const Vector operator+(Vector&& v1, Vector&& v2);
+		//Difference of two vectors
+		const Vector operator-(const Vector& v1, const Vector& v2);
+		//Difference of two vectors
+		const Vector operator-(Vector&& v1, Vector&& v2);
+		//Dot product of two vectors
+		const float operator*(const Vector& v1, const Vector& v2);
+		//Dot product of two vectors
+		const float operator*(Vector&& v1, Vector&& v2);
+		//A multiplication of vector with a coefficient.
+		const Vector operator*(const Vector& v1, const float q);
+		//A multiplication of vector with a coefficient.
+		const Vector operator*(Vector&& v1, const float q);
+		//A multiplication of vector with a coefficient.
+		const Vector operator*(const float& q, const Vector& v1);
+		//A multiplication of vector with a coefficient.
+		const Vector operator*(const float q, Vector&& v1);
+		//A division of vector with a coefficient.
+		const Vector operator/(const Vector& v1, const float q);
+		//A division of vector with a coefficient.
+		const Vector operator/(Vector&& v1, const float q);
+		//Cross product of two 3-dimentional vectors.
+		const Vector operator^(const Vector& v1, const Vector& v2);
+		//Cross product of two 3-dimentional vectors.
+		const Vector operator^(Vector&& v1, Vector&& v2);
+	}
 }
