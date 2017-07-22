@@ -12,6 +12,7 @@ mgl::MouseButton mgl::_switchMouseButton(int b) {
 		case GLFW_MOUSE_BUTTON_6: return MouseButton::b_6;
 		case GLFW_MOUSE_BUTTON_7: return MouseButton::b_7;
 		case GLFW_MOUSE_BUTTON_8: return MouseButton::b_8;
+		default: throw Exceptions::UnsupportedEnumEntryExceptions("");
 	}
 }
 
@@ -19,6 +20,7 @@ mgl::MouseAction mgl::_switchMouseAction(int a) {
 	switch (a) {
 		case GLFW_PRESS: return MouseAction::press;
 		case GLFW_RELEASE: return MouseAction::release;
+		default: throw Exceptions::UnsupportedEnumEntryExceptions("");
 	}
 }
 
@@ -44,6 +46,7 @@ mgl::MouseEnterAction mgl::_switchMouseEnterAction(int a) {
 	switch (a) {
 		case GLFW_TRUE: return MouseEnterAction::enter;
 		case GLFW_FALSE: return MouseEnterAction::leave;
+		default: throw Exceptions::UnsupportedEnumEntryExceptions("");
 	}
 }
 
@@ -170,6 +173,7 @@ mgl::Key mgl::_switchKey(int k) {
 		case GLFW_KEY_RIGHT_ALT: return Key::alt_right;
 		case GLFW_KEY_RIGHT_SUPER: return Key::super_right;
 		case GLFW_KEY_MENU: return Key::menu;
+		default: throw Exceptions::UnsupportedEnumEntryExceptions("");
 	}
 }
 
@@ -178,5 +182,6 @@ mgl::KeyAction mgl::_switchKeyAction(int a) {
 		case GLFW_PRESS: return KeyAction::press;
 		case GLFW_RELEASE: return KeyAction::release;
 		case GLFW_REPEAT: return KeyAction::repeat;
+		default: throw Exceptions::UnsupportedEnumEntryExceptions("");
 	}
 }
