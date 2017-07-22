@@ -16,7 +16,7 @@ namespace mgl {
 	};
 }
 
-mgl::AbstractWindow::AbstractWindow() : m_projection(new Matrix()) {}
+mgl::AbstractWindow::AbstractWindow() : m_projection(new mgl::math::Matrix()) {}
 
 mgl::AbstractWindow::AbstractWindow(std::string title, int width, int height, DefaultWindowMode mode) : AbstractWindow() {
 	initialize(title, width, height, mode);
@@ -55,7 +55,7 @@ void mgl::AbstractWindow::resize(int width, int height) {
 	mgl::viewport(0, 0, width, height);
 
 	if (m_projection) delete m_projection;
-	m_projection = new mgl::Matrix(mgl::Matrix::orthographicMatrix(
+	m_projection = new mgl::math::Matrix(mgl::math::Matrix::orthographicMatrix(
 		m_aspectRatio > 1.f ? -m_aspectRatio : -1.f,
 		m_aspectRatio > 1.f ? m_aspectRatio : 1.f,
 		-1.f / (m_aspectRatio > 1.f ? 1.f : m_aspectRatio),

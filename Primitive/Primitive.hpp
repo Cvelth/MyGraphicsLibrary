@@ -6,8 +6,10 @@
 namespace mgl {
 	class Buffer;
 	class BufferArray;
-	class Vector;
-	class Matrix;
+	namespace math {
+		class Vector;
+		class Matrix;
+	}
 
 	namespace Exceptions {
 		class PrimitiveException : public AbstractStringException {
@@ -17,27 +19,27 @@ namespace mgl {
 
 	class Primitive {
 	protected:
-		std::list<Vector*> m_data;
+		std::list<math::Vector*> m_data;
 		Buffer* m_buffer;
 		VertexConnectionType m_connection;
 	public:
 		Primitive(VertexConnectionType type = VertexConnectionType::Points);
 		Primitive(VertexConnectionType type, const float* array, size_t size, size_t POINT_NUMBER = 4);
-		Primitive(VertexConnectionType type, Vector* array, size_t size);
-		Primitive(VertexConnectionType type, const std::initializer_list<Vector*>& list);
-		Primitive(VertexConnectionType type, const std::list<Vector*>& list);
+		Primitive(VertexConnectionType type, math::Vector* array, size_t size);
+		Primitive(VertexConnectionType type, const std::initializer_list<math::Vector*>& list);
+		Primitive(VertexConnectionType type, const std::list<math::Vector*>& list);
 		~Primitive();
 		
 		virtual size_t getSize() const;
 		virtual size_t getNumber() const;
 		
-		virtual void insert(Vector* v);
+		virtual void insert(math::Vector* v);
 		virtual void send(DataUsage u);
 		virtual void bind();
 		virtual void draw();
 		
-		std::list<Vector*>& operator*();
-		const std::list<Vector*>& operator*() const;
+		std::list<math::Vector*>& operator*();
+		const std::list<math::Vector*>& operator*() const;
 	};
 
 	class PrimitiveSet {

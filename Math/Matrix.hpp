@@ -1,5 +1,5 @@
 #pragma once
-#include "SharedHeaders\Exceptions.hpp"
+#include "..\MyOpenGL_Lib\SharedHeaders\Exceptions.hpp"
 
 namespace mgl {
 	namespace Exceptions {

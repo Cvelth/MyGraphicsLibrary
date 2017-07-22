@@ -13,23 +13,23 @@ mgl::Primitive::Primitive(VertexConnectionType type, const float* array, size_t 
 	if (size % POINTS_NUMBER != 0)
 		throw Exceptions::PrimitiveException("Wrong elements number.");
 	for (size_t i = 0; i < size; i += POINTS_NUMBER)
-		m_data.push_back(new Vector(POINTS_NUMBER >= 0 ? array[i + 0] : 0,
+		m_data.push_back(new mgl::math::Vector(POINTS_NUMBER >= 0 ? array[i + 0] : 0,
 								POINTS_NUMBER >= 1 ? array[i + 1] : 0,
 								POINTS_NUMBER >= 2 ? array[i + 2] : 0,
 								POINTS_NUMBER >= 3 ? array[i + 3] : 0));
 }
 
-mgl::Primitive::Primitive(VertexConnectionType type, Vector * array, size_t size) : Primitive(type) {
+mgl::Primitive::Primitive(VertexConnectionType type, math::Vector * array, size_t size) : Primitive(type) {
 	for (size_t i = 0; i < size; i++)
 		m_data.push_back(&array[i]);
 }
 
-mgl::Primitive::Primitive(VertexConnectionType type, const std::initializer_list<Vector*>& list) : Primitive(type) {
+mgl::Primitive::Primitive(VertexConnectionType type, const std::initializer_list<math::Vector*>& list) : Primitive(type) {
 	for (auto it : list)
 		m_data.push_back(it);
 }
 
-mgl::Primitive::Primitive(VertexConnectionType type, const std::list<Vector*>& list) : Primitive(type) {
+mgl::Primitive::Primitive(VertexConnectionType type, const std::list<math::Vector*>& list) : Primitive(type) {
 	for (auto it : list)
 		m_data.push_back(it);
 }
@@ -46,7 +46,7 @@ size_t mgl::Primitive::getNumber() const {
 	return m_data.size();
 }
 
-void mgl::Primitive::insert(Vector* v) {
+void mgl::Primitive::insert(math::Vector* v) {
 	m_data.push_back(v);
 }
 
@@ -73,11 +73,11 @@ void mgl::Primitive::draw() {
 	glDrawArrays(_enumSwitch(m_connection), 0, (GLsizei)getSize()); 
 }
 
-std::list<mgl::Vector*>& mgl::Primitive::operator*() {
+std::list<mgl::math::Vector*>& mgl::Primitive::operator*() {
 	return m_data;
 }
 
-const std::list<mgl::Vector*>& mgl::Primitive::operator*() const {
+const std::list<mgl::math::Vector*>& mgl::Primitive::operator*() const {
 	return m_data;
 }
 ///////////////////////////////////////////////////////////

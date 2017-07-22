@@ -51,14 +51,14 @@ void mgl::Program::sendUniform(const std::string fieldName, const float & data) 
 	glUniform1f(loc, data);
 }
 
-void mgl::Program::sendUniform(const std::string fieldName, const Vector & data) {
+void mgl::Program::sendUniform(const std::string fieldName, const math::Vector & data) {
 	auto loc = glGetUniformLocation(m_id, fieldName.c_str());
 	if (loc == -1)
 		throw Exceptions::ProgramException("The location is not valid.");
 	glUniform4f(loc, data.x(),data.y(), data.z(), data.w());
 }
 
-void mgl::Program::sendUniform(const std::string fieldName, const Matrix & data) {
+void mgl::Program::sendUniform(const std::string fieldName, const math::Matrix & data) {
 	auto loc = glGetUniformLocation(m_id, fieldName.c_str());
 	if (loc == -1)
 		throw Exceptions::ProgramException("The location is not valid.");

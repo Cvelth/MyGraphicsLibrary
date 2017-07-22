@@ -17,7 +17,9 @@ namespace mgl {
 	}
 
 	class Program;
-	class Matrix;
+	namespace math {
+		class Matrix;
+	}
 	class DefaultEventHandler;
 
 	class AbstractWindow {
@@ -26,7 +28,7 @@ namespace mgl {
 		GLFWwindow* m_window;
 	protected:
 		float m_aspectRatio;
-		Matrix* m_projection;
+		math::Matrix* m_projection;
 	protected:
 		virtual void initializeRenderProcess() abstract;
 		virtual void renderProcess() abstract;
