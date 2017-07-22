@@ -287,6 +287,14 @@ float & mgl::math::Vector::operator[](const size_t i) {
 	return m_data->get(i);
 }
 
+const float & mgl::math::Vector::at(const size_t i) const {
+	return m_data->get(i);
+}
+
+float & mgl::math::Vector::at(const size_t i) {
+	return m_data->get(i);
+}
+
 mgl::math::Vector & mgl::math::Vector::operator+=(const Vector & vector) {
 	m_data->addEq(vector.m_data);
 	return *this;

@@ -1,9 +1,8 @@
 #pragma once
+#include "Math\Vector.hpp"
 
 namespace mgl {
-	class Color {
-	private:
-		float m_data[4];
+	class Color : protected math::Vector {
 	public:
 		Color(float r = 0.f, float g = 0.f, float b = 0.f, float a = 1.f);
 		Color(size_t r, size_t g, size_t b, size_t a = 255, size_t MAXIMUM_VALUE = 255);

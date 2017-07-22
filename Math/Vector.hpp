@@ -44,6 +44,8 @@ namespace mgl {
 		public:
 			const float& operator[](const size_t i) const;
 			float& operator[](const size_t i);
+			const float& at(const size_t i) const;
+			float& at(const size_t i);
 
 			//Are vectors equal?
 			bool operator==(const Vector& vector);
