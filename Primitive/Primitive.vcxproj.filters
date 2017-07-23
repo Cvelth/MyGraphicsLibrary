@@ -17,12 +17,18 @@
     <ClCompile Include="Primitive.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="AbstractDrawableObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DefaultPrimitives.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Primitive.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AbstractDrawableObject.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -5,7 +5,7 @@
 
 namespace mgl {
 	class Buffer;
-	class BufferArray;
+	class Color;
 	namespace math {
 		class Vector;
 		class Matrix;
@@ -17,47 +17,53 @@ namespace mgl {
 		};
 	}
 
+	class Vertex {
+		math::Vector* m_coords;
+		Color* m_color;
+	public:
+		Vertex(math::Vector* coords, Color* color);
+		~Vertex(); 
+		void set(math::Vector* coords, Color* color);		
+		inline math::Vector* coords() {
+			return m_coords;
+		}
+		inline const math::Vector* coords() const {
+			return m_coords;
+		}
+		inline Color* color() {
+			return m_color;
+		}
+		inline const Color* color() const {
+			return m_color;
+		}
+	};
+
 	class Primitive {
 	protected:
-		std::list<math::Vector*> m_data;
+		std::list<Vertex> m_data;
 		Buffer* m_buffer;
 		VertexConnectionType m_connection;
+		Color* m_basic_color;
 	public:
-		Primitive(VertexConnectionType type = VertexConnectionType::Points);
-		Primitive(VertexConnectionType type, const float* array, size_t size, size_t POINT_NUMBER = 4);
-		Primitive(VertexConnectionType type, math::Vector* array, size_t size);
-		Primitive(VertexConnectionType type, const std::initializer_list<math::Vector*>& list);
-		Primitive(VertexConnectionType type, const std::list<math::Vector*>& list);
+		Primitive(Color* basicColor, VertexConnectionType type = VertexConnectionType::Points);
+		Primitive(Color* basicColor, VertexConnectionType type, const float* array, size_t size, size_t COORDS_POINT_NUMBER = 3, size_t COLOR_POINT_NUMBER = 3);
+		Primitive(Color* basicColor, VertexConnectionType type, math::Vector* coords_array, size_t size);
+		Primitive(Color* basicColor, VertexConnectionType type, math::Vector* coords_array, Color* colors_array, size_t size);
+		Primitive(Color* basicColor, VertexConnectionType type, const std::initializer_list<math::Vector*>& coords_list);
+		Primitive(Color* basicColor, VertexConnectionType type, const std::initializer_list<math::Vector*>& coords_list, const std::initializer_list<Color*>& color_list);
+		Primitive(Color* basicColor, VertexConnectionType type, const std::list<math::Vector*>& coords_list);
+		Primitive(Color* basicColor, VertexConnectionType type, const std::list<math::Vector*>& coords_list, const std::list<Color*>& color_list);
 		~Primitive();
 		
 		virtual size_t getSize() const;
 		virtual size_t getNumber() const;
 		
 		virtual void insert(math::Vector* v);
+		virtual void insert(math::Vector* v, Color* c);
 		virtual void send(DataUsage u);
-		virtual void bind();
 		virtual void draw();
 		
-		std::list<math::Vector*>& operator*();
-		const std::list<math::Vector*>& operator*() const;
-	};
-
-	class PrimitiveSet {
-	protected:
-		std::list<Primitive> m_data;
-	public:
-		PrimitiveSet();
-		PrimitiveSet(const Primitive* array, size_t size);
-		PrimitiveSet(const std::initializer_list<Primitive>& list);
-		PrimitiveSet(const std::list<Primitive>& list);
-
-		virtual size_t getSize() const;
-		virtual size_t getNumber() const;
-
-		virtual void insert(const Primitive& v);
-		virtual void send(DataUsage u);
-
-		std::list<Primitive>& operator*();
-		const std::list<Primitive>& operator*() const;
+		std::list<Vertex>& operator*();
+		const std::list<Vertex>& operator*() const;
 	};
 }

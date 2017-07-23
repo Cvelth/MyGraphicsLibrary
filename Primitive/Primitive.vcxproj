@@ -127,10 +127,12 @@
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AbstractDrawableObject.cpp" />
     <ClCompile Include="DefaultPrimitives.cpp" />
     <ClCompile Include="Primitive.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AbstractDrawableObject.hpp" />
     <ClInclude Include="DefaultPrimitives.hpp" />
     <ClInclude Include="Primitive.hpp" />
   </ItemGroup>
