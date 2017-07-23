@@ -6,6 +6,9 @@ mgl::DefaultProgram::DefaultProgram(DefaulProgramType type) : Program() {
 
 	vertexShader = new Shader(ShaderType::Vertex);
 	switch (type) {
+		case DefaulProgramType::VertexNoMatrices:
+			vertexShader->compileSource(Vertex_NoMatrix_Source);
+			break;
 		case DefaulProgramType::Vertex1Matrix:
 			vertexShader->compileSource(Vertex_1Matrix_Source);
 			break;
@@ -25,6 +28,18 @@ mgl::DefaultProgram::~DefaultProgram() {
 	delete fragmentShader;
 	Program::~Program();
 }
+
+const std::string mgl::DefaultProgram::Vertex_NoMatrix_Source =
+"#version 330		   														  \n"
+"																			  \n"
+"attribute vec4 position;													  \n"
+"attribute vec4 color;														  \n"
+"varying vec4 theColor;														  \n"
+"																			  \n"
+"void main() {																  \n"
+"	gl_Position = position;													  \n"
+"	theColor = color;														  \n"
+"}																			  \n";
 
 const std::string mgl::DefaultProgram::Vertex_1Matrix_Source =
 "#version 330		   														  \n"

@@ -36,7 +36,7 @@ namespace mgl {
 		virtual void clearRenderProcess() abstract;
 	protected:
 		virtual void resize(int width, int height);
-		void setOpenGLVersion(int major = 4, int minor = 3);
+		void setOpenGLVersion(int major = 3, int minor = 3);
 	public:
 		explicit AbstractWindow();
 		explicit AbstractWindow(std::string title, int width = 640, int height = 480, DefaultWindowMode mode = DefaultWindowMode::Windowed);

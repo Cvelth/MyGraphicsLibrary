@@ -20,6 +20,7 @@ namespace mgl {
 		virtual void addPrimitive(Primitive* v);
 		virtual void send(DataUsage u);
 		virtual void draw();
+		virtual void clean();
 
 		std::list<Primitive*>& operator*();
 		const std::list<Primitive*>& operator*() const;

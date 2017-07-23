@@ -62,6 +62,7 @@ namespace mgl {
 		virtual void insert(math::Vector* v, Color* c);
 		virtual void send(DataUsage u);
 		virtual void draw();
+		virtual void clean();
 		
 		std::list<Vertex*>& operator*();
 		const std::list<Vertex*>& operator*() const;

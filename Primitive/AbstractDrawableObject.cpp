@@ -48,6 +48,11 @@ void mgl::AbstractDrawableObject::draw() {
 		it->draw();
 }
 
+void mgl::AbstractDrawableObject::clean() {
+	for (auto it : m_data)
+		it->clean();
+}
+
 std::list<mgl::Primitive*>& mgl::AbstractDrawableObject::operator*() {
 	return m_data;
 }

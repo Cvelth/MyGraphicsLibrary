@@ -94,6 +94,10 @@ void mgl::Primitive::send(DataUsage u) {
 		temp[i++] = it->color()->a();
 	}
 	m_buffer->bind();
+
+	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, sizeof(float) * 4, 0);
+	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(float) * 4, (GLvoid*) (sizeof(float) * 4));
+
 	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * getSize(), temp, _enumSwitch(u));
 	delete[] temp;
 }
@@ -101,6 +105,11 @@ void mgl::Primitive::send(DataUsage u) {
 void mgl::Primitive::draw() { 
 	m_buffer->bind();
 	glDrawArrays(_enumSwitch(m_connection), 0, (GLsizei)getSize()); 
+}
+
+void mgl::Primitive::clean() {
+	m_buffer->bind();
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * getSize(), NULL, GL_STATIC_READ);
 }
 
 std::list<mgl::Vertex*>& mgl::Primitive::operator*() {

@@ -9,6 +9,7 @@ namespace mgl {
 		Shader* vertexShader;
 		Shader* fragmentShader;
 	protected:
+		const static std::string Vertex_NoMatrix_Source;
 		const static std::string Vertex_1Matrix_Source;
 		const static std::string Vertex_2Matrices_Source;
 		const static std::string Vertex_6Matrices_Source;
