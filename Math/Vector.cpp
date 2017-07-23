@@ -224,11 +224,11 @@ mgl::math::Vector::Vector(const float x, const float y, const float z, const flo
 mgl::math::Vector::Vector(const float * const data) : Vector(data[0], data[1], data[2], data[3]) {
 }
 mgl::math::Vector::~Vector() {
-	delete m_data;
+	if (m_data) delete m_data;
 }
 
 void mgl::math::Vector::x(const float a) {
-	m_data->x(a);			  
+	m_data->x(a);
 }							  
 void mgl::math::Vector::y(const float a) {
 	m_data->y(a);

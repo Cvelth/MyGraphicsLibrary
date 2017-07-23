@@ -40,7 +40,7 @@ namespace mgl {
 
 	class Primitive {
 	protected:
-		std::list<Vertex> m_data;
+		std::list<Vertex*> m_data;
 		Buffer* m_buffer;
 		VertexConnectionType m_connection;
 		Color* m_basic_color;
@@ -63,7 +63,7 @@ namespace mgl {
 		virtual void send(DataUsage u);
 		virtual void draw();
 		
-		std::list<Vertex>& operator*();
-		const std::list<Vertex>& operator*() const;
+		std::list<Vertex*>& operator*();
+		const std::list<Vertex*>& operator*() const;
 	};
 }

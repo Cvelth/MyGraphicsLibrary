@@ -8,5 +8,6 @@ namespace mgl {
 		Color* Red();
 		Color* Green();
 		Color* Blue();
+		Color* Grey(float i);
 	}
 }

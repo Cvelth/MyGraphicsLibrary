@@ -76,6 +76,7 @@ mgl::Program* mgl::AbstractWindow::linkDefaultProgram(DefaulProgramType type) {
 
 void mgl::AbstractWindow::update() {
 	glfwSwapBuffers(m_window);
+	glfwPollEvents();
 }
 
 void mgl::AbstractWindow::pollEvents() {

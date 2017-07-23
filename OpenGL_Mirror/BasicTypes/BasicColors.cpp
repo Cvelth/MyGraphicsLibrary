@@ -16,3 +16,7 @@ mgl::Color* mgl::Colors::Green() {
 mgl::Color* mgl::Colors::Blue() {
 	return new mgl::Color(0.f, 0.f, 1.f, 1.f);
 }
+
+mgl::Color * mgl::Colors::Grey(float i) {
+	return new mgl::Color(i, i, i, 1.f);
+}
