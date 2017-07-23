@@ -2,9 +2,10 @@
 
 #if defined MGL_INCLUDE_ALL
 	#define MGL_INCLUDE_MATH
-	#define MGL_INCLUDE_WINDOWS 
-	#define MGL_INCLUDE_PRIMITIVES 
-	#define MGL_INCLUDE_DEFAULT_PRIMITIVES 
+	#define MGL_INCLUDE_WINDOWS
+	#define MGL_INCLUDE_DRAWABLE_OBJECT
+	#define MGL_INCLUDE_PRIMITIVES
+	#define MGL_INCLUDE_DEFAULT_PRIMITIVES
 	#define MGL_INCLUDE_SHADER_PROGRAM_MIRROR
 	#define MGL_INCLUDE_DEFAULT_SHADER_PROGRAM
 	#define MGL_INCLUDE_OPENGL_FUNCTIONS_MIRROR
@@ -14,7 +15,9 @@
 #endif
 
 #if defined MGL_DEFAULT_INCLUDE
-	#define MGL_INCLUDE_WINDOWS 
+	#define MGL_INCLUDE_PRIMITIVES
+	#define MGL_INCLUDE_DRAWABLE_OBJECT
+	#define MGL_INCLUDE_WINDOWS
 #endif
 
 #if defined MGL_INCLUDE_MATH
@@ -22,7 +25,7 @@
 	#include "Math\Vector.hpp"
 #endif
 
-#if defined MGL_INCLUDE_WINDOWS 
+#if defined MGL_INCLUDE_WINDOWS
 	#if defined MGL_WINDOW_USE_LOOP
 		#include "Windows\AbstractLoopWindow.hpp"
 		namespace mgl {
@@ -41,10 +44,19 @@
 	#endif
 #endif
 
-#if defined MGL_INCLUDE_PRIMITIVES 
+#if defined MGL_INCLUDE_DRAWABLE_OBJECT
+	#include "Primitive\AbstractDrawableObject.hpp"
+	namespace mgl {
+		class DrawableObject : public AbstractDrawableObject {
+		public:
+			using AbstractDrawableObject::AbstractDrawableObject;
+		};
+	}
+#endif
+#if defined MGL_INCLUDE_PRIMITIVES
 	#include "Primitive\Primitive.hpp"
 #endif
-#if defined MGL_INCLUDE_DEFAULT_PRIMITIVES 
+#if defined MGL_INCLUDE_DEFAULT_PRIMITIVES
 	#include "Primitive\DefaultPrimitives.hpp"
 #endif
 
