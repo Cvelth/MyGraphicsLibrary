@@ -37,7 +37,7 @@ void mgl::AbstractWindow::initialize(std::string title, int width, int height, D
 		m_window = glfwCreateWindow(width, height, title.c_str(), NULL, NULL);
 
 	glfwMakeContextCurrent(m_window);
-	glfwSwapInterval(1);
+	glfwSwapInterval(0);
 
 	glewExperimental = GL_TRUE;
 	GLenum glewError = glewInit();
@@ -76,7 +76,6 @@ mgl::Program* mgl::AbstractWindow::linkDefaultProgram(DefaulProgramType type) {
 
 void mgl::AbstractWindow::update() {
 	glfwSwapBuffers(m_window);
-	glfwPollEvents();
 }
 
 void mgl::AbstractWindow::pollEvents() {

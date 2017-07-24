@@ -95,9 +95,6 @@ void mgl::Primitive::send(DataUsage u) {
 	}
 	m_buffer->bind();
 
-	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, sizeof(float) * 4, 0);
-	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(float) * 4, (GLvoid*) (sizeof(float) * 4));
-
 	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * getSize(), temp, _enumSwitch(u));
 	delete[] temp;
 }

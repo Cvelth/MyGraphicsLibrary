@@ -36,8 +36,11 @@ const std::string mgl::DefaultProgram::Vertex_NoMatrix_Source =
 "attribute vec4 color;														  \n"
 "varying vec4 theColor;														  \n"
 "																			  \n"
+"uniform vec4 translation;													  \n"
+"uniform vec4 scalation;													  \n"
+"																			  \n"
 "void main() {																  \n"
-"	gl_Position = position;													  \n"
+"	gl_Position = (position * scalation) + translation;						  \n"
 "	theColor = color;														  \n"
 "}																			  \n";
 
