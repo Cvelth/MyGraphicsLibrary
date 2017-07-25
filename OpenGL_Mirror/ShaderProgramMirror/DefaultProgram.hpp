@@ -15,7 +15,8 @@ namespace mgl {
 		const static std::string Vertex_6Matrices_Source;
 		const static std::string Fragment_Source;
 	public:
-		DefaultProgram(DefaulProgramType type = DefaulProgramType::Vertex2Matrices);
+		DefaultProgram(DefaulProgramType type = DefaulProgramType::VertexNoMatrices);
+		DefaultProgram(Shader* vertex_shader);
 		~DefaultProgram();
 	};
 }

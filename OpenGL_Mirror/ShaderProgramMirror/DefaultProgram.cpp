@@ -23,6 +23,14 @@ mgl::DefaultProgram::DefaultProgram(DefaulProgramType type) : Program() {
 	link({*vertexShader, *fragmentShader});
 }
 
+mgl::DefaultProgram::DefaultProgram(Shader* vertex_shader) : Program() {
+	fragmentShader = new Shader(ShaderType::Fragment);
+	fragmentShader->compileSource(Fragment_Source);
+	vertexShader = vertex_shader;
+
+	link({*vertexShader, *fragmentShader});
+}
+
 mgl::DefaultProgram::~DefaultProgram() {
 	delete vertexShader;
 	delete fragmentShader;

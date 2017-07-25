@@ -74,6 +74,10 @@ mgl::Program* mgl::AbstractWindow::linkDefaultProgram(DefaulProgramType type) {
 	return new DefaultProgram(type);
 }
 
+mgl::Program* mgl::AbstractWindow::linkProgramWithDefaultFragmentShader(Shader * vertex_shader) {
+	return new DefaultProgram(vertex_shader);
+}
+
 void mgl::AbstractWindow::update() {
 	glfwSwapBuffers(m_window);
 }

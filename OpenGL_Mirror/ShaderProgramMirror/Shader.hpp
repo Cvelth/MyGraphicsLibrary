@@ -23,5 +23,9 @@ namespace mgl {
 		void compileFile(const std::string& filename);
 		void compileSource(const std::string& sourceText);
 		unsigned int id();
+
+		static std::string getShaderSourceFromFile(const std::string& filename);
+		static Shader* compileShaderSource(ShaderType type, const std::string& source);
 	};
+
 }

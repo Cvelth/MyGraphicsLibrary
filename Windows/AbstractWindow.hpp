@@ -17,6 +17,7 @@ namespace mgl {
 	}
 
 	class Color;
+	class Shader;
 	class Program;
 	namespace math {
 		class Matrix;
@@ -46,6 +47,7 @@ namespace mgl {
 		void clean();
 
 		Program* linkDefaultProgram(DefaulProgramType type = DefaulProgramType::Vertex1Matrix);
+		Program* linkProgramWithDefaultFragmentShader(Shader* vertex_shader);
 		void update();
 		void pollEvents();
 		void clearWindow();

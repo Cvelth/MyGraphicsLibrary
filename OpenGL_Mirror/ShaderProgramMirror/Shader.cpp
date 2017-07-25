@@ -22,7 +22,7 @@ mgl::Shader::~Shader() {
 }
 
 void mgl::Shader::compileFile(const std::string& filename) {
-	compileSource(std::string(std::istreambuf_iterator<char>(std::ifstream(filename)), std::istreambuf_iterator<char>()));
+	compileSource(getShaderSourceFromFile(filename));
 }
 
 void mgl::Shader::compileSource(const std::string& sourceText) {
@@ -50,4 +50,14 @@ void mgl::Shader::compileSource(const std::string& sourceText) {
 
 GLuint mgl::Shader::id() {
 	return m_id;
+}
+
+std::string mgl::Shader::getShaderSourceFromFile(const std::string & filename) {
+	return std::string(std::istreambuf_iterator<char>(std::ifstream(filename)), std::istreambuf_iterator<char>());
+}
+
+mgl::Shader* mgl::Shader::compileShaderSource(ShaderType type, const std::string & source) {
+	mgl::Shader* ret = new mgl::Shader(type);
+	ret->compileSource(source);
+	return ret;
 }

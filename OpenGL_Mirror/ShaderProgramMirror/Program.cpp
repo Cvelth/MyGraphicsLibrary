@@ -29,7 +29,7 @@ void mgl::Program::link(const std::initializer_list<Shader>& shaders) {
 	glGetProgramiv(m_id, GL_LINK_STATUS, &isLinked);
 	if (!isLinked) {
 		GLsizei len;
-		glGetShaderiv(m_id, GL_INFO_LOG_LENGTH, &len);
+		glGetProgramiv(m_id, GL_INFO_LOG_LENGTH, &len);
 
 		GLchar* log = new GLchar[len + 1];
 		glGetProgramInfoLog(m_id, len, &len, log);
