@@ -44,33 +44,69 @@ void mgl::Program::use() {
 	glUseProgram(m_id);
 }
 
-void mgl::Program::sendUniform(const std::string fieldName, const float & data) {
-	auto loc = glGetUniformLocation(m_id, fieldName.c_str());
-	if (loc == -1)
-		throw Exceptions::ProgramException("The location is not valid.");
-	glUniform1f(loc, data);
+mgl::UniformVariable mgl::Program::getUniform(const std::string fieldName) {
+	GLint uniforms_number;
+	GLint max_uniform_length;
+	glGetProgramiv(m_id, GL_ACTIVE_UNIFORMS, &uniforms_number);
+	glGetProgramiv(m_id, GL_ACTIVE_UNIFORM_MAX_LENGTH, &max_uniform_length);
+	for (int i = 0; i < uniforms_number; i++) {
+		GLint name_length;
+		glGetActiveUniform(m_id, i, max_uniform_length, &name_length, NULL, NULL, NULL);
+		if (name_length > 0) {
+			GLchar* name = new GLchar[name_length];
+			GLenum type;
+			GLint size;
+			glGetActiveUniform(m_id, i, max_uniform_length, NULL, &size, &type, name);
+			std::string name_str = std::string(name);
+			delete name;
+
+			if (name_str == fieldName)
+				return UniformVariable(fieldName, i, switchUniformType(type));
+		}
+	}
+	throw Exceptions::ProgramException("No uniform with the 'fieldName' was found in the Shader.");
 }
 
-void mgl::Program::sendUniform(const std::string fieldName, const math::Vector & data) {
-	auto loc = glGetUniformLocation(m_id, fieldName.c_str());
-	if (loc == -1)
-		throw Exceptions::ProgramException("The location is not valid.");
-	glUniform4f(loc, data.x(),data.y(), data.z(), data.w());
+void mgl::Program::sendUniform(UniformVariable& variable, const float & data) {
+	if (variable.m_type != UniformType::Float)
+		throw Exceptions::ProgramException("Data type isn't supported by the uniform.");
+	glUniform1f(variable.m_location, data);
 }
 
-void mgl::Program::sendUniform(const std::string fieldName, const math::Matrix & data) {
-	auto loc = glGetUniformLocation(m_id, fieldName.c_str());
-	if (loc == -1)
-		throw Exceptions::ProgramException("The location is not valid.");
-	glUniformMatrix4fv(loc, 1, GL_FALSE, data.data());
+void mgl::Program::sendUniform(UniformVariable & variable, const math::Vector & data) {
+	if (variable.m_type != UniformType::Float_4)
+		glUniform4f(variable.m_location, data.x(), data.y(), data.z(), data.w());
+	else if (variable.m_type != UniformType::Float_3)
+	 	glUniform3f(variable.m_location, data.x(), data.y(), data.z());
+	else if (variable.m_type != UniformType::Float_2)
+		glUniform2f(variable.m_location, data.x(), data.y());
+	else
+		throw Exceptions::ProgramException("Data type isn't supported by the uniform.");
+}
+
+void mgl::Program::sendUniform(UniformVariable & variable, const math::Matrix & data) {
+	if (variable.m_type != UniformType::Float_4x4)
+		glUniformMatrix4fv(variable.m_location, 1, GL_FALSE, data.data());
+	else if (variable.m_type != UniformType::Float_3x3)
+		glUniformMatrix3fv(variable.m_location, 1, GL_FALSE, data.data3x3());
+	else if (variable.m_type != UniformType::Float_2x2)
+		glUniformMatrix2fv(variable.m_location, 1, GL_FALSE, data.data2x2());
+	else
+		throw Exceptions::ProgramException("Data type isn't supported by the uniform.");
 }
 
 void mgl::Program::enableAttrib(const std::string fieldName, size_t size,
 							    bool normalized, size_t stride, size_t shift) {
 	auto loc = glGetAttribLocation(m_id, fieldName.c_str());
 	if (loc == -1)
-		throw Exceptions::ProgramException("The location is not valid.");
+		throw Exceptions::ProgramException("There are no atribute in the Shader with the 'fieldName'.");
 	glVertexAttribPointer(loc, (GLint) size, GL_FLOAT, normalized, 
 						  (GLsizei) sizeof(float) * (GLsizei) stride, (const void*)shift);
 	glEnableVertexAttribArray(loc);
 }
+
+mgl::UniformVariable::UniformVariable(std::string name, int location, UniformType type)
+	: m_variable_name(name), m_location(location), m_type(type) {}
+
+mgl::UniformVariable::UniformVariable(std::string name, UniformType type)
+	: m_variable_name(name), m_type(type) {}

@@ -67,18 +67,43 @@ namespace mgl {
 				return m_data[(unsigned) i][(unsigned) j];
 			}
 
-			float* data(float* data = nullptr) const {
-				if (!data) data = new float[16];
-				for (size_t i = 0; i < 4; i++)
-					for (size_t j = 0; j < 4; j++)
-						data[i * 4 + j] = m_data[(unsigned) i][(unsigned) j];
+		protected:
+			float* dataIxJ(size_t i, size_t j, float* data = nullptr) const {
+				if (i > 4 || j > 4)
+					throw Exceptions::MatrixException("Incorrect index was passed");
+				if (!data) data = new float[i * j];
+				for (size_t a = 0; a < i; a++)
+					for (size_t b = 0; b < j; b++)
+						data[a * 4 + b] = m_data[(unsigned) a][(unsigned) b];
 				return data;
 			}
-			float** data(float** data) const {
-				for (size_t i = 0; i < 4; i++)
-					for (size_t j = 0; j < 4; j++)
-						data[i][j] = m_data[(unsigned) i][(unsigned) j];
+			float** dataIxJ(size_t i, size_t j, float** data) const {
+				if (i > 4 || j > 4)
+					throw Exceptions::MatrixException("Incorrect index was passed");
+				for (size_t a = 0; a < i; a++)
+					for (size_t b = 0; b < j; b++)
+						data[a][b] = m_data[(unsigned) a][(unsigned) b];
 				return data;
+			}
+
+		public:
+			float* data4x4(float* data = nullptr) const {
+				return dataIxJ(4, 4, data);
+			}
+			float** data4x4(float** data) const {
+				return dataIxJ(4, 4, data);
+			}
+			float* data3x3(float* data = nullptr) const {
+				return dataIxJ(3, 3, data);
+			}
+			float** data3x3(float** data) const {
+				return dataIxJ(3, 3, data);
+			}
+			float* data2x2(float* data = nullptr) const {
+				return dataIxJ(2, 2, data);
+			}
+			float** data2x2(float** data) const {
+				return dataIxJ(2, 2, data);
 			}
 			const float det() const {
 				return glm::determinant(m_data);
@@ -282,11 +307,35 @@ void mgl::math::Matrix::setRow(const size_t c, const Vector & v) {
 }
 
 float* mgl::math::Matrix::data(float* data) const {
-	return m_data->data(data);
+	return m_data->data4x4(data);
 }
 
 float** mgl::math::Matrix::data(float** data) const {
-	return m_data->data(data);
+	return m_data->data4x4(data);
+}
+
+float * mgl::math::Matrix::data4x4(float * data) const {
+	return m_data->data4x4(data);
+}
+
+float ** mgl::math::Matrix::data4x4(float ** data) const {
+	return m_data->data4x4(data);
+}
+
+float * mgl::math::Matrix::data3x3(float * data) const {
+	return m_data->data3x3(data);
+}
+
+float ** mgl::math::Matrix::data3x3(float ** data) const {
+	return m_data->data3x3(data);
+}
+
+float * mgl::math::Matrix::data2x2(float * data) const {
+	return m_data->data2x2(data);
+}
+
+float ** mgl::math::Matrix::data2x2(float ** data) const {
+	return m_data->data2x2(data);
 }
 
 void mgl::math::Matrix::fill(const float v) {

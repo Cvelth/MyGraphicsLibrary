@@ -17,27 +17,27 @@ void mgl::setPointSize(float s) {
 }
 
 void mgl::enableBlend(BlendEnum s, BlendEnum d) {
-	glBlendFunc(_enumSwitch(s), _enumSwitch(d));
+	glBlendFunc(switchEnum(s), switchEnum(d));
 	glEnable(GL_BLEND);
 }
 
 void mgl::enableBlend(const Buffer & b, BlendEnum s, BlendEnum d) {
-	glBlendFunci(b.id(), _enumSwitch(s), _enumSwitch(d));
+	glBlendFunci(b.id(), switchEnum(s), switchEnum(d));
 }
 
 void mgl::enableLineSmooth(SmoothMode mode) {
 	glEnable(GL_LINE_SMOOTH);
-	glHint(GL_LINE_SMOOTH_HINT, _enumSwitch(mode));
+	glHint(GL_LINE_SMOOTH_HINT, switchEnum(mode));
 }
 
 void mgl::enablePolygonSmooth(SmoothMode mode) {
 	glEnable(GL_POLYGON_SMOOTH);
-	glHint(GL_POLYGON_SMOOTH_HINT, _enumSwitch(mode));
+	glHint(GL_POLYGON_SMOOTH_HINT, switchEnum(mode));
 }
 
 void mgl::enablePointSmooth(SmoothMode mode) {
 	glEnable(GL_POINT_SMOOTH);
-	glHint(GL_POINT_SMOOTH_HINT, _enumSwitch(mode));
+	glHint(GL_POINT_SMOOTH_HINT, switchEnum(mode));
 }
 
 std::string mgl::getError() {

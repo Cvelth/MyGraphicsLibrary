@@ -95,13 +95,13 @@ void mgl::Primitive::send(DataUsage u) {
 	}
 	m_buffer->bind();
 
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * getSize(), temp, _enumSwitch(u));
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * getSize(), temp, switchEnum(u));
 	delete[] temp;
 }
 
 void mgl::Primitive::draw() { 
 	m_buffer->bind();
-	glDrawArrays(_enumSwitch(m_connection), 0, (GLsizei)getSize()); 
+	glDrawArrays(switchEnum(m_connection), 0, (GLsizei)getSize());
 }
 
 void mgl::Primitive::clean() {

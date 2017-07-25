@@ -143,6 +143,9 @@
     <ProjectReference Include="..\..\SharedHeaders\SharedHeaders.vcxproj">
       <Project>{7097b003-9d8b-453e-a35b-3db7289c240d}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\EnumsMirror\EnumsMirror.vcxproj">
+      <Project>{3b48cf5b-97c0-43d0-a21f-57377dd93daf}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\FunctionsMirror\FunctionsMirror.vcxproj">
       <Project>{0a189a93-b2c6-4c2c-9f31-f764c995d2d9}</Project>
     </ProjectReference>

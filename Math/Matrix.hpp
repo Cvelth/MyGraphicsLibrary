@@ -40,6 +40,13 @@ namespace mgl {
 			float* data(float* data = nullptr) const;
 			float** data(float** data) const;
 
+			float* data4x4(float* data = nullptr) const;
+			float** data4x4(float** data) const;
+			float* data3x3(float* data = nullptr) const;
+			float** data3x3(float** data) const;
+			float* data2x2(float* data = nullptr) const;
+			float** data2x2(float** data) const;
+
 			void fill(const float v);
 			const float determinant() const;
 
