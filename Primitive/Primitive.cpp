@@ -80,6 +80,7 @@ void mgl::Primitive::insert(math::Vector * v, Color * c) {
 }
 
 void mgl::Primitive::send(DataUsage u) {
+	//float temp[24];
 	float* temp = new float[getSize()];
 	size_t i = 0;
 	for (auto it : m_data) {
@@ -87,7 +88,7 @@ void mgl::Primitive::send(DataUsage u) {
 		temp[i++] = it->coords()->y();
 		temp[i++] = it->coords()->z();
 		temp[i++] = it->coords()->w();
-					  
+					
 		temp[i++] = it->color()->r();
 		temp[i++] = it->color()->g();
 		temp[i++] = it->color()->b();
@@ -101,7 +102,7 @@ void mgl::Primitive::send(DataUsage u) {
 
 void mgl::Primitive::draw() { 
 	m_buffer->bind();
-	glDrawArrays(switchEnum(m_connection), 0, (GLsizei)getSize());
+	glDrawArrays(switchEnum(m_connection), 0, (GLsizei) getNumber());
 }
 
 void mgl::Primitive::clean() {

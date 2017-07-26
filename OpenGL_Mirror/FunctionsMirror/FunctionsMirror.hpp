@@ -9,7 +9,7 @@ namespace mgl {
 	std::string getError();
 
 	void clearColorBuffer();
-	void viewport(size_t x, size_t y, size_t width, size_t height);
+	void setViewport(size_t x, size_t y, size_t width, size_t height);
 
 	void setClearColor(const Color& c);
 	void setLineWidth(float w, SmoothMode mode = SmoothMode::DontCare);

@@ -40,8 +40,10 @@ namespace mgl {
 		void sendUniform(UniformVariable* variable, const float& data);
 		void sendUniform(UniformVariable* variable, const math::Vector& data);
 		void sendUniform(UniformVariable* variable, const math::Matrix& data);
-		void enableAttrib(const std::string fieldName, size_t size = 4, 
-						 bool normalized = false, size_t stride = 4, size_t shift = 0);
+		void enableAttribWithNormalization(const std::string fieldName, size_t size = 4,
+						  bool normalized = false, size_t stride = 4, size_t shift = 0);
+		void enableAttrib(const std::string fieldName, size_t size = 4,
+						  size_t stride = 4, size_t shift = 0);
 	};
 
 	using CustomProgram = Program;

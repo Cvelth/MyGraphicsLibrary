@@ -20,6 +20,7 @@
 	#define MGL_INCLUDE_DRAWABLE_OBJECT
 	#define MGL_INCLUDE_PRIMITIVES
 	#define MGL_INCLUDE_SHADER_PROGRAM_MIRROR
+	#define MGL_INCLUDE_DEFAULT_HEADERS
 #endif
 
 #if defined MGL_INCLUDE_MATH
@@ -80,6 +81,10 @@
 #if defined MGL_INCLUDE_OPENGL_BASIC_TYPES_MIRROR
 	#include "OpenGL_Mirror\BasicTypes\Buffer.hpp"
 	#include "OpenGL_Mirror\BasicTypes\Color.hpp"
+#endif
+
+#if defined MGL_INCLUDE_DEFAULT_HEADERS
+	#include "OpenGL_Mirror\BasicTypes\BasicColors.hpp"
 #endif
 
 #if defined MGL_INCLUDE_OPENGL_ACCESS

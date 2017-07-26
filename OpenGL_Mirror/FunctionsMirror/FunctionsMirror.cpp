@@ -48,6 +48,6 @@ void mgl::clearColorBuffer() {
 	glClear(GL_COLOR_BUFFER_BIT);
 }
 
-void mgl::viewport(size_t x, size_t y, size_t width, size_t height) {
+void mgl::setViewport(size_t x, size_t y, size_t width, size_t height) {
 	glViewport(GLint(x), GLint(y), GLsizei(width), GLsizei(height));
 }

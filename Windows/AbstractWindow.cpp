@@ -53,7 +53,7 @@ void mgl::AbstractWindow::clean() {
 
 void mgl::AbstractWindow::resize(int width, int height) {
 	m_aspectRatio = float(width) / height;
-	mgl::viewport(0, 0, width, height);
+	mgl::setViewport(0, 0, width, height);
 
 	if (m_projection) delete m_projection;
 	m_projection = new mgl::math::Matrix(mgl::math::Matrix::orthographicMatrix(

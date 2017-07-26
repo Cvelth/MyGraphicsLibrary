@@ -95,14 +95,18 @@ void mgl::Program::sendUniform(UniformVariable* variable, const math::Matrix & d
 		throw Exceptions::ProgramException("Data type isn't supported by the uniform.");
 }
 
-void mgl::Program::enableAttrib(const std::string fieldName, size_t size,
+void mgl::Program::enableAttribWithNormalization(const std::string fieldName, size_t size,
 							    bool normalized, size_t stride, size_t shift) {
 	auto loc = glGetAttribLocation(m_id, fieldName.c_str());
 	if (loc == -1)
 		throw Exceptions::ProgramException("There are no atribute in the Shader with the 'fieldName'.");
-	glVertexAttribPointer(loc, (GLint) size, GL_FLOAT, normalized, 
-						  (GLsizei) sizeof(float) * (GLsizei) stride, (const void*)shift);
+	glVertexAttribPointer(loc, (GLint) size, GL_FLOAT, normalized ? GL_TRUE : GL_FALSE,
+		(GLsizei) sizeof(float) * (GLsizei) stride, (const void*) shift);
 	glEnableVertexAttribArray(loc);
+}
+
+void mgl::Program::enableAttrib(const std::string fieldName, size_t size, size_t stride, size_t shift) {
+	enableAttribWithNormalization(fieldName, size, false, stride, shift);
 }
 
 mgl::UniformVariable::UniformVariable(std::string name, int location, UniformType type)
