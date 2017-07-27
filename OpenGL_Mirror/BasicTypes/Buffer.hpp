@@ -15,6 +15,7 @@ namespace mgl {
 
 		unsigned int id() const;
 		void bind(BufferBindingPoint p = BufferBindingPoint::ArrayBuffer);
+		void data(size_t floats, float* data, DataUsage u);
 	};
 
 	class BufferArray {

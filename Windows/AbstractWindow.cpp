@@ -36,6 +36,11 @@ void mgl::AbstractWindow::initialize(std::string title, int width, int height, D
 	else
 		m_window = glfwCreateWindow(width, height, title.c_str(), NULL, NULL);
 
+	if (!m_window)
+		throw Exceptions::WindowInitializationException(std::string("Window inititalization error."));
+
+	resize(width, height);
+
 	glfwMakeContextCurrent(m_window);
 	glfwSwapInterval(0);
 

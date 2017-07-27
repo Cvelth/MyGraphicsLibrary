@@ -40,3 +40,8 @@ unsigned int mgl::Buffer::id() const {
 void mgl::Buffer::bind(BufferBindingPoint p) {
 	glBindBuffer(switchEnum(p), m_id);
 }
+
+void mgl::Buffer::data(size_t floats, float* data, DataUsage u) {
+	glBindBuffer(GL_ARRAY_BUFFER, m_id);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * floats, data, switchEnum(u));
+}

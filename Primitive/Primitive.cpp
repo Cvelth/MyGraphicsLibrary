@@ -80,7 +80,6 @@ void mgl::Primitive::insert(math::Vector * v, Color * c) {
 }
 
 void mgl::Primitive::send(DataUsage u) {
-	//float temp[24];
 	float* temp = new float[getSize()];
 	size_t i = 0;
 	for (auto it : m_data) {
@@ -94,9 +93,7 @@ void mgl::Primitive::send(DataUsage u) {
 		temp[i++] = it->color()->b();
 		temp[i++] = it->color()->a();
 	}
-	m_buffer->bind();
-
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * getSize(), temp, switchEnum(u));
+	m_buffer->data(getSize(), temp, u);
 	delete[] temp;
 }
 
@@ -106,8 +103,7 @@ void mgl::Primitive::draw() {
 }
 
 void mgl::Primitive::clean() {
-	m_buffer->bind();
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * getSize(), NULL, GL_STATIC_READ);
+	m_buffer->data(getSize(), NULL, mgl::DataUsage::StaticRead);
 }
 
 std::list<mgl::Vertex*>& mgl::Primitive::operator*() {
