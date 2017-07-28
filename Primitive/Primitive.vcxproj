@@ -130,11 +130,13 @@
     <ClCompile Include="AbstractDrawableObject.cpp" />
     <ClCompile Include="DefaultPrimitives.cpp" />
     <ClCompile Include="Primitive.cpp" />
+    <ClCompile Include="Vertex.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AbstractDrawableObject.hpp" />
     <ClInclude Include="DefaultPrimitives.hpp" />
     <ClInclude Include="Primitive.hpp" />
+    <ClInclude Include="Vertex.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Math\Math.vcxproj">

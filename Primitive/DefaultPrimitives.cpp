@@ -8,9 +8,9 @@ const float PI = 3.14159265359f;
 mgl::Primitive* mgl::generateN_Polygon(size_t n, mgl::Color * color, bool isFilled) {
 	Primitive* res;
 	if (isFilled)
-		res = new Primitive(color, VertexConnectionType::TriangleFan);
+		res = new Primitive(VertexConnectionType::TriangleStrip, color);
 	else
-		res = new Primitive(color, VertexConnectionType::LineLoop);
+		res = new Primitive(VertexConnectionType::LineLoop, color);
 	float STEP = PI / n * 2;
 	for (float f = 0.f; f < PI * 2; f += STEP)
 		res->insert(new mgl::math::Vector(cosf(f), sinf(f)));
@@ -20,9 +20,9 @@ mgl::Primitive* mgl::generateN_Polygon(size_t n, mgl::Color * color, bool isFill
 mgl::Primitive* mgl::generateRectangle(float aspectRatio, mgl::Color * color, bool isFilled) {
 	mgl::Primitive* res;
 	if (isFilled)
-		res = new Primitive(color, VertexConnectionType::TriangleFan);
+		res = new Primitive(VertexConnectionType::TriangleStrip, color);
 	else
-		res = new Primitive(color, VertexConnectionType::LineLoop);
+		res = new Primitive(VertexConnectionType::LineLoop, color);
 	if (aspectRatio < 1.f && aspectRatio > 0.f) {
 		res->insert(new mgl::math::Vector(-aspectRatio, -1.f));
 		res->insert(new mgl::math::Vector(+aspectRatio, -1.f));

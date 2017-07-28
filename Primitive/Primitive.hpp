@@ -10,6 +10,7 @@ namespace mgl {
 		class Vector;
 		class Matrix;
 	}
+	class Vertex;
 
 	namespace Exceptions {
 		class PrimitiveException : public AbstractStringException {
@@ -17,46 +18,29 @@ namespace mgl {
 		};
 	}
 
-	class Vertex {
-		math::Vector* m_coords;
-		Color* m_color;
-	public:
-		Vertex(math::Vector* coords, Color* color);
-		~Vertex(); 
-		void set(math::Vector* coords, Color* color);		
-		inline math::Vector* coords() {
-			return m_coords;
-		}
-		inline const math::Vector* coords() const {
-			return m_coords;
-		}
-		inline Color* color() {
-			return m_color;
-		}
-		inline const Color* color() const {
-			return m_color;
-		}
-	};
-
 	class Primitive {
 	protected:
 		std::list<Vertex*> m_data;
 		Buffer* m_buffer;
 		VertexConnectionType m_connection;
-		Color* m_basic_color;
+		Color* m_default_color;
 	public:
-		Primitive(Color* basicColor, VertexConnectionType type = VertexConnectionType::Points);
-		Primitive(Color* basicColor, VertexConnectionType type, const float* array, size_t size, size_t COORDS_POINT_NUMBER = 3, size_t COLOR_POINT_NUMBER = 3);
-		Primitive(Color* basicColor, VertexConnectionType type, math::Vector* coords_array, size_t size);
-		Primitive(Color* basicColor, VertexConnectionType type, math::Vector* coords_array, Color* colors_array, size_t size);
-		Primitive(Color* basicColor, VertexConnectionType type, const std::initializer_list<math::Vector*>& coords_list);
-		Primitive(Color* basicColor, VertexConnectionType type, const std::initializer_list<math::Vector*>& coords_list, const std::initializer_list<Color*>& color_list);
-		Primitive(Color* basicColor, VertexConnectionType type, const std::list<math::Vector*>& coords_list);
-		Primitive(Color* basicColor, VertexConnectionType type, const std::list<math::Vector*>& coords_list, const std::list<Color*>& color_list);
+		Primitive(VertexConnectionType type = VertexConnectionType::Points, Color* defaultColor = nullptr);
+		Primitive(VertexConnectionType type, Color* defaultColor, const float* array, size_t size, size_t COORDS_POINT_NUMBER = 3, size_t COLOR_POINT_NUMBER = 3);
+		Primitive(VertexConnectionType type, Color* defaultColor, math::Vector* coords_array, size_t size);
+		Primitive(VertexConnectionType type, Color* defaultColor, math::Vector* coords_array, Color* colors_array, size_t size);
+		Primitive(VertexConnectionType type, Color* defaultColor, const std::initializer_list<math::Vector*>& coords_list);
+		Primitive(VertexConnectionType type, Color* defaultColor, const std::initializer_list<math::Vector*>& coords_list, const std::initializer_list<Color*>& color_list);
+		Primitive(VertexConnectionType type, Color* defaultColor, const std::list<math::Vector*>& coords_list);
+		Primitive(VertexConnectionType type, Color* defaultColor, const std::list<math::Vector*>& coords_list, const std::list<Color*>& color_list);
 		~Primitive();
 		
 		virtual size_t getSize() const;
 		virtual size_t getNumber() const;
+
+		virtual Color* getDefaultColor() const;
+		virtual void setDefaultColor(Color* color);
+		virtual void setDefaultColor(float r = 0.f, float g = 0.f, float b = 0.f, float a = 1.f);
 		
 		virtual void insert(math::Vector* v);
 		virtual void insert(math::Vector* v, Color* c);
