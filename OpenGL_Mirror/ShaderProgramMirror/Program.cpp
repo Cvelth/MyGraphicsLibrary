@@ -73,9 +73,9 @@ mgl::ShaderVariable* mgl::Program::enableAttribWithNormalization(const std::stri
 	if (loc == -1)
 		throw Exceptions::ProgramException("There are no atribute in the Shader with the 'fieldName'.");
 
-	glVertexAttribPointer(loc, (GLint) size, GL_FLOAT, normalized ? GL_TRUE : GL_FALSE,
-		(GLsizei) sizeof(float) * (GLsizei) stride, (const void*) shift);
 	glEnableVertexAttribArray(loc);
+	glVertexAttribPointer(loc, (GLint) size, GL_FLOAT, normalized ? GL_TRUE : GL_FALSE,
+		sizeof(float) * (GLsizei) stride, (const void*) (sizeof(float) * shift));
 
 	return new mgl::ShaderVariable(fieldName, ShaderVariableType::Attribute, loc, ShaderDataType::Float);
 }
