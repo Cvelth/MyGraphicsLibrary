@@ -86,110 +86,110 @@ GLenum mgl::switchEnum(DataUsage e) {
 	}
 }
 
-mgl::UniformType mgl::switchUniformType(GLenum e) {
+mgl::ShaderDataType mgl::switchShaderDataType(GLenum e) {
 	switch (e) {
-		case GL_FLOAT: return mgl::UniformType::Float;
-		case GL_FLOAT_VEC2: return mgl::UniformType::Float_2;
-		case GL_FLOAT_VEC3: return mgl::UniformType::Float_3;
-		case GL_FLOAT_VEC4: return mgl::UniformType::Float_4;
+		case GL_FLOAT: return mgl::ShaderDataType::Float;
+		case GL_FLOAT_VEC2: return mgl::ShaderDataType::Float_2;
+		case GL_FLOAT_VEC3: return mgl::ShaderDataType::Float_3;
+		case GL_FLOAT_VEC4: return mgl::ShaderDataType::Float_4;
 
-		case GL_DOUBLE: return mgl::UniformType::Double;
-		case GL_DOUBLE_VEC2: return mgl::UniformType::Double_2;
-		case GL_DOUBLE_VEC3: return mgl::UniformType::Double_3;
-		case GL_DOUBLE_VEC4: return mgl::UniformType::Double_4;
+		case GL_DOUBLE: return mgl::ShaderDataType::Double;
+		case GL_DOUBLE_VEC2: return mgl::ShaderDataType::Double_2;
+		case GL_DOUBLE_VEC3: return mgl::ShaderDataType::Double_3;
+		case GL_DOUBLE_VEC4: return mgl::ShaderDataType::Double_4;
 
-		case GL_INT: return mgl::UniformType::Int;
-		case GL_INT_VEC2: return mgl::UniformType::Int_2;
-		case GL_INT_VEC3: return mgl::UniformType::Int_3;
-		case GL_INT_VEC4: return mgl::UniformType::Int_4;
+		case GL_INT: return mgl::ShaderDataType::Int;
+		case GL_INT_VEC2: return mgl::ShaderDataType::Int_2;
+		case GL_INT_VEC3: return mgl::ShaderDataType::Int_3;
+		case GL_INT_VEC4: return mgl::ShaderDataType::Int_4;
 
-		case GL_UNSIGNED_INT: return mgl::UniformType::UInt;
-		case GL_UNSIGNED_INT_VEC2: return mgl::UniformType::UInt_2;
-		case GL_UNSIGNED_INT_VEC3: return mgl::UniformType::UInt_3;
-		case GL_UNSIGNED_INT_VEC4: return mgl::UniformType::UInt_4;
+		case GL_UNSIGNED_INT: return mgl::ShaderDataType::UInt;
+		case GL_UNSIGNED_INT_VEC2: return mgl::ShaderDataType::UInt_2;
+		case GL_UNSIGNED_INT_VEC3: return mgl::ShaderDataType::UInt_3;
+		case GL_UNSIGNED_INT_VEC4: return mgl::ShaderDataType::UInt_4;
 
-		case GL_BOOL: return mgl::UniformType::Bool;
-		case GL_BOOL_VEC2: return mgl::UniformType::Bool_2;
-		case GL_BOOL_VEC3: return mgl::UniformType::Bool_3;
-		case GL_BOOL_VEC4: return mgl::UniformType::Bool_4;
+		case GL_BOOL: return mgl::ShaderDataType::Bool;
+		case GL_BOOL_VEC2: return mgl::ShaderDataType::Bool_2;
+		case GL_BOOL_VEC3: return mgl::ShaderDataType::Bool_3;
+		case GL_BOOL_VEC4: return mgl::ShaderDataType::Bool_4;
 
-		case GL_FLOAT_MAT2: return mgl::UniformType::Float_2x2;
-		case GL_FLOAT_MAT3: return mgl::UniformType::Float_3x3;
-		case GL_FLOAT_MAT4: return mgl::UniformType::Float_4x4;
+		case GL_FLOAT_MAT2: return mgl::ShaderDataType::Float_2x2;
+		case GL_FLOAT_MAT3: return mgl::ShaderDataType::Float_3x3;
+		case GL_FLOAT_MAT4: return mgl::ShaderDataType::Float_4x4;
 
-		case GL_FLOAT_MAT2x3: return mgl::UniformType::Float_2x3;
-		case GL_FLOAT_MAT3x2: return mgl::UniformType::Float_3x2;
-		case GL_FLOAT_MAT4x2: return mgl::UniformType::Float_4x2;
+		case GL_FLOAT_MAT2x3: return mgl::ShaderDataType::Float_2x3;
+		case GL_FLOAT_MAT3x2: return mgl::ShaderDataType::Float_3x2;
+		case GL_FLOAT_MAT4x2: return mgl::ShaderDataType::Float_4x2;
 
-		case GL_FLOAT_MAT2x4: return mgl::UniformType::Float_2x4;
-		case GL_FLOAT_MAT3x4: return mgl::UniformType::Float_3x4;
-		case GL_FLOAT_MAT4x3: return mgl::UniformType::Float_4x3;
+		case GL_FLOAT_MAT2x4: return mgl::ShaderDataType::Float_2x4;
+		case GL_FLOAT_MAT3x4: return mgl::ShaderDataType::Float_3x4;
+		case GL_FLOAT_MAT4x3: return mgl::ShaderDataType::Float_4x3;
 
-		case GL_DOUBLE_MAT2: return mgl::UniformType::Double_2x2;
-		case GL_DOUBLE_MAT3: return mgl::UniformType::Double_3x3;
-		case GL_DOUBLE_MAT4: return mgl::UniformType::Double_4x4;
+		case GL_DOUBLE_MAT2: return mgl::ShaderDataType::Double_2x2;
+		case GL_DOUBLE_MAT3: return mgl::ShaderDataType::Double_3x3;
+		case GL_DOUBLE_MAT4: return mgl::ShaderDataType::Double_4x4;
 
-		case GL_DOUBLE_MAT2x3: return mgl::UniformType::Double_2x3;
-		case GL_DOUBLE_MAT3x2: return mgl::UniformType::Double_3x2;
-		case GL_DOUBLE_MAT4x2: return mgl::UniformType::Double_4x2;
+		case GL_DOUBLE_MAT2x3: return mgl::ShaderDataType::Double_2x3;
+		case GL_DOUBLE_MAT3x2: return mgl::ShaderDataType::Double_3x2;
+		case GL_DOUBLE_MAT4x2: return mgl::ShaderDataType::Double_4x2;
 
-		case GL_DOUBLE_MAT2x4: return mgl::UniformType::Double_2x4;
-		case GL_DOUBLE_MAT3x4: return mgl::UniformType::Double_3x4;
-		case GL_DOUBLE_MAT4x3: return mgl::UniformType::Double_4x3;
+		case GL_DOUBLE_MAT2x4: return mgl::ShaderDataType::Double_2x4;
+		case GL_DOUBLE_MAT3x4: return mgl::ShaderDataType::Double_3x4;
+		case GL_DOUBLE_MAT4x3: return mgl::ShaderDataType::Double_4x3;
 		default: throw Exceptions::IncorrectEnumException("Uniform Type is Unsupported.");
 	}
 }
 
-GLenum mgl::switchEnum(UniformType e) {
+GLenum mgl::switchEnum(ShaderDataType e) {
 	switch (e) {
-		case mgl::UniformType::Float: return GL_FLOAT;
-		case mgl::UniformType::Float_2: return GL_FLOAT_VEC2;
-		case mgl::UniformType::Float_3: return GL_FLOAT_VEC3;
-		case mgl::UniformType::Float_4: return GL_FLOAT_VEC4;
+		case mgl::ShaderDataType::Float: return GL_FLOAT;
+		case mgl::ShaderDataType::Float_2: return GL_FLOAT_VEC2;
+		case mgl::ShaderDataType::Float_3: return GL_FLOAT_VEC3;
+		case mgl::ShaderDataType::Float_4: return GL_FLOAT_VEC4;
 
-		case mgl::UniformType::Double: return GL_DOUBLE;
-		case mgl::UniformType::Double_2: return GL_DOUBLE_VEC2;
-		case mgl::UniformType::Double_3: return GL_DOUBLE_VEC3;
-		case mgl::UniformType::Double_4: return GL_DOUBLE_VEC4;
+		case mgl::ShaderDataType::Double: return GL_DOUBLE;
+		case mgl::ShaderDataType::Double_2: return GL_DOUBLE_VEC2;
+		case mgl::ShaderDataType::Double_3: return GL_DOUBLE_VEC3;
+		case mgl::ShaderDataType::Double_4: return GL_DOUBLE_VEC4;
 
-		case mgl::UniformType::Int: return GL_INT;
-		case mgl::UniformType::Int_2: return GL_INT_VEC2;
-		case mgl::UniformType::Int_3: return GL_INT_VEC3;
-		case mgl::UniformType::Int_4: return GL_INT_VEC4;
+		case mgl::ShaderDataType::Int: return GL_INT;
+		case mgl::ShaderDataType::Int_2: return GL_INT_VEC2;
+		case mgl::ShaderDataType::Int_3: return GL_INT_VEC3;
+		case mgl::ShaderDataType::Int_4: return GL_INT_VEC4;
 
-		case mgl::UniformType::UInt: return GL_UNSIGNED_INT;
-		case mgl::UniformType::UInt_2: return GL_UNSIGNED_INT_VEC2;
-		case mgl::UniformType::UInt_3: return GL_UNSIGNED_INT_VEC3;
-		case mgl::UniformType::UInt_4: return GL_UNSIGNED_INT_VEC4;
+		case mgl::ShaderDataType::UInt: return GL_UNSIGNED_INT;
+		case mgl::ShaderDataType::UInt_2: return GL_UNSIGNED_INT_VEC2;
+		case mgl::ShaderDataType::UInt_3: return GL_UNSIGNED_INT_VEC3;
+		case mgl::ShaderDataType::UInt_4: return GL_UNSIGNED_INT_VEC4;
 
-		case mgl::UniformType::Bool: return GL_BOOL;
-		case mgl::UniformType::Bool_2: return GL_BOOL_VEC2;
-		case mgl::UniformType::Bool_3: return GL_BOOL_VEC3;
-		case mgl::UniformType::Bool_4: return GL_BOOL_VEC4;
+		case mgl::ShaderDataType::Bool: return GL_BOOL;
+		case mgl::ShaderDataType::Bool_2: return GL_BOOL_VEC2;
+		case mgl::ShaderDataType::Bool_3: return GL_BOOL_VEC3;
+		case mgl::ShaderDataType::Bool_4: return GL_BOOL_VEC4;
 
-		case mgl::UniformType::Float_2x2: return GL_FLOAT_MAT2;
-		case mgl::UniformType::Float_3x3: return GL_FLOAT_MAT3;
-		case mgl::UniformType::Float_4x4: return GL_FLOAT_MAT4;
+		case mgl::ShaderDataType::Float_2x2: return GL_FLOAT_MAT2;
+		case mgl::ShaderDataType::Float_3x3: return GL_FLOAT_MAT3;
+		case mgl::ShaderDataType::Float_4x4: return GL_FLOAT_MAT4;
 
-		case mgl::UniformType::Float_2x3: return GL_FLOAT_MAT2x3;
-		case mgl::UniformType::Float_3x2: return GL_FLOAT_MAT3x2;
-		case mgl::UniformType::Float_4x2: return GL_FLOAT_MAT4x2;
+		case mgl::ShaderDataType::Float_2x3: return GL_FLOAT_MAT2x3;
+		case mgl::ShaderDataType::Float_3x2: return GL_FLOAT_MAT3x2;
+		case mgl::ShaderDataType::Float_4x2: return GL_FLOAT_MAT4x2;
 
-		case mgl::UniformType::Float_2x4: return GL_FLOAT_MAT2x4;
-		case mgl::UniformType::Float_3x4: return GL_FLOAT_MAT3x4;
-		case mgl::UniformType::Float_4x3: return GL_FLOAT_MAT4x3;
+		case mgl::ShaderDataType::Float_2x4: return GL_FLOAT_MAT2x4;
+		case mgl::ShaderDataType::Float_3x4: return GL_FLOAT_MAT3x4;
+		case mgl::ShaderDataType::Float_4x3: return GL_FLOAT_MAT4x3;
 
-		case mgl::UniformType::Double_2x2: return GL_DOUBLE_MAT2;
-		case mgl::UniformType::Double_3x3: return GL_DOUBLE_MAT3;
-		case mgl::UniformType::Double_4x4: return GL_DOUBLE_MAT4;
+		case mgl::ShaderDataType::Double_2x2: return GL_DOUBLE_MAT2;
+		case mgl::ShaderDataType::Double_3x3: return GL_DOUBLE_MAT3;
+		case mgl::ShaderDataType::Double_4x4: return GL_DOUBLE_MAT4;
 												  
-		case mgl::UniformType::Double_2x3: return GL_DOUBLE_MAT2x3;
-		case mgl::UniformType::Double_3x2: return GL_DOUBLE_MAT3x2;
-		case mgl::UniformType::Double_4x2: return GL_DOUBLE_MAT4x2;
+		case mgl::ShaderDataType::Double_2x3: return GL_DOUBLE_MAT2x3;
+		case mgl::ShaderDataType::Double_3x2: return GL_DOUBLE_MAT3x2;
+		case mgl::ShaderDataType::Double_4x2: return GL_DOUBLE_MAT4x2;
 												  
-		case mgl::UniformType::Double_2x4: return GL_DOUBLE_MAT2x4;
-		case mgl::UniformType::Double_3x4: return GL_DOUBLE_MAT3x4;
-		case mgl::UniformType::Double_4x3: return GL_DOUBLE_MAT4x3;
+		case mgl::ShaderDataType::Double_2x4: return GL_DOUBLE_MAT2x4;
+		case mgl::ShaderDataType::Double_3x4: return GL_DOUBLE_MAT3x4;
+		case mgl::ShaderDataType::Double_4x3: return GL_DOUBLE_MAT4x3;
 		default: throw Exceptions::IncorrectEnumException("Uniform Type is Unsupported.");
 	}
 }

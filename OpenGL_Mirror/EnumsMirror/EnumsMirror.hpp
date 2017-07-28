@@ -46,7 +46,7 @@ namespace mgl {
 	};
 	GLenum switchEnum(DataUsage e);
 
-	enum class UniformType {
+	enum class ShaderDataType {
 		Float, Float_2, Float_3, Float_4,
 		Double, Double_2, Double_3, Double_4,
 		Int, Int_2, Int_3, Int_4,
@@ -59,6 +59,10 @@ namespace mgl {
 		Double_2x3, Double_2x4, Double_3x2,
 		Double_3x4, Double_4x2, Double_4x3,
 	};
-	GLenum switchEnum(UniformType e);
-	mgl::UniformType switchUniformType(GLenum e);
+	GLenum switchEnum(ShaderDataType e);
+	mgl::ShaderDataType switchShaderDataType(GLenum e);
+
+	enum class ShaderVariableType {
+		Attribute, Uniform
+	};
 }
