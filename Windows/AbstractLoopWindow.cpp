@@ -13,7 +13,10 @@ int mgl::AbstractLoopWindow::loop() {
 		renderProcess();
 
 		glfwSwapBuffers(window());
-		glfwWaitEvents();
+		if (isAutoUpdated)
+			glfwPollEvents();
+		else
+			glfwWaitEvents();
 	}
 	clearRenderProcess();
 	return 0;

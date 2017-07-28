@@ -36,7 +36,8 @@
 			class Window : public AbstractLoopWindow {
 			public:
 				using AbstractLoopWindow::AbstractLoopWindow;
-		};
+			};
+		}
 	#else
 		#include "Windows\AbstractWindow.hpp"
 		namespace mgl {

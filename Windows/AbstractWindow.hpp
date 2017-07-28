@@ -46,13 +46,17 @@ namespace mgl {
 		void initialize(std::string title, int width = 640, int height = 480, DefaultWindowMode mode = DefaultWindowMode::Windowed);
 		void clean();
 
-		Program* linkDefaultProgram(DefaulProgramType type = DefaulProgramType::Vertex1Matrix);
+		Program* linkDefaultProgram(DefaulProgramType type = DefaulProgramType::Vertex_1Matrix);
 		Program* linkProgramWithDefaultFragmentShader(Shader* vertex_shader);
 		void update();
 		void pollEvents();
 		void clearWindow();
 		void setClearColor(const mgl::Color& color);
 		void setClearColor(const float r = 0.f, const float g = 0.f, const float b = 0.f, const float a = 1.f);
+
+		int getWidth();
+		int getHeight();
+		int* getSize();
 
 		void initializeEventHandling();
 		void changleEventHandler(AbstractEventHandler* h);

@@ -49,6 +49,11 @@ void mgl::AbstractWindow::initialize(std::string title, int width, int height, D
 	if (glewError != GLEW_OK)
 		throw Exceptions::WindowInitializationException(std::string("GLEW inititalization error: ")
 														+= (const char*) (glewGetErrorString(glewError)));
+
+	//TEMPORARY!!!
+	GLuint vao;
+	glGenVertexArrays(1, &vao);
+	glBindVertexArray(vao);
 }
 
 void mgl::AbstractWindow::clean() {
@@ -101,6 +106,24 @@ void mgl::AbstractWindow::setClearColor(const mgl::Color & color) {
 
 void mgl::AbstractWindow::setClearColor(const float r, const float g, const float b, const float a) {
 	mgl::setClearColor(mgl::Color(r, g, b, a));
+}
+
+int mgl::AbstractWindow::getWidth() {
+	int ret;
+	glfwGetFramebufferSize(m_window, &ret, nullptr);
+	return ret;
+}
+
+int mgl::AbstractWindow::getHeight() {
+	int ret;
+	glfwGetFramebufferSize(m_window, nullptr, &ret);
+	return ret;
+}
+
+int* mgl::AbstractWindow::getSize() {
+	int ret[2];
+	glfwGetFramebufferSize(m_window, &ret[0], &ret[1]);
+	return ret;
 }
 
 void mgl::AbstractWindow::changleEventHandler(AbstractEventHandler * h) {

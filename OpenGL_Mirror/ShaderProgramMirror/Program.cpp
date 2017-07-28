@@ -85,12 +85,19 @@ mgl::ShaderVariable* mgl::Program::enableAttrib(const std::string fieldName, siz
 }
 
 void mgl::Program::sendUniform(ShaderVariable* variable, const float & data) {
+	if (variable->m_variable_type != ShaderVariableType::Uniform)
+		throw Exceptions::ProgramException("You are trying to send uniform data to a non-uniform variable.");
+
 	if (variable->m_data_type == ShaderDataType::Float)
+		glUniform1f(variable->m_location, data);
+	else
 		throw Exceptions::ProgramException("Data type isn't supported by the uniform.");
-	glUniform1f(variable->m_location, data);
 }
 
 void mgl::Program::sendUniform(ShaderVariable* variable, const math::Vector & data) {
+	if (variable->m_variable_type != ShaderVariableType::Uniform)
+		throw Exceptions::ProgramException("You are trying to send uniform data to a non-uniform variable.");
+
 	if (variable->m_data_type == ShaderDataType::Float_4)
 		glUniform4f(variable->m_location, data.x(), data.y(), data.z(), data.w());
 	else if (variable->m_data_type == ShaderDataType::Float_3)
@@ -102,6 +109,9 @@ void mgl::Program::sendUniform(ShaderVariable* variable, const math::Vector & da
 }
 
 void mgl::Program::sendUniform(ShaderVariable* variable, const math::Matrix & data) {
+	if (variable->m_variable_type != ShaderVariableType::Uniform)
+		throw Exceptions::ProgramException("You are trying to send uniform data to a non-uniform variable.");
+
 	if (variable->m_data_type == ShaderDataType::Float_4x4)
 		glUniformMatrix4fv(variable->m_location, 1, GL_FALSE, data.data());
 	else if (variable->m_data_type == ShaderDataType::Float_3x3)

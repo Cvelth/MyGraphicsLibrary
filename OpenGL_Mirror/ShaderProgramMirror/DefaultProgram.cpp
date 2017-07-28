@@ -6,21 +6,26 @@ mgl::DefaultProgram::DefaultProgram(DefaulProgramType type) : Program() {
 
 	vertexShader = new Shader(ShaderType::Vertex);
 	switch (type) {
-		case DefaulProgramType::VertexNoMatrices:
-			vertexShader->compileSource(Vertex_NoMatrix_Source);
+		case DefaulProgramType::Vertex_2Vectors:
+			vertexShader->compileSource(Vertex_NoMatrix_2Vectors_Source);
 			break;
-		case DefaulProgramType::Vertex1Matrix:
+		case DefaulProgramType::Vertex_1Matrix_2Vectors:
+			vertexShader->compileSource(Vertex_1Matrix_2Vectors_Source);
+			break;
+		case DefaulProgramType::Vertex_1Matrix:
 			vertexShader->compileSource(Vertex_1Matrix_Source);
 			break;
-		case DefaulProgramType::Vertex2Matrices:
+		case DefaulProgramType::Vertex_2Matrices:
 			vertexShader->compileSource(Vertex_2Matrices_Source);
 			break;
-		case DefaulProgramType::Vertex6Matrices:
+		case DefaulProgramType::Vertex_6Matrices:
 			vertexShader->compileSource(Vertex_6Matrices_Source);
 			break;
 	}
 
 	link({*vertexShader, *fragmentShader});
+	delete fragmentShader;
+	delete vertexShader;
 }
 
 mgl::DefaultProgram::DefaultProgram(Shader* vertex_shader) : Program() {
@@ -37,76 +42,91 @@ mgl::DefaultProgram::~DefaultProgram() {
 	Program::~Program();
 }
 
-const std::string mgl::DefaultProgram::Vertex_NoMatrix_Source =
-"#version 330		   														  \n"
-"																			  \n"
-"attribute vec4 position;													  \n"
-"attribute vec4 color;														  \n"
-"varying vec4 theColor;														  \n"
-"																			  \n"
-"uniform vec4 translation;													  \n"
-"uniform vec4 scaling;														  \n"
-"																			  \n"
-"void main() {																  \n"
-"	gl_Position = (position * scaling) + translation;						  \n"
-"	theColor = color;														  \n"
-"}																			  \n";
+const std::string mgl::DefaultProgram::Vertex_NoMatrix_2Vectors_Source =
+"#version 330		   														\n"
+"																			\n"
+"attribute vec4 position;													\n"
+"attribute vec4 color;														\n"
+"varying vec4 outColor;														\n"
+"																			\n"
+"uniform vec4 translation;													\n"
+"uniform vec4 scaling;														\n"
+"																			\n"
+"void main() {																\n"
+"	gl_Position = position * scaling + translation;							\n"
+"	outColor = color;														\n"
+"}																			\n";
+
+const std::string mgl::DefaultProgram::Vertex_1Matrix_2Vectors_Source =
+"#version 330		   														\n"
+"																			\n"
+"attribute vec4 position;													\n"
+"attribute vec4 color;														\n"
+"varying vec4 outColor;														\n"
+"																			\n"
+"uniform vec4 translation;													\n"
+"uniform vec4 scaling;														\n"
+"uniform mat4 projection;													\n"
+"																			\n"
+"void main() {																\n"
+"	gl_Position = projection * (position * scaling + translation);			\n"
+"	outColor = color;														\n"
+"}																			\n";
 
 const std::string mgl::DefaultProgram::Vertex_1Matrix_Source =
-"#version 330		   														  \n"
-"																			  \n"
-"attribute vec4 positionVector;												  \n"
-"varying vec4 theColor;														  \n"
-"																			  \n"
-"uniform vec4 drawingColor;													  \n"
-"uniform mat4 transformationMatrix;											  \n"
-"																			  \n"
-"void main() {																  \n"
-"	gl_Position = transformationMatrix * positionVector;					  \n"
-"	theColor = drawingColor;												  \n"
-"}																			  \n";
-																			  
-const std::string mgl::DefaultProgram::Vertex_2Matrices_Source =			  
-"#version 330																  \n"
-"																			  \n"
-"attribute vec4 positionVector;												  \n"
-"varying vec4 theColor;														  \n"
-"																			  \n"
-"uniform vec4 drawingColor;													  \n"
-"uniform mat4 transformationMatrix;											  \n"
-"uniform mat4 projectionMatrix;												  \n"
-"																			  \n"
-"void main() {																  \n"
-"	gl_Position = projectionMatrix * transformationMatrix * positionVector;	  \n"
-"	theColor = drawingColor;												  \n"
-"}																			  \n";
-
-const std::string mgl::DefaultProgram::Vertex_6Matrices_Source =
-"#version 330																  \n"
-"																			  \n"
-"attribute vec4 positionVector;												  \n"
-"varying vec4 theColor;														  \n"
-"																			  \n"
-"uniform vec4 drawingColor;													  \n"
-"uniform mat4 translationMatrix;											  \n"
-"uniform mat4 rotationElementMatrix;										  \n"
-"uniform mat4 rotationSceneMatrix;											  \n"
-"uniform mat4 scalingElementMatrix;											  \n"
-"uniform mat4 scalingSceneMatrix;											  \n"
-"uniform mat4 projectionMatrix;												  \n"
-"																			  \n"
-"void main() {																  \n"
-"	gl_Position = projectionMatrix * rotationSceneMatrix * scalingSceneMatrix \n"
-"		* translationMatrix * rotationElementMatrix * scalingElementMatrix	  \n"
-"		* positionVector;												      \n"
-"	theColor = drawingColor;												  \n"
-"}																			  \n";
-
-const std::string mgl::DefaultProgram::Fragment_Source =
-"#version 140																  \n"
-"																			  \n"
-"varying vec4 theColor;													      \n"
-"																			  \n"
-"void main() {																  \n"
-"	gl_FragColor = theColor;												  \n"
-"}																			  \n";
+"#version 330		   														\n"
+"																			\n"
+"attribute vec4 position;													\n"
+"attribute vec4 color;														\n"
+"varying vec4 outColor;														\n"
+"																			\n"
+"uniform mat4 transformation;												\n"
+"																			\n"
+"void main() {																\n"
+"	gl_Position = transformation * position;								\n"
+"	outColor = color;														\n"
+"}																			\n";
+																			
+const std::string mgl::DefaultProgram::Vertex_2Matrices_Source =			
+"#version 330																\n"
+"																			\n"
+"attribute vec4 position;													\n"
+"attribute vec4 color;														\n"
+"varying vec4 outColor;														\n"
+"																			\n"
+"uniform mat4 transformation;												\n"
+"uniform mat4 projection;													\n"
+"																			\n"
+"void main() {																\n"
+"	gl_Position = projection * transformation * position;					\n"
+"	outColor = color;														\n"
+"}																			\n";
+																			
+const std::string mgl::DefaultProgram::Vertex_6Matrices_Source =			
+"#version 330																\n"
+"																			\n"
+"attribute vec4 position;													\n"
+"attribute vec4 color;														\n"
+"varying vec4 theColor;														\n"
+"																			\n"
+"uniform mat4 translation;													\n"
+"uniform mat4 elementRotation;												\n"
+"uniform mat4 sceneRotation;												\n"
+"uniform mat4 elementScaling;												\n"
+"uniform mat4 sceneScaling;													\n"
+"uniform mat4 projection;													\n"
+"																			\n"
+"void main() {																\n"
+"	gl_Position = projection * sceneRotation * sceneScaling * translation	\n"
+"				* elementRotation * elementScaling * position;				\n"
+"	outColor = color;														\n"
+"}																			\n";
+																			
+const std::string mgl::DefaultProgram::Fragment_Source =					
+"#version 140																\n"
+"																			\n"
+"varying vec4 outColor;													    \n"
+"																			\n"
+"void main() {																\n"
+"	gl_FragColor = outColor;												\n"
+"}																			\n";
