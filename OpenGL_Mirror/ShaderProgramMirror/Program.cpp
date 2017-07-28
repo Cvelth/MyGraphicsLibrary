@@ -68,28 +68,28 @@ mgl::UniformVariable* mgl::Program::getUniform(const std::string fieldName) {
 }
 
 void mgl::Program::sendUniform(UniformVariable* variable, const float & data) {
-	if (variable->m_type != UniformType::Float)
+	if (variable->m_type == UniformType::Float)
 		throw Exceptions::ProgramException("Data type isn't supported by the uniform.");
 	glUniform1f(variable->m_location, data);
 }
 
 void mgl::Program::sendUniform(UniformVariable* variable, const math::Vector & data) {
-	if (variable->m_type != UniformType::Float_4)
+	if (variable->m_type == UniformType::Float_4)
 		glUniform4f(variable->m_location, data.x(), data.y(), data.z(), data.w());
-	else if (variable->m_type != UniformType::Float_3)
+	else if (variable->m_type == UniformType::Float_3)
 	 	glUniform3f(variable->m_location, data.x(), data.y(), data.z());
-	else if (variable->m_type != UniformType::Float_2)
+	else if (variable->m_type == UniformType::Float_2)
 		glUniform2f(variable->m_location, data.x(), data.y());
 	else
 		throw Exceptions::ProgramException("Data type isn't supported by the uniform.");
 }
 
 void mgl::Program::sendUniform(UniformVariable* variable, const math::Matrix & data) {
-	if (variable->m_type != UniformType::Float_4x4)
+	if (variable->m_type == UniformType::Float_4x4)
 		glUniformMatrix4fv(variable->m_location, 1, GL_FALSE, data.data());
-	else if (variable->m_type != UniformType::Float_3x3)
+	else if (variable->m_type == UniformType::Float_3x3)
 		glUniformMatrix3fv(variable->m_location, 1, GL_FALSE, data.data3x3());
-	else if (variable->m_type != UniformType::Float_2x2)
+	else if (variable->m_type == UniformType::Float_2x2)
 		glUniformMatrix2fv(variable->m_location, 1, GL_FALSE, data.data2x2());
 	else
 		throw Exceptions::ProgramException("Data type isn't supported by the uniform.");
