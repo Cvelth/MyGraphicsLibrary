@@ -18,7 +18,7 @@ namespace mgl {
 			Vector(const VectorInnerStructure& data);
 			Vector(VectorInnerStructure&& data);
 		public:
-			explicit Vector(const float x = 0.f, const float y = 0.f, const float z = 0.f, const float w = 0.f);
+			explicit Vector(const float x = 0.f, const float y = 0.f, const float z = 0.f, const float w = 1.f);
 			Vector(const float* const data);
 
 			~Vector();
