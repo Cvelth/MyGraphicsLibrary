@@ -50,5 +50,20 @@ namespace mgl {
 		
 		std::list<Vertex*>& operator*();
 		const std::list<Vertex*>& operator*() const;
+
+		const Primitive& operator+=(const mgl::math::Vector& v);
+		const Primitive& operator+=(mgl::math::Vector&& v);
+		const Primitive& operator+=(mgl::math::Vector* v);
+		const Primitive& operator-=(const mgl::math::Vector& v);
+		const Primitive& operator-=(mgl::math::Vector&& v);
+		const Primitive& operator-=(mgl::math::Vector* v);
+		const Primitive& operator*=(const mgl::math::Vector& v);
+		const Primitive& operator*=(mgl::math::Vector&& v);
+		const Primitive& operator*=(mgl::math::Vector* v);
+		const Primitive& operator/=(const mgl::math::Vector& v);
+		const Primitive& operator/=(mgl::math::Vector&& v);
+		const Primitive& operator/=(mgl::math::Vector* v);
+		const Primitive& operator*=(const float f);
+		const Primitive& operator/=(const float f);
 	};
 }

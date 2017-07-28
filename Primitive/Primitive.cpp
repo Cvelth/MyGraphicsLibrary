@@ -130,3 +130,78 @@ std::list<mgl::Vertex*>& mgl::Primitive::operator*() {
 const std::list<mgl::Vertex*>& mgl::Primitive::operator*() const {
 	return m_data;
 }
+
+const mgl::Primitive & mgl::Primitive::operator+=(const mgl::math::Vector& v) {
+	for (auto it : m_data)
+		*it->coords() += v;
+	return *this;
+}
+const mgl::Primitive & mgl::Primitive::operator+=(mgl::math::Vector && v) {
+	for (auto it : m_data)
+		*it->coords() += v;
+	return *this;
+}
+const mgl::Primitive & mgl::Primitive::operator+=(mgl::math::Vector * v) {
+	for (auto it : m_data)
+		*it->coords() += *v;
+	return *this;
+}
+
+const mgl::Primitive & mgl::Primitive::operator-=(const mgl::math::Vector& v) {
+	for (auto it : m_data)
+		*it->coords() -= v;
+	return *this;
+}
+const mgl::Primitive & mgl::Primitive::operator-=(mgl::math::Vector && v) {
+	for (auto it : m_data)
+		*it->coords() -= v;
+	return *this;
+}
+const mgl::Primitive & mgl::Primitive::operator-=(mgl::math::Vector * v) {
+	for (auto it : m_data)
+		*it->coords() -= *v;
+	return *this;
+}
+
+const mgl::Primitive & mgl::Primitive::operator*=(const mgl::math::Vector& v) {
+	for (auto it : m_data)
+		*it->coords() *= v;
+	return *this;
+}
+const mgl::Primitive & mgl::Primitive::operator*=(mgl::math::Vector&& v) {
+	for (auto it : m_data)
+		*it->coords() *= v;
+	return *this;
+}
+const mgl::Primitive & mgl::Primitive::operator*=(mgl::math::Vector* v) {
+	for (auto it : m_data)
+		*it->coords() *= *v;
+	return *this;
+}
+const mgl::Primitive & mgl::Primitive::operator/=(const mgl::math::Vector& v) {
+	for (auto it : m_data)
+		*it->coords() /= v;
+	return *this;
+}
+const mgl::Primitive & mgl::Primitive::operator/=(mgl::math::Vector&& v) {
+	for (auto it : m_data)
+		*it->coords() /= v;
+	return *this;
+}
+const mgl::Primitive & mgl::Primitive::operator/=(mgl::math::Vector* v) {
+	for (auto it : m_data)
+		*it->coords() /= *v;
+	return *this;
+}
+
+const mgl::Primitive & mgl::Primitive::operator*=(const float f) {
+	for (auto it : m_data)
+		*it->coords() *= f;
+	return *this;
+}
+
+const mgl::Primitive & mgl::Primitive::operator/=(const float f) {
+	for (auto it : m_data)
+		*it->coords() /= f;
+	return *this;
+}

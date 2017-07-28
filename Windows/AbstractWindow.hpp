@@ -36,6 +36,7 @@ namespace mgl {
 		virtual void renderProcess() abstract;
 		virtual void clearRenderProcess() abstract;
 	protected:
+		virtual void resize();
 		virtual void resize(int width, int height);
 		void setOpenGLVersion(int major = 3, int minor = 3);
 	public:

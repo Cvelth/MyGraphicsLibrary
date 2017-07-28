@@ -119,6 +119,48 @@ namespace mgl {
 				m_data -= vector->m_data;
 				return *this;
 			}
+			VectorInnerStructure& mulEq(const VectorInnerStructure& vector) {
+				m_data = glm::vec4(m_data.x * vector.m_data.x,
+								   m_data.y * vector.m_data.y,
+								   m_data.z * vector.m_data.z,
+								   m_data.w * vector.m_data.w);
+				return *this;
+			}
+			VectorInnerStructure& mulEq(VectorInnerStructure&& vector) {
+				m_data = glm::vec4(m_data.x * vector.m_data.x,
+								   m_data.y * vector.m_data.y,
+								   m_data.z * vector.m_data.z,
+								   m_data.w * vector.m_data.w);
+				return *this;
+			}
+			VectorInnerStructure& mulEq(VectorInnerStructure* vector) {
+				m_data = glm::vec4(m_data.x * vector->m_data.x,
+								   m_data.y * vector->m_data.y,
+								   m_data.z * vector->m_data.z,
+								   m_data.w * vector->m_data.w);
+				return *this;
+			}
+			VectorInnerStructure& divEq(const VectorInnerStructure& vector) {
+				m_data = glm::vec4(m_data.x / vector.m_data.x,
+								   m_data.y / vector.m_data.y,
+								   m_data.z / vector.m_data.z,
+								   m_data.w / vector.m_data.w);
+				return *this;
+			}
+			VectorInnerStructure& divEq(VectorInnerStructure&& vector) {
+				m_data = glm::vec4(m_data.x / vector.m_data.x,
+								   m_data.y / vector.m_data.y,
+								   m_data.z / vector.m_data.z,
+								   m_data.w / vector.m_data.w);
+				return *this;
+			}
+			VectorInnerStructure& divEq(VectorInnerStructure* vector) {
+				m_data = glm::vec4(m_data.x / vector->m_data.x,
+								   m_data.y / vector->m_data.y,
+								   m_data.z / vector->m_data.z,
+								   m_data.w / vector->m_data.w);
+				return *this;
+			}
 			VectorInnerStructure& mulEq(const float q) {
 				m_data *= q;
 				return *this;
@@ -309,6 +351,22 @@ mgl::math::Vector & mgl::math::Vector::operator-=(const Vector & vector) {
 }
 mgl::math::Vector & mgl::math::Vector::operator-=(Vector && vector) {
 	m_data->subEq(vector.m_data);
+	return *this;
+}
+mgl::math::Vector & mgl::math::Vector::operator*=(const Vector & vector) {
+	m_data->mulEq(vector.m_data);
+	return *this;
+}
+mgl::math::Vector & mgl::math::Vector::operator*=(Vector && vector) {
+	m_data->mulEq(vector.m_data);
+	return *this;
+}
+mgl::math::Vector & mgl::math::Vector::operator/=(const Vector & vector) {
+	m_data->divEq(vector.m_data);
+	return *this;
+}
+mgl::math::Vector & mgl::math::Vector::operator/=(Vector && vector) {
+	m_data->divEq(vector.m_data);
 	return *this;
 }
 mgl::math::Vector & mgl::math::Vector::operator*=(float q) {

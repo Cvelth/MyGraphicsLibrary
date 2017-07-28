@@ -68,6 +68,14 @@ namespace mgl {
 			Vector& operator-=(const Vector& vector);
 			//Difference of two vectors
 			Vector& operator-=(Vector&& vector);
+			//Element-wise product of two vectors
+			Vector& operator*=(const Vector& vector);
+			//Element-wise product of two vectors
+			Vector& operator*=(Vector&& vector);
+			//Element-wise division of two vectors
+			Vector& operator/=(const Vector& vector);
+			//Element-wise division of two vectors
+			Vector& operator/=(Vector&& vector);
 			//A multiplication of vector with a coefficient.
 			Vector& operator*=(const float q);
 			//A multiplication of vector with a coefficient.

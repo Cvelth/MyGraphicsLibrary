@@ -5,7 +5,32 @@
 
 const float PI = 3.14159265359f;
 
-mgl::Primitive* mgl::generateN_Polygon(size_t n, mgl::Color * color, bool isFilled) {
+mgl::Primitive* mgl::changePlacing(Primitive* primitive, PoligonPlacing from, PoligonPlacing to) {
+	if (from != PoligonPlacing::zero_Center)
+		throw Exceptions::PrimitiveException("Operation currently unsupported.");
+	switch (to) {
+		case PoligonPlacing::zero_TopLeftCorner:
+			*primitive /= mgl::math::Vector(+2.f, +2.f, 1.f, 1.f);
+			*primitive += mgl::math::Vector(+.5f, +.5f, 0.f, 0.f);
+			break;
+		case PoligonPlacing::zero_TopRightCorner:
+			*primitive /= mgl::math::Vector(+2.f, +2.f, 1.f, 1.f);
+			*primitive += mgl::math::Vector(-.5f, +.5f, 0.f, 0.f);
+			break;
+		case PoligonPlacing::zero_BottomLeftCorner:
+			*primitive /= mgl::math::Vector(+2.f, +2.f, 1.f, 1.f);
+			*primitive += mgl::math::Vector(+.5f, -.5f, 0.f, 0.f);
+			break;
+		case PoligonPlacing::zero_BottomRightCorner:
+			*primitive /= mgl::math::Vector(+2.f, +2.f, 1.f, 1.f);
+			*primitive += mgl::math::Vector(-.5f, -.5f, 0.f, 0.f);
+			break;
+		default: break;
+	}
+	return primitive;
+}
+
+mgl::Primitive* mgl::generateN_Polygon(size_t n, mgl::Color * color, PoligonPlacing placing, bool isFilled) {
 	Primitive* res;
 	if (isFilled)
 		res = new Primitive(VertexConnectionType::TriangleStrip, color);
@@ -14,10 +39,10 @@ mgl::Primitive* mgl::generateN_Polygon(size_t n, mgl::Color * color, bool isFill
 	float STEP = PI / n * 2;
 	for (float f = 0.f; f < PI * 2; f += STEP)
 		res->insert(new mgl::math::Vector(cosf(f), sinf(f)));
-	return res;
+	return changePlacing(res, PoligonPlacing::zero_Center, placing);
 }
 
-mgl::Primitive* mgl::generateRectangle(float aspectRatio, mgl::Color * color, bool isFilled) {
+mgl::Primitive* mgl::generateRectangle(float aspectRatio, mgl::Color * color, PoligonPlacing placing, bool isFilled) {
 	mgl::Primitive* res;
 	if (isFilled)
 		res = new Primitive(VertexConnectionType::TriangleStrip, color);
@@ -35,9 +60,9 @@ mgl::Primitive* mgl::generateRectangle(float aspectRatio, mgl::Color * color, bo
 		res->insert(new mgl::math::Vector(+1.f, +1.f / aspectRatio));
 	} else
 		throw mgl::Exceptions::PrimitiveException("Incorrect input data(aspectRatio).");
-	return res;
+	return changePlacing(res, PoligonPlacing::zero_Center, placing);
 }
 
-mgl::Primitive* mgl::generateCircle(size_t n, mgl::Color * color, bool isFilled) {
-	return generateN_Polygon(n, color, isFilled);
+mgl::Primitive* mgl::generateCircle(size_t n, mgl::Color * color, PoligonPlacing placing, bool isFilled) {
+	return generateN_Polygon(n, color, placing, isFilled);
 }

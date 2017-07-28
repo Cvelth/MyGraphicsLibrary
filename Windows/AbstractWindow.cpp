@@ -61,6 +61,11 @@ void mgl::AbstractWindow::clean() {
 	glfwTerminate();
 }
 
+void mgl::AbstractWindow::resize() {
+	auto size = getSize();
+	resize(size[0], size[1]);
+}
+
 void mgl::AbstractWindow::resize(int width, int height) {
 	m_aspectRatio = float(width) / height;
 	mgl::setViewport(0, 0, width, height);
