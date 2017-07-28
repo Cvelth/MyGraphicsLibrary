@@ -26,13 +26,13 @@ mgl::Primitive* mgl::generateRectangle(float aspectRatio, mgl::Color * color, bo
 	if (aspectRatio < 1.f && aspectRatio > 0.f) {
 		res->insert(new mgl::math::Vector(-aspectRatio, -1.f));
 		res->insert(new mgl::math::Vector(+aspectRatio, -1.f));
-		res->insert(new mgl::math::Vector(+aspectRatio, +1.f));
 		res->insert(new mgl::math::Vector(-aspectRatio, +1.f));
+		res->insert(new mgl::math::Vector(+aspectRatio, +1.f));
 	} else if (aspectRatio >= 1.f) {
 		res->insert(new mgl::math::Vector(-1.f, -1.f / aspectRatio));
 		res->insert(new mgl::math::Vector(-1.f, +1.f / aspectRatio));
-		res->insert(new mgl::math::Vector(+1.f, +1.f / aspectRatio));
 		res->insert(new mgl::math::Vector(+1.f, -1.f / aspectRatio));
+		res->insert(new mgl::math::Vector(+1.f, +1.f / aspectRatio));
 	} else
 		throw mgl::Exceptions::PrimitiveException("Incorrect input data(aspectRatio).");
 	return res;
