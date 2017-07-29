@@ -1,5 +1,7 @@
 #pragma once
 
+#define MGL_FORCE_NVIDIA_GPU_USAGE extern "C" {_declspec(dllexport) int NvOptimusEnablement = 0x00000001;}
+
 #if defined MGL_INCLUDE_ALL
 	#define MGL_INCLUDE_MATH
 	#define MGL_INCLUDE_WINDOWS

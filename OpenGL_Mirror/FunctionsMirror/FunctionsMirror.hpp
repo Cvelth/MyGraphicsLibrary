@@ -7,6 +7,7 @@ namespace mgl {
 	class Buffer;
 
 	std::string getError();
+	std::string getRendererName();
 
 	void clearColorBuffer();
 	void setViewport(size_t x, size_t y, size_t width, size_t height);

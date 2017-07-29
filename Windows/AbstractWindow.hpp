@@ -24,6 +24,10 @@ namespace mgl {
 	}
 	class DefaultEventHandler;
 
+	typedef struct {
+		int w, h;
+	} Size;
+
 	class AbstractWindow {
 		friend DefaultEventHandler;
 	private:
@@ -57,7 +61,7 @@ namespace mgl {
 
 		int getWidth();
 		int getHeight();
-		int* getSize();
+		Size getSize();
 
 		void initializeEventHandling();
 		void changleEventHandler(AbstractEventHandler* h);

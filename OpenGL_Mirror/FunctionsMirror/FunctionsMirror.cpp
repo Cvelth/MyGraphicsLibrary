@@ -43,6 +43,9 @@ void mgl::enablePointSmooth(SmoothMode mode) {
 std::string mgl::getError() {
 	return (const char*) glewGetErrorString(glGetError());
 }
+std::string mgl::getRendererName() {
+	return std::string(std::string((const char*) glGetString(GL_VENDOR)) + std::string("\n") + std::string((const char*) glGetString(GL_RENDERER)));
+}
 
 void mgl::clearColorBuffer() {
 	glClear(GL_COLOR_BUFFER_BIT);

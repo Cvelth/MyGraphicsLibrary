@@ -63,7 +63,7 @@ void mgl::AbstractWindow::clean() {
 
 void mgl::AbstractWindow::resize() {
 	auto size = getSize();
-	resize(size[0], size[1]);
+	resize(size.w, size.h);
 }
 
 void mgl::AbstractWindow::resize(int width, int height) {
@@ -125,9 +125,9 @@ int mgl::AbstractWindow::getHeight() {
 	return ret;
 }
 
-int* mgl::AbstractWindow::getSize() {
-	int ret[2];
-	glfwGetFramebufferSize(m_window, &ret[0], &ret[1]);
+mgl::Size mgl::AbstractWindow::getSize() {
+	Size ret;
+	glfwGetFramebufferSize(m_window, &ret.w, &ret.h);
 	return ret;
 }
 
