@@ -45,24 +45,19 @@ void mgl::Program::use() {
 }
 
 mgl::ShaderVariable* mgl::Program::getUniform(const std::string fieldName) {
-	GLint uniforms_number;
-	GLint max_uniform_length;
+	GLint uniforms_number, max_uniform_length, name_length, size;
+	GLenum type;
+	GLchar* name;
 	glGetProgramiv(m_id, GL_ACTIVE_UNIFORMS, &uniforms_number);
 	glGetProgramiv(m_id, GL_ACTIVE_UNIFORM_MAX_LENGTH, &max_uniform_length);
 	for (int i = 0; i < uniforms_number; i++) {
-		GLint name_length;
-		glGetActiveUniform(m_id, i, max_uniform_length, &name_length, NULL, NULL, NULL);
-		if (name_length > 0) {
-			GLint size;
-			GLenum type;
-			GLchar* name = new GLchar[name_length + 1];
-			glGetActiveUniform(m_id, i, max_uniform_length, &name_length, &size, &type, name);
-			std::string name_str = std::string(name);
-			//delete[] name;
+		name = new GLchar[max_uniform_length];
+		glGetActiveUniform(m_id, i, max_uniform_length, &name_length, &size, &type, name);
+		std::string name_str = std::string(name);
+		delete[] name;
 
-			if (name_str == fieldName)
-				return new ShaderVariable(fieldName, ShaderVariableType::Uniform, i, switchShaderDataType(type));
-		}
+		if (name_str == fieldName)
+			return new ShaderVariable(fieldName, ShaderVariableType::Uniform, i, switchShaderDataType(type));
 	}
 	throw Exceptions::ProgramException("No uniform with the 'fieldName' was found in the Shader.");
 }
@@ -73,9 +68,9 @@ mgl::ShaderVariable* mgl::Program::enableAttribWithNormalization(const std::stri
 	if (loc == -1)
 		throw Exceptions::ProgramException("There are no atribute in the Shader with the 'fieldName'.");
 
-	glEnableVertexAttribArray(loc);
 	glVertexAttribPointer(loc, (GLint) size, GL_FLOAT, normalized ? GL_TRUE : GL_FALSE,
 		sizeof(float) * (GLsizei) stride, (const void*) (sizeof(float) * shift));
+	glEnableVertexAttribArray(loc);
 
 	return new mgl::ShaderVariable(fieldName, ShaderVariableType::Attribute, loc, ShaderDataType::Float);
 }
