@@ -74,9 +74,9 @@ void mgl::AbstractWindow::resize(int width, int height) {
 	m_projection = new mgl::math::Matrix(mgl::math::Matrix::orthographicMatrix(
 		m_aspectRatio > 1.f ? -m_aspectRatio : -1.f,
 		m_aspectRatio > 1.f ? m_aspectRatio : 1.f,
-		-1.f / (m_aspectRatio > 1.f ? 1.f : m_aspectRatio),
 		+1.f / (m_aspectRatio > 1.f ? 1.f : m_aspectRatio),
-		+1.f, -1.f
+		-1.f / (m_aspectRatio > 1.f ? 1.f : m_aspectRatio),
+		-1.f, +1.f
 	));
 }
 
