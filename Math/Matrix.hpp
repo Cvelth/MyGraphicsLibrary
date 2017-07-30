@@ -59,10 +59,10 @@ namespace mgl {
 			Matrix& scale(const Vector& v);
 
 			static const Matrix orthographicMatrix(const float left, const float right,
-												   const float top, const float bottom,
+												   const float bottom, const float top,
 												   const float near, const float far);
 			static const Matrix perspectiveMatrix(const float left, const float right,
-												  const float top, const float bottom,
+												  const float bottom, const float top,
 												  const float near, const float far);
 
 			static const Matrix translationMatrix(const Vector& v);

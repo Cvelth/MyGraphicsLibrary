@@ -120,14 +120,14 @@ namespace mgl {
 			}
 
 			static const MatrixInnerStructure orthographicMatrix(const float left, const float right,
-												   const float top, const float bottom,
-												   const float near, const float far) {
-				return glm::orthoRH(left, right, top, bottom, near, far);
+																 const float bottom, const float top,
+																 const float near, const float far) {
+				return glm::orthoRH(left, right, bottom, top, near, far);
 			}
 			static const MatrixInnerStructure perspectiveMatrix(const float left, const float right,
-												  const float top, const float bottom,
-												  const float near, const float far) {
-				return glm::frustumRH(left, right, top, bottom, near, far);
+																const float bottom, const float top,
+																const float near, const float far) {
+				return glm::frustumRH(left, right, bottom, top, near, far);
 			}
 			static const MatrixInnerStructure translationMatrix(const float x = 0.f, const float y = 0.f, const float z = 0.f) {
 				glm::mat4 ret;
@@ -374,12 +374,12 @@ mgl::math::Matrix& mgl::math::Matrix::scale(const Vector & v) {
 	return *this;
 }
 
-const mgl::math::Matrix mgl::math::Matrix::orthographicMatrix(const float left, const float right, const float top, const float bottom, const float near, const float far) {
-	return MatrixInnerStructure::orthographicMatrix(left, right, top, bottom, near, far);
+const mgl::math::Matrix mgl::math::Matrix::orthographicMatrix(const float left, const float right, const float bottom, const float top, const float near, const float far) {
+	return MatrixInnerStructure::orthographicMatrix(left, right, bottom, top, near, far);
 }
 
-const mgl::math::Matrix mgl::math::Matrix::perspectiveMatrix(const float left, const float right, const float top, const float bottom, const float near, const float far) {
-	return MatrixInnerStructure::perspectiveMatrix(left, right, top, bottom, near, far);
+const mgl::math::Matrix mgl::math::Matrix::perspectiveMatrix(const float left, const float right, const float bottom, const float top, const float near, const float far) {
+	return MatrixInnerStructure::perspectiveMatrix(left, right, bottom, top, near, far);
 }
 
 const mgl::math::Matrix mgl::math::Matrix::translationMatrix(const Vector & v) {
