@@ -17,7 +17,7 @@ namespace mgl {
 	};
 }
 
-mgl::AbstractWindow::AbstractWindow() : m_projection(new mgl::math::Matrix()) {}
+mgl::AbstractWindow::AbstractWindow() : m_projection(new mgl::math::Matrix()), isWindowInitialized(false) {}
 
 mgl::AbstractWindow::AbstractWindow(std::string title, int width, int height, DefaultWindowMode mode) : AbstractWindow() {
 	initialize(title, width, height, mode);
@@ -51,6 +51,8 @@ void mgl::AbstractWindow::initialize(std::string title, int width, int height, D
 		throw Exceptions::WindowInitializationException(std::string("GLEW inititalization error: ")
 														+= (const char*) (glewGetErrorString(glewError)));
 
+	isWindowInitialized = true;
+
 	//TEMPORARY!!!
 	GLuint vao;
 	glGenVertexArrays(1, &vao);
@@ -58,8 +60,11 @@ void mgl::AbstractWindow::initialize(std::string title, int width, int height, D
 }
 
 void mgl::AbstractWindow::clean() {
-	glfwDestroyWindow(m_window);
-	glfwTerminate();
+	if (isWindowInitialized) {
+		glfwDestroyWindow(m_window);
+		glfwTerminate();
+	}
+	isWindowInitialized = false;
 }
 
 void mgl::AbstractWindow::resize() {
