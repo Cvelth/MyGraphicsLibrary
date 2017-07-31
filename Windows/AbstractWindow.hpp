@@ -36,6 +36,7 @@ namespace mgl {
 		float m_aspectRatio;
 		math::Matrix* m_projection;
 
+		AbstractEventHandler* m_default_event_handler;
 		bool isWindowInitialized;
 	protected:
 		virtual void initializeRenderProcess() abstract;

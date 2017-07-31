@@ -25,7 +25,8 @@ mgl::AbstractWindow::AbstractWindow(std::string title, int width, int height, De
 
 mgl::AbstractWindow::~AbstractWindow() {
 	clean();
-	EventsSystem::clean();
+	if (m_default_event_handler)
+		delete m_default_event_handler;
 }
 
 void mgl::AbstractWindow::initialize(std::string title, int width, int height, DefaultWindowMode mode) {
@@ -161,7 +162,8 @@ void mgl::AbstractWindow::initializeEventHandling(AbstractEventHandler * h) {
 }
 
 void mgl::AbstractWindow::initializeEventHandling() {
-	initializeEventHandling(new DefaultEventHandler(this));
+	m_default_event_handler = new DefaultEventHandler(this);
+	initializeEventHandling(m_default_event_handler);
 }
 
 void mgl::DefaultEventHandler::resizeEvent(GLFWwindow * w, int x, int y) {
