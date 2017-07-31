@@ -122,12 +122,12 @@ namespace mgl {
 			static const MatrixInnerStructure orthographicMatrix(const float left, const float right,
 																 const float bottom, const float top,
 																 const float near, const float far) {
-				return glm::orthoRH(left, right, bottom, top, near, far);
+				return glm::ortho(left, right, bottom, top, near, far);
 			}
 			static const MatrixInnerStructure perspectiveMatrix(const float left, const float right,
 																const float bottom, const float top,
 																const float near, const float far) {
-				return glm::frustumRH(left, right, bottom, top, near, far);
+				return glm::frustum(left, right, bottom, top, near, far);
 			}
 			static const MatrixInnerStructure translationMatrix(const float x = 0.f, const float y = 0.f, const float z = 0.f) {
 				glm::mat4 ret;
