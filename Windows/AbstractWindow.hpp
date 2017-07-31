@@ -63,6 +63,7 @@ namespace mgl {
 		int getHeight();
 		Size getSize();
 
+		void initializeEventHandling(AbstractEventHandler* h);
 		void initializeEventHandling();
 		void changleEventHandler(AbstractEventHandler* h);
 

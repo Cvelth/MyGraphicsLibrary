@@ -12,6 +12,9 @@ namespace mgl {
 		static void setHandler(AbstractEventHandler* h) {
 			e = h;
 		}
+		static void clean() {
+			if (e) delete e;
+		}
 	public:
 		static void mouseButtonEvent(GLFWwindow* w, int button, int action, int mods) {
 			e->mouseButtonEvent(w, _switchMouseButton(button),

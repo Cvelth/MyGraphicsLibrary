@@ -25,6 +25,7 @@ mgl::AbstractWindow::AbstractWindow(std::string title, int width, int height, De
 
 mgl::AbstractWindow::~AbstractWindow() {
 	clean();
+	EventsSystem::clean();
 }
 
 void mgl::AbstractWindow::initialize(std::string title, int width, int height, DefaultWindowMode mode) {
@@ -139,8 +140,8 @@ bool mgl::AbstractWindow::isWindowClosed() {
 	return glfwWindowShouldClose(m_window);
 }
 
-void mgl::AbstractWindow::initializeEventHandling() {
-	EventsSystem::setHandler(new DefaultEventHandler(this));
+void mgl::AbstractWindow::initializeEventHandling(AbstractEventHandler * h) {
+	EventsSystem::setHandler(h);
 	glfwSetKeyCallback(m_window, EventsSystem::keyEvent);
 	glfwSetMouseButtonCallback(m_window, EventsSystem::mouseButtonEvent);
 	glfwSetCharCallback(m_window, EventsSystem::characterEvent);
@@ -152,6 +153,10 @@ void mgl::AbstractWindow::initializeEventHandling() {
 	glfwSetFramebufferSizeCallback(m_window, EventsSystem::resizeEvent);
 	glfwSetJoystickCallback(EventsSystem::joystickEvent);
 	glfwSetErrorCallback(EventsSystem::errorEvent);
+}
+
+void mgl::AbstractWindow::initializeEventHandling() {
+	initializeEventHandling(new DefaultEventHandler(this));
 }
 
 void mgl::DefaultEventHandler::resizeEvent(GLFWwindow * w, int x, int y) {
