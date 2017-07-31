@@ -1,9 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Events Headers">
-      <UniqueIdentifier>{97ea6852-74c0-4f5a-8e09-d0450ff0d70a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Windows Headers">
       <UniqueIdentifier>{0f6b7f92-50af-4f3d-b281-514086d1adae}</UniqueIdentifier>
     </Filter>
@@ -19,30 +16,12 @@
     <ClInclude Include="AbstractWindow.hpp">
       <Filter>Windows Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Events\AbstractEventHandler.hpp">
-      <Filter>Events Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Events\EmptyEventHandler.hpp">
-      <Filter>Events Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Events\EventEnums.hpp">
-      <Filter>Events Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Events\EventsSystem.hpp">
-      <Filter>Events Headers</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AbstractLoopWindow.cpp">
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="AbstractWindow.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Events\EventEnums.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Events\EventsSystem.cpp">
       <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>
