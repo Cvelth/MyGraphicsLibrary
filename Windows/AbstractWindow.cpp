@@ -2,7 +2,7 @@
 #include "AbstractWindow.hpp"
 #include "OpenGL_Mirror\FunctionsMirror\FunctionsMirror.hpp"
 #include "OpenGL_Mirror\BasicTypes\Color.hpp"
-#include "OpenGL_Mirror\ShaderProgramMirror\DefaultProgram.hpp"
+#include "OpenGL_Mirror\ShaderProgramMirror\ShaderProgram.hpp"
 #include "Math\Matrix.hpp"
 #include "Events\EventsSystem.hpp"
 
@@ -92,14 +92,6 @@ void mgl::AbstractWindow::setOpenGLVersion(int major, int minor) {
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, minor);
 }
 
-mgl::Program* mgl::AbstractWindow::linkDefaultProgram(DefaulProgramType type) {
-	return new DefaultProgram(type);
-}
-
-mgl::Program* mgl::AbstractWindow::linkProgramWithDefaultFragmentShader(Shader * vertex_shader) {
-	return new DefaultProgram(vertex_shader);
-}
-
 void mgl::AbstractWindow::update() {
 	glfwSwapBuffers(m_window);
 }
@@ -169,4 +161,24 @@ void mgl::AbstractWindow::initializeEventHandling() {
 void mgl::DefaultEventHandler::resizeEvent(GLFWwindow * w, int x, int y) {
 	m_window->resize(x, y);
 	m_window->update();
+}
+
+#include "OpenGL_Mirror\ShaderProgramMirror\Shader.hpp"
+mgl::ShaderProgram* mgl::AbstractWindow::linkDefaultProgram(DefaultVertexShaderInput input) {
+	auto ret = new mgl::ShaderProgram();
+	auto vertex_shader = mgl::compileDefaultVertexShader(input);
+	auto fragment_shader = mgl::compileDefaultFragmentShader();
+	ret->link({*vertex_shader, *fragment_shader});
+	delete vertex_shader;
+	delete fragment_shader;
+	return ret;
+}
+
+mgl::ShaderProgram* mgl::AbstractWindow::linkProgramWithDefaultFragmentShader(Shader* vertex_shader) {
+	auto ret = new mgl::ShaderProgram();
+	auto fragment_shader = mgl::compileDefaultFragmentShader();
+	ret->link({*vertex_shader, *fragment_shader});
+	delete vertex_shader;
+	delete fragment_shader;
+	return ret;
 }

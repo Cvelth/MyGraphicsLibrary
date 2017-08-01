@@ -1,8 +1,8 @@
 #pragma once
 #include <string>
-#include "SharedHeaders\Enums.hpp"
 #include "SharedHeaders\Exceptions.hpp"
 #include "Events\EmptyEventHandler.hpp"
+#include "OpenGL_Mirror\ShaderProgramMirror\DefaultShaders.hpp"
 
 struct GLFWwindow;
 
@@ -18,7 +18,7 @@ namespace mgl {
 
 	class Color;
 	class Shader;
-	class Program;
+	class ShaderProgram;
 	namespace math {
 		class Matrix;
 	}
@@ -54,8 +54,8 @@ namespace mgl {
 		void initialize(std::string title, int width = 640, int height = 480, DefaultWindowMode mode = DefaultWindowMode::Windowed);
 		void clean();
 
-		Program* linkDefaultProgram(DefaulProgramType type = DefaulProgramType::Vertex_1Matrix);
-		Program* linkProgramWithDefaultFragmentShader(Shader* vertex_shader);
+		static ShaderProgram* linkDefaultProgram(DefaultVertexShaderInput input = DefaultVertexShaderInput::mat4x1);
+		static ShaderProgram* linkProgramWithDefaultFragmentShader(Shader* vertex_shader);
 		void update();
 		void pollEvents();
 		void clearWindow();

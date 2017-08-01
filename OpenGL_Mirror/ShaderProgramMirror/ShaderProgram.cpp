@@ -1,5 +1,6 @@
 #include "OpenGL_Mirror\OpenGL_Dependency\OpenGL.h"
 #include "ShaderProgram.hpp"
+#include "Shader.hpp"
 #include "Math\Vector.hpp"
 #include "Math\Matrix.hpp"
 #include "OpenGL_Mirror\FunctionsMirror\FunctionsMirror.hpp"

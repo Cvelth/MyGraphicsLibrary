@@ -9,11 +9,12 @@
 	#define MGL_INCLUDE_PRIMITIVES
 	#define MGL_INCLUDE_DEFAULT_PRIMITIVES
 	#define MGL_INCLUDE_SHADER_PROGRAM_MIRROR
-	#define MGL_INCLUDE_DEFAULT_SHADER_PROGRAM
+	#define MGL_INCLUDE_DEFAULT_SHADERS
 	#define MGL_INCLUDE_OPENGL_FUNCTIONS_MIRROR
 	#define MGL_INCLUDE_OPENGL_EXPERIMENTAL_FUNCTIONS_MIRROR
 	#define MGL_INCLUDE_OPENGL_BASIC_TYPES_MIRROR
 	#define MGL_INCLUDE_OPENGL_ACCESS
+	#define MGL_INCLUDE_DEFAULT_HEADERS
 #endif
 
 #if defined MGL_DEFAULT_INCLUDE
@@ -24,6 +25,7 @@
 	#define MGL_INCLUDE_SHADER_PROGRAM_MIRROR
 	#define MGL_INCLUDE_OPENGL_BASIC_TYPES_MIRROR
 	#define MGL_INCLUDE_DEFAULT_HEADERS
+	#define MGL_INCLUDE_DEFAULT_SHADERS
 #endif
 
 #if defined MGL_INCLUDE_MATH
@@ -68,10 +70,10 @@
 #endif
 
 #if defined MGL_INCLUDE_SHADER_PROGRAM_MIRROR
-	#include "OpenGL_Mirror\ShaderProgramMirror\Program.hpp"
+	#include "OpenGL_Mirror\ShaderProgramMirror\ShaderProgram.hpp"
 #endif
-#if defined MGL_INCLUDE_DEFAULT_SHADER_PROGRAM
-	#include "OpenGL_Mirror\ShaderProgramMirror\DefaultProgram.hpp"
+#if defined MGL_INCLUDE_DEFAULT_SHADERS
+	#include "OpenGL_Mirror\ShaderProgramMirror\DefaultShaders.hpp"
 #endif
 
 #if defined MGL_INCLUDE_OPENGL_FUNCTIONS_MIRROR
