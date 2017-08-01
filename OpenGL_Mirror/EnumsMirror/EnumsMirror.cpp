@@ -71,6 +71,15 @@ GLenum mgl::switchEnum(BufferBindingPoint e) {
 	}
 }
 
+GLenum mgl::switchEnum(BufferMappingAccess e) {
+	switch (e) {
+		case BufferMappingAccess::ReadOnly: return GL_READ_ONLY;
+		case BufferMappingAccess::WriteOnly: return GL_WRITE_ONLY;
+		case BufferMappingAccess::ReadWrite: return GL_READ_WRITE;
+		default: throw Exceptions::IncorrectEnumException(" ");
+	}
+}
+
 GLenum mgl::switchEnum(DataUsage e) {
 	switch (e) {
 		case DataUsage::StreamDraw: return GL_STREAM_DRAW;

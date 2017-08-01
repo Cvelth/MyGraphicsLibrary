@@ -39,6 +39,11 @@ namespace mgl {
 	};
 	GLenum switchEnum(BufferBindingPoint e);
 
+	enum class BufferMappingAccess {
+		ReadOnly, WriteOnly, ReadWrite
+	};
+	GLenum switchEnum(BufferMappingAccess e);
+
 	enum class DataUsage {
 		StreamDraw, StreamRead, StreamCopy,
 		StaticDraw, StaticRead, StaticCopy,
