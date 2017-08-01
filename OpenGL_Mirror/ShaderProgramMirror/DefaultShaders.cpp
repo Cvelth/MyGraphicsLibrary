@@ -1,48 +1,7 @@
-#include "DefaultProgram.hpp"
+#include "DefaultShaders.hpp"
+#include "Shader.hpp"
 
-mgl::DefaultProgram::DefaultProgram(DefaulProgramType type) : Program() {
-	fragmentShader = new Shader(ShaderType::Fragment);
-	fragmentShader->compileSource(Fragment_Source);
-
-	vertexShader = new Shader(ShaderType::Vertex);
-	switch (type) {
-		case DefaulProgramType::Vertex_2Vectors:
-			vertexShader->compileSource(Vertex_NoMatrix_2Vectors_Source);
-			break;
-		case DefaulProgramType::Vertex_1Matrix_2Vectors:
-			vertexShader->compileSource(Vertex_1Matrix_2Vectors_Source);
-			break;
-		case DefaulProgramType::Vertex_1Matrix:
-			vertexShader->compileSource(Vertex_1Matrix_Source);
-			break;
-		case DefaulProgramType::Vertex_2Matrices:
-			vertexShader->compileSource(Vertex_2Matrices_Source);
-			break;
-		case DefaulProgramType::Vertex_6Matrices:
-			vertexShader->compileSource(Vertex_6Matrices_Source);
-			break;
-	}
-
-	link({*vertexShader, *fragmentShader});
-	delete fragmentShader;
-	delete vertexShader;
-}
-
-mgl::DefaultProgram::DefaultProgram(Shader* vertex_shader) : Program() {
-	fragmentShader = new Shader(ShaderType::Fragment);
-	fragmentShader->compileSource(Fragment_Source);
-	vertexShader = vertex_shader;
-
-	link({*vertexShader, *fragmentShader});
-}
-
-mgl::DefaultProgram::~DefaultProgram() {
-	delete vertexShader;
-	delete fragmentShader;
-	Program::~Program();
-}
-
-const std::string mgl::DefaultProgram::Vertex_NoMatrix_2Vectors_Source =
+const std::string Vertex_NoMatrix_2Vectors_Shader_Source =
 "#version 330		   														\n"
 "																			\n"
 "attribute vec4 position;													\n"
@@ -57,7 +16,7 @@ const std::string mgl::DefaultProgram::Vertex_NoMatrix_2Vectors_Source =
 "	outColor = color;														\n"
 "}																			\n";
 
-const std::string mgl::DefaultProgram::Vertex_1Matrix_2Vectors_Source =
+const std::string Vertex_1Matrix_2Vectors_Shader_Source =
 "#version 330		   														\n"
 "																			\n"
 "attribute vec4 position;													\n"
@@ -73,7 +32,7 @@ const std::string mgl::DefaultProgram::Vertex_1Matrix_2Vectors_Source =
 "	outColor = color;														\n"
 "}																			\n";
 
-const std::string mgl::DefaultProgram::Vertex_1Matrix_Source =
+const std::string Vertex_1Matrix_Shader_Source =
 "#version 330		   														\n"
 "																			\n"
 "attribute vec4 position;													\n"
@@ -86,8 +45,8 @@ const std::string mgl::DefaultProgram::Vertex_1Matrix_Source =
 "	gl_Position = transformation * position;								\n"
 "	outColor = color;														\n"
 "}																			\n";
-																			
-const std::string mgl::DefaultProgram::Vertex_2Matrices_Source =			
+
+const std::string Vertex_2Matrices_Shader_Source =
 "#version 330																\n"
 "																			\n"
 "attribute vec4 position;													\n"
@@ -101,8 +60,8 @@ const std::string mgl::DefaultProgram::Vertex_2Matrices_Source =
 "	gl_Position = projection * transformation * position;					\n"
 "	outColor = color;														\n"
 "}																			\n";
-																			
-const std::string mgl::DefaultProgram::Vertex_6Matrices_Source =			
+
+const std::string Vertex_6Matrices_Shader_Source =
 "#version 330																\n"
 "																			\n"
 "attribute vec4 position;													\n"
@@ -121,8 +80,8 @@ const std::string mgl::DefaultProgram::Vertex_6Matrices_Source =
 "				* elementRotation * elementScaling * position;				\n"
 "	outColor = color;														\n"
 "}																			\n";
-																			
-const std::string mgl::DefaultProgram::Fragment_Source =					
+
+const std::string Default_Fragment_Shader_Source =
 "#version 140																\n"
 "																			\n"
 "varying vec4 outColor;													    \n"
@@ -130,3 +89,22 @@ const std::string mgl::DefaultProgram::Fragment_Source =
 "void main() {																\n"
 "	gl_FragColor = outColor;												\n"
 "}																			\n";
+
+mgl::Shader* mgl::compileDefaultFragmentShader() {
+	return mgl::Shader::compileShaderSource(mgl::ShaderType::Fragment, Default_Fragment_Shader_Source);
+}
+
+mgl::Shader* mgl::compileDefaultVertexShader(DefaultVertexShaderInput input) {
+	switch (input) {
+		case DefaultVertexShaderInput::vec4x2:
+			return mgl::Shader::compileShaderSource(mgl::ShaderType::Vertex, Vertex_NoMatrix_2Vectors_Shader_Source);
+		case DefaultVertexShaderInput::vec4x2_mat4x1:
+			return mgl::Shader::compileShaderSource(mgl::ShaderType::Vertex, Vertex_1Matrix_2Vectors_Shader_Source);
+		case DefaultVertexShaderInput::mat4x1:
+			return mgl::Shader::compileShaderSource(mgl::ShaderType::Vertex, Vertex_1Matrix_Shader_Source);
+		case DefaultVertexShaderInput::mat4x2:
+			return mgl::Shader::compileShaderSource(mgl::ShaderType::Vertex, Vertex_2Matrices_Shader_Source);
+		case DefaultVertexShaderInput::mat4x6:
+			return mgl::Shader::compileShaderSource(mgl::ShaderType::Vertex, Vertex_6Matrices_Shader_Source);
+	}
+}

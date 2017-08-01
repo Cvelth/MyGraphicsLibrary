@@ -1,6 +1,5 @@
 #pragma once
 #include "OpenGL_Mirror\EnumsMirror\EnumsMirror.hpp"
-#include "Shader.hpp"
 
 namespace mgl {
 	namespace Exceptions {
@@ -13,6 +12,7 @@ namespace mgl {
 		class Matrix;
 	}
 
+	class Shader;
 	class ShaderProgram;
 	class ShaderVariable {
 		friend ShaderProgram;
