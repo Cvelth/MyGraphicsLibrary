@@ -36,6 +36,8 @@ namespace mgl {
 		void link(const std::initializer_list<Shader>& list);
 		void use();
 
+		bool isLinked();
+
 		ShaderVariable* getUniform(const std::string fieldName);
 		ShaderVariable* enableAttribWithNormalization(const std::string fieldName, size_t size = 4,
 													  bool normalized = false, size_t stride = 4, size_t shift = 0);

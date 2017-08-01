@@ -44,6 +44,15 @@ void mgl::Program::use() {
 	glUseProgram(m_id);
 }
 
+bool mgl::Program::isLinked() {
+	if (glIsProgram(m_id)) {
+		GLint isLinked;
+		glGetProgramiv(m_id, GL_LINK_STATUS, &isLinked);
+		return isLinked;
+	} else
+		return false;
+}
+
 mgl::ShaderVariable* mgl::Program::getUniform(const std::string fieldName) {
 	GLint uniforms_number, max_uniform_length, name_length, size;
 	GLenum type;
@@ -83,6 +92,8 @@ void mgl::Program::sendUniform(ShaderVariable* variable, const float & data) {
 	if (variable->m_variable_type != ShaderVariableType::Uniform)
 		throw Exceptions::ProgramException("You are trying to send uniform data to a non-uniform variable.");
 
+	use();
+
 	if (variable->m_data_type == ShaderDataType::Float)
 		glUniform1f(variable->m_location, data);
 	else
@@ -92,6 +103,8 @@ void mgl::Program::sendUniform(ShaderVariable* variable, const float & data) {
 void mgl::Program::sendUniform(ShaderVariable* variable, const math::Vector & data) {
 	if (variable->m_variable_type != ShaderVariableType::Uniform)
 		throw Exceptions::ProgramException("You are trying to send uniform data to a non-uniform variable.");
+
+	use();
 
 	if (variable->m_data_type == ShaderDataType::Float_4)
 		glUniform4f(variable->m_location, data.x(), data.y(), data.z(), data.w());
@@ -106,6 +119,8 @@ void mgl::Program::sendUniform(ShaderVariable* variable, const math::Vector & da
 void mgl::Program::sendUniform(ShaderVariable* variable, const math::Matrix & data) {
 	if (variable->m_variable_type != ShaderVariableType::Uniform)
 		throw Exceptions::ProgramException("You are trying to send uniform data to a non-uniform variable.");
+
+	use();
 
 	if (variable->m_data_type == ShaderDataType::Float_4x4)
 		glUniformMatrix4fv(variable->m_location, 1, GL_FALSE, data.data());
