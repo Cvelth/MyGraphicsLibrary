@@ -13,9 +13,9 @@ namespace mgl {
 		class Matrix;
 	}
 
-	class Program;
+	class ShaderProgram;
 	class ShaderVariable {
-		friend Program;
+		friend ShaderProgram;
 	private:
 		std::string m_variable_name;
 		ShaderVariableType m_variable_type;
@@ -25,13 +25,13 @@ namespace mgl {
 		explicit ShaderVariable(std::string name, ShaderVariableType v_type, int location, ShaderDataType d_type);
 	};
 
-	class Program {
+	class ShaderProgram {
 	protected:
 		unsigned int m_id;
 	public:
-		explicit Program();
-		explicit Program(const std::initializer_list<Shader>& list);
-		~Program();
+		explicit ShaderProgram();
+		explicit ShaderProgram(const std::initializer_list<Shader>& list);
+		~ShaderProgram();
 
 		void link(const std::initializer_list<Shader>& list);
 		void use();
@@ -48,6 +48,4 @@ namespace mgl {
 		void sendUniform(ShaderVariable* variable, const math::Vector& data);
 		void sendUniform(ShaderVariable* variable, const math::Matrix& data);
 	};
-
-	using CustomProgram = Program;
 }

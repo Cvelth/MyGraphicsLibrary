@@ -1,22 +1,22 @@
 #include "OpenGL_Mirror\OpenGL_Dependency\OpenGL.h"
-#include "Program.hpp"
+#include "ShaderProgram.hpp"
 #include "Math\Vector.hpp"
 #include "Math\Matrix.hpp"
 #include "OpenGL_Mirror\FunctionsMirror\FunctionsMirror.hpp"
 
-mgl::Program::Program() {
+mgl::ShaderProgram::ShaderProgram() {
 	m_id = glCreateProgram();
 }
 
-mgl::Program::Program(const std::initializer_list<Shader>& list) : Program() {
+mgl::ShaderProgram::ShaderProgram(const std::initializer_list<Shader>& list) : ShaderProgram() {
 	link(list);
 }
 
-mgl::Program::~Program() {
+mgl::ShaderProgram::~ShaderProgram() {
 	glDeleteProgram(m_id);
 }
 
-void mgl::Program::link(const std::initializer_list<Shader>& shaders) {
+void mgl::ShaderProgram::link(const std::initializer_list<Shader>& shaders) {
 	if (shaders.size() == 0u)
 		throw Exceptions::ProgramException("There is no shaders to attach");
 
@@ -40,11 +40,11 @@ void mgl::Program::link(const std::initializer_list<Shader>& shaders) {
 	}
 }
 
-void mgl::Program::use() {
+void mgl::ShaderProgram::use() {
 	glUseProgram(m_id);
 }
 
-bool mgl::Program::isLinked() {
+bool mgl::ShaderProgram::isLinked() {
 	if (glIsProgram(m_id)) {
 		GLint isLinked;
 		glGetProgramiv(m_id, GL_LINK_STATUS, &isLinked);
@@ -53,7 +53,7 @@ bool mgl::Program::isLinked() {
 		return false;
 }
 
-mgl::ShaderVariable* mgl::Program::getUniform(const std::string fieldName) {
+mgl::ShaderVariable* mgl::ShaderProgram::getUniform(const std::string fieldName) {
 	GLint uniforms_number, max_uniform_length, name_length, size;
 	GLenum type;
 	GLchar* name;
@@ -71,7 +71,7 @@ mgl::ShaderVariable* mgl::Program::getUniform(const std::string fieldName) {
 	throw Exceptions::ProgramException("No uniform with the 'fieldName' was found in the Shader.");
 }
 
-mgl::ShaderVariable* mgl::Program::enableAttribWithNormalization(const std::string fieldName, size_t size,
+mgl::ShaderVariable* mgl::ShaderProgram::enableAttribWithNormalization(const std::string fieldName, size_t size,
 												 bool normalized, size_t stride, size_t shift) {
 	auto loc = glGetAttribLocation(m_id, fieldName.c_str());
 	if (loc == -1)
@@ -84,11 +84,11 @@ mgl::ShaderVariable* mgl::Program::enableAttribWithNormalization(const std::stri
 	return new mgl::ShaderVariable(fieldName, ShaderVariableType::Attribute, loc, ShaderDataType::Float);
 }
 
-mgl::ShaderVariable* mgl::Program::enableAttrib(const std::string fieldName, size_t size, size_t stride, size_t shift) {
+mgl::ShaderVariable* mgl::ShaderProgram::enableAttrib(const std::string fieldName, size_t size, size_t stride, size_t shift) {
 	return enableAttribWithNormalization(fieldName, size, false, stride, shift);
 }
 
-void mgl::Program::sendUniform(ShaderVariable* variable, const float & data) {
+void mgl::ShaderProgram::sendUniform(ShaderVariable* variable, const float & data) {
 	if (variable->m_variable_type != ShaderVariableType::Uniform)
 		throw Exceptions::ProgramException("You are trying to send uniform data to a non-uniform variable.");
 
@@ -100,7 +100,7 @@ void mgl::Program::sendUniform(ShaderVariable* variable, const float & data) {
 		throw Exceptions::ProgramException("Data type isn't supported by the uniform.");
 }
 
-void mgl::Program::sendUniform(ShaderVariable* variable, const math::Vector & data) {
+void mgl::ShaderProgram::sendUniform(ShaderVariable* variable, const math::Vector & data) {
 	if (variable->m_variable_type != ShaderVariableType::Uniform)
 		throw Exceptions::ProgramException("You are trying to send uniform data to a non-uniform variable.");
 
@@ -116,7 +116,7 @@ void mgl::Program::sendUniform(ShaderVariable* variable, const math::Vector & da
 		throw Exceptions::ProgramException("Data type isn't supported by the uniform.");
 }
 
-void mgl::Program::sendUniform(ShaderVariable* variable, const math::Matrix & data) {
+void mgl::ShaderProgram::sendUniform(ShaderVariable* variable, const math::Matrix & data) {
 	if (variable->m_variable_type != ShaderVariableType::Uniform)
 		throw Exceptions::ProgramException("You are trying to send uniform data to a non-uniform variable.");
 

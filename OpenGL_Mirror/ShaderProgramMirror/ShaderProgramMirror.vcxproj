@@ -128,12 +128,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DefaultProgram.cpp" />
-    <ClCompile Include="Program.cpp" />
+    <ClCompile Include="ShaderProgram.cpp" />
     <ClCompile Include="Shader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DefaultProgram.hpp" />
-    <ClInclude Include="Program.hpp" />
+    <ClInclude Include="ShaderProgram.hpp" />
     <ClInclude Include="Shader.hpp" />
   </ItemGroup>
   <ItemGroup>
