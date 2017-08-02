@@ -26,7 +26,11 @@ mgl::Buffer::Buffer() : m_pointer(nullptr) {
 }
 
 mgl::Buffer::Buffer(unsigned int id) 
-	: m_id(id), m_pointer(nullptr) {
+	: m_pointer(nullptr) {
+	if (glIsBuffer(id))
+		m_id = id;
+	else
+		throw Exceptions::BufferException("Invalid ID was passed.");
 }
 
 mgl::Buffer::~Buffer() {

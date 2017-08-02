@@ -5,6 +5,7 @@ DefineNewException(ProgramException)
 namespace mgl {
 	class Shader;
 	class ShaderVariable;
+	class VertexArray;
 	namespace math {
 		class Vector;
 		class Matrix;
@@ -13,9 +14,12 @@ namespace mgl {
 	class ShaderProgram {
 	protected:
 		unsigned int m_id;
+		VertexArray* m_vao;
 	public:
 		explicit ShaderProgram();
+		explicit ShaderProgram(VertexArray& vao);
 		explicit ShaderProgram(const std::initializer_list<Shader>& list);
+		explicit ShaderProgram(const std::initializer_list<Shader>& list, VertexArray& vao);
 		~ShaderProgram();
 
 		void link(const std::initializer_list<Shader>& list);
