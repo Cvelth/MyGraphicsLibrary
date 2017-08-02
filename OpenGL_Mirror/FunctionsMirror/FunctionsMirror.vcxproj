@@ -134,17 +134,6 @@
     <ClInclude Include="ExperimentalFunctionsMirror.hpp" />
     <ClInclude Include="FunctionsMirror.hpp" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\BasicTypes\BasicTypes.vcxproj">
-      <Project>{2643848e-8439-4b92-abfe-2b61a8585ca8}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\EnumsMirror\EnumsMirror.vcxproj">
-      <Project>{3b48cf5b-97c0-43d0-a21f-57377dd93daf}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\OpenGL_Dependency\OpenGL_Dependency.vcxproj">
-      <Project>{14be552e-a4ed-49b7-9301-f43a206af594}</Project>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

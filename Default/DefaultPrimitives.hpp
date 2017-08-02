@@ -1,5 +1,5 @@
 #pragma once
-#include "OpenGL_Mirror\BasicTypes\BasicColors.hpp"
+#include "Default\DefaultColors.hpp"
 
 namespace mgl {
 	class Primitive;

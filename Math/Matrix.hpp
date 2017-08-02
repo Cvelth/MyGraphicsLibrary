@@ -1,12 +1,8 @@
 #pragma once
 #include "..\MyOpenGL_Lib\SharedHeaders\Exceptions.hpp"
+DefineNewException(MatrixException)
 
 namespace mgl {
-	namespace Exceptions {
-		class MatrixException : AbstractStringException {
-			using AbstractStringException::AbstractStringException;
-		};
-	}
 	namespace math {
 		enum InitialMatrixValue { UnitializedMatrix = 0, IdentityMatrix = 1 };
 

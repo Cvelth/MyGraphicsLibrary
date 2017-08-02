@@ -1,6 +1,5 @@
 #include "OpenGL_Mirror\OpenGL_Dependency\OpenGL.h"
 #include "Shader.hpp"
-#include <fstream>
 
 mgl::Shader::Shader(ShaderType type) {
 	switch (type) {
@@ -13,7 +12,7 @@ mgl::Shader::Shader(ShaderType type) {
 	}
 }
 
-mgl::Shader::Shader(ShaderType type, const std::string& filename) : Shader(type) {
+mgl::Shader::Shader(ShaderType type, const char* filename) : Shader(type) {
 	compileFile(filename);
 }
 
@@ -21,12 +20,23 @@ mgl::Shader::~Shader() {
 	glDeleteShader(m_id);
 }
 
-void mgl::Shader::compileFile(const std::string& filename) {
+void mgl::Shader::compileFile(const char* filename) {
 	compileSource(getShaderSourceFromFile(filename));
 }
 
-void mgl::Shader::compileSource(const std::string& sourceText) {
-	const GLchar* source = static_cast<const GLchar*>(sourceText.c_str());
+GLuint mgl::Shader::id() {
+	return m_id;
+}
+
+mgl::Shader* mgl::Shader::compileShaderSource(ShaderType type, const char* source) {
+	mgl::Shader* ret = new mgl::Shader(type);
+	ret->compileSource(source);
+	return ret;
+}
+
+#include <string>
+void mgl::Shader::compileSource(const char* sourceText) {
+	const GLchar* source = static_cast<const GLchar*>(sourceText);
 	if (source == "") throw Exceptions::ShaderException("The source string or file is empty.");
 
 	glShaderSource(m_id, 1, &source, NULL);
@@ -41,23 +51,12 @@ void mgl::Shader::compileSource(const std::string& sourceText) {
 
 		GLchar* log = new GLchar[len + 1];
 		glGetShaderInfoLog(m_id, len, &len, log);
-		std::string t = std::string(log);
+		throw Exceptions::ShaderException(("Shader compilation error: " + std::string(log)).c_str());
 		delete[] log;
-
-		throw Exceptions::ShaderException(std::string("Shader compilation error: ") + t);
 	}
 }
 
-GLuint mgl::Shader::id() {
-	return m_id;
-}
-
-std::string mgl::Shader::getShaderSourceFromFile(const std::string & filename) {
-	return std::string(std::istreambuf_iterator<char>(std::ifstream(filename)), std::istreambuf_iterator<char>());
-}
-
-mgl::Shader* mgl::Shader::compileShaderSource(ShaderType type, const std::string & source) {
-	mgl::Shader* ret = new mgl::Shader(type);
-	ret->compileSource(source);
-	return ret;
+#include <fstream>
+const char* mgl::Shader::getShaderSourceFromFile(const char* filename) {
+	return std::string(std::istreambuf_iterator<char>(std::ifstream(filename)), std::istreambuf_iterator<char>()).c_str();
 }

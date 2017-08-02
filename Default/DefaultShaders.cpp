@@ -1,7 +1,7 @@
 #include "DefaultShaders.hpp"
-#include "Shader.hpp"
+#include "OpenGL_Mirror\ClassesMirror\Shader.hpp"
 
-const std::string Vertex_NoMatrix_2Vectors_Shader_Source =
+const char* Vertex_NoMatrix_2Vectors_Shader_Source =
 "#version 330		   														\n"
 "																			\n"
 "attribute vec4 position;													\n"
@@ -16,7 +16,7 @@ const std::string Vertex_NoMatrix_2Vectors_Shader_Source =
 "	outColor = color;														\n"
 "}																			\n";
 
-const std::string Vertex_1Matrix_2Vectors_Shader_Source =
+const char* Vertex_1Matrix_2Vectors_Shader_Source =
 "#version 330		   														\n"
 "																			\n"
 "attribute vec4 position;													\n"
@@ -32,7 +32,7 @@ const std::string Vertex_1Matrix_2Vectors_Shader_Source =
 "	outColor = color;														\n"
 "}																			\n";
 
-const std::string Vertex_1Matrix_Shader_Source =
+const char* Vertex_1Matrix_Shader_Source =
 "#version 330		   														\n"
 "																			\n"
 "attribute vec4 position;													\n"
@@ -46,7 +46,7 @@ const std::string Vertex_1Matrix_Shader_Source =
 "	outColor = color;														\n"
 "}																			\n";
 
-const std::string Vertex_2Matrices_Shader_Source =
+const char* Vertex_2Matrices_Shader_Source =
 "#version 330																\n"
 "																			\n"
 "attribute vec4 position;													\n"
@@ -61,7 +61,7 @@ const std::string Vertex_2Matrices_Shader_Source =
 "	outColor = color;														\n"
 "}																			\n";
 
-const std::string Vertex_6Matrices_Shader_Source =
+const char* Vertex_6Matrices_Shader_Source =
 "#version 330																\n"
 "																			\n"
 "attribute vec4 position;													\n"
@@ -81,7 +81,7 @@ const std::string Vertex_6Matrices_Shader_Source =
 "	outColor = color;														\n"
 "}																			\n";
 
-const std::string Default_Fragment_Shader_Source =
+const char* Default_Fragment_Shader_Source =
 "#version 140																\n"
 "																			\n"
 "varying vec4 outColor;													    \n"
@@ -106,5 +106,6 @@ mgl::Shader* mgl::compileDefaultVertexShader(DefaultVertexShaderInput input) {
 			return mgl::Shader::compileShaderSource(mgl::ShaderType::Vertex, Vertex_2Matrices_Shader_Source);
 		case DefaultVertexShaderInput::mat4x6:
 			return mgl::Shader::compileShaderSource(mgl::ShaderType::Vertex, Vertex_6Matrices_Shader_Source);
+		default: throw Exceptions::IncorrectEnumException(" ");
 	}
 }

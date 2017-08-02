@@ -20,8 +20,8 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{2643848E-8439-4B92-ABFE-2B61A8585CA8}</ProjectGuid>
-    <RootNamespace>BasicTypes</RootNamespace>
+    <ProjectGuid>{F2323EA4-C437-4A17-A620-799E88D0AD89}</ProjectGuid>
+    <RootNamespace>ClassesMirror</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -70,22 +70,13 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup />
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <Optimization>MaxSpeed</Optimization>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>..\..\;</AdditionalIncludeDirectories>
     </ClCompile>
-    <Link>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <OptimizeReferences>true</OptimizeReferences>
-    </Link>
-    <ProjectReference>
-      <LinkLibraryDependencies>false</LinkLibraryDependencies>
-    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -94,20 +85,6 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>..\..\;</AdditionalIncludeDirectories>
     </ClCompile>
-    <ProjectReference>
-      <LinkLibraryDependencies>false</LinkLibraryDependencies>
-    </ProjectReference>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <Optimization>Disabled</Optimization>
-      <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>..\..\;</AdditionalIncludeDirectories>
-    </ClCompile>
-    <ProjectReference>
-      <LinkLibraryDependencies>false</LinkLibraryDependencies>
-    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -122,33 +99,34 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
-    <ProjectReference>
-      <LinkLibraryDependencies>false</LinkLibraryDependencies>
-    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>..\..\;</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BasicColors.cpp" />
     <ClCompile Include="Buffer.cpp" />
-    <ClCompile Include="Color.cpp" />
+    <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="ShaderProgram.cpp" />
+    <ClCompile Include="ShaderVariable.cpp" />
+    <ClCompile Include="VertexArray.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Buffer.hpp" />
-    <ClInclude Include="Color.hpp" />
-    <ClInclude Include="BasicColors.hpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Math\Math.vcxproj">
-      <Project>{85ec2964-de12-4a7e-8cc6-8608e8eb32cc}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\..\SharedHeaders\SharedHeaders.vcxproj">
-      <Project>{7097b003-9d8b-453e-a35b-3db7289c240d}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\EnumsMirror\EnumsMirror.vcxproj">
-      <Project>{3b48cf5b-97c0-43d0-a21f-57377dd93daf}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\OpenGL_Dependency\OpenGL_Dependency.vcxproj">
-      <Project>{14be552e-a4ed-49b7-9301-f43a206af594}</Project>
-    </ProjectReference>
+    <ClInclude Include="Shader.hpp" />
+    <ClInclude Include="ShaderProgram.hpp" />
+    <ClInclude Include="ShaderVariable.hpp" />
+    <ClInclude Include="VertexArray.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

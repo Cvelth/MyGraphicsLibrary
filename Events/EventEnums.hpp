@@ -1,13 +1,8 @@
 #pragma once
 #include "SharedHeaders\Exceptions.hpp"
+DefineNewException(UnsupportedEnumEntryExceptions)
 
 namespace mgl {
-	namespace Exceptions {
-		class UnsupportedEnumEntryExceptions : public Exceptions::AbstractStringException {
-			using AbstractStringException::AbstractStringException;
-		};
-	}
-
 	enum class MouseButton {
 		b_1, b_2, b_3, b_4,
 		b_5, b_6, b_7, b_8,

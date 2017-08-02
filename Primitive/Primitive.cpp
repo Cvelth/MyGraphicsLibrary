@@ -1,8 +1,8 @@
 #include "OpenGL_Mirror\OpenGL_Dependency\OpenGL.h"
 #include "Primitive.hpp"
 #include "Math\Vector.hpp"
-#include "OpenGL_Mirror\BasicTypes\Buffer.hpp"
-#include "OpenGL_Mirror\BasicTypes\Color.hpp"
+#include "OpenGL_Mirror\ClassesMirror\Buffer.hpp"
+#include "SharedHeaders\Color.hpp"
 #include "OpenGL_Mirror\FunctionsMirror\FunctionsMirror.hpp"
 #include "Vertex.hpp"
 

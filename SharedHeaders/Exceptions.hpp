@@ -1,15 +1,16 @@
 #pragma once
-#include <string>
-
+#include <exception>
 namespace mgl {
 	namespace Exceptions {
-		class AbstractStringException {
+		class MyOpenGLException : std::exception {
 		protected:
-			std::string m_error;
+			const char* m_error;
 		public:
-			AbstractStringException(const std::string& error) : m_error(error) {}
-			AbstractStringException(const char* error) : m_error(error) {}
-			const std::string& operator()() const { return m_error; }
+			MyOpenGLException(char* error) : m_error(error) {}
+			MyOpenGLException(const char* error) : m_error(error) {}
+			virtual const char* what() const override {	return m_error; }
+			const char* operator*() const { return what(); }
 		};
 	}
 }
+#define DefineNewException(name) namespace mgl { namespace Exceptions {class name : public mgl::Exceptions::MyOpenGLException {using MyOpenGLException::MyOpenGLException;};}}

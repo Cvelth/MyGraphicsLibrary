@@ -1,22 +1,16 @@
 #pragma once
 #include <list>
-#include "SharedHeaders\Exceptions.hpp"
 #include "OpenGL_Mirror\EnumsMirror\EnumsMirror.hpp"
+#include "SharedHeaders\Exceptions.hpp"
+DefineNewException(PrimitiveException)
 
 namespace mgl {
 	class Buffer;
 	class Color;
 	namespace math {
 		class Vector;
-		class Matrix;
 	}
 	class Vertex;
-
-	namespace Exceptions {
-		class PrimitiveException : public AbstractStringException {
-			using AbstractStringException::AbstractStringException;
-		};
-	}
 
 	class Primitive {
 	protected:

@@ -1,13 +1,11 @@
 #pragma once
 #include "OpenGL_Mirror\EnumsMirror\EnumsMirror.hpp"
-#include <string>
-
 namespace mgl {
 	class Color;
 	class Buffer;
 
-	std::string getError();
-	std::string getRendererName();
+	const char* getError();
+	const char* getRendererName();
 
 	void clearColorBuffer();
 	void setViewport(size_t x, size_t y, size_t width, size_t height);

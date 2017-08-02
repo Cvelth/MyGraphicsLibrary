@@ -1,15 +1,10 @@
 #pragma once
-#include "SharedHeaders\Exceptions.hpp"
-
 typedef unsigned int GLenum;
 
+#include "SharedHeaders\Exceptions.hpp"
+DefineNewException(IncorrectEnumException)
+
 namespace mgl {
-	namespace Exceptions {
-		class IncorrectEnumException : public Exceptions::AbstractStringException {
-		public:
-			using AbstractStringException::AbstractStringException;
-		};
-	}
 	enum class OpenGLVersionMask {
 		Core, Compatibility, ES
 	};
@@ -69,5 +64,8 @@ namespace mgl {
 
 	enum class ShaderVariableType {
 		Attribute, Uniform
+	};
+	enum class DefaultVertexShaderInput {
+		vec4x2, vec4x2_mat4x1, mat4x1, mat4x2, mat4x6
 	};
 }

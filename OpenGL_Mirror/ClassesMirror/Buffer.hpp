@@ -1,12 +1,9 @@
 #pragma once
-#include "SharedHeaders\Exceptions.hpp"
 #include "OpenGL_Mirror\EnumsMirror\EnumsMirror.hpp"
+#include "SharedHeaders\Exceptions.hpp"
+DefineNewException(BufferException)
 
 namespace mgl {
-	namespace Exceptions {
-		using BufferException = AbstractStringException;
-	}
-
 	class Buffer {
 	private:
 		unsigned int m_id;
@@ -22,7 +19,6 @@ namespace mgl {
 		void* map(BufferMappingAccess a);
 		void unmap();
 	};
-
 	class BufferArray {
 	private:
 		unsigned int m_size;

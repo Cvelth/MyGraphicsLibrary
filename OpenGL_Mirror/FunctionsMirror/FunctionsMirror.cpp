@@ -1,7 +1,7 @@
 #include "OpenGL_Mirror\OpenGL_Dependency\OpenGL.h"
 #include "FunctionsMirror.hpp"
-#include "OpenGL_Mirror\BasicTypes\Color.hpp"
-#include "OpenGL_Mirror\BasicTypes\Buffer.hpp"
+#include "SharedHeaders\Color.hpp"
+#include "OpenGL_Mirror\ClassesMirror\Buffer.hpp"
 
 void mgl::setClearColor(const Color & c) {
 	glClearColor(c.r(), c.g(), c.b(), c.a());
@@ -40,17 +40,19 @@ void mgl::enablePointSmooth(SmoothMode mode) {
 	glHint(GL_POINT_SMOOTH_HINT, switchEnum(mode));
 }
 
-std::string mgl::getError() {
-	return (const char*) glewGetErrorString(glGetError());
-}
-std::string mgl::getRendererName() {
-	return std::string(std::string((const char*) glGetString(GL_VENDOR)) + std::string("\n") + std::string((const char*) glGetString(GL_RENDERER)));
-}
-
 void mgl::clearColorBuffer() {
 	glClear(GL_COLOR_BUFFER_BIT);
 }
 
 void mgl::setViewport(size_t x, size_t y, size_t width, size_t height) {
 	glViewport(GLint(x), GLint(y), GLsizei(width), GLsizei(height));
+}
+
+const char* mgl::getError() {
+	return (const char*) glewGetErrorString(glGetError());
+}
+#include <string>
+const char* mgl::getRendererName() {
+	std::string ret = (const char*) glGetString(GL_VENDOR) + std::string("\n") + (const char*) glGetString(GL_RENDERER);
+	return ret.c_str();
 }

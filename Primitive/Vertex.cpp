@@ -1,6 +1,6 @@
 #include "Vertex.hpp"
 #include "Math\Vector.hpp"
-#include "OpenGL_Mirror\BasicTypes\Color.hpp"
+#include "SharedHeaders\Color.hpp"
 
 mgl::Vertex::Vertex(math::Vector * coords, Color * color) : m_coords(coords), m_color(color) {}
 

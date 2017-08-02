@@ -11,24 +11,24 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Shader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ShaderProgram.cpp">
+    <ClCompile Include="DefaultColors.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="DefaultShaders.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="DefaultPrimitives.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Shader.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ShaderProgram.hpp">
+    <ClInclude Include="DefaultColors.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="DefaultShaders.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DefaultPrimitives.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

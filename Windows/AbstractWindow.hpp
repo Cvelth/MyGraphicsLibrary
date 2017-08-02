@@ -1,8 +1,9 @@
 #pragma once
 #include <string>
-#include "SharedHeaders\Exceptions.hpp"
 #include "Events\EmptyEventHandler.hpp"
-#include "OpenGL_Mirror\ShaderProgramMirror\DefaultShaders.hpp"
+#include "OpenGL_Mirror\EnumsMirror\EnumsMirror.hpp"
+#include "SharedHeaders\Exceptions.hpp"
+DefineNewException(WindowInitializationException)
 
 struct GLFWwindow;
 
@@ -10,11 +11,6 @@ namespace mgl {
 	enum class DefaultWindowMode {
 		Windowed = 0, Fullscreen = 1
 	};
-	namespace Exceptions {
-		class WindowInitializationException : public AbstractStringException {
-			using AbstractStringException::AbstractStringException;
-		};
-	}
 
 	class Color;
 	class Shader;

@@ -1,9 +1,9 @@
 #include "OpenGL_Mirror\OpenGL_Dependency\OpenGL.h"
 #include "ShaderProgram.hpp"
 #include "Shader.hpp"
+#include "ShaderVariable.hpp"
 #include "Math\Vector.hpp"
 #include "Math\Matrix.hpp"
-#include "OpenGL_Mirror\FunctionsMirror\FunctionsMirror.hpp"
 
 mgl::ShaderProgram::ShaderProgram() {
 	m_id = glCreateProgram();
@@ -15,30 +15,6 @@ mgl::ShaderProgram::ShaderProgram(const std::initializer_list<Shader>& list) : S
 
 mgl::ShaderProgram::~ShaderProgram() {
 	glDeleteProgram(m_id);
-}
-
-void mgl::ShaderProgram::link(const std::initializer_list<Shader>& shaders) {
-	if (shaders.size() == 0u)
-		throw Exceptions::ProgramException("There is no shaders to attach");
-
-	for (auto shader : shaders)
-		glAttachShader(m_id, shader.id());
-
-	glLinkProgram(m_id);
-
-	GLint isLinked;
-	glGetProgramiv(m_id, GL_LINK_STATUS, &isLinked);
-	if (!isLinked) {
-		GLsizei len;
-		glGetProgramiv(m_id, GL_INFO_LOG_LENGTH, &len);
-
-		GLchar* log = new GLchar[len + 1];
-		glGetProgramInfoLog(m_id, len, &len, log);
-		std::string t = std::string(log);
-		delete[] log;
-
-		throw Exceptions::ProgramException(std::string("Program linking error: ") + t);
-	}
 }
 
 void mgl::ShaderProgram::use() {
@@ -54,27 +30,9 @@ bool mgl::ShaderProgram::isLinked() {
 		return false;
 }
 
-mgl::ShaderVariable* mgl::ShaderProgram::getUniform(const std::string fieldName) {
-	GLint uniforms_number, max_uniform_length, name_length, size;
-	GLenum type;
-	GLchar* name;
-	glGetProgramiv(m_id, GL_ACTIVE_UNIFORMS, &uniforms_number);
-	glGetProgramiv(m_id, GL_ACTIVE_UNIFORM_MAX_LENGTH, &max_uniform_length);
-	for (int i = 0; i < uniforms_number; i++) {
-		name = new GLchar[max_uniform_length];
-		glGetActiveUniform(m_id, i, max_uniform_length, &name_length, &size, &type, name);
-		std::string name_str = std::string(name);
-		delete[] name;
-
-		if (name_str == fieldName)
-			return new ShaderVariable(fieldName, ShaderVariableType::Uniform, i, switchShaderDataType(type));
-	}
-	throw Exceptions::ProgramException("No uniform with the 'fieldName' was found in the Shader.");
-}
-
-mgl::ShaderVariable* mgl::ShaderProgram::enableAttribWithNormalization(const std::string fieldName, size_t size,
+mgl::ShaderVariable* mgl::ShaderProgram::enableAttribWithNormalization(const char* fieldName, size_t size,
 												 bool normalized, size_t stride, size_t shift) {
-	auto loc = glGetAttribLocation(m_id, fieldName.c_str());
+	auto loc = glGetAttribLocation(m_id, fieldName);
 	if (loc == -1)
 		throw Exceptions::ProgramException("There are no atribute in the Shader with the 'fieldName'.");
 
@@ -85,7 +43,7 @@ mgl::ShaderVariable* mgl::ShaderProgram::enableAttribWithNormalization(const std
 	return new mgl::ShaderVariable(fieldName, ShaderVariableType::Attribute, loc, ShaderDataType::Float);
 }
 
-mgl::ShaderVariable* mgl::ShaderProgram::enableAttrib(const std::string fieldName, size_t size, size_t stride, size_t shift) {
+mgl::ShaderVariable* mgl::ShaderProgram::enableAttrib(const char* fieldName, size_t size, size_t stride, size_t shift) {
 	return enableAttribWithNormalization(fieldName, size, false, stride, shift);
 }
 
@@ -133,5 +91,43 @@ void mgl::ShaderProgram::sendUniform(ShaderVariable* variable, const math::Matri
 		throw Exceptions::ProgramException("Data type isn't supported by the uniform.");
 }
 
-mgl::ShaderVariable::ShaderVariable(std::string name, ShaderVariableType v_type, int location, ShaderDataType d_type)
-	: m_variable_name(name), m_variable_type(v_type), m_location(location), m_data_type(d_type) {}
+#include <string>
+void mgl::ShaderProgram::link(const std::initializer_list<Shader>& shaders) {
+	if (shaders.size() == 0u)
+		throw Exceptions::ProgramException("There is no shaders to attach");
+
+	for (auto shader : shaders)
+		glAttachShader(m_id, shader.id());
+
+	glLinkProgram(m_id);
+
+	GLint isLinked;
+	glGetProgramiv(m_id, GL_LINK_STATUS, &isLinked);
+	if (!isLinked) {
+		GLsizei len;
+		glGetProgramiv(m_id, GL_INFO_LOG_LENGTH, &len);
+
+		GLchar* log = new GLchar[len + 1];
+		glGetProgramInfoLog(m_id, len, &len, log);
+		throw Exceptions::ProgramException(("Program linking error: " + std::string(log)).c_str());
+		delete[] log;
+	}
+}
+
+mgl::ShaderVariable* mgl::ShaderProgram::getUniform(const char* fieldName) {
+	GLint uniforms_number, max_uniform_length, name_length, size;
+	GLenum type;
+	GLchar* name;
+	glGetProgramiv(m_id, GL_ACTIVE_UNIFORMS, &uniforms_number);
+	glGetProgramiv(m_id, GL_ACTIVE_UNIFORM_MAX_LENGTH, &max_uniform_length);
+	for (int i = 0; i < uniforms_number; i++) {
+		name = new GLchar[max_uniform_length];
+		glGetActiveUniform(m_id, i, max_uniform_length, &name_length, &size, &type, name);
+		std::string name_str = std::string(name);
+		delete[] name;
+
+		if (name_str == fieldName)
+			return new ShaderVariable(fieldName, ShaderVariableType::Uniform, i, switchShaderDataType(type));
+	}
+	throw Exceptions::ProgramException("No uniform with the 'fieldName' was found in the Shader.");
+}

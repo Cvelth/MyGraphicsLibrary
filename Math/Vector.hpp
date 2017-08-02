@@ -1,12 +1,8 @@
 #pragma once
 #include "..\MyOpenGL_Lib\SharedHeaders\Exceptions.hpp"
+DefineNewException(VectorException)
 
 namespace mgl {
-	namespace Exceptions {
-		class VectorException : public AbstractStringException {
-			using AbstractStringException::AbstractStringException;
-		};
-	}
 	namespace math {
 		class VectorInnerStructure;
 

@@ -1,8 +1,8 @@
 #include "OpenGL_Mirror\OpenGL_Dependency\OpenGL.h"
 #include "AbstractWindow.hpp"
 #include "OpenGL_Mirror\FunctionsMirror\FunctionsMirror.hpp"
-#include "OpenGL_Mirror\BasicTypes\Color.hpp"
-#include "OpenGL_Mirror\ShaderProgramMirror\ShaderProgram.hpp"
+#include "SharedHeaders\Color.hpp"
+#include "OpenGL_Mirror\ClassesMirror\ShaderProgram.hpp"
 #include "Math\Matrix.hpp"
 #include "Events\EventsSystem.hpp"
 
@@ -31,7 +31,7 @@ mgl::AbstractWindow::~AbstractWindow() {
 
 void mgl::AbstractWindow::initialize(std::string title, int width, int height, DefaultWindowMode mode) {
 	if (!glfwInit())
-		throw Exceptions::WindowInitializationException(std::string("GLFW inititalization error."));
+		throw Exceptions::WindowInitializationException("GLFW inititalization error.");
 
 	if (mode == DefaultWindowMode::Fullscreen)
 		m_window = glfwCreateWindow(width, height, title.c_str(), glfwGetPrimaryMonitor(), NULL);
@@ -39,7 +39,7 @@ void mgl::AbstractWindow::initialize(std::string title, int width, int height, D
 		m_window = glfwCreateWindow(width, height, title.c_str(), NULL, NULL);
 
 	if (!m_window)
-		throw Exceptions::WindowInitializationException(std::string("Window inititalization error."));
+		throw Exceptions::WindowInitializationException("Window inititalization error.");
 
 	resize(width, height);
 
@@ -49,8 +49,8 @@ void mgl::AbstractWindow::initialize(std::string title, int width, int height, D
 	glewExperimental = GL_TRUE;
 	GLenum glewError = glewInit();
 	if (glewError != GLEW_OK)
-		throw Exceptions::WindowInitializationException(std::string("GLEW inititalization error: ")
-														+= (const char*) (glewGetErrorString(glewError)));
+		throw Exceptions::WindowInitializationException((std::string("GLEW inititalization error: ")
+														+ (const char*) (glewGetErrorString(glewError))).c_str());
 
 	isWindowInitialized = true;
 
@@ -163,7 +163,8 @@ void mgl::DefaultEventHandler::resizeEvent(GLFWwindow * w, int x, int y) {
 	m_window->update();
 }
 
-#include "OpenGL_Mirror\ShaderProgramMirror\Shader.hpp"
+#include "OpenGL_Mirror\ClassesMirror\Shader.hpp"
+#include "Default\DefaultShaders.hpp"
 mgl::ShaderProgram* mgl::AbstractWindow::linkDefaultProgram(DefaultVertexShaderInput input) {
 	auto ret = new mgl::ShaderProgram();
 	auto vertex_shader = mgl::compileDefaultVertexShader(input);

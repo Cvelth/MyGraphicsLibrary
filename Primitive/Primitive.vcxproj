@@ -128,32 +128,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AbstractDrawableObject.cpp" />
-    <ClCompile Include="DefaultPrimitives.cpp" />
     <ClCompile Include="Primitive.cpp" />
     <ClCompile Include="Vertex.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AbstractDrawableObject.hpp" />
-    <ClInclude Include="DefaultPrimitives.hpp" />
     <ClInclude Include="Primitive.hpp" />
     <ClInclude Include="Vertex.hpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Math\Math.vcxproj">
-      <Project>{85ec2964-de12-4a7e-8cc6-8608e8eb32cc}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\OpenGL_Mirror\BasicTypes\BasicTypes.vcxproj">
-      <Project>{2643848e-8439-4b92-abfe-2b61a8585ca8}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\OpenGL_Mirror\EnumsMirror\EnumsMirror.vcxproj">
-      <Project>{3b48cf5b-97c0-43d0-a21f-57377dd93daf}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\OpenGL_Mirror\FunctionsMirror\FunctionsMirror.vcxproj">
-      <Project>{0a189a93-b2c6-4c2c-9f31-f764c995d2d9}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\SharedHeaders\SharedHeaders.vcxproj">
-      <Project>{7097b003-9d8b-453e-a35b-3db7289c240d}</Project>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

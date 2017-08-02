@@ -1,9 +1,6 @@
 #include "DefaultPrimitives.hpp"
-#include "Primitive.hpp"
+#include "Primitive\Primitive.hpp"
 #include "Math\Vector.hpp"
-#include <cmath>
-
-const float PI = 3.14159265359f;
 
 mgl::Primitive* mgl::changePlacing(Primitive* primitive, PoligonPlacing from, PoligonPlacing to) {
 	if (from != PoligonPlacing::zero_Center)
@@ -37,6 +34,7 @@ mgl::Primitive* mgl::generateN_Polygon(float aspectRatio, size_t n, mgl::Color *
 	else
 		res = new Primitive(VertexConnectionType::LineLoop, color);
 
+	const float PI = 3.14159265359f;
 	float STEP = PI / n * 2;
 	if (aspectRatio < 1.f && aspectRatio > 0.f)
 		for (float f = 0.f; f < PI * 2; f += STEP)

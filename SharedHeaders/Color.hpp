@@ -1,0 +1,33 @@
+#pragma once
+namespace mgl {
+	class Color {
+		float m_data[4];
+	public:
+		Color(float r = 0.f, float g = 0.f, float b = 0.f, float a = 1.f) {
+			set(r, g, b, a);
+		}
+		Color(size_t r, size_t g, size_t b, size_t a = 255, size_t MAXIMUM_VALUE = 255) {
+			set(float(r) / MAXIMUM_VALUE, float(g) / MAXIMUM_VALUE, float(b) / MAXIMUM_VALUE, float(a) / MAXIMUM_VALUE);
+		}
+
+		inline void set(float r, float g, float b, float a) {
+			m_data[0] = r;
+			m_data[1] = g;
+			m_data[2] = b;
+			m_data[3] = a;
+		}
+
+		inline float r() const { return m_data[0]; }
+		inline float g() const { return m_data[1]; }
+		inline float b() const { return m_data[2]; }
+		inline float a() const { return m_data[3]; }
+		inline void r(float value) { m_data[0] = value; }
+		inline void g(float value) { m_data[1] = value; }
+		inline void b(float value) { m_data[2] = value; }
+		inline void a(float value) { m_data[3] = value; }
+		inline void r(size_t value, size_t MAXIMUM_VALUE = 255) { m_data[0] = float(value) / MAXIMUM_VALUE; }
+		inline void g(size_t value, size_t MAXIMUM_VALUE = 255) { m_data[1] = float(value) / MAXIMUM_VALUE; }
+		inline void b(size_t value, size_t MAXIMUM_VALUE = 255) { m_data[2] = float(value) / MAXIMUM_VALUE; }
+		inline void a(size_t value, size_t MAXIMUM_VALUE = 255) { m_data[3] = float(value) / MAXIMUM_VALUE; }
+	};
+}

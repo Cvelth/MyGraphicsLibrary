@@ -124,11 +124,6 @@
     <ClCompile Include="EventEnums.cpp" />
     <ClCompile Include="EventsSystem.cpp" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SharedHeaders\SharedHeaders.vcxproj">
-      <Project>{7097b003-9d8b-453e-a35b-3db7289c240d}</Project>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
