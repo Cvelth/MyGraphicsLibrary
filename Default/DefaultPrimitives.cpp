@@ -30,7 +30,7 @@ mgl::Primitive* mgl::changePlacing(Primitive* primitive, PoligonPlacing from, Po
 mgl::Primitive* mgl::generateN_Polygon(float aspectRatio, size_t n, mgl::Color * color, PoligonPlacing placing, bool isFilled) {
 	Primitive* res;
 	if (isFilled)
-		res = new Primitive(VertexConnectionType::TriangleStrip, color);
+		res = new Primitive(VertexConnectionType::Polygon, color);
 	else
 		res = new Primitive(VertexConnectionType::LineLoop, color);
 
