@@ -72,6 +72,10 @@ size_t mgl::Primitive::getNumber() const {
 	return m_data.size();
 }
 
+void mgl::Primitive::deleteObject(Vertex* obj) {
+	delete obj;
+}
+
 mgl::Color* mgl::Primitive::getDefaultColor() const {
 	return m_default_color;
 }
@@ -200,4 +204,13 @@ const mgl::Primitive & mgl::Primitive::operator/=(const float f) {
 	for (auto it : m_data)
 		*it->coords() /= f;
 	return *this;
+}
+
+#include "InstancingArray.hpp"
+void mgl::Primitive::draw(InstancingArray* instances) {
+	if (!wasBufferGenerated())
+		throw Exceptions::PrimitiveException("Data wasn't sent");
+	buffer_bind();
+	glDrawArraysInstanced(switchEnum(m_connection), 0, (GLsizei) getNumber(), (GLsizei) instances->getNumber());
+	glDrawArrays(switchEnum(m_connection), 0, (GLsizei) getNumber());
 }

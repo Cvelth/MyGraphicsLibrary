@@ -59,6 +59,12 @@ mgl::ShaderVariable* mgl::ShaderProgram::enableAttrib(const char* fieldName, siz
 	return enableAttribWithNormalization(fieldName, size, false, stride, shift);
 }
 
+void mgl::ShaderProgram::initializeInstancing(ShaderVariable *variable, size_t divisor) {
+	if (variable->variable_type != ShaderVariableType::Attribute)
+		throw Exceptions::ProgramException("Instancing can be initialized for Attribute variables only.");
+	glVertexAttribDivisor(variable->location, divisor);
+}
+
 void mgl::ShaderProgram::sendUniform(ShaderVariable* variable, const float & data) {
 	if (variable->variable_type != ShaderVariableType::Uniform)
 		throw Exceptions::ProgramException("You are trying to send uniform data to a non-uniform variable.");

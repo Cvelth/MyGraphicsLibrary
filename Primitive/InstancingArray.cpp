@@ -1,3 +1,4 @@
+#include "OpenGL_Mirror\OpenGL_Dependency\OpenGL.h"
 #include "InstancingArray.hpp"
 #include "Math\Vector.hpp"
 
@@ -37,6 +38,10 @@ size_t mgl::InstancingArray::getSize() const {
 
 size_t mgl::InstancingArray::getNumber() const {
 	return m_data.size();
+}
+
+void mgl::InstancingArray::deleteObject(math::Vector *obj) {
+	delete obj;
 }
 
 void mgl::InstancingArray::send(DataUsage u) {

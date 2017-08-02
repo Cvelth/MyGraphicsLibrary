@@ -44,6 +44,8 @@ namespace mgl {
 				SubFunctions::delete_buffer(m_buffer);
 		}
 
+		virtual void deleteObject(DataType* obj) abstract;
+
 		virtual size_t getSize() const abstract;
 		virtual size_t getNumber() const abstract;
 
@@ -53,6 +55,12 @@ namespace mgl {
 		virtual void send(DataUsage u) abstract;
 		virtual void clean() {
 			buffer_data(getSize(), NULL, mgl::DataUsage::StaticRead);
+		}
+
+		virtual void deleteAll() {
+			for (auto it = m_data.begin(); it != m_data.end(); it++)
+				deleteObject(*it);
+			m_data.clear();
 		}
 	};
 }

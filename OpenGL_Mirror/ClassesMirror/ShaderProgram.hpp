@@ -32,6 +32,7 @@ namespace mgl {
 													  bool normalized = false, size_t stride = 4, size_t shift = 0);
 		ShaderVariable* enableAttrib(const char* fieldName, size_t size = 4,
 									 size_t stride = 4, size_t shift = 0);
+		void initializeInstancing(ShaderVariable* variable, size_t divisor);
 
 		void sendUniform(ShaderVariable* variable, const float& data);
 		void sendUniform(ShaderVariable* variable, const math::Vector& data);

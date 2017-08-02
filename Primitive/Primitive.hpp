@@ -11,6 +11,7 @@ namespace mgl {
 		class Vector;
 	}
 	class Vertex;
+	class InstancingArray;
 
 	class Primitive : public AbstractSendableArray<Vertex> {
 	protected:
@@ -30,6 +31,8 @@ namespace mgl {
 		virtual size_t getSize() const override;
 		virtual size_t getNumber() const override;
 
+		virtual void deleteObject(Vertex* obj) override;
+
 		virtual Color* getDefaultColor() const;
 		virtual void setDefaultColor(Color* color);
 		virtual void setDefaultColor(float r = 0.f, float g = 0.f, float b = 0.f, float a = 1.f);
@@ -39,6 +42,7 @@ namespace mgl {
 		virtual void insert(math::Vector* v, Color* c);
 		virtual void send(DataUsage u) override;
 		virtual void draw();
+		virtual void draw(InstancingArray* instances);
 		
 		std::list<Vertex*>& operator*();
 		const std::list<Vertex*>& operator*() const;

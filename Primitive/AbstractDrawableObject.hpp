@@ -4,6 +4,7 @@
 
 namespace mgl {
 	class Primitive;
+	class InstancingArray;
 
 	class AbstractDrawableObject {
 	protected:
@@ -20,6 +21,7 @@ namespace mgl {
 		virtual void addPrimitive(Primitive* v);
 		virtual void send(DataUsage u);
 		virtual void draw();
+		virtual void draw(InstancingArray* instances);
 		virtual void clean();
 
 		std::list<Primitive*>& operator*();

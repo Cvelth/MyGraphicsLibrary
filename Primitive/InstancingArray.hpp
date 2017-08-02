@@ -20,6 +20,8 @@ namespace mgl {
 		virtual size_t getSize() const;
 		virtual size_t getNumber() const;
 
+		void deleteObject(math::Vector *obj);
+
 		virtual void send(DataUsage u) override;
 	};
 }
