@@ -78,6 +78,7 @@
 #if defined MGL_INCLUDE_SHADER_PROGRAM_MIRROR
 	#include "OpenGL_Mirror\ClassesMirror\ShaderProgram.hpp"
 	#include "OpenGL_Mirror\ClassesMirror\ShaderVariable.hpp"
+	#include "OpenGL_Mirror\ClassesMirror\Shader.hpp"
 #endif
 #if defined MGL_INCLUDE_OPENGL_ACCESS
 	#include "OpenGL_Mirror\OpenGL_Dependency\OpenGL.h"
