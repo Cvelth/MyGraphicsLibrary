@@ -6,7 +6,7 @@
 #include "OpenGL_Mirror\FunctionsMirror\FunctionsMirror.hpp"
 #include "Vertex.hpp"
 
-mgl::Primitive::Primitive(VertexConnectionType type, Color* defaultColor) : wasBufferGenerated(false) {
+mgl::Primitive::Primitive(VertexConnectionType type, Color* defaultColor) : AbstractSendableArray() {
 	if (defaultColor == nullptr)
 		defaultColor = new mgl::Color();
 
@@ -61,8 +61,6 @@ mgl::Primitive::Primitive(VertexConnectionType type, Color* defaultColor, const 
 mgl::Primitive::~Primitive() {
 	for (auto it : m_data)
 		delete it;
-	if (wasBufferGenerated)
-		delete m_buffer;
 	delete m_default_color;
 }
 
@@ -89,11 +87,11 @@ void mgl::Primitive::setDefaultColor(float r, float g, float b, float a) {
 }
 
 void mgl::Primitive::insert(math::Vector* v) {
-	m_data.push_back(new Vertex(v, m_default_color));
+	insert(new mgl::Vertex(v, m_default_color));
 }
 
 void mgl::Primitive::insert(math::Vector * v, Color * c) {
-	m_data.push_back(new Vertex(v, c));
+	insert(new Vertex(v, c));
 }
 
 void mgl::Primitive::send(DataUsage u) {
@@ -110,28 +108,15 @@ void mgl::Primitive::send(DataUsage u) {
 		temp[i++] = it->color()->b();
 		temp[i++] = it->color()->a();
 	}
-
-	if (!wasBufferGenerated) {
-		m_buffer = new Buffer();
-		wasBufferGenerated = true;
-	}
-	m_buffer->data(getSize(), temp, u);
+	buffer_data(getSize(), temp, u);
 	delete[] temp;
 }
 
 void mgl::Primitive::draw() { 
-	if (!wasBufferGenerated)
+	if (!wasBufferGenerated())
 		throw Exceptions::PrimitiveException("Data wasn't sent");
-	m_buffer->bind();
+	buffer_bind();
 	glDrawArrays(switchEnum(m_connection), 0, (GLsizei) getNumber());
-}
-
-void mgl::Primitive::clean() {
-	if (!wasBufferGenerated) {
-		m_buffer = new Buffer();
-		wasBufferGenerated = true;
-	}
-	m_buffer->data(getSize(), NULL, mgl::DataUsage::StaticRead);
 }
 
 std::list<mgl::Vertex*>& mgl::Primitive::operator*() {

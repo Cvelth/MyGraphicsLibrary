@@ -128,11 +128,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AbstractDrawableObject.cpp" />
+    <ClCompile Include="AbstractSendableArray.cpp" />
+    <ClCompile Include="InstancingArray.cpp" />
     <ClCompile Include="Primitive.cpp" />
     <ClCompile Include="Vertex.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AbstractDrawableObject.hpp" />
+    <ClInclude Include="AbstractSendableArray.hpp" />
+    <ClInclude Include="InstancingArray.hpp" />
     <ClInclude Include="Primitive.hpp" />
     <ClInclude Include="Vertex.hpp" />
   </ItemGroup>

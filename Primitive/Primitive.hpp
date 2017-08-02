@@ -1,6 +1,6 @@
 #pragma once
 #include <list>
-#include "OpenGL_Mirror\EnumsMirror\EnumsMirror.hpp"
+#include "AbstractSendableArray.hpp"
 #include "SharedHeaders\Exceptions.hpp"
 DefineNewException(PrimitiveException)
 
@@ -12,13 +12,10 @@ namespace mgl {
 	}
 	class Vertex;
 
-	class Primitive {
+	class Primitive : public AbstractSendableArray<Vertex> {
 	protected:
-		std::list<Vertex*> m_data;
-		Buffer* m_buffer;
 		VertexConnectionType m_connection;
 		Color* m_default_color;
-		bool wasBufferGenerated;
 	public:
 		Primitive(VertexConnectionType type = VertexConnectionType::Points, Color* defaultColor = nullptr);
 		Primitive(VertexConnectionType type, Color* defaultColor, const float* array, size_t size, size_t COORDS_POINT_NUMBER = 3, size_t COLOR_POINT_NUMBER = 3);
@@ -30,18 +27,18 @@ namespace mgl {
 		Primitive(VertexConnectionType type, Color* defaultColor, const std::list<math::Vector*>& coords_list, const std::list<Color*>& color_list);
 		~Primitive();
 		
-		virtual size_t getSize() const;
-		virtual size_t getNumber() const;
+		virtual size_t getSize() const override;
+		virtual size_t getNumber() const override;
 
 		virtual Color* getDefaultColor() const;
 		virtual void setDefaultColor(Color* color);
 		virtual void setDefaultColor(float r = 0.f, float g = 0.f, float b = 0.f, float a = 1.f);
 		
+		using AbstractSendableArray<Vertex>::insert;
 		virtual void insert(math::Vector* v);
 		virtual void insert(math::Vector* v, Color* c);
-		virtual void send(DataUsage u);
+		virtual void send(DataUsage u) override;
 		virtual void draw();
-		virtual void clean();
 		
 		std::list<Vertex*>& operator*();
 		const std::list<Vertex*>& operator*() const;
