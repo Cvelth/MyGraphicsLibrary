@@ -18,6 +18,7 @@ namespace mgl {
 		Buffer* m_buffer;
 		VertexConnectionType m_connection;
 		Color* m_default_color;
+		bool wasBufferGenerated;
 	public:
 		Primitive(VertexConnectionType type = VertexConnectionType::Points, Color* defaultColor = nullptr);
 		Primitive(VertexConnectionType type, Color* defaultColor, const float* array, size_t size, size_t COORDS_POINT_NUMBER = 3, size_t COLOR_POINT_NUMBER = 3);

@@ -2,7 +2,7 @@
 #include "VertexArray.hpp"
 
 mgl::VertexArray::VertexArray() {
-	glCreateVertexArrays(1, &m_id);
+	glGenVertexArrays(1, &m_id);
 }
 
 mgl::VertexArray::VertexArray(unsigned int id) {
@@ -11,6 +11,8 @@ mgl::VertexArray::VertexArray(unsigned int id) {
 	else
 		throw Exceptions::VertexArrayException("Invalid ID was passed.");
 }
+
+mgl::VertexArray::VertexArray(const VertexArray & vao) : VertexArray(vao.m_id) {}
 
 mgl::VertexArray::~VertexArray() {
 	glDeleteVertexArrays(1, &m_id);

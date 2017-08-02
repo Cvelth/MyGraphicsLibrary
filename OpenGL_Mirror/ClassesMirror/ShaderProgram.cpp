@@ -6,7 +6,10 @@
 #include "Math\Vector.hpp"
 #include "Math\Matrix.hpp"
 
-mgl::ShaderProgram::ShaderProgram() : ShaderProgram(VertexArray()) {}
+mgl::ShaderProgram::ShaderProgram() {
+	m_id = glCreateProgram();
+	m_vao = new mgl::VertexArray();
+}
 
 mgl::ShaderProgram::ShaderProgram(VertexArray& vao) {
 	m_id = glCreateProgram();

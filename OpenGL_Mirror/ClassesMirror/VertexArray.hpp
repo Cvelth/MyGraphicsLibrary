@@ -9,6 +9,7 @@ namespace mgl {
 	public:
 		VertexArray();
 		VertexArray(unsigned int id);
+		VertexArray(const VertexArray& vao);
 		~VertexArray();
 
 		bool isValid();
