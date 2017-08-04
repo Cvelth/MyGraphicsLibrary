@@ -33,10 +33,12 @@ void mgl::AbstractWindow::initialize(std::string title, int width, int height, D
 	if (!glfwInit())
 		throw Exceptions::WindowInitializationException("GLFW inititalization error.");
 
-	if (mode == DefaultWindowMode::Fullscreen)
-		m_window = glfwCreateWindow(width, height, title.c_str(), glfwGetPrimaryMonitor(), NULL);
-	else
-		m_window = glfwCreateWindow(width, height, title.c_str(), NULL, NULL);
+	m_window = glfwCreateWindow(width, height, title.c_str(), NULL, NULL);
+	if (mode == DefaultWindowMode::Fullscreen) {
+		auto monitor = glfwGetPrimaryMonitor();
+		auto window_mode = glfwGetVideoMode(monitor);
+		glfwSetWindowMonitor(m_window, monitor, 0, 0, width, height, window_mode->refreshRate);
+	}
 
 	if (!m_window)
 		throw Exceptions::WindowInitializationException("Window inititalization error.");
