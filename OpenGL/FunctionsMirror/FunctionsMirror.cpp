@@ -1,7 +1,7 @@
-#include "OpenGL_Mirror\OpenGL_Dependency\OpenGL.h"
+#include "OpenGL\OpenGL_Dependency\OpenGL.h"
 #include "FunctionsMirror.hpp"
 #include "SharedHeaders\Color.hpp"
-#include "OpenGL_Mirror\ClassesMirror\Buffer.hpp"
+#include "OpenGL\ClassesMirror\Buffer.hpp"
 
 void mgl::setClearColor(const Color & c) {
 	glClearColor(c.r(), c.g(), c.b(), c.a());

@@ -69,19 +69,19 @@
 	#include "Math\Vector.hpp"
 #endif
 #if defined MGL_INCLUDE_OPENGL_FUNCTIONS_MIRROR
-	#include "OpenGL_Mirror\FunctionsMirror\FunctionsMirror.hpp"
+	#include "OpenGL\FunctionsMirror\FunctionsMirror.hpp"
 	#define MGL_INCLUDE_OPENGL_BASIC_TYPES_MIRROR
 #endif
 #if defined MGL_INCLUDE_OPENGL_EXPERIMENTAL_FUNCTIONS_MIRROR
-	#include "OpenGL_Mirror\FunctionsMirror\ExperimentalFunctionsMirror.hpp"
+	#include "OpenGL\FunctionsMirror\ExperimentalFunctionsMirror.hpp"
 #endif
 #if defined MGL_INCLUDE_SHADER_PROGRAM_MIRROR
-	#include "OpenGL_Mirror\ClassesMirror\ShaderProgram.hpp"
-	#include "OpenGL_Mirror\ClassesMirror\ShaderVariable.hpp"
-	#include "OpenGL_Mirror\ClassesMirror\Shader.hpp"
+	#include "OpenGL\ClassesMirror\ShaderProgram.hpp"
+	#include "OpenGL\ClassesMirror\ShaderVariable.hpp"
+	#include "OpenGL\ClassesMirror\Shader.hpp"
 #endif
 #if defined MGL_INCLUDE_OPENGL_ACCESS
-	#include "OpenGL_Mirror\OpenGL_Dependency\OpenGL.h"
+	#include "OpenGL\OpenGL_Dependency\OpenGL.h"
 #endif
 #if defined MGL_INCLUDE_DEFAULT_COLORS
 	#include "Default\DefaultColors.hpp"

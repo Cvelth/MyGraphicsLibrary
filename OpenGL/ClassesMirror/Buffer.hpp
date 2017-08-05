@@ -1,5 +1,5 @@
 #pragma once
-#include "OpenGL_Mirror\EnumsMirror\EnumsMirror.hpp"
+#include "OpenGL\EnumsMirror\EnumsMirror.hpp"
 #include "SharedHeaders\Exceptions.hpp"
 DefineNewMglException(BufferException)
 

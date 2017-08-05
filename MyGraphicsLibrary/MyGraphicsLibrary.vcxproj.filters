@@ -4,6 +4,6 @@
     <ClCompile Include="lib.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\MyOpenGL.hpp" />
+    <ClInclude Include="..\MGL.hpp" />
   </ItemGroup>
 </Project>

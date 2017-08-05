@@ -1,4 +1,4 @@
-#include "OpenGL_Mirror\OpenGL_Dependency\OpenGL.h"
+#include "OpenGL\OpenGL_Dependency\OpenGL.h"
 #include "VertexArray.hpp"
 
 mgl::VertexArray::VertexArray() {

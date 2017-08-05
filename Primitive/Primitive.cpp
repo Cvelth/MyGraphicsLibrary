@@ -1,9 +1,9 @@
-#include "OpenGL_Mirror\OpenGL_Dependency\OpenGL.h"
+#include "OpenGL\OpenGL_Dependency\OpenGL.h"
 #include "Primitive.hpp"
 #include "Math\Vector.hpp"
-#include "OpenGL_Mirror\ClassesMirror\Buffer.hpp"
+#include "OpenGL\ClassesMirror\Buffer.hpp"
 #include "SharedHeaders\Color.hpp"
-#include "OpenGL_Mirror\FunctionsMirror\FunctionsMirror.hpp"
+#include "OpenGL\FunctionsMirror\FunctionsMirror.hpp"
 #include "Vertex.hpp"
 
 mgl::Primitive::Primitive(VertexConnectionType type, Color* defaultColor) : AbstractSendableArray() {

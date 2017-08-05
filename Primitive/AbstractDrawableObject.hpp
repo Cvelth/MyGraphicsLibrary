@@ -1,6 +1,6 @@
 #pragma once
 #include <list>
-#include "OpenGL_Mirror\EnumsMirror\EnumsMirror.hpp"
+#include "OpenGL\EnumsMirror\EnumsMirror.hpp"
 
 namespace mgl {
 	class Primitive;

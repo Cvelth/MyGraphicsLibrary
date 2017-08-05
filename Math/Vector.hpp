@@ -1,5 +1,5 @@
 #pragma once
-#include "..\MyOpenGL_Lib\SharedHeaders\Exceptions.hpp"
+#include "..\MyGraphicsLibrary\SharedHeaders\Exceptions.hpp"
 DefineNewMglException(VectorException)
 
 namespace mgl {
