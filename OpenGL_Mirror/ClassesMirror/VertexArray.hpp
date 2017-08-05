@@ -1,6 +1,6 @@
 #pragma once
 #include "SharedHeaders\Exceptions.hpp"
-DefineNewException(VertexArrayException)
+DefineNewMglException(VertexArrayException)
 namespace mgl {
 	class ShaderVariable;
 	class VertexArray {

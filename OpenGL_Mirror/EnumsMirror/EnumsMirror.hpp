@@ -2,7 +2,7 @@
 typedef unsigned int GLenum;
 
 #include "SharedHeaders\Exceptions.hpp"
-DefineNewException(IncorrectEnumException)
+DefineNewMglException(IncorrectEnumException)
 
 namespace mgl {
 	enum class OpenGLVersionMask {

@@ -13,4 +13,4 @@ namespace mgl {
 		};
 	}
 }
-#define DefineNewException(name) namespace mgl { namespace Exceptions {class name : public mgl::Exceptions::MyOpenGLException {using MyOpenGLException::MyOpenGLException;};}}
+#define DefineNewMglException(name) namespace mgl { namespace Exceptions {class name : public mgl::Exceptions::MyOpenGLException {public: using MyOpenGLException::MyOpenGLException;};}}

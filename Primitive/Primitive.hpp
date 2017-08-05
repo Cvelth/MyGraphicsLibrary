@@ -2,7 +2,7 @@
 #include <list>
 #include "AbstractSendableArray.hpp"
 #include "SharedHeaders\Exceptions.hpp"
-DefineNewException(PrimitiveException)
+DefineNewMglException(PrimitiveException)
 
 namespace mgl {
 	class Buffer;

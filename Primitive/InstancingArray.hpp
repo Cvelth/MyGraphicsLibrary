@@ -1,7 +1,7 @@
 #pragma once
 #include "AbstractSendableArray.hpp"
 #include "SharedHeaders\Exceptions.hpp"
-DefineNewException(InstancingArrayException)
+DefineNewMglException(InstancingArrayException)
 
 namespace mgl {
 	class Buffer;

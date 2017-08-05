@@ -3,7 +3,7 @@
 #include "Events\EmptyEventHandler.hpp"
 #include "OpenGL_Mirror\EnumsMirror\EnumsMirror.hpp"
 #include "SharedHeaders\Exceptions.hpp"
-DefineNewException(WindowInitializationException)
+DefineNewMglException(WindowInitializationException)
 
 struct GLFWwindow;
 

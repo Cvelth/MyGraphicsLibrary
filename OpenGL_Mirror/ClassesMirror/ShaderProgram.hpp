@@ -1,6 +1,6 @@
 #pragma once
 #include "SharedHeaders\Exceptions.hpp"
-DefineNewException(ProgramException)
+DefineNewMglException(ProgramException)
 
 namespace mgl {
 	class Shader;

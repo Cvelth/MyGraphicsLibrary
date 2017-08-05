@@ -1,6 +1,6 @@
 #pragma once
 #include "SharedHeaders\Exceptions.hpp"
-DefineNewException(UnsupportedEnumEntryExceptions)
+DefineNewMglException(UnsupportedEnumEntryExceptions)
 
 namespace mgl {
 	enum class MouseButton {

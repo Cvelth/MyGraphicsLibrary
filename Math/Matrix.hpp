@@ -1,6 +1,6 @@
 #pragma once
 #include "..\MyOpenGL_Lib\SharedHeaders\Exceptions.hpp"
-DefineNewException(MatrixException)
+DefineNewMglException(MatrixException)
 
 namespace mgl {
 	namespace math {
