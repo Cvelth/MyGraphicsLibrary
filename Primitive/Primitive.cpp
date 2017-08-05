@@ -212,5 +212,4 @@ void mgl::Primitive::draw(InstancingArray* instances) {
 		throw Exceptions::PrimitiveException("Data wasn't sent");
 	buffer_bind();
 	glDrawArraysInstanced(switchEnum(m_connection), 0, (GLsizei) getNumber(), (GLsizei) instances->getNumber());
-	glDrawArrays(switchEnum(m_connection), 0, (GLsizei) getNumber());
 }
