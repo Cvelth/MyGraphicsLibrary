@@ -140,6 +140,20 @@
     <ClInclude Include="Primitive.hpp" />
     <ClInclude Include="Vertex.hpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Math\Math.vcxproj">
+      <Project>{85ec2964-de12-4a7e-8cc6-8608e8eb32cc}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenGL\ClassesMirror\ClassesMirror.vcxproj">
+      <Project>{f2323ea4-c437-4a17-a620-799e88d0ad89}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenGL\FunctionsMirror\FunctionsMirror.vcxproj">
+      <Project>{0a189a93-b2c6-4c2c-9f31-f764c995d2d9}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\SharedHeaders\SharedHeaders.vcxproj">
+      <Project>{7097b003-9d8b-453e-a35b-3db7289c240d}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

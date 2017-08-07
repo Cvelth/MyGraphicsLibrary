@@ -124,6 +124,23 @@
     <ClInclude Include="DefaultPrimitives.hpp" />
     <ClInclude Include="DefaultShaders.hpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Math\Math.vcxproj">
+      <Project>{85ec2964-de12-4a7e-8cc6-8608e8eb32cc}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenGL\ClassesMirror\ClassesMirror.vcxproj">
+      <Project>{f2323ea4-c437-4a17-a620-799e88d0ad89}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenGL\EnumsMirror\EnumsMirror.vcxproj">
+      <Project>{3b48cf5b-97c0-43d0-a21f-57377dd93daf}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Primitive\Primitive.vcxproj">
+      <Project>{e02ada57-4ab9-450f-b371-d4b1a3d80c53}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\SharedHeaders\SharedHeaders.vcxproj">
+      <Project>{7097b003-9d8b-453e-a35b-3db7289c240d}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -132,6 +132,14 @@
   <ItemGroup>
     <ClInclude Include="EnumsMirror.hpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\SharedHeaders\SharedHeaders.vcxproj">
+      <Project>{7097b003-9d8b-453e-a35b-3db7289c240d}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenGL_Dependency\OpenGL_Dependency.vcxproj">
+      <Project>{14be552e-a4ed-49b7-9301-f43a206af594}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
