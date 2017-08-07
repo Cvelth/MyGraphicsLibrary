@@ -102,6 +102,10 @@ void mgl::AbstractWindow::pollEvents() {
 	glfwPollEvents();
 }
 
+void mgl::AbstractWindow::waitEvents() {
+	glfwWaitEvents();
+}
+
 void mgl::AbstractWindow::clearWindow() {
 	mgl::clearColorBuffer();
 }

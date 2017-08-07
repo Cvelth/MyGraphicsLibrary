@@ -54,6 +54,7 @@ namespace mgl {
 		static ShaderProgram* linkProgramWithDefaultFragmentShader(Shader* vertex_shader);
 		void update();
 		void pollEvents();
+		void waitEvents();
 		void clearWindow();
 		void setClearColor(const mgl::Color& color);
 		void setClearColor(const float r = 0.f, const float g = 0.f, const float b = 0.f, const float a = 1.f);
