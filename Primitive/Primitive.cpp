@@ -98,7 +98,15 @@ void mgl::Primitive::insert(math::Vector const& v) {
 	insert(new mgl::Vertex(v, *m_default_color));
 }
 
+void mgl::Primitive::insert(math::Vector && v) {
+	insert(new mgl::Vertex(v, *m_default_color));
+}
+
 void mgl::Primitive::insert(math::Vector const& v, Color const& c) {
+	insert(new Vertex(v, c));
+}
+
+void mgl::Primitive::insert(math::Vector && v, Color && c) {
 	insert(new Vertex(v, c));
 }
 
