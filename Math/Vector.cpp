@@ -23,6 +23,12 @@ namespace mgl {
 				m_data.z = z;
 				m_data.w = w;
 			}
+			VectorInnerStructure(VectorInnerStructure const& other) {
+				m_data = other.m_data;
+			}
+			VectorInnerStructure(VectorInnerStructure&& other) {
+				m_data = other.m_data;
+			}
 
 			void x(const float a) {
 				m_data.x = a;
@@ -253,17 +259,24 @@ mgl::math::Vector::Vector(VectorInnerStructure * data) {
 		throw Exceptions::VectorException("Incorrect Data Was Inserted.");
 }
 mgl::math::Vector::Vector(const VectorInnerStructure& data) {
-	m_data = new VectorInnerStructure();
-	*m_data = data;
+	m_data = new VectorInnerStructure(data);
 }
 mgl::math::Vector::Vector(VectorInnerStructure && data) {
-	m_data = new VectorInnerStructure();
-	*m_data = data;
+	m_data = new VectorInnerStructure(data);
 }
 mgl::math::Vector::Vector(const float x, const float y, const float z, const float w) {
 	m_data = new VectorInnerStructure(x, y, z, w);
 }
 mgl::math::Vector::Vector(const float * const data) : Vector(data[0], data[1], data[2], data[3]) {
+}
+mgl::math::Vector::Vector(Vector const& other) {
+	m_data = new VectorInnerStructure(*other.m_data);
+}
+mgl::math::Vector::Vector(Vector&& other) {
+	m_data = new VectorInnerStructure(*other.m_data);
+}
+mgl::math::Vector const& mgl::math::Vector::operator=(Vector const& other) {
+	m_data = new VectorInnerStructure(*other.m_data);
 }
 mgl::math::Vector::~Vector() {
 	if (m_data) delete m_data;

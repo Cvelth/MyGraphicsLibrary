@@ -17,6 +17,10 @@ namespace mgl {
 			explicit Vector(const float x = 0.f, const float y = 0.f, const float z = 0.f, const float w = 1.f);
 			Vector(const float* const data);
 
+			Vector(Vector const& other);
+			Vector(Vector&& other);
+			Vector const& operator=(Vector const& other);
+
 			~Vector();
 
 			void x(const float a);
