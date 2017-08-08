@@ -9,9 +9,11 @@ namespace mgl {
 		math::Vector* m_coords;
 		Color* m_color;
 	public:
-		Vertex(math::Vector* coords, Color* color);
+		Vertex(math::Vector const& coords, Color const& color);
+		Vertex(math::Vector&& coords, Color&& color);
 		~Vertex();
-		void set(math::Vector* coords, Color* color);
+		void set(math::Vector const& coords, Color const& color);
+		void set(math::Vector&& coords, Color&& color);
 		inline math::Vector* coords() {
 			return m_coords;
 		}

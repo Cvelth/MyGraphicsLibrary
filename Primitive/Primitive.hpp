@@ -42,8 +42,8 @@ namespace mgl {
 		virtual void setDefaultColor(float r = 0.f, float g = 0.f, float b = 0.f, float a = 1.f);
 		
 		using AbstractSendableArray<Vertex>::insert;
-		virtual void insert(math::Vector* v);
-		virtual void insert(math::Vector* v, Color* c);
+		virtual void insert(math::Vector const& v);
+		virtual void insert(math::Vector const& v, Color const& c);
 		virtual void send(DataUsage u) override;
 		virtual void draw();
 		virtual void draw(InstancingArray* instances);

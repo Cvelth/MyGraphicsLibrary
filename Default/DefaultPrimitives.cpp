@@ -38,10 +38,10 @@ mgl::Primitive* mgl::generateN_Polygon(float aspectRatio, size_t n, mgl::Color *
 	float STEP = PI / n * 2;
 	if (aspectRatio < 1.f && aspectRatio > 0.f)
 		for (float f = 0.f; f < PI * 2; f += STEP)
-			res->insert(new mgl::math::Vector(aspectRatio * cosf(f), sinf(f)));
+			res->insert(mgl::math::Vector(aspectRatio * cosf(f), sinf(f)));
 	else if (aspectRatio >= 1.f)
 		for (float f = 0.f; f < PI * 2; f += STEP)
-			res->insert(new mgl::math::Vector(cosf(f), aspectRatio * sinf(f)));
+			res->insert(mgl::math::Vector(cosf(f), aspectRatio * sinf(f)));
 	else
 		throw mgl::Exceptions::PrimitiveException("Incorrect input data (aspectRatio).");
 
@@ -55,15 +55,15 @@ mgl::Primitive* mgl::generateRectangle(float aspectRatio, mgl::Color * color, Po
 	else
 		res = new Primitive(VertexConnectionType::LineLoop, color);
 	if (aspectRatio < 1.f && aspectRatio > 0.f) {
-		res->insert(new mgl::math::Vector(-aspectRatio, -1.f));
-		res->insert(new mgl::math::Vector(+aspectRatio, -1.f));
-		res->insert(new mgl::math::Vector(-aspectRatio, +1.f));
-		res->insert(new mgl::math::Vector(+aspectRatio, +1.f));
+		res->insert(mgl::math::Vector(-aspectRatio, -1.f));
+		res->insert(mgl::math::Vector(+aspectRatio, -1.f));
+		res->insert(mgl::math::Vector(-aspectRatio, +1.f));
+		res->insert(mgl::math::Vector(+aspectRatio, +1.f));
 	} else if (aspectRatio >= 1.f) {
-		res->insert(new mgl::math::Vector(-1.f, -1.f / aspectRatio));
-		res->insert(new mgl::math::Vector(-1.f, +1.f / aspectRatio));
-		res->insert(new mgl::math::Vector(+1.f, -1.f / aspectRatio));
-		res->insert(new mgl::math::Vector(+1.f, +1.f / aspectRatio));
+		res->insert(mgl::math::Vector(-1.f, -1.f / aspectRatio));
+		res->insert(mgl::math::Vector(-1.f, +1.f / aspectRatio));
+		res->insert(mgl::math::Vector(+1.f, -1.f / aspectRatio));
+		res->insert(mgl::math::Vector(+1.f, +1.f / aspectRatio));
 	} else
 		throw mgl::Exceptions::PrimitiveException("Incorrect input data (aspectRatio).");
 	return changePlacing(res, PoligonPlacing::zero_Center, placing);
