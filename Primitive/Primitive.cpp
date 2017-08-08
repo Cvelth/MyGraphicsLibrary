@@ -64,6 +64,10 @@ mgl::Primitive::~Primitive() {
 	delete m_default_color;
 }
 
+void mgl::Primitive::insertVertexArray(VertexArray *vao) {
+	m_vertex_array = vao;
+}
+
 size_t mgl::Primitive::getSize() const {
 	return m_data.size() * 8;
 }
@@ -96,31 +100,6 @@ void mgl::Primitive::insert(math::Vector* v) {
 
 void mgl::Primitive::insert(math::Vector * v, Color * c) {
 	insert(new Vertex(v, c));
-}
-
-void mgl::Primitive::send(DataUsage u) {
-	float* temp = new float[getSize()];
-	size_t i = 0;
-	for (auto it : m_data) {
-		temp[i++] = it->coords()->x();
-		temp[i++] = it->coords()->y();
-		temp[i++] = it->coords()->z();
-		temp[i++] = it->coords()->w();
-					
-		temp[i++] = it->color()->r();
-		temp[i++] = it->color()->g();
-		temp[i++] = it->color()->b();
-		temp[i++] = it->color()->a();
-	}
-	buffer_data(getSize(), temp, u);
-	delete[] temp;
-}
-
-void mgl::Primitive::draw() { 
-	if (!wasBufferGenerated())
-		throw Exceptions::PrimitiveException("Data wasn't sent");
-	buffer_bind();
-	glDrawArrays(switchEnum(m_connection), 0, (GLsizei) getNumber());
 }
 
 std::list<mgl::Vertex*>& mgl::Primitive::operator*() {
@@ -206,10 +185,39 @@ const mgl::Primitive & mgl::Primitive::operator/=(const float f) {
 	return *this;
 }
 
+void mgl::Primitive::send(DataUsage u) {
+	float* temp = new float[getSize()];
+	size_t i = 0;
+	for (auto it : m_data) {
+		temp[i++] = it->coords()->x();
+		temp[i++] = it->coords()->y();
+		temp[i++] = it->coords()->z();
+		temp[i++] = it->coords()->w();
+
+		temp[i++] = it->color()->r();
+		temp[i++] = it->color()->g();
+		temp[i++] = it->color()->b();
+		temp[i++] = it->color()->a();
+	}
+	buffer_data(getSize(), temp, u);
+	delete[] temp;
+}
+
+#include "OpenGL\ClassesMirror\VertexArray.hpp"
+void mgl::Primitive::draw() {
+	if (!wasBufferGenerated())
+		throw Exceptions::PrimitiveException("Data wasn't sent");
+	buffer_bind();
+	if (m_vertex_array) m_vertex_array->repeatAllAttribPointers();
+	glDrawArrays(switchEnum(m_connection), 0, (GLsizei) getNumber());
+}
+
+
 #include "InstancingArray.hpp"
 void mgl::Primitive::draw(InstancingArray* instances) {
 	if (!wasBufferGenerated())
 		throw Exceptions::PrimitiveException("Data wasn't sent");
 	buffer_bind();
+	if (m_vertex_array) m_vertex_array->repeatAllAttribPointers();
 	glDrawArraysInstanced(switchEnum(m_connection), 0, (GLsizei) getNumber(), (GLsizei) instances->getNumber());
 }

@@ -38,6 +38,11 @@ void mgl::AbstractDrawableObject::addPrimitive(Primitive* v) {
 	m_data.push_back(v);
 }
 
+void mgl::AbstractDrawableObject::insertVertexArray(VertexArray *vao) {
+	for (auto it : m_data)
+		it->insertVertexArray(vao);
+}
+
 void mgl::AbstractDrawableObject::send(DataUsage u) {
 	for (auto it : m_data)
 		it->send(u);

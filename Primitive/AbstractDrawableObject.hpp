@@ -5,6 +5,7 @@
 namespace mgl {
 	class Primitive;
 	class InstancingArray;
+	class VertexArray;
 
 	class AbstractDrawableObject {
 	protected:
@@ -19,6 +20,7 @@ namespace mgl {
 		virtual size_t getNumber() const;
 
 		virtual void addPrimitive(Primitive* v);
+		virtual void insertVertexArray(VertexArray *vao);
 		virtual void send(DataUsage u);
 		virtual void draw();
 		virtual void draw(InstancingArray* instances);

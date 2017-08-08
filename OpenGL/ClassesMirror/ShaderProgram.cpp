@@ -51,7 +51,7 @@ mgl::ShaderVariable* mgl::ShaderProgram::enableAttribWithNormalization(const cha
 		throw Exceptions::ProgramException("There are no atribute in the Shader with the 'fieldName'.");
 
 	auto ret = new mgl::ShaderVariable(fieldName, ShaderVariableType::Attribute, loc, ShaderDataType::Float);
-	m_vao->attribPointer(*ret, size, normalized, stride, shift);
+	m_vao->initializeAttribPointer(*ret, size, normalized, stride, shift);
 	return ret;
 }
 
@@ -62,7 +62,7 @@ mgl::ShaderVariable* mgl::ShaderProgram::enableAttrib(const char* fieldName, siz
 void mgl::ShaderProgram::initializeInstancing(ShaderVariable *variable, size_t divisor) {
 	if (variable->variable_type != ShaderVariableType::Attribute)
 		throw Exceptions::ProgramException("Instancing can be initialized for Attribute variables only.");
-	glVertexAttribDivisor(variable->location, divisor);
+	glVertexAttribDivisor(variable->location, (GLuint) divisor);
 }
 
 void mgl::ShaderProgram::sendUniform(ShaderVariable* variable, const float & data) {

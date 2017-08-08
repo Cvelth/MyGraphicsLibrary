@@ -37,5 +37,9 @@ namespace mgl {
 		void sendUniform(ShaderVariable* variable, const float& data);
 		void sendUniform(ShaderVariable* variable, const math::Vector& data);
 		void sendUniform(ShaderVariable* variable, const math::Matrix& data);
+
+		VertexArray* getVertexArray() {
+			return m_vao;
+		}
 	};
 }

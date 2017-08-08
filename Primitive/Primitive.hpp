@@ -12,9 +12,11 @@ namespace mgl {
 	}
 	class Vertex;
 	class InstancingArray;
+	class VertexArray;
 
 	class Primitive : public AbstractSendableArray<Vertex> {
 	protected:
+		VertexArray* m_vertex_array;
 		VertexConnectionType m_connection;
 		Color* m_default_color;
 	public:
@@ -27,6 +29,8 @@ namespace mgl {
 		Primitive(VertexConnectionType type, Color* defaultColor, const std::list<math::Vector*>& coords_list);
 		Primitive(VertexConnectionType type, Color* defaultColor, const std::list<math::Vector*>& coords_list, const std::list<Color*>& color_list);
 		~Primitive();
+
+		void insertVertexArray(VertexArray *vao);
 		
 		virtual size_t getSize() const override;
 		virtual size_t getNumber() const override;
