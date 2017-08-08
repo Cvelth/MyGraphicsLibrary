@@ -277,6 +277,7 @@ mgl::math::Vector::Vector(Vector&& other) {
 }
 mgl::math::Vector const& mgl::math::Vector::operator=(Vector const& other) {
 	m_data = new VectorInnerStructure(*other.m_data);
+	return *this;
 }
 mgl::math::Vector::~Vector() {
 	if (m_data) delete m_data;
