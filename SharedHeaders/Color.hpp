@@ -1,4 +1,6 @@
 #pragma once
+#include "Exceptions.hpp"
+DefineNewMglException(ColorException);
 namespace mgl {
 	class Color {
 		float m_data[4];
@@ -7,6 +9,14 @@ namespace mgl {
 			set(r, g, b, a);
 		}
 		Color(size_t r, size_t g, size_t b, size_t a = 255, size_t MAXIMUM_VALUE = 255) {
+			set(float(r) / MAXIMUM_VALUE, float(g) / MAXIMUM_VALUE, float(b) / MAXIMUM_VALUE, float(a) / MAXIMUM_VALUE);
+		}
+		Color(unsigned r, unsigned g, unsigned b, unsigned a = 255, unsigned MAXIMUM_VALUE = 255) {
+			set(float(r) / MAXIMUM_VALUE, float(g) / MAXIMUM_VALUE, float(b) / MAXIMUM_VALUE, float(a) / MAXIMUM_VALUE);
+		}
+		Color(signed r, signed g, signed b, signed a = 255, int MAXIMUM_VALUE = 255) {
+			if (r < 0 || g < 0 || b < 0 || a < 0)
+				throw Exceptions::ColorException("Unsupportable Color Data was passed.");
 			set(float(r) / MAXIMUM_VALUE, float(g) / MAXIMUM_VALUE, float(b) / MAXIMUM_VALUE, float(a) / MAXIMUM_VALUE);
 		}
 
