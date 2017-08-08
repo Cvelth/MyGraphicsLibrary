@@ -9,7 +9,7 @@ void mgl::SubFunctions::buffer_bind(Buffer *buffer) {
 	buffer->bind();
 }
 
-void mgl::SubFunctions::buffer_data(Buffer *buffer, bool &wasBufferGenerated, size_t floats, float *data, DataUsage u) {
+void mgl::SubFunctions::buffer_data(Buffer *buffer, size_t floats, float *data, DataUsage u) {
 	buffer->data(floats, data, u);
 }
 

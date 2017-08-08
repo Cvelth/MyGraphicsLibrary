@@ -7,7 +7,7 @@ namespace mgl {
 	namespace SubFunctions {
 		Buffer* generate_buffer();
 		void buffer_bind(Buffer* buffer);
-		void buffer_data(Buffer* buffer, bool &wasBufferGenerated, size_t floats, float* data, DataUsage u);
+		void buffer_data(Buffer* buffer, size_t floats, float* data, DataUsage u);
 		void delete_buffer(Buffer* buffer);
 	}
 
@@ -31,7 +31,7 @@ namespace mgl {
 		}
 		void buffer_data(size_t floats, float* data, DataUsage u) {
 			buffer_check();
-			SubFunctions::buffer_data(m_buffer, m_wasBufferGenerated, floats, data, u);
+			SubFunctions::buffer_data(m_buffer, floats, data, u);
 		}
 
 		bool wasBufferGenerated() {
