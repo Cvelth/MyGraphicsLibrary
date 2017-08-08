@@ -8,9 +8,6 @@ namespace mgl {
 		Color(float r = 0.f, float g = 0.f, float b = 0.f, float a = 1.f) {
 			set(r, g, b, a);
 		}
-		Color(size_t r, size_t g, size_t b, size_t a = 255, size_t MAXIMUM_VALUE = 255) {
-			set(float(r) / MAXIMUM_VALUE, float(g) / MAXIMUM_VALUE, float(b) / MAXIMUM_VALUE, float(a) / MAXIMUM_VALUE);
-		}
 		Color(unsigned r, unsigned g, unsigned b, unsigned a = 255, unsigned MAXIMUM_VALUE = 255) {
 			set(float(r) / MAXIMUM_VALUE, float(g) / MAXIMUM_VALUE, float(b) / MAXIMUM_VALUE, float(a) / MAXIMUM_VALUE);
 		}
