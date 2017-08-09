@@ -131,6 +131,7 @@
     <ClCompile Include="Vector[[deprecated]].cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Matrix.hpp" />
     <ClInclude Include="Matrix[[deprecated]].hpp" />
     <ClInclude Include="vector.hpp" />
     <ClInclude Include="Vector[[deprecated]].hpp" />
