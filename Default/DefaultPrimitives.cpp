@@ -1,26 +1,26 @@
 #include "DefaultPrimitives.hpp"
 #include "MGL\Primitive\Primitive.hpp"
-#include "MGL\Math\Vector[[deprecated]].hpp"
+#include "MGL\Math\Vector.hpp"
 
 mgl::Primitive* mgl::changePlacing(Primitive* primitive, PoligonPlacing from, PoligonPlacing to) {
 	if (from != PoligonPlacing::zero_Center)
 		throw Exceptions::PrimitiveException("Operation currently unsupported.");
 	switch (to) {
 		case PoligonPlacing::zero_TopLeftCorner:
-			*primitive /= mgl::math::Vector(+2.f, +2.f, 1.f, 1.f);
-			*primitive += mgl::math::Vector(+.5f, +.5f, 0.f, 0.f);
+			*primitive /= mgl::math::vectorH(+2.f, +2.f, 1.f, 1.f);
+			*primitive += mgl::math::vectorH(+.5f, +.5f, 0.f, 0.f);
 			break;
 		case PoligonPlacing::zero_TopRightCorner:
-			*primitive /= mgl::math::Vector(+2.f, +2.f, 1.f, 1.f);
-			*primitive += mgl::math::Vector(-.5f, +.5f, 0.f, 0.f);
+			*primitive /= mgl::math::vectorH(+2.f, +2.f, 1.f, 1.f);
+			*primitive += mgl::math::vectorH(-.5f, +.5f, 0.f, 0.f);
 			break;
 		case PoligonPlacing::zero_BottomLeftCorner:
-			*primitive /= mgl::math::Vector(+2.f, +2.f, 1.f, 1.f);
-			*primitive += mgl::math::Vector(+.5f, -.5f, 0.f, 0.f);
+			*primitive /= mgl::math::vectorH(+2.f, +2.f, 1.f, 1.f);
+			*primitive += mgl::math::vectorH(+.5f, -.5f, 0.f, 0.f);
 			break;
 		case PoligonPlacing::zero_BottomRightCorner:
-			*primitive /= mgl::math::Vector(+2.f, +2.f, 1.f, 1.f);
-			*primitive += mgl::math::Vector(-.5f, -.5f, 0.f, 0.f);
+			*primitive /= mgl::math::vectorH(+2.f, +2.f, 1.f, 1.f);
+			*primitive += mgl::math::vectorH(-.5f, -.5f, 0.f, 0.f);
 			break;
 		default: break;
 	}
@@ -38,10 +38,10 @@ mgl::Primitive* mgl::generateN_Polygon(float aspectRatio, size_t n, mgl::Color *
 	float STEP = PI / n * 2;
 	if (aspectRatio < 1.f && aspectRatio > 0.f)
 		for (float f = 0.f; f < PI * 2; f += STEP)
-			res->insert(mgl::math::Vector(aspectRatio * cosf(f), sinf(f)));
+			res->insert(mgl::math::vector(aspectRatio * cosf(f), sinf(f)));
 	else if (aspectRatio >= 1.f)
 		for (float f = 0.f; f < PI * 2; f += STEP)
-			res->insert(mgl::math::Vector(cosf(f), aspectRatio * sinf(f)));
+			res->insert(mgl::math::vector(cosf(f), aspectRatio * sinf(f)));
 	else
 		throw mgl::Exceptions::PrimitiveException("Incorrect input data (aspectRatio).");
 
@@ -55,15 +55,15 @@ mgl::Primitive* mgl::generateRectangle(float aspectRatio, mgl::Color * color, Po
 	else
 		res = new Primitive(VertexConnectionType::LineLoop, color);
 	if (aspectRatio < 1.f && aspectRatio > 0.f) {
-		res->insert(mgl::math::Vector(-aspectRatio, -1.f));
-		res->insert(mgl::math::Vector(+aspectRatio, -1.f));
-		res->insert(mgl::math::Vector(-aspectRatio, +1.f));
-		res->insert(mgl::math::Vector(+aspectRatio, +1.f));
+		res->insert(mgl::math::vector(-aspectRatio, -1.f));
+		res->insert(mgl::math::vector(+aspectRatio, -1.f));
+		res->insert(mgl::math::vector(-aspectRatio, +1.f));
+		res->insert(mgl::math::vector(+aspectRatio, +1.f));
 	} else if (aspectRatio >= 1.f) {
-		res->insert(mgl::math::Vector(-1.f, -1.f / aspectRatio));
-		res->insert(mgl::math::Vector(-1.f, +1.f / aspectRatio));
-		res->insert(mgl::math::Vector(+1.f, -1.f / aspectRatio));
-		res->insert(mgl::math::Vector(+1.f, +1.f / aspectRatio));
+		res->insert(mgl::math::vector(-1.f, -1.f / aspectRatio));
+		res->insert(mgl::math::vector(-1.f, +1.f / aspectRatio));
+		res->insert(mgl::math::vector(+1.f, -1.f / aspectRatio));
+		res->insert(mgl::math::vector(+1.f, +1.f / aspectRatio));
 	} else
 		throw mgl::Exceptions::PrimitiveException("Incorrect input data (aspectRatio).");
 	return changePlacing(res, PoligonPlacing::zero_Center, placing);

@@ -3,8 +3,8 @@
 #include "Shader.hpp"
 #include "ShaderVariable.hpp"
 #include "VertexArray.hpp"
-#include "MGL\Math\Vector[[deprecated]].hpp"
-#include "MGL\Math\Matrix[[deprecated]].hpp"
+#include "MGL\Math\Vector.hpp"
+#include "MGL\Math\Matrix.hpp"
 
 mgl::ShaderProgram::ShaderProgram() {
 	m_id = glCreateProgram();
@@ -76,7 +76,10 @@ void mgl::ShaderProgram::sendUniform(ShaderVariable* variable, const float & dat
 		throw Exceptions::ProgramException("Data type isn't supported by the uniform.");
 }
 
-void mgl::ShaderProgram::sendUniform(ShaderVariable* variable, const math::Vector & data) {
+void mgl::ShaderProgram::sendUniform(ShaderVariable* variable, const math::vector & data) {
+	sendUniform(variable, math::vectorH(data));
+}
+void mgl::ShaderProgram::sendUniform(ShaderVariable* variable, const math::vectorH & data) {
 	if (variable->variable_type != ShaderVariableType::Uniform)
 		throw Exceptions::ProgramException("You are trying to send uniform data to a non-uniform variable.");
 
@@ -84,7 +87,7 @@ void mgl::ShaderProgram::sendUniform(ShaderVariable* variable, const math::Vecto
 	if (variable->data_type == ShaderDataType::Float_4)
 		glUniform4f(variable->location, data.x(), data.y(), data.z(), data.w());
 	else if (variable->data_type == ShaderDataType::Float_3)
-	 	glUniform3f(variable->location, data.x(), data.y(), data.z());
+		glUniform3f(variable->location, data.x(), data.y(), data.z());
 	else if (variable->data_type == ShaderDataType::Float_2)
 		glUniform2f(variable->location, data.x(), data.y());
 	else

@@ -127,14 +127,11 @@
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Matrix[[deprecated]].cpp" />
-    <ClCompile Include="Vector[[deprecated]].cpp" />
+    <ClCompile Include="Matrix.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Matrix.hpp" />
-    <ClInclude Include="Matrix[[deprecated]].hpp" />
     <ClInclude Include="vector.hpp" />
-    <ClInclude Include="Vector[[deprecated]].hpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SharedHeaders\SharedHeaders.vcxproj">

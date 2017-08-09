@@ -136,6 +136,9 @@ namespace mgl {
 			template<typename... Tail>
 			vector_homogeneous(typename std::enable_if<sizeof...(Tail) + 1 <= S, T>::type head = T(0), 
 							   Tail... tail) : vector_basic(head, tail...) { data[S] = T(1); }
+			template<typename... Tail>
+			vector_homogeneous(typename std::enable_if<sizeof...(Tail) == S, T>::type head = T(0),
+							   Tail... tail) : vector_basic(head, tail...) {}
 			template<size_t S_O>
 			vector_homogeneous(vector_basic<T, S_O> const& other, typename std::enable_if<S_O < S + 1>::type* size = 0)
 				: vector_basic<T, S + 1>::vector_basic(other) { data[S] = T(1); }
@@ -305,10 +308,10 @@ namespace mgl {
 		}
 
 		using scalar = float;
-		using vector2F = vector_basic<scalar, 2u>;
-		using vector3F = vector_basic<scalar, 3u>;
-		using vector4F = vector_basic<scalar, 4u>;
-		using vector = vector3F;
-		using vectorH = vector_homogeneous<scalar, 3u>;
+		class vector2F : public vector_basic<scalar, 2u> { public: using vector_basic::vector_basic; };
+		class vector3F : public vector_basic<scalar, 3u> { public: using vector_basic::vector_basic; };
+		class vector4F : public vector_basic<scalar, 4u> { public: using vector_basic::vector_basic; };
+		class vector : public vector3F { public: using vector3F::vector3F; };
+		class vectorH : public vector_homogeneous<scalar, 3u> { public: using vector_homogeneous::vector_homogeneous; };
 	}
 }

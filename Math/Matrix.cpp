@@ -1,5 +1,5 @@
-#include "Matrix[[deprecated]].hpp"
-#include "Vector[[deprecated]].hpp"
+#include "Matrix.hpp"
+#include "vector.hpp"
 #include "include\glm\glm.hpp"
 #include "include\glm\gtc\matrix_transform.hpp"
 
@@ -206,21 +206,21 @@ namespace mgl {
 			static const MatrixInnerStructure dot(MatrixInnerStructure* m1, MatrixInnerStructure* m2) {
 				return MatrixInnerStructure(m1->m_data * m2->m_data);
 			}
-			static const Vector dot(const MatrixInnerStructure& m1, const float x, const float y, const float z, const float w) {
+			static const vectorH dot(const MatrixInnerStructure& m1, const float x, const float y, const float z, const float w) {
 				auto temp = m1.m_data * glm::vec4(x, y, z, w);
-				return Vector(temp.x, temp.y, temp.z, temp.w);
+				return vectorH(temp.x, temp.y, temp.z, temp.w);
 			}
-			static const Vector dot(MatrixInnerStructure* m1, const float x, const float y, const float z, const float w) {
+			static const vectorH dot(MatrixInnerStructure* m1, const float x, const float y, const float z, const float w) {
 				auto temp = m1->m_data * glm::vec4(x, y, z, w);
-				return Vector(temp.x, temp.y, temp.z, temp.w);
+				return vectorH(temp.x, temp.y, temp.z, temp.w);
 			}
-			static const Vector dot(const float x, const float y, const float z, const float w, const MatrixInnerStructure& m1) {
+			static const vectorH dot(const float x, const float y, const float z, const float w, const MatrixInnerStructure& m1) {
 				auto temp = glm::vec4(x, y, z, w) * m1.m_data;
-				return Vector(temp.x, temp.y, temp.z, temp.w);
+				return vectorH(temp.x, temp.y, temp.z, temp.w);
 			}
-			static const Vector dot(const float x, const float y, const float z, const float w, MatrixInnerStructure* m1) {
+			static const vectorH dot(const float x, const float y, const float z, const float w, MatrixInnerStructure* m1) {
 				auto temp = glm::vec4(x, y, z, w) * m1->m_data;
-				return Vector(temp.x, temp.y, temp.z, temp.w);
+				return vectorH(temp.x, temp.y, temp.z, temp.w);
 			}
 			static const MatrixInnerStructure mul(const MatrixInnerStructure& m1, const float q) {
 				return MatrixInnerStructure(m1.m_data * q);
@@ -284,22 +284,22 @@ mgl::math::Matrix::~Matrix() {
 	delete m_data;
 }
 
-const mgl::math::Vector mgl::math::Matrix::column(const size_t c) const {
-	return Vector(m_data->get(0, c), m_data->get(1, c), m_data->get(2, c), m_data->get(3, c));
+const mgl::math::vectorH mgl::math::Matrix::column(const size_t c) const {
+	return vectorH(m_data->get(0, c), m_data->get(1, c), m_data->get(2, c), m_data->get(3, c));
 }
 
-const mgl::math::Vector mgl::math::Matrix::row(const size_t c) const {
-	return Vector(m_data->get(c, 0), m_data->get(c, 1), m_data->get(c, 2), m_data->get(c, 3));
+const mgl::math::vectorH mgl::math::Matrix::row(const size_t c) const {
+	return vectorH(m_data->get(c, 0), m_data->get(c, 1), m_data->get(c, 2), m_data->get(c, 3));
 }
 
-void mgl::math::Matrix::setColumn(const size_t c, const Vector & v) {
+void mgl::math::Matrix::setColumn(const size_t c, const vectorH & v) {
 	m_data->get(0, c) = v.x();
 	m_data->get(1, c) = v.y();
 	m_data->get(2, c) = v.z();
 	m_data->get(3, c) = v.w();
 }
 
-void mgl::math::Matrix::setRow(const size_t c, const Vector & v) {
+void mgl::math::Matrix::setRow(const size_t c, const vectorH & v) {
 	m_data->get(c, 0) = v.x();
 	m_data->get(c, 1) = v.y();
 	m_data->get(c, 2) = v.z();
@@ -345,16 +345,16 @@ const float mgl::math::Matrix::determinant() const {
 	return m_data->det();
 }
 
-mgl::math::Matrix& mgl::math::Matrix::translate(const Vector & v) {
-	translate(v.x(), v.y(), v.z());
+mgl::math::Matrix& mgl::math::Matrix::translate(const vector & v) {
+	translate(v[0], v[1], v[2]);
 	return *this;
 }
 mgl::math::Matrix& mgl::math::Matrix::translate(const float x, const float y, const float z) {
 	m_data->translate(x, y, z);
 	return *this;
 }
-mgl::math::Matrix& mgl::math::Matrix::rotate(const float angle, const Vector & v) {
-	rotate(angle, v.x(), v.y(), v.z());
+mgl::math::Matrix& mgl::math::Matrix::rotate(const float angle, const vector & v) {
+	rotate(angle, v[0], v[1], v[2]);
 	return *this;
 }
 mgl::math::Matrix& mgl::math::Matrix::rotate(const float angle, const float x, const float y, const float z) {
@@ -369,8 +369,8 @@ mgl::math::Matrix& mgl::math::Matrix::scale(const float x, const float y, const 
 	m_data->scale(x, y, z);
 	return *this;
 }
-mgl::math::Matrix& mgl::math::Matrix::scale(const Vector & v) {
-	scale(v.x(), v.y(), v.z());
+mgl::math::Matrix& mgl::math::Matrix::scale(const vector & v) {
+	scale(v[0], v[1], v[2]);
 	return *this;
 }
 
@@ -382,14 +382,14 @@ const mgl::math::Matrix mgl::math::Matrix::perspectiveMatrix(const float left, c
 	return MatrixInnerStructure::perspectiveMatrix(left, right, bottom, top, near, far);
 }
 
-const mgl::math::Matrix mgl::math::Matrix::translationMatrix(const Vector & v) {
-	return translationMatrix(v.x(), v.y(), v.z());
+const mgl::math::Matrix mgl::math::Matrix::translationMatrix(const vector & v) {
+	return translationMatrix(v[0], v[1], v[2]);
 }
 const mgl::math::Matrix mgl::math::Matrix::translationMatrix(const float x, const float y, const float z) {
 	return MatrixInnerStructure::translationMatrix(x, y, z);
 }
-const mgl::math::Matrix mgl::math::Matrix::rotationMatrix(const float angle, const Vector & v) {
-	return rotationMatrix(angle, v.x(), v.y(), v.z());
+const mgl::math::Matrix mgl::math::Matrix::rotationMatrix(const float angle, const vector & v) {
+	return rotationMatrix(angle, v[0], v[1], v[2]);
 }
 const mgl::math::Matrix mgl::math::Matrix::rotationMatrix(const float angle, const float x, const float y, const float z) {
 	return MatrixInnerStructure::rotationMatrix(angle, x, y, z);
@@ -400,14 +400,14 @@ const mgl::math::Matrix mgl::math::Matrix::scalingMatrix(const float q) {
 const mgl::math::Matrix mgl::math::Matrix::scalingMatrix(const float x, const float y, const float z) {
 	return MatrixInnerStructure::scalingMatrix(x, y, z);
 }
-const mgl::math::Matrix mgl::math::Matrix::scalingMatrix(const Vector & v) {
-	return scalingMatrix(v.x(), v.y(), v.z());
+const mgl::math::Matrix mgl::math::Matrix::scalingMatrix(const vector & v) {
+	return scalingMatrix(v[0], v[1], v[2]);
 }
 
-const mgl::math::Vector mgl::math::Matrix::operator[](size_t i) const {
+const mgl::math::vectorH mgl::math::Matrix::operator[](size_t i) const {
 	return row(i);
 }
-mgl::math::Vector mgl::math::Matrix::operator[](size_t i) {
+mgl::math::vectorH mgl::math::Matrix::operator[](size_t i) {
 	return column(i);
 }
 bool mgl::math::Matrix::operator==(const Matrix & matrix) {
@@ -454,10 +454,10 @@ const mgl::math::Matrix mgl::math::operator-(const Matrix & m1, const Matrix & m
 const mgl::math::Matrix mgl::math::operator*(const Matrix & m1, const Matrix & m2) {
 	return Matrix(MatrixInnerStructure::dot(m1.m_data, m2.m_data));
 }
-const mgl::math::Vector mgl::math::operator*(const Matrix & m, const Vector & v) {
+const mgl::math::vectorH mgl::math::operator*(const Matrix & m, const vectorH & v) {
 	return MatrixInnerStructure::dot(m.m_data, v.x(), v.y(), v.z(), v.w());
 }
-const mgl::math::Vector mgl::math::operator*(const Vector & v, const Matrix & m) {
+const mgl::math::vectorH mgl::math::operator*(const vectorH & v, const Matrix & m) {
 	return MatrixInnerStructure::dot(v.x(), v.y(), v.z(), v.w(), m.m_data);
 }
 const mgl::math::Matrix mgl::math::operator*(const Matrix & m, const float q) {

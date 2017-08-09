@@ -1,6 +1,6 @@
 #include "MGL\OpenGL\OpenGL_Dependency\OpenGL.h"
 #include "Primitive.hpp"
-#include "MGL\Math\Vector[[deprecated]].hpp"
+#include "MGL\Math\Vector.hpp"
 #include "MGL\OpenGL\ClassesMirror\Buffer.hpp"
 #include "MGL\SharedHeaders\Color.hpp"
 #include "MGL\OpenGL\FunctionsMirror\FunctionsMirror.hpp"
@@ -19,7 +19,7 @@ mgl::Primitive::Primitive(VertexConnectionType type, Color* defaultColor, const 
 
 	COORDS_POINT_NUMBER--; COLOR_POINT_NUMBER--;
 	for (size_t i = 0; i < size; i += COORDS_POINT_NUMBER + COLOR_POINT_NUMBER)
-		m_data.push_back(new Vertex(mgl::math::Vector(COORDS_POINT_NUMBER >= 0 ? array[i + 0] : 0,
+		m_data.push_back(new Vertex(mgl::math::vectorH(COORDS_POINT_NUMBER >= 0 ? array[i + 0] : 0,
 													  COORDS_POINT_NUMBER >= 1 ? array[i + 1] : 0,
 													  COORDS_POINT_NUMBER >= 2 ? array[i + 2] : 0,
 													  COORDS_POINT_NUMBER >= 3 ? array[i + 3] : 0),
@@ -29,29 +29,29 @@ mgl::Primitive::Primitive(VertexConnectionType type, Color* defaultColor, const 
 											   COLOR_POINT_NUMBER >= 3 ? array[i + COORDS_POINT_NUMBER + 3] : 0))
 									);
 }
-mgl::Primitive::Primitive(VertexConnectionType type, Color* defaultColor, math::Vector* coords_array, size_t size) : Primitive(type, defaultColor) {
+mgl::Primitive::Primitive(VertexConnectionType type, Color* defaultColor, math::vectorH* coords_array, size_t size) : Primitive(type, defaultColor) {
 	for (size_t i = 0; i < size; i++)
 		m_data.push_back(new Vertex(coords_array[i], *m_default_color));
 }
-mgl::Primitive::Primitive(VertexConnectionType type, Color* defaultColor, math::Vector* coords_array, Color* colors_array, size_t size) : Primitive(type, defaultColor) {
+mgl::Primitive::Primitive(VertexConnectionType type, Color* defaultColor, math::vectorH* coords_array, Color* colors_array, size_t size) : Primitive(type, defaultColor) {
 	for (size_t i = 0; i < size; i++)
 		m_data.push_back(new Vertex(coords_array[i], colors_array[i]));
 }
-mgl::Primitive::Primitive(VertexConnectionType type, Color* defaultColor, const std::initializer_list<math::Vector*>& coords_list) : Primitive(type, defaultColor) {
+mgl::Primitive::Primitive(VertexConnectionType type, Color* defaultColor, const std::initializer_list<math::vectorH*>& coords_list) : Primitive(type, defaultColor) {
 	for (auto it : coords_list)
 		m_data.push_back(new Vertex(*it, *m_default_color));
 }
-mgl::Primitive::Primitive(VertexConnectionType type, Color* defaultColor, const std::initializer_list<math::Vector*>& coords_list, const std::initializer_list<Color*>& color_list) : Primitive(type, defaultColor) {
+mgl::Primitive::Primitive(VertexConnectionType type, Color* defaultColor, const std::initializer_list<math::vectorH*>& coords_list, const std::initializer_list<Color*>& color_list) : Primitive(type, defaultColor) {
 	auto it1 = coords_list.begin(); 
 	auto it2 = color_list.begin();
 	for (; it1 != coords_list.end() || it2 != color_list.end(); it1++, it2++)
 		m_data.push_back(new Vertex(**it1, **it2));
 }
-mgl::Primitive::Primitive(VertexConnectionType type, Color* defaultColor, const std::list<math::Vector*>& coords_list) : Primitive(type, defaultColor) {
+mgl::Primitive::Primitive(VertexConnectionType type, Color* defaultColor, const std::list<math::vectorH*>& coords_list) : Primitive(type, defaultColor) {
 	for (auto it : coords_list)
 		m_data.push_back(new Vertex(*it, *m_default_color));
 }
-mgl::Primitive::Primitive(VertexConnectionType type, Color* defaultColor, const std::list<math::Vector*>& coords_list, const std::list<Color*>& color_list) : Primitive(type, defaultColor) {
+mgl::Primitive::Primitive(VertexConnectionType type, Color* defaultColor, const std::list<math::vectorH*>& coords_list, const std::list<Color*>& color_list) : Primitive(type, defaultColor) {
 	auto it1 = coords_list.begin();
 	auto it2 = color_list.begin();
 	for (; it1 != coords_list.end() || it2 != color_list.end(); it1++, it2++)
@@ -94,19 +94,19 @@ void mgl::Primitive::setDefaultColor(float r, float g, float b, float a) {
 	setDefaultColor(new mgl::Color(r, g, b, a));
 }
 
-void mgl::Primitive::insert(math::Vector const& v) {
+void mgl::Primitive::insert(math::vectorH const& v) {
 	insert(new mgl::Vertex(v, *m_default_color));
 }
 
-void mgl::Primitive::insert(math::Vector && v) {
+void mgl::Primitive::insert(math::vectorH && v) {
 	insert(new mgl::Vertex(v, *m_default_color));
 }
 
-void mgl::Primitive::insert(math::Vector const& v, Color const& c) {
+void mgl::Primitive::insert(math::vectorH const& v, Color const& c) {
 	insert(new Vertex(v, c));
 }
 
-void mgl::Primitive::insert(math::Vector && v, Color && c) {
+void mgl::Primitive::insert(math::vectorH && v, Color && c) {
 	insert(new Vertex(v, c));
 }
 
@@ -118,66 +118,46 @@ const std::list<mgl::Vertex*>& mgl::Primitive::operator*() const {
 	return m_data;
 }
 
-const mgl::Primitive & mgl::Primitive::operator+=(const mgl::math::Vector& v) {
+const mgl::Primitive & mgl::Primitive::operator+=(const mgl::math::vectorH& v) {
 	for (auto it : m_data)
 		*it->coords() += v;
 	return *this;
 }
-const mgl::Primitive & mgl::Primitive::operator+=(mgl::math::Vector && v) {
+const mgl::Primitive & mgl::Primitive::operator+=(mgl::math::vectorH && v) {
 	for (auto it : m_data)
 		*it->coords() += v;
 	return *this;
 }
-const mgl::Primitive & mgl::Primitive::operator+=(mgl::math::Vector * v) {
-	for (auto it : m_data)
-		*it->coords() += *v;
-	return *this;
-}
 
-const mgl::Primitive & mgl::Primitive::operator-=(const mgl::math::Vector& v) {
+const mgl::Primitive & mgl::Primitive::operator-=(const mgl::math::vectorH& v) {
 	for (auto it : m_data)
 		*it->coords() -= v;
 	return *this;
 }
-const mgl::Primitive & mgl::Primitive::operator-=(mgl::math::Vector && v) {
+const mgl::Primitive & mgl::Primitive::operator-=(mgl::math::vectorH && v) {
 	for (auto it : m_data)
 		*it->coords() -= v;
 	return *this;
 }
-const mgl::Primitive & mgl::Primitive::operator-=(mgl::math::Vector * v) {
-	for (auto it : m_data)
-		*it->coords() -= *v;
-	return *this;
-}
 
-const mgl::Primitive & mgl::Primitive::operator*=(const mgl::math::Vector& v) {
+const mgl::Primitive & mgl::Primitive::operator*=(const mgl::math::vectorH& v) {
 	for (auto it : m_data)
 		*it->coords() *= v;
 	return *this;
 }
-const mgl::Primitive & mgl::Primitive::operator*=(mgl::math::Vector&& v) {
+const mgl::Primitive & mgl::Primitive::operator*=(mgl::math::vectorH&& v) {
 	for (auto it : m_data)
 		*it->coords() *= v;
 	return *this;
 }
-const mgl::Primitive & mgl::Primitive::operator*=(mgl::math::Vector* v) {
-	for (auto it : m_data)
-		*it->coords() *= *v;
-	return *this;
-}
-const mgl::Primitive & mgl::Primitive::operator/=(const mgl::math::Vector& v) {
+const mgl::Primitive & mgl::Primitive::operator/=(const mgl::math::vectorH& v) {
 	for (auto it : m_data)
 		*it->coords() /= v;
 	return *this;
 }
-const mgl::Primitive & mgl::Primitive::operator/=(mgl::math::Vector&& v) {
+const mgl::Primitive & mgl::Primitive::operator/=(mgl::math::vectorH&& v) {
 	for (auto it : m_data)
 		*it->coords() /= v;
-	return *this;
-}
-const mgl::Primitive & mgl::Primitive::operator/=(mgl::math::Vector* v) {
-	for (auto it : m_data)
-		*it->coords() /= *v;
 	return *this;
 }
 

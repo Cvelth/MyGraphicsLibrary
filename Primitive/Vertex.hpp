@@ -2,22 +2,22 @@
 namespace mgl {
 	class Color;
 	namespace math {
-		class Vector;
+		class vectorH;
 	}
 
 	class Vertex {
-		math::Vector* m_coords;
+		math::vectorH* m_coords;
 		Color* m_color;
 	public:
-		Vertex(math::Vector const& coords, Color const& color);
-		Vertex(math::Vector&& coords, Color&& color);
+		Vertex(math::vectorH const& coords, Color const& color);
+		Vertex(math::vectorH&& coords, Color&& color);
 		~Vertex();
-		void set(math::Vector const& coords, Color const& color);
-		void set(math::Vector&& coords, Color&& color);
-		inline math::Vector* coords() {
+		void set(math::vectorH const& coords, Color const& color);
+		void set(math::vectorH&& coords, Color&& color);
+		inline math::vectorH* coords() {
 			return m_coords;
 		}
-		inline const math::Vector* coords() const {
+		inline const math::vectorH* coords() const {
 			return m_coords;
 		}
 		inline Color* color() {

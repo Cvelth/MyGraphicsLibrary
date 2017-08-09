@@ -1,6 +1,6 @@
 #include "MGL\OpenGL\OpenGL_Dependency\OpenGL.h"
 #include "InstancingArray.hpp"
-#include "MGL\Math\Vector[[deprecated]].hpp"
+#include "MGL\Math\Vector.hpp"
 
 mgl::InstancingArray::InstancingArray() : AbstractSendableArray() {}
 mgl::InstancingArray::InstancingArray(const float* array, size_t size, size_t NUMBERS_PER_ELEMENT) : InstancingArray() {
@@ -9,21 +9,21 @@ mgl::InstancingArray::InstancingArray(const float* array, size_t size, size_t NU
 
 	NUMBERS_PER_ELEMENT--;
 	for (size_t i = 0; i < size; i += NUMBERS_PER_ELEMENT)
-		m_data.push_back(new mgl::math::Vector(NUMBERS_PER_ELEMENT >= 0 ? array[i + 0] : 0,
+		m_data.push_back(new mgl::math::vectorH(NUMBERS_PER_ELEMENT >= 0 ? array[i + 0] : 0,
 											   NUMBERS_PER_ELEMENT >= 1 ? array[i + 1] : 0,
 											   NUMBERS_PER_ELEMENT >= 2 ? array[i + 2] : 0,
 											   NUMBERS_PER_ELEMENT >= 3 ? array[i + 3] : 0)
 		);
 }
-mgl::InstancingArray::InstancingArray(math::Vector* coords_array, size_t size) : InstancingArray() {
+mgl::InstancingArray::InstancingArray(math::vectorH* coords_array, size_t size) : InstancingArray() {
 	for (size_t i = 0; i < size; i++)
 		m_data.push_back(&coords_array[i]);
 }
-mgl::InstancingArray::InstancingArray(const std::initializer_list<math::Vector*>& list) : InstancingArray() {
+mgl::InstancingArray::InstancingArray(const std::initializer_list<math::vectorH*>& list) : InstancingArray() {
 	for (auto it : list)
 		m_data.push_back(it);
 }
-mgl::InstancingArray::InstancingArray(const std::list<math::Vector*>& list) : InstancingArray() {
+mgl::InstancingArray::InstancingArray(const std::list<math::vectorH*>& list) : InstancingArray() {
 	for (auto it : list)
 		m_data.push_back(it);
 }
@@ -40,7 +40,7 @@ size_t mgl::InstancingArray::getNumber() const {
 	return m_data.size();
 }
 
-void mgl::InstancingArray::deleteObject(math::Vector *obj) {
+void mgl::InstancingArray::deleteObject(math::vectorH *obj) {
 	delete obj;
 }
 

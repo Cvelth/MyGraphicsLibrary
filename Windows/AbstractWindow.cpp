@@ -3,7 +3,7 @@
 #include "MGL\OpenGL\FunctionsMirror\FunctionsMirror.hpp"
 #include "MGL\SharedHeaders\Color.hpp"
 #include "MGL\OpenGL\ClassesMirror\ShaderProgram.hpp"
-#include "MGL\Math\Matrix[[deprecated]].hpp"
+#include "MGL\Math\Matrix.hpp"
 #include "MGL\Events\EventsSystem.hpp"
 
 namespace mgl {

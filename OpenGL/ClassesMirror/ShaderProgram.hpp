@@ -7,7 +7,8 @@ namespace mgl {
 	class ShaderVariable;
 	class VertexArray;
 	namespace math {
-		class Vector;
+		class vector;
+		class vectorH;
 		class Matrix;
 	}
 
@@ -35,7 +36,8 @@ namespace mgl {
 		void initializeInstancing(ShaderVariable* variable, size_t divisor);
 
 		void sendUniform(ShaderVariable* variable, const float& data);
-		void sendUniform(ShaderVariable* variable, const math::Vector& data);
+		void sendUniform(ShaderVariable* variable, const math::vector& data);
+		void sendUniform(ShaderVariable* variable, const math::vectorH& data);
 		void sendUniform(ShaderVariable* variable, const math::Matrix& data);
 
 		VertexArray* getVertexArray() {
