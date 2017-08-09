@@ -65,8 +65,8 @@
 	#include "MGL\Primitive\Primitive.hpp"
 #endif
 #if defined MGL_INCLUDE_MATH
-	#include "MGL\Math\Matrix.hpp"
-	#include "MGL\Math\Vector.hpp"
+	#include "MGL\Math\Matrix[[deprecated]].hpp"
+	#include "MGL\Math\Vector[[deprecated]].hpp"
 #endif
 #if defined MGL_INCLUDE_OPENGL_FUNCTIONS_MIRROR
 	#include "MGL\OpenGL\FunctionsMirror\FunctionsMirror.hpp"

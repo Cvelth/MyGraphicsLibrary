@@ -4,7 +4,7 @@
 #include "ShaderVariable.hpp"
 #include "VertexArray.hpp"
 #include "MGL\Math\Vector[[deprecated]].hpp"
-#include "MGL\Math\Matrix.hpp"
+#include "MGL\Math\Matrix[[deprecated]].hpp"
 
 mgl::ShaderProgram::ShaderProgram() {
 	m_id = glCreateProgram();
