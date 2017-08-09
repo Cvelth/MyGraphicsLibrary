@@ -1,7 +1,7 @@
 #pragma once
 typedef unsigned int GLenum;
 
-#include "SharedHeaders\Exceptions.hpp"
+#include "MGL\SharedHeaders\Exceptions.hpp"
 DefineNewMglException(IncorrectEnumException)
 
 namespace mgl {

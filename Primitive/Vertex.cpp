@@ -1,6 +1,6 @@
 #include "Vertex.hpp"
-#include "Math\Vector.hpp"
-#include "SharedHeaders\Color.hpp"
+#include "MGL\Math\Vector[[deprecated]].hpp"
+#include "MGL\SharedHeaders\Color.hpp"
 
 mgl::Vertex::Vertex(math::Vector const& coords, Color const& color) {
 	m_coords = new mgl::math::Vector(coords);

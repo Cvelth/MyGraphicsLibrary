@@ -1,5 +1,5 @@
 #pragma once
-#include "Default\DefaultColors.hpp"
+#include "MGL\Default\DefaultColors.hpp"
 
 namespace mgl {
 	class Primitive;

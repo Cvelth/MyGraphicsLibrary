@@ -1,5 +1,5 @@
 #pragma once
-#include "AbstractEventHandler.hpp"
+#include "MGL\Events\AbstractEventHandler.hpp"
 
 struct GLFWwindow;
 

@@ -1,9 +1,9 @@
-#include "OpenGL\OpenGL_Dependency\OpenGL.h"
+#include "MGL\OpenGL\OpenGL_Dependency\OpenGL.h"
 #include "Primitive.hpp"
-#include "Math\Vector.hpp"
-#include "OpenGL\ClassesMirror\Buffer.hpp"
-#include "SharedHeaders\Color.hpp"
-#include "OpenGL\FunctionsMirror\FunctionsMirror.hpp"
+#include "MGL\Math\Vector[[deprecated]].hpp"
+#include "MGL\OpenGL\ClassesMirror\Buffer.hpp"
+#include "MGL\SharedHeaders\Color.hpp"
+#include "MGL\OpenGL\FunctionsMirror\FunctionsMirror.hpp"
 #include "Vertex.hpp"
 
 mgl::Primitive::Primitive(VertexConnectionType type, Color* defaultColor) : AbstractSendableArray() {
@@ -211,7 +211,7 @@ void mgl::Primitive::send(DataUsage u) {
 	delete[] temp;
 }
 
-#include "OpenGL\ClassesMirror\VertexArray.hpp"
+#include "MGL\OpenGL\ClassesMirror\VertexArray.hpp"
 void mgl::Primitive::draw() {
 	if (!wasBufferGenerated())
 		throw Exceptions::PrimitiveException("Data wasn't sent");

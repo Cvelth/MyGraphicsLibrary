@@ -34,7 +34,7 @@
 
 #if defined MGL_INCLUDE_WINDOWS
 	#if defined MGL_WINDOW_USE_LOOP
-		#include "Windows\AbstractLoopWindow.hpp"
+		#include "MGL\Windows\AbstractLoopWindow.hpp"
 		namespace mgl {
 			class Window : public AbstractLoopWindow {
 			public:
@@ -42,7 +42,7 @@
 			};
 		}
 	#else
-		#include "Windows\AbstractWindow.hpp"
+		#include "MGL\Windows\AbstractWindow.hpp"
 		namespace mgl {
 			class Window : public AbstractWindow {
 			public:
@@ -52,8 +52,8 @@
 	#endif
 #endif
 #if defined MGL_INCLUDE_DRAWABLE_OBJECT
-	#include "Primitive\AbstractDrawableObject.hpp"
-	#include "Primitive\Primitive.hpp"
+	#include "MGL\Primitive\AbstractDrawableObject.hpp"
+	#include "MGL\Primitive\Primitive.hpp"
 	namespace mgl {
 		class DrawableObject : public AbstractDrawableObject {
 		public:
@@ -62,39 +62,39 @@
 	}
 #endif
 #if defined MGL_INCLUDE_PRIMITIVES
-	#include "Primitive\Primitive.hpp"
+	#include "MGL\Primitive\Primitive.hpp"
 #endif
 #if defined MGL_INCLUDE_MATH
-	#include "Math\Matrix.hpp"
-	#include "Math\Vector.hpp"
+	#include "MGL\Math\Matrix.hpp"
+	#include "MGL\Math\Vector.hpp"
 #endif
 #if defined MGL_INCLUDE_OPENGL_FUNCTIONS_MIRROR
-	#include "OpenGL\FunctionsMirror\FunctionsMirror.hpp"
+	#include "MGL\OpenGL\FunctionsMirror\FunctionsMirror.hpp"
 	#define MGL_INCLUDE_OPENGL_BASIC_TYPES_MIRROR
 #endif
 #if defined MGL_INCLUDE_OPENGL_EXPERIMENTAL_FUNCTIONS_MIRROR
-	#include "OpenGL\FunctionsMirror\ExperimentalFunctionsMirror.hpp"
+	#include "MGL\OpenGL\FunctionsMirror\ExperimentalFunctionsMirror.hpp"
 #endif
 #if defined MGL_INCLUDE_SHADER_PROGRAM_MIRROR
-	#include "OpenGL\ClassesMirror\ShaderProgram.hpp"
-	#include "OpenGL\ClassesMirror\ShaderVariable.hpp"
-	#include "OpenGL\ClassesMirror\Shader.hpp"
+	#include "MGL\OpenGL\ClassesMirror\ShaderProgram.hpp"
+	#include "MGL\OpenGL\ClassesMirror\ShaderVariable.hpp"
+	#include "MGL\OpenGL\ClassesMirror\Shader.hpp"
 #endif
 #if defined MGL_INCLUDE_OPENGL_ACCESS
-	#include "OpenGL\OpenGL_Dependency\OpenGL.h"
+	#include "MGL\OpenGL\OpenGL_Dependency\OpenGL.h"
 #endif
 #if defined MGL_INCLUDE_DEFAULT_COLORS
-	#include "Default\DefaultColors.hpp"
+	#include "MGL\Default\DefaultColors.hpp"
 #endif
 #if defined MGL_INCLUDE_DEFAULT_PRIMITIVES
-	#include "Default\DefaultPrimitives.hpp"
+	#include "MGL\Default\DefaultPrimitives.hpp"
 #endif
 #if defined MGL_INCLUDE_DEFAULT_SHADERS
-	#include "Default\DefaultShaders.hpp"
+	#include "MGL\Default\DefaultShaders.hpp"
 #endif
 #if defined MGL_INCLUDE_EXCEPTIONS
-	#include "SharedHeaders\Exceptions.hpp"
+	#include "MGL\SharedHeaders\Exceptions.hpp"
 #endif
 #if defined MGL_INCLUDE_COLOR
-	#include "SharedHeaders\Color.hpp"
+	#include "MGL\SharedHeaders\Color.hpp"
 #endif

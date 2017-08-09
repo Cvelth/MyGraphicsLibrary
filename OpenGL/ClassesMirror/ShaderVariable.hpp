@@ -1,5 +1,5 @@
 #pragma once
-#include "OpenGL\EnumsMirror\EnumsMirror.hpp"
+#include "MGL\OpenGL\EnumsMirror\EnumsMirror.hpp"
 namespace mgl {
 	class VertexArray;
 	class ShaderProgram;

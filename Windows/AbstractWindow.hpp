@@ -1,8 +1,8 @@
 #pragma once
 #include <string>
-#include "Events\EmptyEventHandler.hpp"
-#include "OpenGL\EnumsMirror\EnumsMirror.hpp"
-#include "SharedHeaders\Exceptions.hpp"
+#include "MGL\Events\EmptyEventHandler.hpp"
+#include "MGL\OpenGL\EnumsMirror\EnumsMirror.hpp"
+#include "MGL\SharedHeaders\Exceptions.hpp"
 DefineNewMglException(WindowInitializationException)
 
 struct GLFWwindow;

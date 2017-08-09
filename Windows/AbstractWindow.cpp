@@ -1,10 +1,10 @@
-#include "OpenGL\OpenGL_Dependency\OpenGL.h"
+#include "MGL\OpenGL\OpenGL_Dependency\OpenGL.h"
 #include "AbstractWindow.hpp"
-#include "OpenGL\FunctionsMirror\FunctionsMirror.hpp"
-#include "SharedHeaders\Color.hpp"
-#include "OpenGL\ClassesMirror\ShaderProgram.hpp"
-#include "Math\Matrix.hpp"
-#include "Events\EventsSystem.hpp"
+#include "MGL\OpenGL\FunctionsMirror\FunctionsMirror.hpp"
+#include "MGL\SharedHeaders\Color.hpp"
+#include "MGL\OpenGL\ClassesMirror\ShaderProgram.hpp"
+#include "MGL\Math\Matrix.hpp"
+#include "MGL\Events\EventsSystem.hpp"
 
 namespace mgl {
 	class DefaultEventHandler : public EmptyEventHandler {
@@ -169,8 +169,8 @@ void mgl::DefaultEventHandler::resizeEvent(GLFWwindow * w, int x, int y) {
 	m_window->update();
 }
 
-#include "OpenGL\ClassesMirror\Shader.hpp"
-#include "Default\DefaultShaders.hpp"
+#include "MGL\OpenGL\ClassesMirror\Shader.hpp"
+#include "MGL\Default\DefaultShaders.hpp"
 mgl::ShaderProgram* mgl::AbstractWindow::linkDefaultProgram(DefaultVertexShaderInput input) {
 	auto ret = new mgl::ShaderProgram();
 	auto vertex_shader = mgl::compileDefaultVertexShader(input);

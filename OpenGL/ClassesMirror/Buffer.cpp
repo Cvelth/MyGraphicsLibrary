@@ -1,4 +1,4 @@
-#include "OpenGL\OpenGL_Dependency\OpenGL.h"
+#include "MGL\OpenGL\OpenGL_Dependency\OpenGL.h"
 #include "Buffer.hpp"
 
 mgl::BufferArray::BufferArray(unsigned int n) : m_size(n) {

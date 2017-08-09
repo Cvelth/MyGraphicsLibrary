@@ -1,5 +1,5 @@
 #pragma once
-#include "..\MyGraphicsLibrary\SharedHeaders\Exceptions.hpp"
+#include "MGL\SharedHeaders\Exceptions.hpp"
 DefineNewMglException(UnsupportedEnumEntryExceptions)
 
 namespace mgl {

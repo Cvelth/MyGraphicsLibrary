@@ -1,5 +1,5 @@
 #pragma once
-#include "Exceptions.hpp"
+#include "MGL\SharedHeaders\Exceptions.hpp"
 DefineNewMglException(ColorException);
 namespace mgl {
 	class Color {

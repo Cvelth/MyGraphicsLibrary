@@ -1,10 +1,10 @@
-#include "OpenGL\OpenGL_Dependency\OpenGL.h"
+#include "MGL\OpenGL\OpenGL_Dependency\OpenGL.h"
 #include "ShaderProgram.hpp"
 #include "Shader.hpp"
 #include "ShaderVariable.hpp"
 #include "VertexArray.hpp"
-#include "Math\Vector.hpp"
-#include "Math\Matrix.hpp"
+#include "MGL\Math\Vector[[deprecated]].hpp"
+#include "MGL\Math\Matrix.hpp"
 
 mgl::ShaderProgram::ShaderProgram() {
 	m_id = glCreateProgram();

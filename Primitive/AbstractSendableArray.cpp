@@ -1,5 +1,5 @@
 #include "AbstractSendableArray.hpp"
-#include "OpenGL\ClassesMirror\Buffer.hpp"
+#include "MGL\OpenGL\ClassesMirror\Buffer.hpp"
 
 mgl::Buffer* mgl::SubFunctions::generate_buffer() {
 	return new Buffer();

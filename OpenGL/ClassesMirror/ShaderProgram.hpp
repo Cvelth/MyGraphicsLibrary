@@ -1,5 +1,5 @@
 #pragma once
-#include "SharedHeaders\Exceptions.hpp"
+#include "MGL\SharedHeaders\Exceptions.hpp"
 DefineNewMglException(ProgramException)
 
 namespace mgl {

@@ -1,5 +1,5 @@
 #include "DefaultColors.hpp"
-#include "SharedHeaders\Color.hpp"
+#include "MGL\SharedHeaders\Color.hpp"
 
 mgl::Color* mgl::Colors::Black() {
 	return new mgl::Color(0.f, 0.f, 0.f, 1.f);

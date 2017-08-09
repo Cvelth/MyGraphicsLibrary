@@ -1,6 +1,6 @@
 #pragma once
-#include "OpenGL\EnumsMirror\EnumsMirror.hpp"
-#include "SharedHeaders\Exceptions.hpp"
+#include "MGL\OpenGL\EnumsMirror\EnumsMirror.hpp"
+#include "MGL\SharedHeaders\Exceptions.hpp"
 DefineNewMglException(BufferException)
 
 namespace mgl {

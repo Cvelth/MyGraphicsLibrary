@@ -1,5 +1,5 @@
 #pragma once
-#include "AbstractWindow.hpp"
+#include "MGL\Windows\AbstractWindow.hpp"
 
 namespace mgl {
 	class AbstractLoopWindow : public AbstractWindow {

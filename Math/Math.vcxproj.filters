@@ -14,7 +14,7 @@
     <ClCompile Include="Matrix.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Vector.cpp">
+    <ClCompile Include="Vector[[deprecated]].cpp">
       <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>
@@ -22,7 +22,10 @@
     <ClInclude Include="Matrix.hpp">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Vector.hpp">
+    <ClInclude Include="Vector[[deprecated]].hpp">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="vector.hpp">
       <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>
