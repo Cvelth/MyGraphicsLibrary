@@ -11,3 +11,7 @@ void mgl::enableSmooth(SmoothMode mode) {
 void mgl::enableAlpha() {
 	enableBlend(BlendEnum::Alpha_SRC, BlendEnum::Alpha_OneMinusSRC);
 }
+
+void mgl::getWindowSize(GLFWwindow *window, int *width, int *height) {
+	glfwGetFramebufferSize(window, width, height);
+}
