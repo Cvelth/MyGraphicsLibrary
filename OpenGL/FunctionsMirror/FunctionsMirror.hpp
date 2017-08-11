@@ -4,6 +4,7 @@ namespace mgl {
 	class Color;
 	class Buffer;
 
+	const unsigned int getErrorCode();
 	const char* getError();
 	const char* getRendererName();
 

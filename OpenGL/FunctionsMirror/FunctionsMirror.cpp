@@ -48,8 +48,12 @@ void mgl::setViewport(size_t x, size_t y, size_t width, size_t height) {
 	glViewport(GLint(x), GLint(y), GLsizei(width), GLsizei(height));
 }
 
+const unsigned int mgl::getErrorCode() {
+	return glGetError();
+}
+
 const char* mgl::getError() {
-	return (const char*) glewGetErrorString(glGetError());
+	return (const char*) glewGetErrorString(getErrorCode());
 }
 #include <string>
 const char* mgl::getRendererName() {
