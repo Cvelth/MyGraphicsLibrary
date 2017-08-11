@@ -16,7 +16,7 @@ namespace mgl {
 	void setPointSize(float s);
 	
 	void enableBlend(BlendEnum s, BlendEnum d);
-	void enableBlend(const Buffer& b, BlendEnum s, BlendEnum d); //To make after Buffer class creating.
+	void enableBlend(const Buffer& b, BlendEnum s, BlendEnum d);
 
 	void enableLineSmooth(SmoothMode mode);
 	void enablePolygonSmooth(SmoothMode mode);
