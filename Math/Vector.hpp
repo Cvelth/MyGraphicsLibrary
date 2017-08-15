@@ -1,5 +1,5 @@
 #pragma once
-#include "MGL\SharedHeaders\Exceptions.hpp"
+#include "..\MGL\SharedHeaders\Exceptions.hpp"
 DefineNewMglException(VectorException)
 #include <algorithm>
 #include <initializer_list>
@@ -75,7 +75,7 @@ namespace mgl {
 						return false;
 				return true;
 			}
-			size_t length() const {
+			float length() const {
 				T sum = T(0);
 				for (size_t i = 0; i < S; i++)
 					sum += data[i] * data[i];
@@ -128,6 +128,13 @@ namespace mgl {
 				for (size_t i = 0; i < S; i++)
 					data[i] /= q;
 				return *this;
+			}
+
+			vector_basic<T, S> const operator-() const {
+				vector_basic<T, S> res;
+				for (size_t i = 0; i < S; i++)
+					res.data[i] = -data[i];
+				return res;
 			}
 		};
 		template<typename T, size_t S>
