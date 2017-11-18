@@ -1,7 +1,7 @@
 #include "Matrix.hpp"
 #include "vector.hpp"
-#include "include\glm\glm.hpp"
-#include "include\glm\gtc\matrix_transform.hpp"
+#include "dependencies\include\glm\glm.hpp"
+#include "dependencies\include\glm\gtc\matrix_transform.hpp"
 
 namespace mgl {
 	namespace math {
