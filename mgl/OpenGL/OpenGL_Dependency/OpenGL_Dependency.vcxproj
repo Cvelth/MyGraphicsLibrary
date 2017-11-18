@@ -85,7 +85,7 @@
     </Link>
     <Lib>
       <AdditionalDependencies>opengl32.lib;glew32s.lib;glfw3.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\..\..\dependencies\libs\x64\;</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\dependencies\libs\win_64\;</AdditionalLibraryDirectories>
     </Lib>
     <ProjectReference>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
@@ -100,7 +100,7 @@
     </ClCompile>
     <Lib>
       <AdditionalDependencies>opengl32.lib;glew32s.lib;glfw3.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\..\..\dependencies\libs\x86\;</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\dependencies\libs\win_86\;</AdditionalLibraryDirectories>
     </Lib>
     <ProjectReference>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
@@ -115,7 +115,7 @@
     </ClCompile>
     <Lib>
       <AdditionalDependencies>opengl32.lib;glew32s.lib;glfw3.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\..\..\dependencies\libs\x64\;</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\dependencies\libs\win_64\;</AdditionalLibraryDirectories>
     </Lib>
     <ProjectReference>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
@@ -136,7 +136,7 @@
     </Link>
     <Lib>
       <AdditionalDependencies>opengl32.lib;glew32s.lib;glfw3.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\..\..\dependencies\libs\x86\;</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\dependencies\libs\win_86\;</AdditionalLibraryDirectories>
     </Lib>
     <ProjectReference>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
