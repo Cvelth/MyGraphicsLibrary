@@ -3,29 +3,29 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Math", "Math\Math.vcxproj", "{85EC2964-DE12-4A7E-8CC6-8608E8EB32CC}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Math", "mgl\Math\Math.vcxproj", "{85EC2964-DE12-4A7E-8CC6-8608E8EB32CC}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Windows", "Windows\Windows.vcxproj", "{D0604608-5D0A-4320-AABA-270DC712EDE1}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Windows", "mgl\Windows\Windows.vcxproj", "{D0604608-5D0A-4320-AABA-270DC712EDE1}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SharedHeaders", "SharedHeaders\SharedHeaders.vcxproj", "{7097B003-9D8B-453E-A35B-3DB7289C240D}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SharedHeaders", "mgl\SharedHeaders\SharedHeaders.vcxproj", "{7097B003-9D8B-453E-A35B-3DB7289C240D}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Primitive", "Primitive\Primitive.vcxproj", "{E02ADA57-4AB9-450F-B371-D4B1A3D80C53}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Primitive", "mgl\Primitive\Primitive.vcxproj", "{E02ADA57-4AB9-450F-B371-D4B1A3D80C53}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Events", "Events\Events.vcxproj", "{20C402A4-8D5A-4920-AB99-AE7AFC89538F}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Events", "mgl\Events\Events.vcxproj", "{20C402A4-8D5A-4920-AB99-AE7AFC89538F}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Default", "Default\Default.vcxproj", "{F6A0F4D9-E470-42BA-9C57-F9FD95C01C6A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Default", "mgl\Default\Default.vcxproj", "{F6A0F4D9-E470-42BA-9C57-F9FD95C01C6A}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MyGraphicsLibrary", "MyGraphicsLibrary\MyGraphicsLibrary.vcxproj", "{7628CEAD-492C-4E8A-BF05-39E2EC369B05}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MyGraphicsLibrary", "mgl\MyGraphicsLibrary\MyGraphicsLibrary.vcxproj", "{7628CEAD-492C-4E8A-BF05-39E2EC369B05}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OpenGL", "OpenGL", "{64CE4F25-D729-4B44-B1C4-6B8D369A9B4C}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OpenGL", "mgl\OpenGL", "{64CE4F25-D729-4B44-B1C4-6B8D369A9B4C}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ClassesMirror", "OpenGL\ClassesMirror\ClassesMirror.vcxproj", "{F2323EA4-C437-4A17-A620-799E88D0AD89}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ClassesMirror", "mgl\OpenGL\ClassesMirror\ClassesMirror.vcxproj", "{F2323EA4-C437-4A17-A620-799E88D0AD89}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EnumsMirror", "OpenGL\EnumsMirror\EnumsMirror.vcxproj", "{3B48CF5B-97C0-43D0-A21F-57377DD93DAF}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EnumsMirror", "mgl\OpenGL\EnumsMirror\EnumsMirror.vcxproj", "{3B48CF5B-97C0-43D0-A21F-57377DD93DAF}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FunctionsMirror", "OpenGL\FunctionsMirror\FunctionsMirror.vcxproj", "{0A189A93-B2C6-4C2C-9F31-F764C995D2D9}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FunctionsMirror", "mgl\OpenGL\FunctionsMirror\FunctionsMirror.vcxproj", "{0A189A93-B2C6-4C2C-9F31-F764C995D2D9}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenGL_Dependency", "OpenGL\OpenGL_Dependency\OpenGL_Dependency.vcxproj", "{14BE552E-A4ED-49B7-9301-F43A206AF594}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenGL_Dependency", "mgl\OpenGL\OpenGL_Dependency\OpenGL_Dependency.vcxproj", "{14BE552E-A4ED-49B7-9301-F43A206AF594}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
