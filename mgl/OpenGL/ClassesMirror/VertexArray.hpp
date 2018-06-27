@@ -1,5 +1,5 @@
 #pragma once
-#include "MGL\SharedHeaders\Exceptions.hpp"
+#include "../MyGraphicsLibrary/MGL/SharedHeaders/Exceptions.hpp"
 DefineNewMglException(VertexArrayException)
 
 #include <map>

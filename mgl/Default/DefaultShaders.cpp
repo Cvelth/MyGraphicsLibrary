@@ -1,5 +1,5 @@
 #include "DefaultShaders.hpp"
-#include "MGL\OpenGL\ClassesMirror\Shader.hpp"
+#include "../MyGraphicsLibrary/MGL/OpenGL/ClassesMirror/Shader.hpp"
 
 const char* Vertex_NoMatrix_2Vectors_Shader_Source =
 "#version 330		   														\n"

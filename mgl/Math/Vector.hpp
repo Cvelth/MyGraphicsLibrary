@@ -1,5 +1,5 @@
 #pragma once
-#include "..\MGL\SharedHeaders\Exceptions.hpp"
+#include "../MyGraphicsLibrary/MGL/SharedHeaders/Exceptions.hpp"
 DefineNewMglException(VectorException)
 #include <algorithm>
 #include <initializer_list>
@@ -142,10 +142,10 @@ namespace mgl {
 		public:
 			template<typename... Tail>
 			vector_homogeneous(typename std::enable_if<sizeof...(Tail) + 1 <= S, T>::type head = T(0), 
-							   Tail... tail) : vector_basic(head, tail...) { data[S] = T(1); }
+							   Tail... tail) : vector_basic<T, S + 1>(head, tail...) { data[S] = T(1); }
 			template<typename... Tail>
 			vector_homogeneous(typename std::enable_if<sizeof...(Tail) == S, T>::type head = T(0),
-							   Tail... tail) : vector_basic(head, tail...) {}
+							   Tail... tail) : vector_basic<T, S + 1>(head, tail...) {}
 			template<size_t S_O>
 			vector_homogeneous(vector_basic<T, S_O> const& other, typename std::enable_if<S_O < S + 1>::type* size = 0)
 				: vector_basic<T, S + 1>::vector_basic(other) { data[S] = T(1); }

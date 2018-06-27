@@ -1,6 +1,6 @@
 #pragma once
-#include "MGL\Primitive\AbstractSendableArray.hpp"
-#include "MGL\SharedHeaders\Exceptions.hpp"
+#include "../MyGraphicsLibrary/MGL/Primitive/AbstractSendableArray.hpp"
+#include "../MyGraphicsLibrary/MGL/SharedHeaders/Exceptions.hpp"
 DefineNewMglException(InstancingArrayException)
 
 namespace mgl {

@@ -1,6 +1,6 @@
 #include "DefaultPrimitives.hpp"
-#include "MGL\Primitive\Primitive.hpp"
-#include "MGL\Math\Vector.hpp"
+#include "../MyGraphicsLibrary/MGL/Primitive/Primitive.hpp"
+#include "../MyGraphicsLibrary/MGL/Math/Vector.hpp"
 
 mgl::Primitive* mgl::changePlacing(Primitive* primitive, PoligonPlacing from, PoligonPlacing to) {
 	if (from != PoligonPlacing::zero_Center)

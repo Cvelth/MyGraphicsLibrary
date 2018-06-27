@@ -1,6 +1,6 @@
-#include "MGL\OpenGL\OpenGL_Dependency\OpenGL.h"
+#include "../MyGraphicsLibrary/MGL/OpenGL/OpenGL_Dependency/OpenGL.h"
 #include "InstancingArray.hpp"
-#include "MGL\Math\Vector.hpp"
+#include "../MyGraphicsLibrary/MGL/Math/Vector.hpp"
 
 mgl::InstancingArray::InstancingArray() : AbstractSendableArray() {}
 mgl::InstancingArray::InstancingArray(const float* array, size_t size, size_t NUMBERS_PER_ELEMENT) : InstancingArray() {

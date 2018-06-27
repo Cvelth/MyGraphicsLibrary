@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-#include "MGL\Events\EventEnums.hpp"
+#include "../MyGraphicsLibrary/MGL/Events/EventEnums.hpp"
 
 struct GLFWwindow;
 

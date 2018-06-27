@@ -1,4 +1,4 @@
-#include "MGL\OpenGL\OpenGL_Dependency\OpenGL.h"
+#include "../MyGraphicsLibrary/MGL/OpenGL/OpenGL_Dependency/OpenGL.h"
 #include "FunctionsMirror.hpp"
 #include "ExperimentalFunctionsMirror.hpp"
 

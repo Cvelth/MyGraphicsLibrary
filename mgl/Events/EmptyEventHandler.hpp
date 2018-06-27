@@ -1,5 +1,5 @@
 #pragma once
-#include "MGL\Events\AbstractEventHandler.hpp"
+#include "../MyGraphicsLibrary/MGL/Events/AbstractEventHandler.hpp"
 
 namespace mgl {
 	class EmptyEventHandler : public AbstractEventHandler {

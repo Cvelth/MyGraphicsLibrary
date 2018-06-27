@@ -1,2 +1,2 @@
 #define MGL_INCLUDE_ALL
-#include "..\MGL.hpp"
+#include "../MGL.hpp"

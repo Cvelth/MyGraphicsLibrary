@@ -1,5 +1,5 @@
 #pragma once
-#include "MGL\OpenGL\EnumsMirror\EnumsMirror.hpp"
+#include "../MyGraphicsLibrary/MGL/OpenGL/EnumsMirror/EnumsMirror.hpp"
 namespace mgl {
 	class Color;
 	class Buffer;

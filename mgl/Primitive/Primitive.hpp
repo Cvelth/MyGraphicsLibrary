@@ -1,7 +1,7 @@
 #pragma once
 #include <list>
-#include "MGL\Primitive\AbstractSendableArray.hpp"
-#include "MGL\SharedHeaders\Exceptions.hpp"
+#include "../MyGraphicsLibrary/MGL/Primitive/AbstractSendableArray.hpp"
+#include "../MyGraphicsLibrary/MGL/SharedHeaders/Exceptions.hpp"
 DefineNewMglException(PrimitiveException)
 
 namespace mgl {

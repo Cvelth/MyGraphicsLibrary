@@ -34,7 +34,7 @@
 
 #if defined MGL_INCLUDE_WINDOWS
 	#if defined MGL_WINDOW_USE_LOOP
-		#include "MGL\Windows\AbstractLoopWindow.hpp"
+		#include "../MyGraphicsLibrary/MGL/Windows/AbstractLoopWindow.hpp"
 		namespace mgl {
 			class Window : public AbstractLoopWindow {
 			public:
@@ -42,7 +42,7 @@
 			};
 		}
 	#else
-		#include "MGL\Windows\AbstractWindow.hpp"
+		#include "../MyGraphicsLibrary/MGL/Windows/AbstractWindow.hpp"
 		namespace mgl {
 			class Window : public AbstractWindow {
 			public:
@@ -52,8 +52,8 @@
 	#endif
 #endif
 #if defined MGL_INCLUDE_DRAWABLE_OBJECT
-	#include "MGL\Primitive\AbstractDrawableObject.hpp"
-	#include "MGL\Primitive\Primitive.hpp"
+	#include "../MyGraphicsLibrary/MGL/Primitive/AbstractDrawableObject.hpp"
+	#include "../MyGraphicsLibrary/MGL/Primitive/Primitive.hpp"
 	namespace mgl {
 		class DrawableObject : public AbstractDrawableObject {
 		public:
@@ -62,39 +62,39 @@
 	}
 #endif
 #if defined MGL_INCLUDE_PRIMITIVES
-	#include "MGL\Primitive\Primitive.hpp"
+	#include "../MyGraphicsLibrary/MGL/Primitive/Primitive.hpp"
 #endif
 #if defined MGL_INCLUDE_MATH
-	#include "MGL\Math\Matrix.hpp"
-	#include "MGL\Math\Vector.hpp"
+	#include "../MyGraphicsLibrary/MGL/Math/Matrix.hpp"
+	#include "../MyGraphicsLibrary/MGL/Math/Vector.hpp"
 #endif
 #if defined MGL_INCLUDE_OPENGL_FUNCTIONS_MIRROR
-	#include "MGL\OpenGL\FunctionsMirror\FunctionsMirror.hpp"
+	#include "../MyGraphicsLibrary/MGL/OpenGL/FunctionsMirror/FunctionsMirror.hpp"
 	#define MGL_INCLUDE_OPENGL_BASIC_TYPES_MIRROR
 #endif
 #if defined MGL_INCLUDE_OPENGL_EXPERIMENTAL_FUNCTIONS_MIRROR
-	#include "MGL\OpenGL\FunctionsMirror\ExperimentalFunctionsMirror.hpp"
+	#include "../MyGraphicsLibrary/MGL/OpenGL/FunctionsMirror/ExperimentalFunctionsMirror.hpp"
 #endif
 #if defined MGL_INCLUDE_SHADER_PROGRAM_MIRROR
-	#include "MGL\OpenGL\ClassesMirror\ShaderProgram.hpp"
-	#include "MGL\OpenGL\ClassesMirror\ShaderVariable.hpp"
-	#include "MGL\OpenGL\ClassesMirror\Shader.hpp"
+	#include "../MyGraphicsLibrary/MGL/OpenGL/ClassesMirror/ShaderProgram.hpp"
+	#include "../MyGraphicsLibrary/MGL/OpenGL/ClassesMirror/ShaderVariable.hpp"
+	#include "../MyGraphicsLibrary/MGL/OpenGL/ClassesMirror/Shader.hpp"
 #endif
 #if defined MGL_INCLUDE_OPENGL_ACCESS
-	#include "MGL\OpenGL\OpenGL_Dependency\OpenGL.h"
+	#include "../MyGraphicsLibrary/MGL/OpenGL/OpenGL_Dependency/OpenGL.h"
 #endif
 #if defined MGL_INCLUDE_DEFAULT_COLORS
-	#include "MGL\Default\DefaultColors.hpp"
+	#include "../MyGraphicsLibrary/MGL/Default/DefaultColors.hpp"
 #endif
 #if defined MGL_INCLUDE_DEFAULT_PRIMITIVES
-	#include "MGL\Default\DefaultPrimitives.hpp"
+	#include "../MyGraphicsLibrary/MGL/Default/DefaultPrimitives.hpp"
 #endif
 #if defined MGL_INCLUDE_DEFAULT_SHADERS
-	#include "MGL\Default\DefaultShaders.hpp"
+	#include "../MyGraphicsLibrary/MGL/Default/DefaultShaders.hpp"
 #endif
 #if defined MGL_INCLUDE_EXCEPTIONS
-	#include "MGL\SharedHeaders\Exceptions.hpp"
+	#include "../MyGraphicsLibrary/MGL/SharedHeaders/Exceptions.hpp"
 #endif
 #if defined MGL_INCLUDE_COLOR
-	#include "MGL\SharedHeaders\Color.hpp"
+	#include "../MyGraphicsLibrary/MGL/SharedHeaders/Color.hpp"
 #endif

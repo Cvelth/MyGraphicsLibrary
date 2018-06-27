@@ -1,4 +1,4 @@
-#include "MGL\OpenGL\OpenGL_Dependency\OpenGL.h"
+#include "../MyGraphicsLibrary/MGL/OpenGL/OpenGL_Dependency/OpenGL.h"
 #include "AbstractLoopWindow.hpp"
 
 int mgl::AbstractLoopWindow::loop() {
