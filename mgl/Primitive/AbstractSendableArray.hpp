@@ -52,6 +52,9 @@ namespace mgl {
 		virtual void insert(DataType* v){
 			m_data.push_back(v);
 		}
+		virtual void remove(DataType *v) {
+			m_data.remove(v);
+		}
 		virtual void send(DataUsage u) abstract;
 		virtual void clean() {
 			buffer_data(getSize(), NULL, mgl::DataUsage::StaticRead);
