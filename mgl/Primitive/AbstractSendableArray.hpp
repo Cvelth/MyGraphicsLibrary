@@ -1,5 +1,4 @@
 #pragma once
-#include <list>
 #include "../MyGraphicsLibrary/MGL/OpenGL/EnumsMirror/EnumsMirror.hpp"
 
 namespace mgl {
@@ -11,13 +10,13 @@ namespace mgl {
 		void delete_buffer(Buffer* buffer);
 	}
 
-	template <typename DataType>
+	template <typename ContainerType>
 	class AbstractSendableArray {
 	private:
 		Buffer* m_buffer;
 		bool m_wasBufferGenerated;
 	protected:
-		std::list<DataType*> m_data;
+		ContainerType m_data;
 	protected:
 		void buffer_check() {
 			if (!m_wasBufferGenerated) {
@@ -44,26 +43,19 @@ namespace mgl {
 				SubFunctions::delete_buffer(m_buffer);
 		}
 
-		virtual void deleteObject(DataType* obj) abstract;
-
 		virtual size_t getSize() const abstract;
 		virtual size_t getNumber() const abstract;
 
-		virtual void insert(DataType* v){
-			m_data.push_back(v);
-		}
-		virtual void remove(DataType *v) {
-			m_data.remove(v);
-		}
+		ContainerType& operator*() { return m_data; }
+		ContainerType const& operator*() const { return m_data; }
+		ContainerType& operator->() { return m_data; }
+		ContainerType const& operator->() const { return m_data; }
+		ContainerType& get() { return m_data; }
+		ContainerType const& get() const { return m_data; }
+
 		virtual void send(DataUsage u) abstract;
 		virtual void clean() {
 			buffer_data(getSize(), NULL, mgl::DataUsage::StaticRead);
-		}
-
-		virtual void deleteAll() {
-			for (auto it = m_data.begin(); it != m_data.end(); it++)
-				deleteObject(*it);
-			m_data.clear();
 		}
 	};
 }

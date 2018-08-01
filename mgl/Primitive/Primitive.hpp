@@ -12,9 +12,10 @@ namespace mgl {
 	}
 	class Vertex;
 	class InstancingArray;
+	class InstancingMultiArray;
 	class VertexArray;
 
-	class Primitive : public AbstractSendableArray<Vertex> {
+	class Primitive : public AbstractSendableArray<std::list<Vertex*>> {
 	protected:
 		VertexArray* m_vertex_array;
 		VertexConnectionType m_connection;
@@ -35,13 +36,11 @@ namespace mgl {
 		virtual size_t getSize() const override;
 		virtual size_t getNumber() const override;
 
-		virtual void deleteObject(Vertex* obj) override;
-
 		virtual Color* getDefaultColor() const;
 		virtual void setDefaultColor(Color* color);
 		virtual void setDefaultColor(float r = 0.f, float g = 0.f, float b = 0.f, float a = 1.f);
 		
-		using AbstractSendableArray<Vertex>::insert;
+		virtual void insert(Vertex* v) { m_data.push_back(v); }
 		virtual void insert(math::vectorH const& v);
 		virtual void insert(math::vectorH&& v);
 		virtual void insert(math::vectorH const& v, Color const& c);
@@ -49,6 +48,9 @@ namespace mgl {
 		virtual void send(DataUsage u) override;
 		virtual void draw();
 		virtual void draw(InstancingArray* instances);
+		virtual void draw(InstancingMultiArray* instances);
+
+		virtual void deleteAll() { m_data.clear(); }
 		
 		std::list<Vertex*>& operator*();
 		const std::list<Vertex*>& operator*() const;
