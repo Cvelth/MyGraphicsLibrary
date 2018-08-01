@@ -16,6 +16,12 @@ size_t mgl::InstancingArray::getNumber() const {
 	return m_data.size();
 }
 
+void mgl::InstancingArray::deleteAll() {
+	for (auto it : m_data)
+		delete it;
+	m_data.clear();
+}
+
 void mgl::InstancingArray::send(DataUsage u) {
 	float* temp = new float[getSize()];
 	size_t i = 0;
@@ -45,6 +51,13 @@ size_t mgl::InstancingMultiArray::getNumber() const {
 	for (auto it : m_data)
 		ret += it.size();
 	return ret;
+}
+
+void mgl::InstancingMultiArray::deleteAll() {
+	for (auto list : m_data)
+		for (auto it : list)
+			delete it;
+	m_data.clear();
 }
 
 void mgl::InstancingMultiArray::send(DataUsage u) {

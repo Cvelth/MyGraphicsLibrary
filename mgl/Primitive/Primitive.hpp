@@ -50,7 +50,7 @@ namespace mgl {
 		virtual void draw(InstancingArray* instances);
 		virtual void draw(InstancingMultiArray* instances);
 
-		virtual void deleteAll() { m_data.clear(); }
+		virtual void deleteAll();
 		
 		std::list<Vertex*>& operator*();
 		const std::list<Vertex*>& operator*() const;

@@ -212,3 +212,9 @@ void mgl::Primitive::draw(InstancingMultiArray* instances) {
 	if (m_vertex_array) m_vertex_array->repeatAllAttribPointers();
 	glDrawArraysInstanced(switchEnum(m_connection), 0, (GLsizei)getNumber(), (GLsizei)instances->getNumber());
 }
+
+void mgl::Primitive::deleteAll() {
+	for (auto it : m_data)
+		delete it;
+	m_data.clear();
+}

@@ -45,6 +45,7 @@ namespace mgl {
 
 		virtual size_t getSize() const abstract;
 		virtual size_t getNumber() const abstract;
+		virtual void deleteAll() abstract;
 
 		ContainerType& operator*() { return m_data; }
 		ContainerType const& operator*() const { return m_data; }

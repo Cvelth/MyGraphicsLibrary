@@ -14,8 +14,9 @@ namespace mgl {
 		InstancingArray();
 		~InstancingArray();
 
-		virtual size_t getSize() const;
-		virtual size_t getNumber() const;
+		virtual size_t getSize() const override;
+		virtual size_t getNumber() const override;
+		virtual void deleteAll() override;
 
 		virtual void send(DataUsage u) override;
 	};
@@ -24,8 +25,9 @@ namespace mgl {
 		InstancingMultiArray();
 		~InstancingMultiArray();
 
-		virtual size_t getSize() const;
-		virtual size_t getNumber() const;
+		virtual size_t getSize() const override;
+		virtual size_t getNumber() const override;
+		virtual void deleteAll() override;
 
 		virtual void send(DataUsage u) override;
 	};
