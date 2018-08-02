@@ -20,6 +20,10 @@ namespace mgl {
 		VertexArray* m_vertex_array;
 		VertexConnectionType m_connection;
 		Color* m_default_color;
+	protected:
+		virtual size_t recalculate_number() const override;
+		virtual size_t elements_per_item() const override;
+		virtual void delete_data() override;
 	public:
 		Primitive(VertexConnectionType type = VertexConnectionType::Points, Color* defaultColor = nullptr);
 		Primitive(VertexConnectionType type, Color* defaultColor, const float* array, size_t size, size_t COORDS_POINT_NUMBER = 3, size_t COLOR_POINT_NUMBER = 3);
@@ -32,15 +36,12 @@ namespace mgl {
 		~Primitive();
 
 		void insertVertexArray(VertexArray *vao);
-		
-		virtual size_t getSize() const override;
-		virtual size_t getNumber() const override;
 
 		virtual Color* getDefaultColor() const;
 		virtual void setDefaultColor(Color* color);
 		virtual void setDefaultColor(float r = 0.f, float g = 0.f, float b = 0.f, float a = 1.f);
 		
-		virtual void insert(Vertex* v) { m_data.push_back(v); }
+		virtual void insert(Vertex* v);
 		virtual void insert(math::vectorH const& v);
 		virtual void insert(math::vectorH&& v);
 		virtual void insert(math::vectorH const& v, Color const& c);
@@ -49,11 +50,6 @@ namespace mgl {
 		virtual void draw();
 		virtual void draw(InstancingArray* instances);
 		virtual void draw(InstancingMultiArray* instances);
-
-		virtual void deleteAll();
-		
-		std::list<Vertex*>& operator*();
-		const std::list<Vertex*>& operator*() const;
 
 		const Primitive& operator+=(const mgl::math::vectorH& v);
 		const Primitive& operator+=(mgl::math::vectorH&& v);

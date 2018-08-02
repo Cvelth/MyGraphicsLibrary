@@ -36,6 +36,7 @@ mgl::Primitive* mgl::generateN_Polygon(float aspectRatio, size_t n, mgl::Color *
 
 	const float PI = 3.14159265359f;
 	float STEP = PI / n * 2;
+	res->initialize_data_edit();
 	if (aspectRatio < 1.f && aspectRatio > 0.f)
 		for (float f = 0.f; f < PI * 2; f += STEP)
 			res->insert(mgl::math::vector(aspectRatio * cosf(f), sinf(f)));
@@ -45,6 +46,7 @@ mgl::Primitive* mgl::generateN_Polygon(float aspectRatio, size_t n, mgl::Color *
 	else
 		throw mgl::Exceptions::PrimitiveException("Incorrect input data (aspectRatio).");
 
+	res->stop_data_edit();
 	return changePlacing(res, PoligonPlacing::zero_Center, placing);
 }
 
@@ -54,6 +56,7 @@ mgl::Primitive* mgl::generateRectangle(float aspectRatio, mgl::Color * color, Po
 		res = new Primitive(VertexConnectionType::TriangleStrip, color);
 	else
 		res = new Primitive(VertexConnectionType::LineLoop, color);
+	res->initialize_data_edit();
 	if (aspectRatio < 1.f && aspectRatio > 0.f) {
 		res->insert(mgl::math::vector(-aspectRatio, -1.f));
 		res->insert(mgl::math::vector(+aspectRatio, -1.f));
@@ -66,6 +69,7 @@ mgl::Primitive* mgl::generateRectangle(float aspectRatio, mgl::Color * color, Po
 		res->insert(mgl::math::vector(+1.f, +1.f / aspectRatio));
 	} else
 		throw mgl::Exceptions::PrimitiveException("Incorrect input data (aspectRatio).");
+	res->stop_data_edit();
 	return changePlacing(res, PoligonPlacing::zero_Center, placing);
 }
 

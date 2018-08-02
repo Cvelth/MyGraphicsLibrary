@@ -2,26 +2,18 @@
 #include "InstancingArray.hpp"
 #include "../MyGraphicsLibrary/MGL/Math/Vector.hpp"
 
-mgl::InstancingArray::InstancingArray() : AbstractSendableArray() {}
-mgl::InstancingArray::~InstancingArray() {
-	for (auto it : m_data)
-		delete it;
-}
-
-size_t mgl::InstancingArray::getSize() const {
-	return m_data.size() * 4;
-}
-
-size_t mgl::InstancingArray::getNumber() const {
-	return m_data.size();
-}
-
-void mgl::InstancingArray::deleteAll() {
+size_t mgl::InstancingArray::recalculate_number() const { return m_data.size(); }
+size_t mgl::InstancingArray::elements_per_item() const { return 4; }
+void mgl::InstancingArray::delete_data() {
 	for (auto it : m_data)
 		delete it;
 	m_data.clear();
 }
 
+mgl::InstancingArray::InstancingArray() : AbstractSendableArray() {}
+mgl::InstancingArray::~InstancingArray() {
+	delete_data();
+}
 void mgl::InstancingArray::send(DataUsage u) {
 	float* temp = new float[getSize()];
 	size_t i = 0;
@@ -35,35 +27,28 @@ void mgl::InstancingArray::send(DataUsage u) {
 	delete[] temp;
 }
 
-mgl::InstancingMultiArray::InstancingMultiArray() : AbstractSendableArray() {}
-mgl::InstancingMultiArray::~InstancingMultiArray() {
-	for (auto it : m_data)
-		for (auto t : it)
-			delete t;
-}
-
-size_t mgl::InstancingMultiArray::getSize() const {
-	return getNumber() * 4;
-}
-
-size_t mgl::InstancingMultiArray::getNumber() const {
+size_t mgl::InstancingMultiArray::recalculate_number() const {
 	size_t ret = 0u;
 	for (auto it : m_data)
 		ret += it.size();
 	return ret;
 }
-
-void mgl::InstancingMultiArray::deleteAll() {
+size_t mgl::InstancingMultiArray::elements_per_item() const { return 4u; }
+void mgl::InstancingMultiArray::delete_data() {
 	for (auto list : m_data)
 		for (auto it : list)
 			delete it;
 	m_data.clear();
 }
 
+mgl::InstancingMultiArray::InstancingMultiArray() : AbstractSendableArray() {}
+mgl::InstancingMultiArray::~InstancingMultiArray() {
+	delete_data();
+}
 void mgl::InstancingMultiArray::send(DataUsage u) {
 	float* temp = new float[getSize()];
 	size_t i = 0;
-	for (auto list : m_data) 
+	for (auto list : m_data)
 		for (auto it : list) {
 			temp[i++] = it->x();
 			temp[i++] = it->y();

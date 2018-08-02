@@ -10,25 +10,23 @@ namespace mgl {
 		class vectorH;
 	}
 	class InstancingArray : public AbstractSendableArray<std::list<math::vectorH*>> {
+	protected:
+		virtual size_t recalculate_number() const override;
+		virtual size_t elements_per_item() const override;
+		virtual void delete_data() override;
 	public:
 		InstancingArray();
 		~InstancingArray();
-
-		virtual size_t getSize() const override;
-		virtual size_t getNumber() const override;
-		virtual void deleteAll() override;
-
 		virtual void send(DataUsage u) override;
 	};
 	class InstancingMultiArray : public AbstractSendableArray<std::list<std::list<math::vectorH*>>> {
+	protected:
+		virtual size_t recalculate_number() const override;
+		virtual size_t elements_per_item() const override;
+		virtual void delete_data() override;
 	public:
 		InstancingMultiArray();
 		~InstancingMultiArray();
-
-		virtual size_t getSize() const override;
-		virtual size_t getNumber() const override;
-		virtual void deleteAll() override;
-
 		virtual void send(DataUsage u) override;
 	};
 }
