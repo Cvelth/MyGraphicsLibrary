@@ -5,7 +5,7 @@ DefineNewMglException(InstancingArrayException)
 
 #include <memory>
 #include <list>
-//#include "../MyGraphicsLibrary/mgl/Math/vector.hpp"
+#include <deque>
 namespace mgl {
 	class Buffer;
 	namespace math {
@@ -21,7 +21,7 @@ namespace mgl {
 		~InstancingArray();
 		virtual void send(DataUsage u) override;
 	};
-	class InstancingMultiArray : public AbstractSendableArray<std::list<std::list<std::unique_ptr<math::vectorH>>>> {
+	class InstancingMultiArray : public AbstractSendableArray<std::list<std::deque<std::unique_ptr<math::vectorH>>>> {
 	protected:
 		virtual size_t recalculate_number() const override;
 		virtual size_t elements_per_item() const override;
