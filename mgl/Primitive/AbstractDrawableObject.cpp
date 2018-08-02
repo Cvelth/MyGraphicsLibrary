@@ -56,6 +56,10 @@ void mgl::AbstractDrawableObject::draw(InstancingArray* instances) {
 	for (auto it : m_data)
 		it->draw(instances);
 }
+void mgl::AbstractDrawableObject::draw(InstancingMultiArray* instances) {
+	for (auto it : m_data)
+		it->draw(instances);
+}
 
 void mgl::AbstractDrawableObject::clean() {
 	for (auto it : m_data)

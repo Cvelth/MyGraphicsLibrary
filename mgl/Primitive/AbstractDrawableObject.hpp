@@ -5,6 +5,7 @@
 namespace mgl {
 	class Primitive;
 	class InstancingArray;
+	class InstancingMultiArray;
 	class VertexArray;
 
 	class AbstractDrawableObject {
@@ -24,6 +25,7 @@ namespace mgl {
 		virtual void send(DataUsage u);
 		virtual void draw();
 		virtual void draw(InstancingArray* instances);
+		virtual void draw(InstancingMultiArray* instances);
 		virtual void clean();
 
 		std::list<Primitive*>& operator*();

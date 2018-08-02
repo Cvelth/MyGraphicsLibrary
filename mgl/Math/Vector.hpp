@@ -95,8 +95,11 @@ namespace mgl {
 			T const* begin() const {
 				return data;
 			}
-			T const* end() const{
+			T const* end() const {
 				return data + S;
+			}
+			size_t size() const {
+				return S;
 			}
 
 			vector_basic<T, S> const& operator+=(vector_basic<T, S> const& other) {

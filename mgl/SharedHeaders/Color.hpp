@@ -36,5 +36,9 @@ namespace mgl {
 		inline void g(size_t value, size_t MAXIMUM_VALUE = 255) { m_data[1] = float(value) / MAXIMUM_VALUE; }
 		inline void b(size_t value, size_t MAXIMUM_VALUE = 255) { m_data[2] = float(value) / MAXIMUM_VALUE; }
 		inline void a(size_t value, size_t MAXIMUM_VALUE = 255) { m_data[3] = float(value) / MAXIMUM_VALUE; }
+
+		inline float* begin() { return m_data; }
+		inline float* end() { return m_data + 4; }
+		inline size_t size() { return 4; }
 	};
 }

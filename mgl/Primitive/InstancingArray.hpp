@@ -3,25 +3,32 @@
 #include "../MyGraphicsLibrary/MGL/SharedHeaders/Exceptions.hpp"
 DefineNewMglException(InstancingArrayException)
 
+#include <memory>
+#include <list>
+#include <deque>
 namespace mgl {
 	class Buffer;
 	namespace math {
 		class vectorH;
 	}
-	class InstancingArray : public AbstractSendableArray<math::vectorH> {
+	class InstancingArray : public AbstractSendableArray<std::list<std::unique_ptr<math::vectorH>>> {
+	protected:
+		virtual size_t recalculate_number() const override;
+		virtual size_t elements_per_item() const override;
+		virtual void delete_data() override;
 	public:
 		InstancingArray();
-		InstancingArray(const float* array, size_t size, size_t NUMBERS_PER_ELEMENT = 4u);
-		InstancingArray(math::vectorH* coords_array, size_t size);
-		InstancingArray(const std::initializer_list<math::vectorH*>& list);
-		InstancingArray(const std::list<math::vectorH*>& list);
 		~InstancingArray();
-
-		virtual size_t getSize() const;
-		virtual size_t getNumber() const;
-
-		void deleteObject(math::vectorH *obj);
-
+		virtual void send(DataUsage u) override;
+	};
+	class InstancingMultiArray : public AbstractSendableArray<std::list<std::deque<std::unique_ptr<math::vectorH>>>> {
+	protected:
+		virtual size_t recalculate_number() const override;
+		virtual size_t elements_per_item() const override;
+		virtual void delete_data() override;
+	public:
+		InstancingMultiArray();
+		~InstancingMultiArray();
 		virtual void send(DataUsage u) override;
 	};
 }
