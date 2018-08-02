@@ -180,15 +180,11 @@ void mgl::Primitive::send(DataUsage u) {
 	float* temp = new float[getSize()];
 	size_t i = 0;
 	for (auto it : m_data) {
-		temp[i++] = it->coords()->x();
-		temp[i++] = it->coords()->y();
-		temp[i++] = it->coords()->z();
-		temp[i++] = it->coords()->w();
+		std::copy(it->coords()->begin(), it->coords()->end(), temp + i);
+		i += it->coords()->size();
 
-		temp[i++] = it->color()->r();
-		temp[i++] = it->color()->g();
-		temp[i++] = it->color()->b();
-		temp[i++] = it->color()->a();
+		std::copy(it->color()->begin(), it->color()->end(), temp + i);
+		i += it->color()->size();
 	}
 	buffer_data(getSize(), temp, u);
 	delete[] temp;

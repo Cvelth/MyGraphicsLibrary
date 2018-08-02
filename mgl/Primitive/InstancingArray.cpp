@@ -14,10 +14,8 @@ void mgl::InstancingArray::send(DataUsage u) {
 	float* temp = new float[getSize()];
 	size_t i = 0;
 	for (auto &it : m_data) {
-		temp[i++] = it->x();
-		temp[i++] = it->y();
-		temp[i++] = it->z();
-		temp[i++] = it->w();
+		std::copy(it->begin(), it->end(), temp + i);
+		i += it->size();
 	}
 	buffer_data(getSize(), temp, u);
 	delete[] temp;
@@ -41,10 +39,8 @@ void mgl::InstancingMultiArray::send(DataUsage u) {
 	size_t i = 0;
 	for (auto &list : m_data)
 		for (auto &it : list) {
-			temp[i++] = it->x();
-			temp[i++] = it->y();
-			temp[i++] = it->z();
-			temp[i++] = it->w();
+			std::copy(it->begin(), it->end(), temp + i);
+			i += it->size();
 		}
 	buffer_data(getSize(), temp, u);
 	delete[] temp;
