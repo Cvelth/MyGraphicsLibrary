@@ -2,23 +2,23 @@
 #include "../MyGraphicsLibrary/MGL/Primitive/Primitive.hpp"
 #include "../MyGraphicsLibrary/MGL/Math/Vector.hpp"
 
-mgl::Primitive* mgl::changePlacing(Primitive* primitive, PoligonPlacing from, PoligonPlacing to) {
-	if (from != PoligonPlacing::zero_Center)
+mgl::Primitive* mgl::changePlacing(Primitive *primitive, PoligonPlacing from, PoligonPlacing to) {
+	if (from != PoligonPlacing::zero_in_center)
 		throw Exceptions::PrimitiveException("Operation currently unsupported.");
 	switch (to) {
-		case PoligonPlacing::zero_TopLeftCorner:
+		case PoligonPlacing::zero_in_top_left:
 			*primitive /= mgl::math::vectorH(+2.f, +2.f, 1.f, 1.f);
 			*primitive += mgl::math::vectorH(+.5f, +.5f, 0.f, 0.f);
 			break;
-		case PoligonPlacing::zero_TopRightCorner:
+		case PoligonPlacing::zero_in_top_right:
 			*primitive /= mgl::math::vectorH(+2.f, +2.f, 1.f, 1.f);
 			*primitive += mgl::math::vectorH(-.5f, +.5f, 0.f, 0.f);
 			break;
-		case PoligonPlacing::zero_BottomLeftCorner:
+		case PoligonPlacing::zero_in_bottom_left:
 			*primitive /= mgl::math::vectorH(+2.f, +2.f, 1.f, 1.f);
 			*primitive += mgl::math::vectorH(+.5f, -.5f, 0.f, 0.f);
 			break;
-		case PoligonPlacing::zero_BottomRightCorner:
+		case PoligonPlacing::zero_in_bottom_right:
 			*primitive /= mgl::math::vectorH(+2.f, +2.f, 1.f, 1.f);
 			*primitive += mgl::math::vectorH(-.5f, -.5f, 0.f, 0.f);
 			break;
@@ -27,7 +27,7 @@ mgl::Primitive* mgl::changePlacing(Primitive* primitive, PoligonPlacing from, Po
 	return primitive;
 }
 
-mgl::Primitive* mgl::generateN_Polygon(float aspectRatio, size_t n, mgl::Color * color, PoligonPlacing placing, bool isFilled) {
+mgl::Primitive* mgl::generateN_Polygon(float aspectRatio, size_t n, mgl::Color *color, PoligonPlacing placing, bool isFilled) {
 	Primitive* res;
 	if (isFilled)
 		res = new Primitive(VertexConnectionType::Polygon, color);
@@ -47,10 +47,10 @@ mgl::Primitive* mgl::generateN_Polygon(float aspectRatio, size_t n, mgl::Color *
 		throw mgl::Exceptions::PrimitiveException("Incorrect input data (aspectRatio).");
 
 	res->stop_data_edit();
-	return changePlacing(res, PoligonPlacing::zero_Center, placing);
+	return changePlacing(res, PoligonPlacing::zero_in_center, placing);
 }
 
-mgl::Primitive* mgl::generateRectangle(float aspectRatio, mgl::Color * color, PoligonPlacing placing, bool isFilled) {
+mgl::Primitive* mgl::generateRectangle(float aspectRatio, mgl::Color *color, PoligonPlacing placing, bool isFilled) {
 	mgl::Primitive* res;
 	if (isFilled)
 		res = new Primitive(VertexConnectionType::TriangleStrip, color);
@@ -70,13 +70,13 @@ mgl::Primitive* mgl::generateRectangle(float aspectRatio, mgl::Color * color, Po
 	} else
 		throw mgl::Exceptions::PrimitiveException("Incorrect input data (aspectRatio).");
 	res->stop_data_edit();
-	return changePlacing(res, PoligonPlacing::zero_Center, placing);
+	return changePlacing(res, PoligonPlacing::zero_in_center, placing);
 }
 
-mgl::Primitive* mgl::generateCircle(size_t n, mgl::Color * color, PoligonPlacing placing, bool isFilled) {
+mgl::Primitive* mgl::generateCircle(size_t n, mgl::Color *color, PoligonPlacing placing, bool isFilled) {
 	return generateN_Polygon(1.f, n, color, placing, isFilled);
 }
 
-mgl::Primitive * mgl::generateEllipse(float aspectRatio, size_t n, Color * color, PoligonPlacing placing, bool isFilled) {
+mgl::Primitive * mgl::generateEllipse(float aspectRatio, size_t n, Color *color, PoligonPlacing placing, bool isFilled) {
 	return generateN_Polygon(aspectRatio, n, color, placing, isFilled);
 }
