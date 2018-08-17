@@ -21,12 +21,12 @@ namespace mgl {
 			vector_basic(typename std::enable_if<sizeof...(Tail) + 1 <= S, T>::type head = T(0), 
 					Tail... tail) : data{head, T(tail)...} {}
 			template<size_t S_O>
-			vector_basic(vector_basic<T, S_O> const& other, typename std::enable_if<S_O < S>::type* size = 0) {
+			vector_basic(vector_basic<T, S_O> const& other, typename std::enable_if<S_O <= S>::type* size = 0) {
 				std::copy(other.begin(), other.end(), data);
 				std::fill(data + S_O, data + S, T(0));
 			}
 			template<size_t S_O>
-			vector_basic(vector_basic<T, S_O>&& other, typename std::enable_if<S_O < S>::type* size = 0) {
+			vector_basic(vector_basic<T, S_O>&& other, typename std::enable_if<S_O <= S>::type* size = 0) {
 				std::move(other.begin(), other.end(), data);
 				std::fill(data + S_O, data + S, T(0));
 			}
