@@ -6,16 +6,10 @@
 #include "../MyGraphicsLibrary/MGL/Math/Vector.hpp"
 #include "../MyGraphicsLibrary/MGL/Math/Matrix.hpp"
 
-mgl::ShaderProgram::ShaderProgram() {
-	m_id = glCreateProgram();
-	m_vao = new mgl::VertexArray();
-}
-
-mgl::ShaderProgram::ShaderProgram(VertexArray& vao) {
-	m_id = glCreateProgram();
-	if (vao.isValid())
-		m_vao = new mgl::VertexArray(vao);
-}
+mgl::ShaderProgram::ShaderProgram()
+	: m_was_linked(false), m_vao(new mgl::VertexArray()), m_id(glCreateProgram()) {}
+mgl::ShaderProgram::ShaderProgram(VertexArray& vao) 
+	: m_was_linked(false), m_vao(vao.isValid() ? new mgl::VertexArray(vao) : new mgl::VertexArray()), m_id(glCreateProgram()) {}
 
 mgl::ShaderProgram::ShaderProgram(const std::initializer_list<Shader>& list) : ShaderProgram() {
 	link(list);
@@ -36,7 +30,9 @@ void mgl::ShaderProgram::use() {
 }
 
 bool mgl::ShaderProgram::isLinked() {
-	if (glIsProgram(m_id)) {
+	if (m_was_linked)
+		return true;
+	else if (glIsProgram(m_id)) {
 		GLint isLinked;
 		glGetProgramiv(m_id, GL_LINK_STATUS, &isLinked);
 		return isLinked;
@@ -130,6 +126,7 @@ void mgl::ShaderProgram::link(const std::initializer_list<Shader>& shaders) {
 		throw Exceptions::ProgramException(("Program linking error: " + std::string(log)).c_str());
 		delete[] log;
 	}
+	m_was_linked = true;
 }
 
 mgl::ShaderVariable* mgl::ShaderProgram::getUniform(const char* fieldName) {

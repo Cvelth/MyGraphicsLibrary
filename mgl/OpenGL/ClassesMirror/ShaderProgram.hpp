@@ -13,6 +13,8 @@ namespace mgl {
 	}
 
 	class ShaderProgram {
+	private:
+		bool m_was_linked;
 	protected:
 		unsigned int m_id;
 		VertexArray* m_vao;
