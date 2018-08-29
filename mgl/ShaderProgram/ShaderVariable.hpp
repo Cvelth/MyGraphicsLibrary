@@ -19,12 +19,12 @@ namespace mgl {
 	};
 
 	struct ShaderVariable {
-		char const*const name;
+		std::string const name;
 		ShaderVariableType const& type;
 		uint32_t const location;
 		ShaderVariableDataType const& data_type;
 
-		explicit ShaderVariable(char const*const name, ShaderVariableType const& type,
+		explicit ShaderVariable(std::string const& name, ShaderVariableType const& type,
 								int location, ShaderVariableDataType const& d_type)
 			: name(name), type(type), location(location), data_type(d_type) {}
 	};
