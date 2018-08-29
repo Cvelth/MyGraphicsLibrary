@@ -2,8 +2,8 @@
 #include "ShaderProgram.hpp"
 #include "Shader.hpp"
 #include "ShaderVariable.hpp"
-mgl::ShaderProgram::ShaderProgram(uint32_t id) : m_is_linked(false) {
-	if (id == 0 || !glIsProgram(id)) throw Exceptions::ProgramCreationError();
+mgl::ShaderProgram::ShaderProgram(uint32_t id) : m_is_linked(false), m_id(id) {
+	if (m_id == 0 || !glIsProgram(m_id)) throw Exceptions::ProgramCreationError();
 }
 mgl::ShaderProgram::ShaderProgram() : ShaderProgram(glCreateProgram()) {}
 mgl::ShaderProgram::ShaderProgram(std::initializer_list<Shader> const& list) : ShaderProgram() {
@@ -48,20 +48,44 @@ bool mgl::ShaderProgram::is_linked() const {
 
 #include "mgl/EnumConverter/enum_converter.hpp"
 std::list<mgl::ShaderVariable> mgl::ShaderProgram::getUniforms() {
-	GLint uniforms_number, max_uniform_length, name_length, size;
+	GLint number, max_length, name_length, size;
 	GLenum type;
-	GLchar* name;
+	GLchar *name;
 
-	std::list<mgl::ShaderVariable> ret;
+	std::list<ShaderVariable> ret;
 
-	glGetProgramiv(m_id, GL_ACTIVE_UNIFORMS, &uniforms_number);
-	glGetProgramiv(m_id, GL_ACTIVE_UNIFORM_MAX_LENGTH, &max_uniform_length);
-	for (int i = 0; i < uniforms_number; i++) {
-		name = new GLchar[max_uniform_length];
-		glGetActiveUniform(m_id, i, max_uniform_length, &name_length, &size, &type, name);
+	glGetProgramiv(m_id, GL_ACTIVE_UNIFORMS, &number);
+	glGetProgramiv(m_id, GL_ACTIVE_UNIFORM_MAX_LENGTH, &max_length);
+	for (int i = 0; i < number; i++) {
+		name = new GLchar[max_length];
+		glGetActiveUniform(m_id, i, max_length, &name_length, &size, &type, name);
 		ret.push_back(ShaderVariable(name, ShaderVariableType::Uniform, i, enum_converter::convert_to_ShaderVariableDataType(type)));
 	}
 	return std::move(ret);
+}
+std::list<mgl::ShaderVariable> mgl::ShaderProgram::getAttributes() {
+	GLint number, max_length, name_length, size;
+	GLenum type;
+	GLchar *name;
+
+	std::list<ShaderVariable> ret;
+
+	glGetProgramiv(m_id, GL_ACTIVE_ATTRIBUTES, &number);
+	glGetProgramiv(m_id, GL_ACTIVE_ATTRIBUTE_MAX_LENGTH, &max_length);
+	for (int i = 0; i < number; i++) {
+		name = new GLchar[max_length];
+		glGetActiveAttrib(m_id, i, max_length, &name_length, &size, &type, name);
+		ret.push_back(ShaderVariable(name, ShaderVariableType::Attribute, i, enum_converter::convert_to_ShaderVariableDataType(type)));
+	}
+	return std::move(ret);
+}
+
+#include <algorithm>
+std::list<mgl::ShaderVariable> mgl::ShaderProgram::getVariables() {
+	std::list<ShaderVariable> ret{getUniforms()};
+	auto temp = getAttributes();
+	std::move(temp.begin(), temp.end(), std::back_inserter(ret));
+	return ret;
 }
 
 #include "mgl/GlobalStateController/GlobalStateController.hpp"
