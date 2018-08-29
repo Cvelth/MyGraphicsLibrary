@@ -124,9 +124,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Shader.hpp" />
+    <ClInclude Include="ShaderProgram.hpp" />
+    <ClInclude Include="ShaderVariable.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="ShaderProgram.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
