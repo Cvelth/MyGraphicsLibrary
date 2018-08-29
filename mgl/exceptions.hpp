@@ -5,4 +5,4 @@ namespace mgl::Exceptions {
 	public: using std::exception::exception;
 	};
 }
-#define DefineNewMGLException(name) namespace mgl { namespace Exceptions {class name : public mgl::Exceptions::MyOpenGLException {public: using MyOpenGLException::MyOpenGLException;};}}
+#define DefineNewMGLException(name) namespace mgl::Exceptions {class name : public mgl::Exceptions::MGLException {public: using MGLException::MGLException;};}
