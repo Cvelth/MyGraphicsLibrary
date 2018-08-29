@@ -1,3 +1,3 @@
 #pragma once
-#include "../mgl/version.hpp"
-#include "../mgl/exceptions.hpp"
+#include "mgl/version.hpp"
+#include "mgl/exceptions.hpp"
