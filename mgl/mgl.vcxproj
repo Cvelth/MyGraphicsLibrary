@@ -158,6 +158,9 @@
     <ProjectReference Include="ShaderProgram\ShaderProgram.vcxproj">
       <Project>{2699760d-9387-4907-ac77-f9fabbefd1dc}</Project>
     </ProjectReference>
+    <ProjectReference Include="VertexData\VertexData.vcxproj">
+      <Project>{97c930b8-ef7f-4333-ade4-06da68f9d8ba}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
