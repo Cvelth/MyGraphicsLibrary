@@ -23,6 +23,8 @@ namespace mgl {
 		void use();
 
 		std::list<ShaderVariable> getUniforms();
+		std::list<ShaderVariable> getAttributes();
+		std::list<ShaderVariable> getVariables();
 
 		ShaderProgram(ShaderProgram const& other) = delete;
 		ShaderProgram(ShaderProgram &&other) : ShaderProgram(other.m_id) {}
