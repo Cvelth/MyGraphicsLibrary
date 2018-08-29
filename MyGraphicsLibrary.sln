@@ -17,6 +17,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EnumConverter", "mgl\EnumCo
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GlobalStateController", "mgl\GlobalStateController\GlobalStateController.vcxproj", "{9728EB77-AE3A-4AFC-823D-2089C398F62E}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VertexData", "mgl\VertexData\VertexData.vcxproj", "{97C930B8-EF7F-4333-ADE4-06DA68F9D8BA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -73,6 +75,14 @@ Global
 		{9728EB77-AE3A-4AFC-823D-2089C398F62E}.Release|x64.Build.0 = Release|x64
 		{9728EB77-AE3A-4AFC-823D-2089C398F62E}.Release|x86.ActiveCfg = Release|Win32
 		{9728EB77-AE3A-4AFC-823D-2089C398F62E}.Release|x86.Build.0 = Release|Win32
+		{97C930B8-EF7F-4333-ADE4-06DA68F9D8BA}.Debug|x64.ActiveCfg = Debug|x64
+		{97C930B8-EF7F-4333-ADE4-06DA68F9D8BA}.Debug|x64.Build.0 = Debug|x64
+		{97C930B8-EF7F-4333-ADE4-06DA68F9D8BA}.Debug|x86.ActiveCfg = Debug|Win32
+		{97C930B8-EF7F-4333-ADE4-06DA68F9D8BA}.Debug|x86.Build.0 = Debug|Win32
+		{97C930B8-EF7F-4333-ADE4-06DA68F9D8BA}.Release|x64.ActiveCfg = Release|x64
+		{97C930B8-EF7F-4333-ADE4-06DA68F9D8BA}.Release|x64.Build.0 = Release|x64
+		{97C930B8-EF7F-4333-ADE4-06DA68F9D8BA}.Release|x86.ActiveCfg = Release|Win32
+		{97C930B8-EF7F-4333-ADE4-06DA68F9D8BA}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
