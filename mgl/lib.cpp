@@ -1,4 +1,3 @@
-#include "version.hpp"
 #include "mgl.hpp"
 
 #include <string>

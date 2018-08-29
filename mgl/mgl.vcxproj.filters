@@ -3,6 +3,7 @@
   <ItemGroup>
     <ClInclude Include="mgl.hpp" />
     <ClInclude Include="version.hpp" />
+    <ClInclude Include="exceptions.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lib.cpp" />
