@@ -47,39 +47,31 @@ bool mgl::ShaderProgram::is_linked() const {
 }
 
 #include "mgl/EnumConverter/enum_converter.hpp"
-std::list<mgl::ShaderVariable> mgl::ShaderProgram::getUniforms() {
-	GLint number, max_length, name_length, size;
-	GLenum type;
-	GLchar *name;
+namespace mgl {
+	template<typename Lambda>
+	std::list<ShaderVariable> get(uint32_t id, GLenum a_type, GLenum type_length, Lambda lambda, ShaderVariableType v_type) {
+		GLint number, max_length, name_length, size;
+		GLenum type;
+		GLchar *name;
 
-	std::list<ShaderVariable> ret;
+		std::list<ShaderVariable> ret;
 
-	glGetProgramiv(m_id, GL_ACTIVE_UNIFORMS, &number);
-	glGetProgramiv(m_id, GL_ACTIVE_UNIFORM_MAX_LENGTH, &max_length);
-	for (int i = 0; i < number; i++) {
-		name = new GLchar[max_length];
-		glGetActiveUniform(m_id, i, max_length, &name_length, &size, &type, name);
-		ret.push_back(ShaderVariable(name, ShaderVariableType::Uniform, i, enum_converter::convert_to_ShaderVariableDataType(type)));
+		glGetProgramiv(id, a_type, &number);
+		glGetProgramiv(id, type_length, &max_length);
+		for (int i = 0; i < number; i++) {
+			name = new GLchar[max_length];
+			lambda(id, i, max_length, &name_length, &size, &type, name);
+			ret.push_back(ShaderVariable(name, v_type, i, enum_converter::convert_to_ShaderVariableDataType(type)));
+		}
+		return std::move(ret);
 	}
-	return std::move(ret);
+}
+std::list<mgl::ShaderVariable> mgl::ShaderProgram::getUniforms() {
+	return mgl::get(m_id, GL_ACTIVE_UNIFORMS, GL_ACTIVE_UNIFORM_MAX_LENGTH, glGetActiveUniform, ShaderVariableType::Uniform);
 }
 std::list<mgl::ShaderVariable> mgl::ShaderProgram::getAttributes() {
-	GLint number, max_length, name_length, size;
-	GLenum type;
-	GLchar *name;
-
-	std::list<ShaderVariable> ret;
-
-	glGetProgramiv(m_id, GL_ACTIVE_ATTRIBUTES, &number);
-	glGetProgramiv(m_id, GL_ACTIVE_ATTRIBUTE_MAX_LENGTH, &max_length);
-	for (int i = 0; i < number; i++) {
-		name = new GLchar[max_length];
-		glGetActiveAttrib(m_id, i, max_length, &name_length, &size, &type, name);
-		ret.push_back(ShaderVariable(name, ShaderVariableType::Attribute, i, enum_converter::convert_to_ShaderVariableDataType(type)));
-	}
-	return std::move(ret);
+	return mgl::get(m_id, GL_ACTIVE_ATTRIBUTES, GL_ACTIVE_ATTRIBUTE_MAX_LENGTH, glGetActiveAttrib, ShaderVariableType::Attribute);
 }
-
 #include <algorithm>
 std::list<mgl::ShaderVariable> mgl::ShaderProgram::getVariables() {
 	std::list<ShaderVariable> ret{getUniforms()};
