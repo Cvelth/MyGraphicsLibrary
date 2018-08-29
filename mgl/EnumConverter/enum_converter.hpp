@@ -10,6 +10,9 @@
 
 Convertion(ShaderType);
 Convertion(ShaderVariableDataType);
+Convertion(BufferBindingPoint);
+Convertion(BufferMappedAccess);
+Convertion(BufferDataUsage);
 
 #include "mgl/exceptions.hpp"
 DefineNewMGLException(EnumConvertionError);

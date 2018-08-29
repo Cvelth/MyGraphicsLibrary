@@ -26,8 +26,8 @@ mgl::ShaderType mgl::enum_converter::convert_to_ShaderType(uint32_t v) {
 }
 
 #include "mgl/ShaderProgram/ShaderVariable.hpp"
-GLenum mgl::enum_converter::convert(ShaderVariableDataType e) {
-	switch (e) {
+GLenum mgl::enum_converter::convert(ShaderVariableDataType v) {
+	switch (v) {
 		case mgl::ShaderVariableDataType::Float: return GL_FLOAT;
 		case mgl::ShaderVariableDataType::Float_2: return GL_FLOAT_VEC2;
 		case mgl::ShaderVariableDataType::Float_3: return GL_FLOAT_VEC3;
@@ -79,8 +79,8 @@ GLenum mgl::enum_converter::convert(ShaderVariableDataType e) {
 		default: throw Exceptions::EnumConvertionError();
 	}
 }
-mgl::ShaderVariableDataType mgl::enum_converter::convert_to_ShaderVariableDataType(GLenum e) {
-	switch (e) {
+mgl::ShaderVariableDataType mgl::enum_converter::convert_to_ShaderVariableDataType(GLenum v) {
+	switch (v) {
 		case GL_FLOAT: return mgl::ShaderVariableDataType::Float;
 		case GL_FLOAT_VEC2: return mgl::ShaderVariableDataType::Float_2;
 		case GL_FLOAT_VEC3: return mgl::ShaderVariableDataType::Float_3;
@@ -129,6 +129,92 @@ mgl::ShaderVariableDataType mgl::enum_converter::convert_to_ShaderVariableDataTy
 		case GL_DOUBLE_MAT2x4: return mgl::ShaderVariableDataType::Double_2x4;
 		case GL_DOUBLE_MAT3x4: return mgl::ShaderVariableDataType::Double_3x4;
 		case GL_DOUBLE_MAT4x3: return mgl::ShaderVariableDataType::Double_4x3;
+		default: throw Exceptions::EnumConvertionError();
+	}
+}
+
+#include "mgl/VertexData/Buffer.hpp"
+GLenum mgl::enum_converter::convert(BufferBindingPoint v) {
+	switch (v) {
+		case BufferBindingPoint::ArrayBuffer: return GL_ARRAY_BUFFER;
+		case BufferBindingPoint::AtomicCounterBuffer: return GL_ATOMIC_COUNTER_BUFFER;
+		case BufferBindingPoint::CopyReadBuffer: return GL_COPY_READ_BUFFER;
+		case BufferBindingPoint::CopyWriteBuffer: return GL_COPY_WRITE_BUFFER;
+		case BufferBindingPoint::DispatchIndirectBuffer: return GL_DISPATCH_INDIRECT_BUFFER;
+		case BufferBindingPoint::DrawIndirectBuffer: return GL_DRAW_INDIRECT_BUFFER;
+		case BufferBindingPoint::ElementArrayBuffer: return GL_ELEMENT_ARRAY_BUFFER;
+		case BufferBindingPoint::PixelPackBuffer: return GL_PIXEL_PACK_BUFFER;
+		case BufferBindingPoint::PixelUnpackBuffer: return GL_PIXEL_UNPACK_BUFFER;
+		case BufferBindingPoint::QueryBuffer: return GL_QUERY_BUFFER;
+		case BufferBindingPoint::ShaderStorageBuffer: return GL_SHADER_STORAGE_BUFFER;
+		case BufferBindingPoint::TextureBuffer: return GL_TEXTURE_BUFFER;
+		case BufferBindingPoint::TransformFeedbackBuffer: return GL_TRANSFORM_FEEDBACK_BUFFER;
+		case BufferBindingPoint::UniformBuffer: return GL_UNIFORM_BUFFER;
+		default: throw Exceptions::EnumConvertionError();
+	}
+}
+mgl::BufferBindingPoint mgl::enum_converter::convert_to_BufferBindingPoint(GLenum v) {
+	switch (v) {
+		case GL_ARRAY_BUFFER: return BufferBindingPoint::ArrayBuffer;
+		case GL_ATOMIC_COUNTER_BUFFER: return BufferBindingPoint::AtomicCounterBuffer;
+		case GL_COPY_READ_BUFFER: return BufferBindingPoint::CopyReadBuffer;
+		case GL_COPY_WRITE_BUFFER: return BufferBindingPoint::CopyWriteBuffer;
+		case GL_DISPATCH_INDIRECT_BUFFER: return BufferBindingPoint::DispatchIndirectBuffer;
+		case GL_DRAW_INDIRECT_BUFFER: return BufferBindingPoint::DrawIndirectBuffer;
+		case GL_ELEMENT_ARRAY_BUFFER: return BufferBindingPoint::ElementArrayBuffer;
+		case GL_PIXEL_PACK_BUFFER: return BufferBindingPoint::PixelPackBuffer;
+		case GL_PIXEL_UNPACK_BUFFER: return BufferBindingPoint::PixelUnpackBuffer;
+		case GL_QUERY_BUFFER: return BufferBindingPoint::QueryBuffer;
+		case GL_SHADER_STORAGE_BUFFER: return BufferBindingPoint::ShaderStorageBuffer;
+		case GL_TEXTURE_BUFFER: return BufferBindingPoint::TextureBuffer;
+		case GL_TRANSFORM_FEEDBACK_BUFFER: return BufferBindingPoint::TransformFeedbackBuffer;
+		case GL_UNIFORM_BUFFER: return BufferBindingPoint::UniformBuffer;
+		default: throw Exceptions::EnumConvertionError();
+	}
+}
+
+GLenum mgl::enum_converter::convert(BufferMappedAccess v) {
+	switch (v) {
+		case BufferMappedAccess::ReadOnly: return GL_READ_ONLY;
+		case BufferMappedAccess::WriteOnly: return GL_WRITE_ONLY;
+		case BufferMappedAccess::ReadWrite: return GL_READ_WRITE;
+		default: throw Exceptions::EnumConvertionError();
+	}
+}
+mgl::BufferMappedAccess mgl::enum_converter::convert_to_BufferMappedAccess(GLenum v) {
+	switch (v) {
+		case GL_READ_ONLY: return BufferMappedAccess::ReadOnly;
+		case GL_WRITE_ONLY: return BufferMappedAccess::WriteOnly;
+		case GL_READ_WRITE: return BufferMappedAccess::ReadWrite;
+		default: throw Exceptions::EnumConvertionError();
+	}
+}
+
+GLenum mgl::enum_converter::convert(BufferDataUsage v) {
+	switch (v) {
+		case BufferDataUsage::StreamDraw: return  GL_STREAM_DRAW;
+		case BufferDataUsage::StreamRead: return  GL_STREAM_READ;
+		case BufferDataUsage::StreamCopy: return  GL_STREAM_COPY;
+		case BufferDataUsage::StaticDraw: return  GL_STATIC_DRAW;
+		case BufferDataUsage::StaticRead: return  GL_STATIC_READ;
+		case BufferDataUsage::StaticCopy: return  GL_STATIC_COPY;
+		case BufferDataUsage::DynamicDraw: return GL_DYNAMIC_DRAW;
+		case BufferDataUsage::DynamicRead: return GL_DYNAMIC_READ;
+		case BufferDataUsage::DynamicCopy: return GL_DYNAMIC_COPY;
+		default: throw Exceptions::EnumConvertionError();
+	}
+}
+mgl::BufferDataUsage mgl::enum_converter::convert_to_BufferDataUsage(GLenum v) {
+	switch (v) {
+		case GL_STREAM_DRAW: return BufferDataUsage::StreamDraw;
+		case GL_STREAM_READ: return BufferDataUsage::StreamRead;
+		case GL_STREAM_COPY: return BufferDataUsage::StreamCopy;
+		case GL_STATIC_DRAW: return BufferDataUsage::StaticDraw;
+		case GL_STATIC_READ: return BufferDataUsage::StaticRead;
+		case GL_STATIC_COPY: return BufferDataUsage::StaticCopy;
+		case GL_DYNAMIC_DRAW: return BufferDataUsage::DynamicDraw;
+		case GL_DYNAMIC_READ: return BufferDataUsage::DynamicRead;
+		case GL_DYNAMIC_COPY: return BufferDataUsage::DynamicCopy;
 		default: throw Exceptions::EnumConvertionError();
 	}
 }
