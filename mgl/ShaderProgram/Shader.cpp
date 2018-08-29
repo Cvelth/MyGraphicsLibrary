@@ -1,5 +1,6 @@
 #include "mgl/dependencies/OpenGL_Dependency/opengl_dependency.hpp"
 #include "Shader.hpp"
+#include "mgl/EnumConverter/enum_converter.hpp"
 
 mgl::Shader::Shader(uint32_t id) : m_id(id) {
 	if (m_id == 0)
@@ -9,15 +10,10 @@ mgl::Shader::Shader(char const* source, ShaderType type) : Shader(type) {
 	compileSource(source);
 }
 mgl::Shader::Shader(ShaderType type) : m_id(0) {
-	switch (type) {
-		case ShaderType::Compute: m_id = glCreateShader(GL_COMPUTE_SHADER); break;
-		case ShaderType::Fragment: m_id = glCreateShader(GL_FRAGMENT_SHADER); break;
-		case ShaderType::Geometry: m_id = glCreateShader(GL_GEOMETRY_SHADER); break;
-		case ShaderType::Vertex: m_id = glCreateShader(GL_VERTEX_SHADER); break;
-		case ShaderType::TesselationControl: m_id = glCreateShader(GL_TESS_CONTROL_SHADER); break;
-		case ShaderType::TesselationEvaluation: m_id = glCreateShader(GL_TESS_EVALUATION_SHADER); break;
-		default:
-			throw Exceptions::ShaderCreationError();
+	try {
+		m_id = glCreateShader(enum_converter::convert(type));
+	} catch (Exceptions::EnumConvertionError) {
+		throw Exceptions::ShaderCreationError();
 	}
 	if (m_id == 0)
 		throw Exceptions::ShaderCreationError();
