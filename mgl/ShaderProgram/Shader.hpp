@@ -1,24 +1,28 @@
 #pragma once
 #include <cstdint>
+#include <string>
 namespace mgl {
 	enum class ShaderType {
 		Fragment, Vertex, Geometry, Compute, TesselationControl, TesselationEvaluation
 	};
+	class ShaderProgram;
+
 	class Shader {
+		friend ShaderProgram;
+	private:
 		uint32_t m_id;
 	protected:
 		Shader(uint32_t id);
-		Shader(char const* source, ShaderType type);
+		Shader(std::string const& source, ShaderType type);
 	public:
 		Shader(ShaderType type);
-		Shader(ShaderType type, char const* filename);
+		Shader(ShaderType type, std::string const& filename);
 		~Shader();
 
-		void compileFile(const char* filename);
-		void compileSource(const char* sourceText);
-		unsigned int id();
+		void compileFile(std::string const& filename);
+		void compileSource(std::string const& sourceText);
 
-		static Shader compileShaderSource(ShaderType type, const char* source);
+		static Shader compileShaderSource(ShaderType type, std::string const& source);
 
 		Shader(Shader const& other) = delete;
 		Shader(Shader &&other) : Shader(other.m_id) {}

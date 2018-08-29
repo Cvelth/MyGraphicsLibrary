@@ -3,10 +3,9 @@
 #include "mgl/EnumConverter/enum_converter.hpp"
 
 mgl::Shader::Shader(uint32_t id) : m_id(id) {
-	if (m_id == 0)
-		throw Exceptions::ShaderCreationError();
+	if (id == 0 || !glIsShader(id)) throw Exceptions::ShaderCreationError();
 }
-mgl::Shader::Shader(char const* source, ShaderType type) : Shader(type) {
+mgl::Shader::Shader(std::string const& source, ShaderType type) : Shader(type) {
 	compileSource(source);
 }
 mgl::Shader::Shader(ShaderType type) : m_id(0) {
@@ -18,23 +17,20 @@ mgl::Shader::Shader(ShaderType type) : m_id(0) {
 	if (m_id == 0)
 		throw Exceptions::ShaderCreationError();
 }
-mgl::Shader::Shader(ShaderType type, const char* filename) : Shader(type) {
+mgl::Shader::Shader(ShaderType type, std::string const& filename) : Shader(type) {
 	compileFile(filename);
 }
 mgl::Shader::~Shader() {
 	glDeleteShader(m_id);
 }
 
-GLuint mgl::Shader::id() {
-	return m_id;
-}
-mgl::Shader mgl::Shader::compileShaderSource(ShaderType type, const char* source) {
+mgl::Shader mgl::Shader::compileShaderSource(ShaderType type, std::string const& source) {
 	return Shader(source, type);
 }
 
 #include <string>
-void mgl::Shader::compileSource(const char* sourceText) {
-	const GLchar* source = static_cast<const GLchar*>(sourceText);
+void mgl::Shader::compileSource(std::string const& sourceText) {
+	const GLchar* source = static_cast<const GLchar*>(sourceText.c_str());
 	if (source == "") throw Exceptions::ShaderCompilationError("The source string or file is empty.");
 
 	glShaderSource(m_id, 1, &source, NULL);
@@ -55,17 +51,15 @@ void mgl::Shader::compileSource(const char* sourceText) {
 }
 
 #include <fstream>
-#include <string>
 namespace mgl {
-	const char* getShaderSourceFromFile(const char* filename) {
-		using namespace std::literals;
+	const char* getShaderSourceFromFile(std::string const& filename) {
 		std::ifstream f;
 		f.open(filename);
 		if (!f)
-			throw Exceptions::ShaderCompilationError(("File "s + filename + " cannot be oppened. Make sure it exists.").c_str());
+			throw Exceptions::ShaderCompilationError(("File " + filename + " cannot be oppened. Make sure it exists.").c_str());
 		return std::string(std::istreambuf_iterator<char>(f), std::istreambuf_iterator<char>()).c_str();
 	}
 }
-void mgl::Shader::compileFile(const char* filename) {
+void mgl::Shader::compileFile(std::string const& filename) {
 	compileSource(getShaderSourceFromFile(filename));
 }
