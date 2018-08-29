@@ -142,6 +142,17 @@
   <ItemGroup>
     <ClCompile Include="lib.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="dependencies\OpenGL_Dependency\OpenGL_Dependency.vcxproj">
+      <Project>{01cb860f-b5f8-4de6-b0fa-7a83d7554a00}</Project>
+    </ProjectReference>
+    <ProjectReference Include="dependencies\WindowLibrary_Dependency\WindowLibrary_Dependency.vcxproj">
+      <Project>{98bc72a1-4869-4365-8c79-10f713228855}</Project>
+    </ProjectReference>
+    <ProjectReference Include="ShaderProgram\ShaderProgram.vcxproj">
+      <Project>{2699760d-9387-4907-ac77-f9fabbefd1dc}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
