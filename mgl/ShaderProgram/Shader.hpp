@@ -19,6 +19,9 @@ namespace mgl {
 		unsigned int id();
 
 		static Shader compileShaderSource(ShaderType type, const char* source);
+
+		Shader(Shader const& other) = delete;
+		Shader(Shader &&other) : Shader(other.m_id) {}
 	};
 }
 
