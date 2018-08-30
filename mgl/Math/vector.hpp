@@ -11,6 +11,7 @@ namespace mgl::math {
 	protected:
 		T data[S];
 	public:
+		basic_vector() : data{T(0)} {}
 		basic_vector(basic_vector<T, S> const& other) {
 			std::copy(other.begin(), other.end(), data);
 		}
@@ -21,14 +22,12 @@ namespace mgl::math {
 		basic_vector(typename std::enable_if<sizeof...(Tail) + 1 <= S, T>::type head = T(0),
 					 Tail... tail) : data{head, T(tail)...} {}
 		template<typename T_O, size_t S_O, typename = typename std::enable_if<std::is_convertible<T_O, T>::value>::type>
-		basic_vector(basic_vector<T_O, S_O> const& other, typename std::enable_if<(S_O <= S), void*>::type less = nullptr) {
+		basic_vector(basic_vector<T_O, S_O> const& other, typename std::enable_if<(S_O <= S), void*>::type less = nullptr) : basic_vector() {
 			std::copy(other.begin(), other.end(), data);
-			std::fill(data + S_O, data + S, T(0));
 		}
 		template<typename T_O, size_t S_O, typename = typename std::enable_if<std::is_convertible<T_O, T>::value>::type>
-		basic_vector(basic_vector<T_O, S_O> &&other, typename std::enable_if<(S_O <= S), void*>::type less = nullptr) {
+		basic_vector(basic_vector<T_O, S_O> &&other, typename std::enable_if<(S_O <= S), void*>::type less = nullptr) : basic_vector() {
 			std::move(other.begin(), other.end(), data);
-			std::fill(data + S_O, data + S, T(0));
 		}
 		template<typename T_O, size_t S_O, typename = typename std::enable_if<std::is_convertible<T_O, T>::value>::type>
 		explicit basic_vector(basic_vector<T_O, S_O> const& other, typename std::enable_if<(S_O > S), void*>::type more = nullptr) {
@@ -38,13 +37,13 @@ namespace mgl::math {
 		explicit basic_vector(basic_vector<T_O, S_O> &&other, typename std::enable_if<(S_O > S), void*>::type more = nullptr) {
 			std::move(other.begin(), other.begin() + S, data);
 		}
-		basic_vector(std::initializer_list<T> const& inputs) {
+		basic_vector(std::initializer_list<T> const& inputs) : basic_vector() {
 			if (inputs.size() > S)
 				throw Exceptions::VectorIndexOutOfBounds("Too many inputs.");
 			std::copy(inputs.begin(), inputs.end(), data);
 			std::fill(data + inputs.size(), data + S, T(0));
 		}
-		basic_vector(std::initializer_list<T>&& inputs) {
+		basic_vector(std::initializer_list<T>&& inputs) : basic_vector() {
 			if (inputs.size() > S)
 				throw Exceptions::VectorIndexOutOfBounds("Too many inputs.");
 			std::move(inputs.begin(), inputs.end(), data);
@@ -138,38 +137,38 @@ namespace mgl::math {
 		}
 
 		template<typename T_O, size_t S_O, typename = typename std::enable_if<std::is_convertible<T_O, T>::value>::type, typename = typename std::enable_if<(S_O <= S)>::type>
-		basic_vector<T, S> const& operator+=(basic_vector<T_O, S_O> const& other) {
+		basic_vector<T, S>& operator+=(basic_vector<T_O, S_O> const& other) {
 			for (size_t i = 0; i < std::min(S, S_O); i++)
 				data[i] += T(other[i]);
 			return *this;
 		}
 		template<typename T_O, size_t S_O, typename = typename std::enable_if<std::is_convertible<T_O, T>::value>::type, typename = typename std::enable_if<(S_O <= S)>::type>
-		basic_vector<T, S> const& operator-=(basic_vector<T_O, S_O> const& other) {
+		basic_vector<T, S>& operator-=(basic_vector<T_O, S_O> const& other) {
 			for (size_t i = 0; i < std::min(S, S_O); i++)
 				data[i] -= T(other[i]);
 			return *this;
 		}
 		template<typename T_O, size_t S_O, typename = typename std::enable_if<std::is_convertible<T_O, T>::value>::type, typename = typename std::enable_if<(S_O <= S)>::type>
-		basic_vector<T, S> const& operator*=(basic_vector<T_O, S_O> const& other) {
+		basic_vector<T, S>& operator*=(basic_vector<T_O, S_O> const& other) {
 			for (size_t i = 0; i < std::min(S, S_O); i++)
 				data[i] *= T(other[i]);
 			return *this;
 		}
 		template<typename T_O, size_t S_O, typename = typename std::enable_if<std::is_convertible<T_O, T>::value>::type, typename = typename std::enable_if<(S_O <= S)>::type>
-		basic_vector<T, S> const& operator/=(basic_vector<T_O, S_O> const& other) {
+		basic_vector<T, S>& operator/=(basic_vector<T_O, S_O> const& other) {
 			for (size_t i = 0; i < std::min(S, S_O); i++)
 				data[i] /= T(other[i]);
 			return *this;
 		}
 
 		template<typename T_O, typename = typename std::enable_if<std::is_convertible<T_O, T>::value>::type>
-		basic_vector<T, S> const& operator*=(T_O const& q) {
+		basic_vector<T, S>& operator*=(T_O const& q) {
 			for (size_t i = 0; i < S; i++)
 				data[i] *= T(q);
 			return *this;
 		}
 		template<typename T_O, typename = typename std::enable_if<std::is_convertible<T_O, T>::value>::type>
-		basic_vector<T, S> const& operator/=(T_O const& q) {
+		basic_vector<T, S>& operator/=(T_O const& q) {
 			for (size_t i = 0; i < S; i++)
 				data[i] /= T(q);
 			return *this;
@@ -265,7 +264,7 @@ namespace mgl::math {
 	}
 	template<typename T, size_t S, typename T_O, typename = typename std::enable_if<std::is_convertible<T_O, T>::value>::type>
 	auto const operator/(T_O const& q, basic_vector<T, S> const& v) {
-		basic_vector<decltype(v[0] / q), S> res{v};
+		basic_vector<decltype(q / v[0]), S> res{v};
 		for (auto &it : res)
 			it = q / it;
 		return res;
