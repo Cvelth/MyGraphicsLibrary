@@ -106,17 +106,26 @@ namespace mgl::math {
 				sum += data[i] * data[i];
 			return std::sqrtf(sum);
 		}
+		template<typename = typename std::enable_if<std::is_floating_point<T>::value>::type>
 		void normalize() {
 			auto l = length();
 			for (size_t i = 0; i < S; i++)
 				data[i] /= l;
 		}
-
-		basic_numeric_vector<T, S> const normalized() const {
-			basic_numeric_vector<T, S> ret(*this);
+		
+		template<typename..., typename T_O = T>
+		typename std::enable_if<std::is_floating_point<T_O>::value, basic_numeric_vector<T_O, S>>::type const normalized() const {
+			basic_numeric_vector<T_O, S> ret(*this);
 			ret.normalize();
 			return ret;
 		}
+		template<typename..., typename T_O = T>
+		typename std::enable_if<!std::is_floating_point<T_O>::value, basic_numeric_vector<float, S>>::type const normalized() const {
+			basic_numeric_vector<float, S> ret(*this);
+			ret.normalize();
+			return ret;
+		}
+
 		basic_numeric_vector<T, S> const& operator+=(basic_numeric_vector<T, S> const& other) {
 			for (size_t i = 0; i < S; i++)
 				data[i] += other.data[i];
