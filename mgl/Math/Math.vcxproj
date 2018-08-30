@@ -20,8 +20,8 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{13CCF855-8BA4-4248-996E-89759B9EEB08}</ProjectGuid>
-    <RootNamespace>mgl</RootNamespace>
+    <ProjectGuid>{1A5EC97F-543D-4D87-BFD8-0D0C3AB83657}</ProjectGuid>
+    <RootNamespace>Math</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -70,31 +70,25 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup />
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <Optimization>Disabled</Optimization>
-      <SDLCheck>true</SDLCheck>
-      <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
-      <AdditionalIncludeDirectories>../;</AdditionalIncludeDirectories>
-    </ClCompile>
-    <ProjectReference>
-      <LinkLibraryDependencies>true</LinkLibraryDependencies>
-    </ProjectReference>
-  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>../../;</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
-      <AdditionalIncludeDirectories>../;</AdditionalIncludeDirectories>
     </ClCompile>
-    <ProjectReference>
-      <LinkLibraryDependencies>true</LinkLibraryDependencies>
-    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>../../;</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+    </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -104,16 +98,13 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>../../;</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
-      <AdditionalIncludeDirectories>../;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
-    <ProjectReference>
-      <LinkLibraryDependencies>true</LinkLibraryDependencies>
-    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -123,47 +114,19 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>../../;</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
-      <AdditionalIncludeDirectories>../;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
-    <ProjectReference>
-      <LinkLibraryDependencies>true</LinkLibraryDependencies>
-    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="exceptions.hpp" />
-    <ClInclude Include="mgl.hpp" />
-    <ClInclude Include="version.hpp" />
+    <ClInclude Include="vector.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lib.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="dependencies\OpenGL_Dependency\OpenGL_Dependency.vcxproj">
-      <Project>{01cb860f-b5f8-4de6-b0fa-7a83d7554a00}</Project>
-    </ProjectReference>
-    <ProjectReference Include="dependencies\WindowLibrary_Dependency\WindowLibrary_Dependency.vcxproj">
-      <Project>{98bc72a1-4869-4365-8c79-10f713228855}</Project>
-    </ProjectReference>
-    <ProjectReference Include="EnumConverter\EnumConverter.vcxproj">
-      <Project>{240fcf60-a53c-4a77-8edb-99eabab66ea0}</Project>
-    </ProjectReference>
-    <ProjectReference Include="GlobalStateController\GlobalStateController.vcxproj">
-      <Project>{9728eb77-ae3a-4afc-823d-2089c398f62e}</Project>
-    </ProjectReference>
-    <ProjectReference Include="Math\Math.vcxproj">
-      <Project>{1a5ec97f-543d-4d87-bfd8-0d0c3ab83657}</Project>
-    </ProjectReference>
-    <ProjectReference Include="ShaderProgram\ShaderProgram.vcxproj">
-      <Project>{2699760d-9387-4907-ac77-f9fabbefd1dc}</Project>
-    </ProjectReference>
-    <ProjectReference Include="VertexData\VertexData.vcxproj">
-      <Project>{97c930b8-ef7f-4333-ade4-06da68f9d8ba}</Project>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

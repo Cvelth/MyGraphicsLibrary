@@ -19,6 +19,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GlobalStateController", "mg
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VertexData", "mgl\VertexData\VertexData.vcxproj", "{97C930B8-EF7F-4333-ADE4-06DA68F9D8BA}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Math", "mgl\Math\Math.vcxproj", "{1A5EC97F-543D-4D87-BFD8-0D0C3AB83657}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -83,6 +85,14 @@ Global
 		{97C930B8-EF7F-4333-ADE4-06DA68F9D8BA}.Release|x64.Build.0 = Release|x64
 		{97C930B8-EF7F-4333-ADE4-06DA68F9D8BA}.Release|x86.ActiveCfg = Release|Win32
 		{97C930B8-EF7F-4333-ADE4-06DA68F9D8BA}.Release|x86.Build.0 = Release|Win32
+		{1A5EC97F-543D-4D87-BFD8-0D0C3AB83657}.Debug|x64.ActiveCfg = Debug|x64
+		{1A5EC97F-543D-4D87-BFD8-0D0C3AB83657}.Debug|x64.Build.0 = Debug|x64
+		{1A5EC97F-543D-4D87-BFD8-0D0C3AB83657}.Debug|x86.ActiveCfg = Debug|Win32
+		{1A5EC97F-543D-4D87-BFD8-0D0C3AB83657}.Debug|x86.Build.0 = Debug|Win32
+		{1A5EC97F-543D-4D87-BFD8-0D0C3AB83657}.Release|x64.ActiveCfg = Release|x64
+		{1A5EC97F-543D-4D87-BFD8-0D0C3AB83657}.Release|x64.Build.0 = Release|x64
+		{1A5EC97F-543D-4D87-BFD8-0D0C3AB83657}.Release|x86.ActiveCfg = Release|Win32
+		{1A5EC97F-543D-4D87-BFD8-0D0C3AB83657}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
