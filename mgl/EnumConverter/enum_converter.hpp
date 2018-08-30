@@ -10,6 +10,7 @@
 
 Convertion(ShaderType);
 Convertion(ShaderVariableDataType);
+Convertion(ShaderVariableNonArrayDataType);
 Convertion(BufferBindingPoint);
 Convertion(BufferMappedAccess);
 Convertion(BufferDataUsage);
