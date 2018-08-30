@@ -102,7 +102,17 @@ namespace mgl::math {
 		template<typename = typename std::enable_if<S >= 3 && S <= 4>::type> void w(T const& value) { data[0] = value; }
 	};
 
-	template<typename T, size_t S, typename = typename std::enable_if<std::is_arithmetic<T>::value>::type>
+	template <typename T, typename = void>
+	struct is_numeric : std::false_type {};
+	template <typename T>
+	struct is_numeric<T, std::void_t<decltype(std::declval<T>() + std::declval<T>()),
+									 decltype(std::declval<T>() - std::declval<T>()),
+									 decltype(std::declval<T>() * std::declval<T>()),
+									 decltype(std::declval<T>() / std::declval<T>()),
+									 decltype(std::sqrtf(std::declval<T>()))>>
+		: std::true_type {};
+
+	template<typename T, size_t S, typename = typename std::enable_if<is_numeric<T>::value>::type>
 	class basic_numeric_vector : public basic_vector<T, S> {
 	protected:
 		using basic_vector<T, S>::data;
