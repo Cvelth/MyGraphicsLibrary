@@ -229,43 +229,23 @@ namespace mgl::math {
 
 	template<typename T, size_t S, typename T_O, size_t S_O, typename = typename std::enable_if<std::is_convertible<T_O, T>::value>::type>
 	auto operator+(basic_vector<T, S> const& v1, basic_vector<T_O, S_O> const& v2) {
-		if constexpr (S > S_O) {
-			basic_vector<decltype(v1[0] + v2[0]), std::max(S, S_O)> res{v1};
-			return res += v2;
-		} else {
-			basic_vector<decltype(v1[0] + v2[0]), std::max(S, S_O)> res{v2};
-			return res += v1;
-		}
+		basic_vector<decltype(v1[0] + v2[0]), std::max(S, S_O)> res{v1};
+		return res += v2;
 	}
 	template<typename T, size_t S, typename T_O, size_t S_O, typename = typename std::enable_if<std::is_convertible<T_O, T>::value>::type>
 	auto operator-(basic_vector<T, S> const& v1, basic_vector<T_O, S_O> const& v2) {
-		if constexpr (S > S_O) {
-			basic_vector<decltype(v1[0] - v2[0]), std::max(S, S_O)> res{v1};
-			return res -= v2;
-		} else {
-			basic_vector<decltype(v1[0] - v2[0]), std::max(S, S_O)> res{v2};
-			return res -= v1;
-		}
+		basic_vector<decltype(v1[0] - v2[0]), std::max(S, S_O)> res{v1};
+		return res -= v2;
 	}
 	template<typename T, size_t S, typename T_O, size_t S_O, typename = typename std::enable_if<std::is_convertible<T_O, T>::value>::type>
 	auto operator*(basic_vector<T, S> const& v1, basic_vector<T_O, S_O> const& v2) {
-		if constexpr (S > S_O) {
-			basic_vector<decltype(v1[0] * v2[0]), std::max(S, S_O)> res{v1};
-			return res *= v2;
-		} else {
-			basic_vector<decltype(v1[0] * v2[0]), std::max(S, S_O)> res{v2};
-			return res *= v1;
-		}
+		basic_vector<decltype(v1[0] * v2[0]), std::max(S, S_O)> res{v1};
+		return res *= v2;
 	}
 	template<typename T, size_t S, typename T_O, size_t S_O, typename = typename std::enable_if<std::is_convertible<T_O, T>::value>::type>
 	auto operator/(basic_vector<T, S> const& v1, basic_vector<T_O, S_O> const& v2) {
-		if constexpr (S > S_O) {
-			basic_vector<decltype(v1[0] / v2[0]), std::max(S, S_O)> res{v1};
-			return res /= v2;
-		} else {
-			basic_vector<decltype(v1[0] / v2[0]), std::max(S, S_O)> res{v2};
-			return res /= v1;
-		}
+		basic_vector<decltype(v1[0] / v2[0]), std::max(S, S_O)> res{v1};
+		return res /= v2;
 	}
 
 	template<typename T, size_t S, typename T_O, typename = typename std::enable_if<std::is_convertible<T_O, T>::value>::type>
