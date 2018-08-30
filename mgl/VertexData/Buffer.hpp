@@ -1,5 +1,6 @@
 #pragma once
 #include <cstdint>
+#include <utility>
 namespace mgl {
 	enum class BufferBindingPoint {
 		ArrayBuffer, AtomicCounterBuffer, CopyReadBuffer, CopyWriteBuffer,
@@ -59,6 +60,8 @@ namespace mgl {
 			return MultiBuffer::map(0, access);
 		}
 		using MultiBuffer::unmap;
+
+		Buffer(Buffer &&other) : MultiBuffer(std::move(other)) {}
 	};
 }
 
