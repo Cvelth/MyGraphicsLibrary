@@ -32,8 +32,10 @@ void mgl::MultiVertexArray::attrib_pointer(size_t index, ShaderVariable const& v
 namespace mgl {
 	size_t count_size(std::list<ShaderVariable> const& variables) {
 		size_t ret = 0u;
-		for (auto &it : variables)
-			ret += enum_converter::get_size(enum_converter::convert_variable_type(it.data_type).first);
+		for (auto &it : variables) {
+			auto type = enum_converter::convert_variable_type(it.data_type);
+			ret += enum_converter::get_size(type.first) * enum_converter::convert_to_number(type.second);
+		}
 		return ret;
 	}
 }
@@ -44,4 +46,9 @@ void mgl::MultiVertexArray::attrib_pointer(size_t index, std::list<ShaderVariabl
 		attrib_pointer(index, it, stride, shift);
 		shift += enum_converter::get_size(enum_converter::convert_variable_type(it.data_type).first);
 	}
+}
+
+void mgl::MultiVertexArray::draw(size_t index, VertexConnectionType connection, size_t first, size_t count) {
+	bind(index);
+	glDrawArrays(enum_converter::convert(connection), GLint(first), GLsizei(count));
 }
