@@ -40,13 +40,13 @@ namespace mgl::math {
 		}
 		basic_vector(std::initializer_list<T> const& inputs) {
 			if (inputs.size() > S)
-				throw Exceptions::VectorException("Too many inputs.");
+				throw Exceptions::VectorIndexOutOfBounds("Too many inputs.");
 			std::copy(inputs.begin(), inputs.end(), data);
 			std::fill(data + inputs.size(), data + S, T(0));
 		}
 		basic_vector(std::initializer_list<T>&& inputs) {
 			if (inputs.size() > S)
-				throw Exceptions::VectorException("Too many inputs.");
+				throw Exceptions::VectorIndexOutOfBounds("Too many inputs.");
 			std::move(inputs.begin(), inputs.end(), data);
 			std::fill(data + inputs.size(), data + S, T(0));
 		}
