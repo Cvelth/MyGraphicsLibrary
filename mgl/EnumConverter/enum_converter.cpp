@@ -133,6 +133,27 @@ mgl::ShaderVariableDataType mgl::enum_converter::convert_to_ShaderVariableDataTy
 	}
 }
 
+uint32_t mgl::enum_converter::convert(ShaderVariableNonArrayDataType v) {
+	switch (v) {
+		case ShaderVariableNonArrayDataType::Float: return GL_FLOAT;
+		case ShaderVariableNonArrayDataType::Double: return GL_DOUBLE;
+		case ShaderVariableNonArrayDataType::Int: return GL_INT;
+		case ShaderVariableNonArrayDataType::UInt: return GL_UNSIGNED_INT;
+		case ShaderVariableNonArrayDataType::Bool: return GL_BOOL;
+		default: throw Exceptions::EnumConvertionError();
+	}
+}
+mgl::ShaderVariableNonArrayDataType mgl::enum_converter::convert_to_ShaderVariableNonArrayDataType(uint32_t v) {
+	switch (v) {
+		case GL_FLOAT: return ShaderVariableNonArrayDataType::Float;
+		case GL_DOUBLE: return ShaderVariableNonArrayDataType::Double;
+		case GL_INT: return ShaderVariableNonArrayDataType::Int;
+		case GL_UNSIGNED_INT: return ShaderVariableNonArrayDataType::UInt;
+		case GL_BOOL: return ShaderVariableNonArrayDataType::Bool;
+		default: throw Exceptions::EnumConvertionError();
+	}
+}
+
 #include "mgl/VertexData/Buffer.hpp"
 GLenum mgl::enum_converter::convert(BufferBindingPoint v) {
 	switch (v) {
