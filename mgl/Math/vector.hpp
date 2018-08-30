@@ -84,14 +84,14 @@ namespace mgl::math {
 			return true;
 		}
 
-		template<size_t C = 0, size_t L = 4> typename std::enable_if<S >= C && S <= L, T>::type const& x() const { return data[0]; }
-		template<size_t C = 1, size_t L = 4> typename std::enable_if<S >= C && S <= L, T>::type const& y() const { return data[1]; }
-		template<size_t C = 2, size_t L = 4> typename std::enable_if<S >= C && S <= L, T>::type const& z() const { return data[2]; }
-		template<size_t C = 3, size_t L = 4> typename std::enable_if<S >= C && S <= L, T>::type const& w() const { return data[3]; }
-		template<size_t C = 0, size_t L = 4> typename std::enable_if<S >= C && S <= L>::type x(T const& value) { data[0] = value; }
-		template<size_t C = 1, size_t L = 4> typename std::enable_if<S >= C && S <= L>::type y(T const& value) { data[1] = value; }
-		template<size_t C = 2, size_t L = 4> typename std::enable_if<S >= C && S <= L>::type z(T const& value) { data[2] = value; }
-		template<size_t C = 3, size_t L = 4> typename std::enable_if<S >= C && S <= L>::type w(T const& value) { data[3] = value; }
+		template<typename = typename std::enable_if<S >= 0 && S <= 4>::type> T const& x() const { return data[0]; }
+		template<typename = typename std::enable_if<S >= 1 && S <= 4>::type> T const& y() const { return data[1]; }
+		template<typename = typename std::enable_if<S >= 2 && S <= 4>::type> T const& z() const { return data[2]; }
+		template<typename = typename std::enable_if<S >= 3 && S <= 4>::type> T const& w() const { return data[3]; }
+		template<typename = typename std::enable_if<S >= 0 && S <= 4>::type> void x(T const& value) { data[0] = value; }
+		template<typename = typename std::enable_if<S >= 1 && S <= 4>::type> void y(T const& value) { data[0] = value; }
+		template<typename = typename std::enable_if<S >= 2 && S <= 4>::type> void z(T const& value) { data[0] = value; }
+		template<typename = typename std::enable_if<S >= 3 && S <= 4>::type> void w(T const& value) { data[0] = value; }
 	};
 
 	template<typename T, size_t S, typename = typename std::enable_if<std::is_arithmetic<T>::value>::type>
