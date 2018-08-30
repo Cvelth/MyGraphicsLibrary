@@ -61,12 +61,12 @@ namespace mgl::math {
 
 		T const& operator[](size_t index) const {
 			if (index >= S)
-				throw Exceptions::VectorException("There is no element with this index in the vector");
+				throw Exceptions::VectorIndexOutOfBounds();
 			return data[index];
 		}
 		T& operator[](size_t index) {
 			if (index >= S)
-				throw Exceptions::VectorException("There is no element with this index in the vector");
+				throw Exceptions::VectorIndexOutOfBounds();
 			return data[index];
 		}
 		T const& at(size_t index) const {
@@ -134,24 +134,28 @@ namespace mgl::math {
 			return ret;
 		}
 
-		basic_numeric_vector<T, S> const& operator+=(basic_numeric_vector<T, S> const& other) {
-			for (size_t i = 0; i < S; i++)
-				data[i] += other.data[i];
+		template<typename T_O, size_t S_O, typename = typename std::enable_if<std::is_convertible<T_O, T>::value>::type, typename = typename std::enable_if<(S_O <= S)>::type>
+		basic_numeric_vector<T, S> const& operator+=(basic_numeric_vector<T_O, S_O> const& other) {
+			for (size_t i = 0; i < S_O; i++)
+				data[i] += T(other[i]);
 			return *this;
 		}
-		basic_numeric_vector<T, S> const& operator-=(basic_numeric_vector<T, S> const& other) {
+		template<typename T_O, size_t S_O, typename = typename std::enable_if<std::is_convertible<T_O, T>::value>::type, typename = typename std::enable_if<(S_O <= S)>::type>
+		basic_numeric_vector<T, S> const& operator-=(basic_numeric_vector<T_O, S_O> const& other) {
 			for (size_t i = 0; i < S; i++)
-				data[i] -= other.data[i];
+				data[i] -= T(other[i]);
 			return *this;
 		}
-		basic_numeric_vector<T, S> const& operator*=(basic_numeric_vector<T, S> const& other) {
+		template<typename T_O, size_t S_O, typename = typename std::enable_if<std::is_convertible<T_O, T>::value>::type, typename = typename std::enable_if<(S_O <= S)>::type>
+		basic_numeric_vector<T, S> const& operator*=(basic_numeric_vector<T_O, S_O> const& other) {
 			for (size_t i = 0; i < S; i++)
-				data[i] *= other.data[i];
+				data[i] *= T(other[i]);
 			return *this;
 		}
-		basic_numeric_vector<T, S> const& operator/=(basic_numeric_vector<T, S> const& other) {
+		template<typename T_O, size_t S_O, typename = typename std::enable_if<std::is_convertible<T_O, T>::value>::type, typename = typename std::enable_if<(S_O <= S)>::type>
+		basic_numeric_vector<T, S> const& operator/=(basic_numeric_vector<T_O, S_O> const& other) {
 			for (size_t i = 0; i < S; i++)
-				data[i] /= other.data[i];
+				data[i] /= T(other[i]);
 			return *this;
 		}
 		basic_numeric_vector<T, S> const& operator*=(T const& q) {
@@ -205,33 +209,49 @@ namespace mgl::math {
 		}
 	};
 
-	template<typename T, size_t S>
-	bool operator==(basic_vector<T, S> const& v1, basic_vector<T, S> const& v2) {
+	template<typename T, size_t S, typename T_O, size_t S_O, typename = typename std::enable_if<std::is_convertible<T_O, T>::value>::type, typename = typename std::enable_if<(S_O == S)>::type>
+	bool operator==(basic_vector<T, S> const& v1, basic_vector<T_O, S_O> const& v2) {
 		for (size_t i = 0; i < S; i++)
 			if (v1[i] != v2[i])
 				return false;
 		return true;
 	}
-	template<typename T, size_t S>
-	bool operator!=(basic_vector<T, S> const& v1, basic_vector<T, S> const& v2) {
+	template<typename T, size_t S, typename T_O, size_t S_O, typename = typename std::enable_if<std::is_convertible<T_O, T>::value>::type, typename = typename std::enable_if<(S_O == S)>::type>
+	bool operator!=(basic_vector<T, S> const& v1, basic_vector<T_O, S_O> const& v2) {
 		return !(v1 == v2);
 	}
 
-	template<typename T, size_t S>
-	basic_numeric_vector<T, S> const operator+(basic_numeric_vector<T, S> const& v1, basic_numeric_vector<T, S> const& v2) {
-		vector_basic<T, S> res = v1;
-		return res += v2;
+	template<typename T, size_t S, typename T_O, size_t S_O, typename = typename std::enable_if<std::is_convertible<T_O, T>::value>::type>
+	auto operator+(basic_numeric_vector<T, S> const& v1, basic_numeric_vector<T_O, S_O> const& v2) {
+		if constexpr (S > S_O) {
+			basic_numeric_vector<decltype(v1[0] + v2[0]), std::max(S, S_O)> res{v1};
+			return res += v2;
+		} else {
+			basic_numeric_vector<decltype(v1[0] + v2[0]), std::max(S, S_O)> res{v2};
+			return res += v1;
+		}
 	}
-	template<typename T, size_t S>
-	basic_numeric_vector<T, S> const operator-(basic_numeric_vector<T, S> const& v1, basic_numeric_vector<T, S> const& v2) {
-		basic_numeric_vector<T, S> res{v1};
-		return res -= v2;
+	template<typename T, size_t S, typename T_O, size_t S_O, typename = typename std::enable_if<std::is_convertible<T_O, T>::value>::type>
+	auto operator-(basic_numeric_vector<T, S> const& v1, basic_numeric_vector<T_O, S_O> const& v2) {
+		if constexpr (S > S_O) {
+			basic_numeric_vector<decltype(v1[0] - v2[0]), std::max(S, S_O)> res{v1};
+			return res -= v2;
+		} else {
+			basic_numeric_vector<decltype(v1[0] - v2[0]), std::max(S, S_O)> res{v2};
+			return res -= v1;
+		}
 	}
-	template<typename T, size_t S>
-	basic_numeric_vector<T, S> const operator*(basic_numeric_vector<T, S> const& v1, basic_numeric_vector<T, S> const& v2) {
-		basic_numeric_vector<T, S> res{v1};
-		return res *= v2;
+	template<typename T, size_t S, typename T_O, size_t S_O, typename = typename std::enable_if<std::is_convertible<T_O, T>::value>::type>
+	auto operator*(basic_numeric_vector<T, S> const& v1, basic_numeric_vector<T_O, S_O> const& v2) {
+		if constexpr (S > S_O) {
+			basic_numeric_vector<decltype(v1[0] * v2[0]), std::max(S, S_O)> res{v1};
+			return res *= v2;
+		} else {
+			basic_numeric_vector<decltype(v1[0] * v2[0]), std::max(S, S_O)> res{v2};
+			return res *= v1;
+		}
 	}
+
 	template<typename T, size_t S>
 	basic_numeric_vector<T, S> const operator*(basic_numeric_vector<T, S> const& v, T const& q) {
 		basic_numeric_vector<T, S> res{v1};
@@ -253,27 +273,53 @@ namespace mgl::math {
 		return res /= q;
 	}
 
-	template<typename T, size_t S>
-	T const operator%(basic_numeric_vector<T, S> const& v1, basic_numeric_vector<T, S> const& v2) {
+	template<typename T, size_t S, typename T_O, size_t S_O, typename = typename std::enable_if<std::is_convertible<T_O, T>::value>::type>
+	T const operator%(basic_numeric_vector<T, S> const& v1, basic_numeric_vector<T_O, S_O> const& v2) {
 		T res = T(0);
-		for (int i = 0; i < S; i++)
+		for (int i = 0; i < std::min(S, S_O); i++)
 			res += v1[i] * v2[i];
 		return res;
 	}
-	template<typename T, size_t S>
-	T const dot(basic_numeric_vector<T, S> const& v1, basic_numeric_vector<T, S> const& v2) {
+	template<typename T, size_t S, typename T_O, size_t S_O, typename = typename std::enable_if<std::is_convertible<T_O, T>::value>::type>
+	T const dot(basic_numeric_vector<T, S> const& v1, basic_numeric_vector<T_O, S_O> const& v2) {
 		return v1 % v2;
 	}
 
-	template<typename T>
-	basic_numeric_vector<T, 3> const operator^(basic_numeric_vector<T, 3> const& v1, basic_numeric_vector<T, 3> const& v2) {
-		return basic_numeric_vector<T, 3>(v1[1] * v2[2] - v2[1] * v1[2],
-										  v1[2] * v2[0] - v2[2] * v1[0],
-										  v1[0] * v2[1] - v2[0] * v1[1]);
+	template<typename T, typename T_O, typename = typename std::enable_if<std::is_convertible<T_O, T>::value>::type>
+	basic_numeric_vector<T, 3> const operator^(basic_numeric_vector<T, 3> const& v1, basic_numeric_vector<T_O, 3> const& v2) {
+		return basic_numeric_vector<decltype(v1[0] * v2[0]), 3>(v1[1] * v2[2] - v2[1] * v1[2],
+																v1[2] * v2[0] - v2[2] * v1[0],
+																v1[0] * v2[1] - v2[0] * v1[1]);
 	}
-	template<typename T>
-	basic_numeric_vector<T, 3> const cross(basic_numeric_vector<T, 3> const& v1, basic_numeric_vector<T, 3> const& v2) {
+	template<typename T, typename T_O, typename = typename std::enable_if<std::is_convertible<T_O, T>::value>::type>
+	basic_numeric_vector<T, 3> const cross(basic_numeric_vector<T, 3> const& v1, basic_numeric_vector<T_O, 3> const& v2) {
 		return v1 ^ v2;
+	}
+	
+	template<typename T, typename T_O, typename = typename std::enable_if<std::is_convertible<T_O, T>::value>::type>
+	basic_numeric_vector<T, 3> const operator^(basic_homogeneous_numeric_vector<T, 3> const& v1, basic_numeric_vector<T_O, 3> const& v2) {
+		return basic_numeric_vector<T, 3>(v1) ^ v2;
+	}
+	template<typename T, typename T_O, typename = typename std::enable_if<std::is_convertible<T_O, T>::value>::type>
+	basic_numeric_vector<T, 3> const operator^(basic_numeric_vector<T, 3> const& v1, basic_homogeneous_numeric_vector<T_O, 3> const& v2) {
+		return v1 ^ basic_numeric_vector<T, 3>(v2);
+	}
+	template<typename T, typename T_O, typename = typename std::enable_if<std::is_convertible<T_O, T>::value>::type>
+	basic_numeric_vector<T, 3> const operator^(basic_homogeneous_numeric_vector<T, 3> const& v1, basic_homogeneous_numeric_vector<T_O, 3> const& v2) {
+		return basic_numeric_vector<T, 3>(v1) ^ basic_numeric_vector<T, 3>(v2);
+	}
+
+	template<typename T, typename T_O, typename = typename std::enable_if<std::is_convertible<T_O, T>::value>::type>
+	basic_numeric_vector<T, 3> const cross(basic_homogeneous_numeric_vector<T, 3> const& v1, basic_numeric_vector<T_O, 3> const& v2) {
+		return basic_numeric_vector<T, 3>(v1) ^ v2;
+	}
+	template<typename T, typename T_O, typename = typename std::enable_if<std::is_convertible<T_O, T>::value>::type>
+	basic_numeric_vector<T, 3> const cross(basic_numeric_vector<T, 3> const& v1, basic_homogeneous_numeric_vector<T_O, 3> const& v2) {
+		return v1 ^ basic_numeric_vector<T, 3>(v2);
+	}
+	template<typename T, typename T_O, typename = typename std::enable_if<std::is_convertible<T_O, T>::value>::type>
+	basic_numeric_vector<T, 3> const cross(basic_homogeneous_numeric_vector<T, 3> const& v1, basic_homogeneous_numeric_vector<T_O, 3> const& v2) {
+		return basic_numeric_vector<T, 3>(v1) ^ basic_numeric_vector<T, 3>(v2);
 	}
 
 	class vector2f : public basic_numeric_vector<float, 2u> { public: using basic_numeric_vector::basic_numeric_vector; };
