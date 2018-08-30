@@ -2,6 +2,9 @@
 #include <cstdint>
 #include <list>
 namespace mgl {
+	enum class VertexConnectionType {
+		Points, Lines, LineStrip, LineLoop, Triangles, TriangleStrip, TriangleFan, Quads, QuadStrip, Polygon
+	};
 	class GlobalStateController;
 	class ShaderVariable;
 
@@ -19,6 +22,8 @@ namespace mgl {
 		void bind(size_t index);
 		void attrib_pointer(size_t index, ShaderVariable const& variable, size_t stride, size_t shift);
 		void attrib_pointer(size_t index, std::list<ShaderVariable> const& variables);
+
+		void draw(size_t index, VertexConnectionType connection, size_t first, size_t count);
 
 		MultiVertexArray(MultiVertexArray const& other) = delete;
 		MultiVertexArray(MultiVertexArray &&other) : MultiVertexArray(other.m_number, other.m_ids) {}
@@ -40,6 +45,10 @@ namespace mgl {
 		}
 		void attrib_pointer(std::list<ShaderVariable> const& variables) {
 			MultiVertexArray::attrib_pointer(0, variables);
+		}
+
+		void draw(VertexConnectionType connection, size_t first, size_t count) {
+			MultiVertexArray::draw(0, connection, first, count);
 		}
 
 		VertexArray(VertexArray &&other) : MultiVertexArray(std::move(other)) {}

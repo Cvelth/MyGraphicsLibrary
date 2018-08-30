@@ -14,6 +14,7 @@ Convertion(ShaderVariableNonArrayDataType);
 Convertion(BufferBindingPoint);
 Convertion(BufferMappedAccess);
 Convertion(BufferDataUsage);
+Convertion(VertexConnectionType);
 
 #include "mgl/exceptions.hpp"
 DefineNewMGLException(EnumConvertionError);

@@ -213,12 +213,12 @@ mgl::BufferMappedAccess mgl::enum_converter::convert_to_BufferMappedAccess(GLenu
 
 GLenum mgl::enum_converter::convert(BufferDataUsage v) {
 	switch (v) {
-		case BufferDataUsage::StreamDraw: return  GL_STREAM_DRAW;
-		case BufferDataUsage::StreamRead: return  GL_STREAM_READ;
-		case BufferDataUsage::StreamCopy: return  GL_STREAM_COPY;
-		case BufferDataUsage::StaticDraw: return  GL_STATIC_DRAW;
-		case BufferDataUsage::StaticRead: return  GL_STATIC_READ;
-		case BufferDataUsage::StaticCopy: return  GL_STATIC_COPY;
+		case BufferDataUsage::StreamDraw: return GL_STREAM_DRAW;
+		case BufferDataUsage::StreamRead: return GL_STREAM_READ;
+		case BufferDataUsage::StreamCopy: return GL_STREAM_COPY;
+		case BufferDataUsage::StaticDraw: return GL_STATIC_DRAW;
+		case BufferDataUsage::StaticRead: return GL_STATIC_READ;
+		case BufferDataUsage::StaticCopy: return GL_STATIC_COPY;
 		case BufferDataUsage::DynamicDraw: return GL_DYNAMIC_DRAW;
 		case BufferDataUsage::DynamicRead: return GL_DYNAMIC_READ;
 		case BufferDataUsage::DynamicCopy: return GL_DYNAMIC_COPY;
@@ -236,6 +236,38 @@ mgl::BufferDataUsage mgl::enum_converter::convert_to_BufferDataUsage(GLenum v) {
 		case GL_DYNAMIC_DRAW: return BufferDataUsage::DynamicDraw;
 		case GL_DYNAMIC_READ: return BufferDataUsage::DynamicRead;
 		case GL_DYNAMIC_COPY: return BufferDataUsage::DynamicCopy;
+		default: throw Exceptions::EnumConvertionError();
+	}
+}
+
+#include "mgl/VertexData/VertexArray.hpp"
+GLenum mgl::enum_converter::convert(VertexConnectionType v) {
+	switch (v) {
+		case VertexConnectionType::Points:				return GL_POINTS;
+		case VertexConnectionType::Lines:				return GL_LINES;
+		case VertexConnectionType::LineStrip:			return GL_LINE_STRIP;
+		case VertexConnectionType::LineLoop:			return GL_LINE_LOOP;
+		case VertexConnectionType::Triangles:			return GL_TRIANGLES;
+		case VertexConnectionType::TriangleStrip:		return GL_TRIANGLE_STRIP;
+		case VertexConnectionType::TriangleFan:			return GL_TRIANGLE_FAN;
+		case VertexConnectionType::Quads:				return GL_QUADS;
+		case VertexConnectionType::QuadStrip:			return GL_QUAD_STRIP;
+		case VertexConnectionType::Polygon:				return GL_POLYGON;
+		default: throw Exceptions::EnumConvertionError();
+	}
+}
+mgl::VertexConnectionType mgl::enum_converter::convert_to_VertexConnectionType(GLenum v) {
+	switch (v) {
+		case GL_POINTS: return VertexConnectionType::Points;
+		case GL_LINES: return VertexConnectionType::Lines;
+		case GL_LINE_STRIP: return VertexConnectionType::LineStrip;
+		case GL_LINE_LOOP: return VertexConnectionType::LineLoop;
+		case GL_TRIANGLES: return VertexConnectionType::Triangles;
+		case GL_TRIANGLE_STRIP: return VertexConnectionType::TriangleStrip;
+		case GL_TRIANGLE_FAN:  return VertexConnectionType::TriangleFan;
+		case GL_QUADS:  return VertexConnectionType::Quads;
+		case GL_QUAD_STRIP:  return VertexConnectionType::QuadStrip;
+		case GL_POLYGON:  return VertexConnectionType::Polygon;
 		default: throw Exceptions::EnumConvertionError();
 	}
 }
