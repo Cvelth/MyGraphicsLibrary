@@ -82,7 +82,13 @@ namespace mgl::math {
 		T const* begin() const {
 			return data;
 		}
+		T* begin() {
+			return data;
+		}
 		T const* end() const {
+			return data + S;
+		}
+		T* end() {
 			return data + S;
 		}
 		bool empty() const {
@@ -146,36 +152,39 @@ namespace mgl::math {
 
 		template<typename T_O, size_t S_O, typename = typename std::enable_if<std::is_convertible<T_O, T>::value>::type, typename = typename std::enable_if<(S_O <= S)>::type>
 		basic_numeric_vector<T, S> const& operator+=(basic_numeric_vector<T_O, S_O> const& other) {
-			for (size_t i = 0; i < S_O; i++)
+			for (size_t i = 0; i < std::min(S, S_O); i++)
 				data[i] += T(other[i]);
 			return *this;
 		}
 		template<typename T_O, size_t S_O, typename = typename std::enable_if<std::is_convertible<T_O, T>::value>::type, typename = typename std::enable_if<(S_O <= S)>::type>
 		basic_numeric_vector<T, S> const& operator-=(basic_numeric_vector<T_O, S_O> const& other) {
-			for (size_t i = 0; i < S; i++)
+			for (size_t i = 0; i < std::min(S, S_O); i++)
 				data[i] -= T(other[i]);
 			return *this;
 		}
 		template<typename T_O, size_t S_O, typename = typename std::enable_if<std::is_convertible<T_O, T>::value>::type, typename = typename std::enable_if<(S_O <= S)>::type>
 		basic_numeric_vector<T, S> const& operator*=(basic_numeric_vector<T_O, S_O> const& other) {
-			for (size_t i = 0; i < S; i++)
+			for (size_t i = 0; i < std::min(S, S_O); i++)
 				data[i] *= T(other[i]);
 			return *this;
 		}
 		template<typename T_O, size_t S_O, typename = typename std::enable_if<std::is_convertible<T_O, T>::value>::type, typename = typename std::enable_if<(S_O <= S)>::type>
 		basic_numeric_vector<T, S> const& operator/=(basic_numeric_vector<T_O, S_O> const& other) {
-			for (size_t i = 0; i < S; i++)
+			for (size_t i = 0; i < std::min(S, S_O); i++)
 				data[i] /= T(other[i]);
 			return *this;
 		}
-		basic_numeric_vector<T, S> const& operator*=(T const& q) {
+
+		template<typename T_O, typename = typename std::enable_if<std::is_convertible<T_O, T>::value>::type>
+		basic_numeric_vector<T, S> const& operator*=(T_O const& q) {
 			for (size_t i = 0; i < S; i++)
-				data[i] *= q;
+				data[i] *= T(q);
 			return *this;
 		}
-		basic_numeric_vector<T, S> const& operator/=(T const& q) {
+		template<typename T_O, typename = typename std::enable_if<std::is_convertible<T_O, T>::value>::type>
+		basic_numeric_vector<T, S> const& operator/=(T_O const& q) {
 			for (size_t i = 0; i < S; i++)
-				data[i] /= q;
+				data[i] /= T(q);
 			return *this;
 		}
 
@@ -261,26 +270,38 @@ namespace mgl::math {
 			return res *= v1;
 		}
 	}
+	template<typename T, size_t S, typename T_O, size_t S_O, typename = typename std::enable_if<std::is_convertible<T_O, T>::value>::type>
+	auto operator/(basic_numeric_vector<T, S> const& v1, basic_numeric_vector<T_O, S_O> const& v2) {
+		if constexpr (S > S_O) {
+			basic_numeric_vector<decltype(v1[0] / v2[0]), std::max(S, S_O)> res{v1};
+			return res /= v2;
+		} else {
+			basic_numeric_vector<decltype(v1[0] / v2[0]), std::max(S, S_O)> res{v2};
+			return res /= v1;
+		}
+	}
 
-	template<typename T, size_t S>
-	basic_numeric_vector<T, S> const operator*(basic_numeric_vector<T, S> const& v, T const& q) {
-		basic_numeric_vector<T, S> res{v1};
+	template<typename T, size_t S, typename T_O, typename = typename std::enable_if<std::is_convertible<T_O, T>::value>::type>
+	auto const operator*(basic_numeric_vector<T, S> const& v, T_O const& q) {
+		basic_numeric_vector<decltype(v[0] * q), S> res{v};
 		return res *= q;
 	}
-	template<typename T, size_t S>
-	basic_numeric_vector<T, S> const operator*(T const& q, basic_numeric_vector<T, S> const& v) {
-		basic_numeric_vector<T, S> res{v1};
+	template<typename T, size_t S, typename T_O, typename = typename std::enable_if<std::is_convertible<T_O, T>::value>::type>
+	auto const operator*(T_O const& q, basic_numeric_vector<T, S> const& v) {
+		basic_numeric_vector<decltype(v[0] * q), S> res{v};
 		return res *= q;
 	}
-	template<typename T, size_t S>
-	basic_numeric_vector<T, S> const operator/(basic_numeric_vector<T, S> const& v1, basic_numeric_vector<T, S> const& v2) {
-		basic_numeric_vector<T, S> res{v1};
-		return res /= v2;
-	}
-	template<typename T, size_t S>
-	basic_numeric_vector<T, S> const operator/(basic_numeric_vector<T, S> const& v, T const& q) {
-		basic_numeric_vector<T, S> res{v1};
+	template<typename T, size_t S, typename T_O, typename = typename std::enable_if<std::is_convertible<T_O, T>::value>::type>
+	auto const operator/(basic_numeric_vector<T, S> const& v, T_O const& q) {
+		basic_numeric_vector<decltype(v[0] / q), S> res{v};
 		return res /= q;
+	}
+	template<typename T, size_t S, typename T_O, typename = typename std::enable_if<std::is_convertible<T_O, T>::value>::type>
+	auto const operator/(T_O const& q, basic_numeric_vector<T, S> const& v) {
+		basic_numeric_vector<decltype(v[0] / q), S> res{v};
+		for (auto &it : res)
+			it = q / it;
+		return res;
 	}
 
 	template<typename T, size_t S, typename T_O, size_t S_O, typename = typename std::enable_if<std::is_convertible<T_O, T>::value>::type>
