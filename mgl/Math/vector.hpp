@@ -20,15 +20,23 @@ namespace mgl::math {
 		template <typename... Tail>
 		basic_vector(typename std::enable_if<sizeof...(Tail) + 1 <= S, T>::type head = T(0),
 					 Tail... tail) : data{head, T(tail)...} {}
-		template<typename T_O, size_t S_O, typename = typename std::enable_if<std::is_convertible<T_O, T>::value>::type, typename = typename std::enable_if<S_O <= S>::type>
-		basic_vector(basic_vector<T_O, S_O> const& other) {
+		template<typename T_O, size_t S_O, typename = typename std::enable_if<std::is_convertible<T_O, T>::value>::type>
+		basic_vector(basic_vector<T_O, S_O> const& other, typename std::enable_if<(S_O <= S), void*>::type less = nullptr) {
 			std::copy(other.begin(), other.end(), data);
 			std::fill(data + S_O, data + S, T(0));
 		}
-		template<typename T_O, size_t S_O, typename = typename std::enable_if<std::is_convertible<T_O, T>::value>::type, typename = typename std::enable_if<S_O <= S>::type>
-		basic_vector(basic_vector<T_O, S_O>&& other) {
+		template<typename T_O, size_t S_O, typename = typename std::enable_if<std::is_convertible<T_O, T>::value>::type>
+		basic_vector(basic_vector<T_O, S_O> &&other, typename std::enable_if<(S_O <= S), void*>::type less = nullptr) {
 			std::move(other.begin(), other.end(), data);
 			std::fill(data + S_O, data + S, T(0));
+		}
+		template<typename T_O, size_t S_O, typename = typename std::enable_if<std::is_convertible<T_O, T>::value>::type>
+		explicit basic_vector(basic_vector<T_O, S_O> const& other, typename std::enable_if<(S_O > S), void*>::type more = nullptr) {
+			std::copy(other.begin(), other.begin() + S, data);
+		}
+		template<typename T_O, size_t S_O, typename = typename std::enable_if<std::is_convertible<T_O, T>::value>::type>
+		explicit basic_vector(basic_vector<T_O, S_O> &&other, typename std::enable_if<(S_O > S), void*>::type more = nullptr) {
+			std::move(other.begin(), other.begin() + S, data);
 		}
 		basic_vector(std::initializer_list<T> const& inputs) {
 			if (inputs.size() > S)
@@ -176,12 +184,18 @@ namespace mgl::math {
 		template<typename... Tail>
 		basic_homogeneous_numeric_vector(typename std::enable_if<sizeof...(Tail) == S, T>::type head = T(0),
 										 Tail... tail) : basic_numeric_vector<T, S + 1>(head, tail...) {}
-		template<typename T_O, size_t S_O, typename = typename std::enable_if<std::is_convertible<T_O, T>::value>::type, typename = typename std::enable_if<S_O <= S + 1>::type>
-		basic_homogeneous_numeric_vector(basic_vector<T_O, S_O> const& other)
+		template<typename T_O, size_t S_O, typename = typename std::enable_if<std::is_convertible<T_O, T>::value>::type>
+		basic_homogeneous_numeric_vector(basic_vector<T_O, S_O> const& other, typename std::enable_if<(S_O <= S + 1), void*>::type less = nullptr)
 			: basic_numeric_vector<T, S + 1>(other) { data[S] = T(1); }
-		template<typename T_O, size_t S_O, typename = typename std::enable_if<std::is_convertible<T_O, T>::value>::type, typename = typename std::enable_if<S_O <= S + 1>::type>
-		basic_homogeneous_numeric_vector(basic_vector<T_O, S_O>&& other)
+		template<typename T_O, size_t S_O, typename = typename std::enable_if<std::is_convertible<T_O, T>::value>::type>
+		basic_homogeneous_numeric_vector(basic_vector<T_O, S_O> &&other, typename std::enable_if<(S_O <= S + 1), void*>::type less = nullptr)
 			: basic_numeric_vector<T, S + 1>(other) { data[S] = T(1); }
+		template<typename T_O, size_t S_O, typename = typename std::enable_if<std::is_convertible<T_O, T>::value>::type>
+		explicit basic_homogeneous_numeric_vector(basic_vector<T_O, S_O> const& other, typename std::enable_if<(S_O > S + 1), void*>::type more = nullptr)
+			: basic_numeric_vector<T, S + 1>(other) {}
+		template<typename T_O, size_t S_O, typename = typename std::enable_if<std::is_convertible<T_O, T>::value>::type>
+		explicit basic_homogeneous_numeric_vector(basic_vector<T_O, S_O> &&other, typename std::enable_if<(S_O > S + 1), void*>::type more = nullptr)
+			: basic_numeric_vector<T, S + 1>(other) {}
 		basic_homogeneous_numeric_vector(T* inputs) : basic_numeric_vector<T, S + 1>(inputs) { data[S] = T(1); }
 		basic_homogeneous_numeric_vector(std::initializer_list<T> const& inputs) : basic_numeric_vector<T, S + 1>(inputs) {
 			data[S] = T(1);
@@ -210,32 +224,32 @@ namespace mgl::math {
 	}
 	template<typename T, size_t S>
 	basic_numeric_vector<T, S> const operator-(basic_numeric_vector<T, S> const& v1, basic_numeric_vector<T, S> const& v2) {
-		vector_basic<T, S> res = v1;
+		basic_numeric_vector<T, S> res{v1};
 		return res -= v2;
 	}
 	template<typename T, size_t S>
 	basic_numeric_vector<T, S> const operator*(basic_numeric_vector<T, S> const& v1, basic_numeric_vector<T, S> const& v2) {
-		vector_basic<T, S> res = v1;
+		basic_numeric_vector<T, S> res{v1};
 		return res *= v2;
 	}
 	template<typename T, size_t S>
 	basic_numeric_vector<T, S> const operator*(basic_numeric_vector<T, S> const& v, T const& q) {
-		vector_basic<T, S> res = v;
+		basic_numeric_vector<T, S> res{v1};
 		return res *= q;
 	}
 	template<typename T, size_t S>
 	basic_numeric_vector<T, S> const operator*(T const& q, basic_numeric_vector<T, S> const& v) {
-		vector_basic<T, S> res = v;
+		basic_numeric_vector<T, S> res{v1};
 		return res *= q;
 	}
 	template<typename T, size_t S>
 	basic_numeric_vector<T, S> const operator/(basic_numeric_vector<T, S> const& v1, basic_numeric_vector<T, S> const& v2) {
-		vector_basic<T, S> res = v1;
+		basic_numeric_vector<T, S> res{v1};
 		return res /= v2;
 	}
 	template<typename T, size_t S>
 	basic_numeric_vector<T, S> const operator/(basic_numeric_vector<T, S> const& v, T const& q) {
-		vector_basic<T, S> res = v;
+		basic_numeric_vector<T, S> res{v1};
 		return res /= q;
 	}
 
