@@ -28,6 +28,10 @@ namespace mgl {
 		_2x3, _3x3, _4x3,
 		_2x4, _3x4, _4x4
 	};
+	namespace enum_converter {
+		std::pair<ShaderVariableNonArrayDataType, ShaderVariableArrayType> convert_variable_type(ShaderVariableDataType const& v);
+		ShaderVariableDataType convert_variable_type(std::pair<ShaderVariableNonArrayDataType, ShaderVariableArrayType> const& v);
+	}
 
 	class ShaderVariable {
 	public:
@@ -39,12 +43,12 @@ namespace mgl {
 		explicit ShaderVariable(std::string const& name, ShaderVariableType const& type,
 								int location, ShaderVariableDataType const& d_type)
 			: name(name), type(type), location(location), data_type(d_type) {}
-	};
 
-	namespace enum_converter {
-		std::pair<ShaderVariableNonArrayDataType, ShaderVariableArrayType> convert_variable_type(ShaderVariableDataType const& v);
-		ShaderVariableDataType convert_variable_type(std::pair<ShaderVariableNonArrayDataType, ShaderVariableArrayType> const& v);
-		size_t convert_to_number(ShaderVariableArrayType const& v);
-		size_t get_size(ShaderVariableNonArrayDataType const& v);
-	}
+		std::pair<size_t, size_t> dimention_sizes() const;
+		size_t type_size() const;
+		inline size_t size() const {
+			auto t = dimention_sizes();
+			return type_size() * t.first * t.second;
+		}
+	};
 }
