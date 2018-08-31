@@ -8,6 +8,7 @@ namespace mgl::math {
 	enum MatrixValue { ZeroMatrix = 0, IdentityMatrix = 1 };
 	template<typename T, size_t R, size_t C>
 	class basic_matrix : public basic_vector<basic_vector<T, C>, R> {
+	public:
 		using row_type = basic_vector<T, C>;
 		using base_type = basic_vector<row_type, R>;
 	protected:
@@ -49,16 +50,28 @@ namespace mgl::math {
 			set_rows(0, head, tail...);
 		}
 		basic_matrix(std::initializer_list<std::initializer_list<T>> const& list) : basic_vector<basic_vector<T, C>, R>() {
+			if (list.size() > R)
+				throw Exceptions::MatrixIndexOutOfBounds("Too many inputs.");
 			size_t r = 0;
-			for (auto &it : list)
+			for (auto &it : list) {
+				if (it.size() > C)
+					throw Exceptions::MatrixIndexOutOfBounds("Too many inputs.");
 				data[r++] = row_type(it);
+			}
 		}
 		basic_matrix(std::initializer_list<std::initializer_list<T>> &&list) : basic_vector<basic_vector<T, C>, R>() {
+			if (list.size() > R)
+				throw Exceptions::MatrixIndexOutOfBounds("Too many inputs.");
 			size_t r = 0;
-			for (auto &it : list)
+			for (auto &it : list) {
+				if (it.size() > C)
+					throw Exceptions::MatrixIndexOutOfBounds("Too many inputs.");
 				data[r++] = row_type(it);
+			}
 		}
 		basic_matrix(std::initializer_list<T> const& list) : basic_vector<basic_vector<T, C>, R>() {
+			if (list.size() > R)
+				throw Exceptions::MatrixIndexOutOfBounds("Too many inputs.");
 			size_t r = 0, c = 0;
 			for (auto &it : list) {
 				data[r][c] = it;
@@ -69,6 +82,8 @@ namespace mgl::math {
 			}
 		}
 		basic_matrix(std::initializer_list<T> &&list) : basic_vector<basic_vector<T, C>, R>() {
+			if (list.size() > R * C)
+				throw Exceptions::MatrixIndexOutOfBounds("Too many inputs.");
 			size_t r = 0, c = 0;
 			for (auto &it : list) {
 				data[r][c] = it;
