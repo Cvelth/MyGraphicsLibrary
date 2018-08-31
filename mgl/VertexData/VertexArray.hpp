@@ -58,3 +58,4 @@ namespace mgl {
 #include "mgl/exceptions.hpp"
 DefineNewMGLException(VertexArrayCreationError)
 DefineNewMGLException(MultiVertexArrayIndexOutOfBounds)
+DefineNewMGLException(AttribPointerError)
