@@ -27,18 +27,28 @@ void mgl::MultiVertexArray::attrib_pointer(size_t index, ShaderVariable const& v
 	if (GlobalStateController::bound_buffer(mgl::BufferBindingPoint::ArrayBuffer).first == nullptr)
 		throw Exceptions::AttribPointerError("attrib_pointer cannot be called without a buffer with vertex data being bound to BufferBindingPoint::ArrayBuffer.");
 	bind(index);
-	auto type = enum_converter::convert_variable_type(variable.data_type);
-	glVertexAttribPointer(variable.location, GLint(enum_converter::convert_to_number(type.second)), 
-						  GLsizei(enum_converter::convert(type.first)), GL_FALSE, GLsizei(stride), (const void*) shift);
-	glEnableVertexAttribArray(variable.location);
+	auto dims = variable.dimention_sizes();
+	for (int i = 0; i < dims.first; i++) {
+		glVertexAttribPointer(variable.location + i, GLint(dims.first * dims.second),
+							  enum_converter::convert(enum_converter::convert_variable_type(variable.data_type).first), 
+							  GL_FALSE, GLsizei(stride), (const void*) shift);
+		glEnableVertexAttribArray(variable.location + i);
+	}
+}
+void mgl::MultiVertexArray::attrib_divisor(size_t index, ShaderVariable const & variable, size_t divisor) {
+	bind(index);
+	for (int i = 0; i < variable.dimention_sizes().first; i++)
+		glVertexAttribDivisor(variable.location, GLuint(divisor));
+}
+void mgl::MultiVertexArray::attrib_pointer(size_t index, ShaderVariable const& variable, size_t stride, size_t shift, size_t divisor) {
+	attrib_pointer(index, variable, stride, shift);
+	attrib_divisor(index, variable, divisor);
 }
 namespace mgl {
 	size_t count_size(std::list<ShaderVariable> const& variables) {
 		size_t ret = 0u;
-		for (auto &it : variables) {
-			auto type = enum_converter::convert_variable_type(it.data_type);
-			ret += enum_converter::get_size(type.first) * enum_converter::convert_to_number(type.second);
-		}
+		for (auto &it : variables)
+			ret += it.size();
 		return ret;
 	}
 }
@@ -47,7 +57,7 @@ void mgl::MultiVertexArray::attrib_pointer(size_t index, std::list<ShaderVariabl
 	size_t shift = 0u;
 	for (auto &it : variables) {
 		attrib_pointer(index, it, stride, shift);
-		shift += enum_converter::get_size(enum_converter::convert_variable_type(it.data_type).first);
+		shift += it.size();
 	}
 }
 
@@ -116,4 +126,17 @@ void mgl::MultiVertexArray::draw_multiple_indexed_indirect(size_t index, VertexC
 		throw Exceptions::AttribPointerError("Indirect draw is impossible without a buffer with draw data being bound to BufferBindingPoint::DrawIndirectBuffer.");
 	bind(index);
 	glMultiDrawElementsIndirect(enum_converter::convert(connection), enum_converter::convert(type), (void*) (byte_offset), GLsizei(drawcount), GLsizei(stride));
+}
+void mgl::MultiVertexArray::draw_instanced(size_t index, size_t draw_count, VertexConnectionType connection, size_t count, size_t first) {
+	bind(index);
+	glDrawArraysInstanced(enum_converter::convert(connection), GLint(first), GLsizei(count), GLsizei(draw_count));
+}
+void mgl::MultiVertexArray::draw_instanced_indexed(size_t index, size_t draw_count, VertexConnectionType connection, size_t count, size_t first, int base_vertex, DrawIndexType type) {
+	if (GlobalStateController::bound_buffer(mgl::BufferBindingPoint::ElementArrayBuffer).first == nullptr)
+		throw Exceptions::AttribPointerError("Indexed draw is impossible without a buffer with index data being bound to BufferBindingPoint::ElementArrayBuffer.");
+	bind(index);
+	if (base_vertex)
+		glDrawElementsInstancedBaseVertex(enum_converter::convert(connection), GLsizei(count), enum_converter::convert(type), (void*) (first * size_t(type)), GLsizei(draw_count), GLint(base_vertex));
+	else
+		glDrawElementsInstanced(enum_converter::convert(connection), GLsizei(count), enum_converter::convert(type), (void*) (first * size_t(type)), GLsizei(draw_count));
 }
