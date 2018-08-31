@@ -15,6 +15,7 @@ Convertion(BufferBindingPoint);
 Convertion(BufferMappedAccess);
 Convertion(BufferDataUsage);
 Convertion(VertexConnectionType);
+Convertion(DrawIndexType);
 
 #include "mgl/exceptions.hpp"
 DefineNewMGLException(EnumConvertionError);

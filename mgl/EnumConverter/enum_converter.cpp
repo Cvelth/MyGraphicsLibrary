@@ -243,16 +243,16 @@ mgl::BufferDataUsage mgl::enum_converter::convert_to_BufferDataUsage(GLenum v) {
 #include "mgl/VertexData/VertexArray.hpp"
 GLenum mgl::enum_converter::convert(VertexConnectionType v) {
 	switch (v) {
-		case VertexConnectionType::Points:				return GL_POINTS;
-		case VertexConnectionType::Lines:				return GL_LINES;
-		case VertexConnectionType::LineStrip:			return GL_LINE_STRIP;
-		case VertexConnectionType::LineLoop:			return GL_LINE_LOOP;
-		case VertexConnectionType::Triangles:			return GL_TRIANGLES;
-		case VertexConnectionType::TriangleStrip:		return GL_TRIANGLE_STRIP;
-		case VertexConnectionType::TriangleFan:			return GL_TRIANGLE_FAN;
-		case VertexConnectionType::Quads:				return GL_QUADS;
-		case VertexConnectionType::QuadStrip:			return GL_QUAD_STRIP;
-		case VertexConnectionType::Polygon:				return GL_POLYGON;
+		case VertexConnectionType::Points: return GL_POINTS;
+		case VertexConnectionType::Lines: return GL_LINES;
+		case VertexConnectionType::LineStrip: return GL_LINE_STRIP;
+		case VertexConnectionType::LineLoop: return GL_LINE_LOOP;
+		case VertexConnectionType::Triangles: return GL_TRIANGLES;
+		case VertexConnectionType::TriangleStrip: return GL_TRIANGLE_STRIP;
+		case VertexConnectionType::TriangleFan: return GL_TRIANGLE_FAN;
+		case VertexConnectionType::Quads: return GL_QUADS;
+		case VertexConnectionType::QuadStrip: return GL_QUAD_STRIP;
+		case VertexConnectionType::Polygon: return GL_POLYGON;
 		default: throw Exceptions::EnumConvertionError();
 	}
 }
@@ -268,6 +268,22 @@ mgl::VertexConnectionType mgl::enum_converter::convert_to_VertexConnectionType(G
 		case GL_QUADS:  return VertexConnectionType::Quads;
 		case GL_QUAD_STRIP:  return VertexConnectionType::QuadStrip;
 		case GL_POLYGON:  return VertexConnectionType::Polygon;
+		default: throw Exceptions::EnumConvertionError();
+	}
+}
+GLenum mgl::enum_converter::convert(DrawIndexType v) {
+	switch (v) {
+		case DrawIndexType::OneByte: return GL_UNSIGNED_BYTE;
+		case DrawIndexType::TwoByte: return GL_UNSIGNED_SHORT;
+		case DrawIndexType::FourByte: return GL_UNSIGNED_INT;
+		default: throw Exceptions::EnumConvertionError();
+	}
+}
+mgl::DrawIndexType mgl::enum_converter::convert_to_DrawIndexType(GLenum v) {
+	switch (v) {
+		case GL_UNSIGNED_BYTE: return DrawIndexType::OneByte;
+		case GL_UNSIGNED_SHORT: return DrawIndexType::TwoByte;
+		case GL_UNSIGNED_INT: return DrawIndexType::FourByte;
 		default: throw Exceptions::EnumConvertionError();
 	}
 }
