@@ -18,11 +18,14 @@ mgl::MultiVertexArray::~MultiVertexArray() {
 #include "mgl/EnumConverter/enum_converter.hpp"
 #include "mgl/GlobalStateController/GlobalStateController.hpp"
 #include "mgl/ShaderProgram/ShaderVariable.hpp"
+#include "Buffer.hpp"
 void mgl::MultiVertexArray::bind(size_t index) {
 	if (index >= m_number) throw Exceptions::MultiVertexArrayIndexOutOfBounds();
 	GlobalStateController::bind_vertex_array(this, index);
 }
 void mgl::MultiVertexArray::attrib_pointer(size_t index, ShaderVariable const& variable, size_t stride, size_t shift) {
+	if (GlobalStateController::bound_buffer(mgl::BufferBindingPoint::ArrayBuffer).first == nullptr)
+		throw Exceptions::AttribPointerError("attrib_pointer cannot be called without a buffer with vertex data being bound to BufferBindingPoint::ArrayBuffer.");
 	bind(index);
 	auto type = enum_converter::convert_variable_type(variable.data_type);
 	glVertexAttribPointer(variable.location, GLint(enum_converter::convert_to_number(type.second)), 
