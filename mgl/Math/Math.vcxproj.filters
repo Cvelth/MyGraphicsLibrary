@@ -23,4 +23,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="transformation.hpp">
+      <Filter>Header Files</Filter>
+    </None>
+  </ItemGroup>
 </Project>
