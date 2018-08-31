@@ -16,9 +16,9 @@ namespace mgl::math {
 			return *this;
 		}
 		template <typename T_O, typename = typename std::enable_if<std::is_convertible<T_O, T>::value>::type>
-		basic_transformation<T, S> translate(basic_homogeneous_vector<T_O, S>) {
+		basic_transformation<T, S> scale(basic_vector<T_O, S> const& direction) {
 			for (size_t r = 0; r < S + 1; r++)
-				data[r][S] += dot(data[r], direction);
+				data[r] *= direction;
 			return *this;
 		}
 	};
@@ -35,7 +35,10 @@ namespace mgl::math {
 		return ret.translate(direction); 
 	}
 	transformation rotation(vector::value_type const& angle, vector const& axis) { return transformation(); }
-	transformation scaling(vector const& direction) { return transformation(); }
+	transformation scaling(vector const& direction) {
+		transformation ret;
+		return ret.scale(direction);
+	}
 	transformation orthographic_projection(basic_vector<vector2f, 3> const& edges) { return transformation(); }
 	transformation perspective_projection(basic_vector<vector2f, 3> const& edges) { return transformation(); }
 
