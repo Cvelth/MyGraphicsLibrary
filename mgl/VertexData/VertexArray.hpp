@@ -39,8 +39,8 @@ namespace mgl {
 		void draw_multiple_indirect(size_t index, VertexConnectionType connection, size_t drawcount, size_t byte_offset = 0, size_t stride = 0);
 		void draw_multiple_indexed_indirect(size_t index, VertexConnectionType connection, size_t drawcount, DrawIndexType type = DrawIndexType::TwoByte, size_t byte_offset = 0, size_t stride = 0);
 
-		void draw_instanced(size_t index, size_t draw_count, VertexConnectionType connection, size_t count, size_t first = 0);
-		void draw_instanced_indexed(size_t index, size_t draw_count, VertexConnectionType connection, size_t count, size_t first = 0, int base_vertex = 0, DrawIndexType type = DrawIndexType::TwoByte);
+		void draw_instanced(size_t index, size_t draw_count, VertexConnectionType connection, size_t count, size_t first = 0, int base_instance = 0);
+		void draw_instanced_indexed(size_t index, size_t draw_count, VertexConnectionType connection, size_t count, size_t first = 0, int base_vertex = 0, int base_instance = 0, DrawIndexType type = DrawIndexType::TwoByte);
 
 		MultiVertexArray(MultiVertexArray const& other) = delete;
 		MultiVertexArray(MultiVertexArray &&other) : MultiVertexArray(other.m_number, other.m_ids) {}
@@ -100,11 +100,11 @@ namespace mgl {
 		void draw_multiple_indexed_indirect(size_t index, VertexConnectionType connection, size_t drawcount, DrawIndexType type = DrawIndexType::TwoByte, size_t byte_offset = 0, size_t stride = 0) {
 			MultiVertexArray::draw_multiple_indexed_indirect(0, connection, drawcount, type, byte_offset, stride);
 		}
-		void draw_instanced(size_t index, size_t draw_count, VertexConnectionType connection, size_t count, size_t first = 0) {
-			MultiVertexArray::draw_instanced(0, draw_count, connection, count, first);
+		void draw_instanced(size_t index, size_t draw_count, VertexConnectionType connection, size_t count, size_t first = 0, int base_instance = 0) {
+			MultiVertexArray::draw_instanced(0, draw_count, connection, count, first, base_instance);
 		}
-		void draw_instanced_indexed(size_t index, size_t draw_count, VertexConnectionType connection, size_t count, size_t first = 0, int base_vertex = 0, DrawIndexType type = DrawIndexType::TwoByte) {
-			MultiVertexArray::draw_instanced_indexed(0, draw_count, connection, count, first, base_vertex, type);
+		void draw_instanced_indexed(size_t index, size_t draw_count, VertexConnectionType connection, size_t count, size_t first = 0, int base_vertex = 0, int base_instance = 0, DrawIndexType type = DrawIndexType::TwoByte) {
+			MultiVertexArray::draw_instanced_indexed(0, draw_count, connection, count, first, base_vertex, base_instance, type);
 		}
 
 		VertexArray(VertexArray &&other) : MultiVertexArray(std::move(other)) {}
