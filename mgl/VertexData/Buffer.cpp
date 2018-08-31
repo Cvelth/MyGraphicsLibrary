@@ -28,6 +28,16 @@ void mgl::MultiBuffer::data(size_t index, void *data, size_t size_of_data, Buffe
 	glBufferData(mgl::enum_converter::convert(binding_point), size_of_data, 
 				 data, mgl::enum_converter::convert(usage));
 }
+void mgl::MultiBuffer::data(size_t index, size_t size_of_data, BufferDataUsage usage, BufferBindingPoint binding_point) {
+	bind(index, binding_point);
+	glBufferData(mgl::enum_converter::convert(binding_point), size_of_data,
+				 NULL, mgl::enum_converter::convert(usage));
+}
+void mgl::MultiBuffer::subdata(size_t index, void * data, size_t size_of_data, size_t offset, BufferBindingPoint binding_point) {
+	bind(index, binding_point);
+	glBufferSubData(mgl::enum_converter::convert(binding_point), offset,
+					size_of_data, data);
+}
 void* mgl::MultiBuffer::map(size_t index, BufferMappedAccess access, BufferBindingPoint binding_point) {
 	if (m_mapped_pointer)
 		if (index == m_mapped_id)
@@ -45,4 +55,22 @@ void mgl::MultiBuffer::unmap(BufferBindingPoint binding_point) {
 
 	bind(m_mapped_id, binding_point);
 	glUnmapBuffer(mgl::enum_converter::convert(binding_point));
+}
+void mgl::MultiBuffer::copy(size_t destination_index, MultiBuffer &source, size_t source_index, size_t size_of_data, size_t read_offset, size_t write_offset) {
+	bind(destination_index, BufferBindingPoint::CopyWriteBuffer);
+	source.bind(destination_index, BufferBindingPoint::CopyReadBuffer);
+	glCopyBufferSubData(mgl::enum_converter::convert(BufferBindingPoint::CopyReadBuffer),
+						mgl::enum_converter::convert(BufferBindingPoint::CopyWriteBuffer),
+						read_offset, write_offset, size_of_data);
+}
+void mgl::MultiBuffer::copy(size_t destination_index, size_t source_index, size_t size_of_data, size_t read_offset, size_t write_offset) {
+	copy(destination_index, *this, source_index, size_of_data, read_offset, write_offset);
+}
+void mgl::MultiBuffer::invalidate(size_t index, size_t size_of_data, size_t offset) {
+	if (index >= m_number) throw Exceptions::MultiBufferIndexOutOfBounds();
+	glInvalidateBufferSubData(m_ids[index], offset, size_of_data);
+}
+void mgl::MultiBuffer::invalidate(size_t index) {
+	if (index >= m_number) throw Exceptions::MultiBufferIndexOutOfBounds();
+	glInvalidateBufferData(m_ids[index]);
 }
