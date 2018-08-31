@@ -24,6 +24,8 @@ namespace mgl {
 
 		void bind(size_t index);
 		void attrib_pointer(size_t index, ShaderVariable const& variable, size_t stride, size_t shift);
+		void attrib_divisor(size_t index, ShaderVariable const& variable, size_t divisor);
+		void attrib_pointer(size_t index, ShaderVariable const& variable, size_t stride, size_t shift, size_t divisor);
 		void attrib_pointer(size_t index, std::list<ShaderVariable> const& variables);
 
 		void draw(size_t index, VertexConnectionType connection, size_t count, size_t first = 0);
@@ -36,6 +38,9 @@ namespace mgl {
 		void draw_multiple_indexed(size_t index, VertexConnectionType connection, size_t drawcount, int const* counts, int const* byte_offsets, int const* base_vertices, DrawIndexType type = DrawIndexType::TwoByte);
 		void draw_multiple_indirect(size_t index, VertexConnectionType connection, size_t drawcount, size_t byte_offset = 0, size_t stride = 0);
 		void draw_multiple_indexed_indirect(size_t index, VertexConnectionType connection, size_t drawcount, DrawIndexType type = DrawIndexType::TwoByte, size_t byte_offset = 0, size_t stride = 0);
+
+		void draw_instanced(size_t index, size_t draw_count, VertexConnectionType connection, size_t count, size_t first = 0);
+		void draw_instanced_indexed(size_t index, size_t draw_count, VertexConnectionType connection, size_t count, size_t first = 0, int base_vertex = 0, DrawIndexType type = DrawIndexType::TwoByte);
 
 		MultiVertexArray(MultiVertexArray const& other) = delete;
 		MultiVertexArray(MultiVertexArray &&other) : MultiVertexArray(other.m_number, other.m_ids) {}
@@ -55,8 +60,14 @@ namespace mgl {
 		void attrib_pointer(ShaderVariable const& variable, size_t stride, size_t shift) {
 			MultiVertexArray::attrib_pointer(0, variable, stride, shift);
 		}
+		void attrib_pointer(size_t index, ShaderVariable const& variable, size_t stride, size_t shift, size_t divisor) {
+			MultiVertexArray::attrib_pointer(0, variable, stride, shift, divisor);
+		}
 		void attrib_pointer(std::list<ShaderVariable> const& variables) {
 			MultiVertexArray::attrib_pointer(0, variables);
+		}
+		void attrib_divisor(size_t index, ShaderVariable const& variable, size_t divisor) {
+			MultiVertexArray::attrib_divisor(0, variable, divisor);
 		}
 
 		void draw(VertexConnectionType connection, size_t count, size_t first) {
@@ -88,6 +99,12 @@ namespace mgl {
 		}
 		void draw_multiple_indexed_indirect(size_t index, VertexConnectionType connection, size_t drawcount, DrawIndexType type = DrawIndexType::TwoByte, size_t byte_offset = 0, size_t stride = 0) {
 			MultiVertexArray::draw_multiple_indexed_indirect(0, connection, drawcount, type, byte_offset, stride);
+		}
+		void draw_instanced(size_t index, size_t draw_count, VertexConnectionType connection, size_t count, size_t first = 0) {
+			MultiVertexArray::draw_instanced(0, draw_count, connection, count, first);
+		}
+		void draw_instanced_indexed(size_t index, size_t draw_count, VertexConnectionType connection, size_t count, size_t first = 0, int base_vertex = 0, DrawIndexType type = DrawIndexType::TwoByte) {
+			MultiVertexArray::draw_instanced_indexed(0, draw_count, connection, count, first, base_vertex, type);
 		}
 
 		VertexArray(VertexArray &&other) : MultiVertexArray(std::move(other)) {}
