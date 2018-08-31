@@ -1,4 +1,17 @@
 #include "ShaderVariable.hpp"
+namespace mgl {
+	namespace enum_converter {
+		std::pair<size_t, size_t> convert_to_numbers(ShaderVariableArrayType const& v);
+		size_t get_size(ShaderVariableNonArrayDataType const& v);
+	}
+}
+std::pair<size_t, size_t> mgl::ShaderVariable::dimention_sizes() const {
+	return enum_converter::convert_to_numbers(enum_converter::convert_variable_type(data_type).second);
+}
+size_t mgl::ShaderVariable::type_size() const {
+	return enum_converter::get_size(enum_converter::convert_variable_type(data_type).first);
+}
+
 #include "mgl/EnumConverter/enum_converter.hpp"
 std::pair<mgl::ShaderVariableNonArrayDataType, mgl::ShaderVariableArrayType> mgl::enum_converter::convert_variable_type(ShaderVariableDataType const& v) {
 	switch (v) {
@@ -117,21 +130,21 @@ mgl::ShaderVariableDataType mgl::enum_converter::convert_variable_type(std::pair
 	}
 }
 
-size_t mgl::enum_converter::convert_to_number(ShaderVariableArrayType const& v) {
+std::pair<size_t, size_t> mgl::enum_converter::convert_to_numbers(ShaderVariableArrayType const& v) {
 	switch (v) {
-		case ShaderVariableArrayType::_1: return 1;
-		case ShaderVariableArrayType::_2: return 2;
-		case ShaderVariableArrayType::_3: return 3;
-		case ShaderVariableArrayType::_4: return 4;
-		case ShaderVariableArrayType::_2x2:	return 4;
-		case ShaderVariableArrayType::_3x2:	return 6;
-		case ShaderVariableArrayType::_4x2:	return 8;
-		case ShaderVariableArrayType::_2x3:	return 6;
-		case ShaderVariableArrayType::_3x3:	return 9;
-		case ShaderVariableArrayType::_4x3:	return 12;
-		case ShaderVariableArrayType::_2x4:	return 8;
-		case ShaderVariableArrayType::_3x4:	return 12;
-		case ShaderVariableArrayType::_4x4:	return 16;
+		case ShaderVariableArrayType::_1: return std::make_pair(1, 1);
+		case ShaderVariableArrayType::_2: return std::make_pair(1, 2);
+		case ShaderVariableArrayType::_3: return std::make_pair(1, 3);
+		case ShaderVariableArrayType::_4: return std::make_pair(1, 4);
+		case ShaderVariableArrayType::_2x2:	return std::make_pair(2, 2);
+		case ShaderVariableArrayType::_3x2:	return std::make_pair(3, 2);
+		case ShaderVariableArrayType::_4x2:	return std::make_pair(4, 2);
+		case ShaderVariableArrayType::_2x3:	return std::make_pair(2, 3);
+		case ShaderVariableArrayType::_3x3:	return std::make_pair(3, 3);
+		case ShaderVariableArrayType::_4x3:	return std::make_pair(4, 3);
+		case ShaderVariableArrayType::_2x4:	return std::make_pair(2, 4);
+		case ShaderVariableArrayType::_3x4:	return std::make_pair(3, 4);
+		case ShaderVariableArrayType::_4x4:	return std::make_pair(4, 4);
 		default: throw Exceptions::EnumConvertionError();
 	}
 }
