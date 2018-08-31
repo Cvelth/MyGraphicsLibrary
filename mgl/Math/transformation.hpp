@@ -8,6 +8,19 @@ namespace mgl::math {
 		using basic_matrix<T, S + 1, S + 1>::data;
 	public:
 		using basic_matrix<T, S + 1, S + 1>::basic_matrix;
+
+		template <typename T_O, typename = typename std::enable_if<std::is_convertible<T_O, T>::value>::type>
+		basic_transformation<T, S> translate(basic_vector<T_O, S> const& direction) {
+			for (size_t r = 0; r < S + 1; r++)
+				data[r][S] += dot(data[r], direction);
+			return *this;
+		}
+		template <typename T_O, typename = typename std::enable_if<std::is_convertible<T_O, T>::value>::type>
+		basic_transformation<T, S> translate(basic_homogeneous_vector<T_O, S>) {
+			for (size_t r = 0; r < S + 1; r++)
+				data[r][S] += dot(data[r], direction);
+			return *this;
+		}
 	};
 
 	class transformation2f : public basic_transformation<float, 2u> { public: using basic_transformation::basic_transformation; };
@@ -17,11 +30,14 @@ namespace mgl::math {
 
 	class transformation : public transformation3f { public: using transformation3f::transformation3f; };
 
-	transformation translation(vector const& direction);
-	transformation rotation(vector::value_type const& angle, vector const& axis);
-	transformation scaling(vector const& direction);
-	transformation orthographic_projection(basic_vector<vector2f, 3> const& edges);
-	transformation perspective_projection(basic_vector<vector2f, 3> const& edges);
+	transformation translation(vector const& direction) { 
+		transformation ret;
+		return ret.translate(direction); 
+	}
+	transformation rotation(vector::value_type const& angle, vector const& axis) { return transformation(); }
+	transformation scaling(vector const& direction) { return transformation(); }
+	transformation orthographic_projection(basic_vector<vector2f, 3> const& edges) { return transformation(); }
+	transformation perspective_projection(basic_vector<vector2f, 3> const& edges) { return transformation(); }
 
 	transformation translation(float x, float y, float z) { return translation({x,y,z}); }
 	transformation rotation(vector::value_type const& angle, float x, float y, float z) { return rotation(angle, {x,y,z}); }
