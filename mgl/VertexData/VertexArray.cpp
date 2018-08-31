@@ -127,16 +127,25 @@ void mgl::MultiVertexArray::draw_multiple_indexed_indirect(size_t index, VertexC
 	bind(index);
 	glMultiDrawElementsIndirect(enum_converter::convert(connection), enum_converter::convert(type), (void*) (byte_offset), GLsizei(drawcount), GLsizei(stride));
 }
-void mgl::MultiVertexArray::draw_instanced(size_t index, size_t draw_count, VertexConnectionType connection, size_t count, size_t first) {
+void mgl::MultiVertexArray::draw_instanced(size_t index, size_t draw_count, VertexConnectionType connection, size_t count, size_t first, int base_instance) {
 	bind(index);
-	glDrawArraysInstanced(enum_converter::convert(connection), GLint(first), GLsizei(count), GLsizei(draw_count));
+	if (base_instance)
+		glDrawArraysInstancedBaseInstance(enum_converter::convert(connection), GLint(first), GLsizei(count), GLsizei(draw_count), GLuint(base_instance));
+	else
+		glDrawArraysInstanced(enum_converter::convert(connection), GLint(first), GLsizei(count), GLsizei(draw_count));
 }
-void mgl::MultiVertexArray::draw_instanced_indexed(size_t index, size_t draw_count, VertexConnectionType connection, size_t count, size_t first, int base_vertex, DrawIndexType type) {
+void mgl::MultiVertexArray::draw_instanced_indexed(size_t index, size_t draw_count, VertexConnectionType connection, size_t count, size_t first, int base_vertex, int base_instance, DrawIndexType type) {
 	if (GlobalStateController::bound_buffer(mgl::BufferBindingPoint::ElementArrayBuffer).first == nullptr)
 		throw Exceptions::AttribPointerError("Indexed draw is impossible without a buffer with index data being bound to BufferBindingPoint::ElementArrayBuffer.");
 	bind(index);
-	if (base_vertex)
-		glDrawElementsInstancedBaseVertex(enum_converter::convert(connection), GLsizei(count), enum_converter::convert(type), (void*) (first * size_t(type)), GLsizei(draw_count), GLint(base_vertex));
+	if (base_instance)
+		if (base_vertex)
+			glDrawElementsInstancedBaseVertexBaseInstance(enum_converter::convert(connection), GLsizei(count), enum_converter::convert(type), (void*) (first * size_t(type)), GLsizei(draw_count), GLint(base_vertex), GLuint(base_instance));
+		else
+			glDrawElementsInstancedBaseInstance(enum_converter::convert(connection), GLsizei(count), enum_converter::convert(type), (void*) (first * size_t(type)), GLsizei(draw_count), GLuint(base_instance));
 	else
-		glDrawElementsInstanced(enum_converter::convert(connection), GLsizei(count), enum_converter::convert(type), (void*) (first * size_t(type)), GLsizei(draw_count));
+		if (base_vertex)
+			glDrawElementsInstancedBaseVertex(enum_converter::convert(connection), GLsizei(count), enum_converter::convert(type), (void*) (first * size_t(type)), GLsizei(draw_count), GLint(base_vertex));
+		else
+			glDrawElementsInstanced(enum_converter::convert(connection), GLsizei(count), enum_converter::convert(type), (void*) (first * size_t(type)), GLsizei(draw_count));
 }
