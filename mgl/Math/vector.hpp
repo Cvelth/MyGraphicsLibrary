@@ -12,6 +12,7 @@ namespace mgl::math {
 		T data[S];
 	public:
 		using value_type = T;
+		static const size_t size_value = S;
 
 		basic_vector() : data{T(0)} {}
 		basic_vector(basic_vector<T, S> const& other) {
