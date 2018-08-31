@@ -11,6 +11,8 @@ namespace mgl::math {
 	protected:
 		T data[S];
 	public:
+		using value_type = T;
+
 		basic_vector() : data{T(0)} {}
 		basic_vector(basic_vector<T, S> const& other) {
 			std::copy(other.begin(), other.end(), data);
