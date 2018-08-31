@@ -55,3 +55,65 @@ void mgl::MultiVertexArray::draw(size_t index, VertexConnectionType connection, 
 	bind(index);
 	glDrawArrays(enum_converter::convert(connection), GLint(first), GLsizei(count));
 }
+void mgl::MultiVertexArray::draw_indexed(size_t index, VertexConnectionType connection, size_t count, size_t first, int base_vertex, DrawIndexType type) {
+	if (GlobalStateController::bound_buffer(mgl::BufferBindingPoint::ElementArrayBuffer).first == nullptr)
+		throw Exceptions::AttribPointerError("Indexed draw is impossible without a buffer with index data being bound to BufferBindingPoint::ElementArrayBuffer.");
+	bind(index);
+	if (base_vertex)
+		glDrawElementsBaseVertex(enum_converter::convert(connection), GLsizei(count), enum_converter::convert(type), (void*) (first * size_t(type)), GLint(base_vertex));
+	else
+		glDrawElements(enum_converter::convert(connection), GLsizei(count), enum_converter::convert(type), (void*) (first * size_t(type)));
+}
+void mgl::MultiVertexArray::draw_indexed(size_t index, VertexConnectionType connection, size_t start, size_t end, size_t count, size_t first, int base_vertex, DrawIndexType type) {
+	if (GlobalStateController::bound_buffer(mgl::BufferBindingPoint::ElementArrayBuffer).first == nullptr)
+		throw Exceptions::AttribPointerError("Indexed draw is impossible without a buffer with index data being bound to BufferBindingPoint::ElementArrayBuffer.");
+	bind(index);
+	if (base_vertex)
+		glDrawRangeElementsBaseVertex(enum_converter::convert(connection), GLuint(start), GLuint(end), GLsizei(count), enum_converter::convert(type), (void*) (first * size_t(type)), GLint(base_vertex));
+	else
+		glDrawRangeElements(enum_converter::convert(connection), GLuint(start), GLuint(end), GLsizei(count), enum_converter::convert(type), (void*) (first * size_t(type)));
+}
+void mgl::MultiVertexArray::draw_indirect(size_t index, VertexConnectionType connection, size_t byte_offset) {
+	if (GlobalStateController::bound_buffer(mgl::BufferBindingPoint::DrawIndirectBuffer).first == nullptr)
+		throw Exceptions::AttribPointerError("Indirect draw is impossible without a buffer with draw data being bound to BufferBindingPoint::DrawIndirectBuffer.");
+	bind(index);
+	glDrawArraysIndirect(enum_converter::convert(connection), (void*) (byte_offset));
+}
+void mgl::MultiVertexArray::draw_indexed_indirect(size_t index, VertexConnectionType connection, DrawIndexType type, size_t byte_offset) {
+	if (GlobalStateController::bound_buffer(mgl::BufferBindingPoint::ElementArrayBuffer).first == nullptr)
+		throw Exceptions::AttribPointerError("Indexed draw is impossible without a buffer with index data being bound to BufferBindingPoint::ElementArrayBuffer.");
+	if (GlobalStateController::bound_buffer(mgl::BufferBindingPoint::DrawIndirectBuffer).first == nullptr)
+		throw Exceptions::AttribPointerError("Indirect draw is impossible without a buffer with draw data being bound to BufferBindingPoint::DrawIndirectBuffer.");
+	bind(index);
+	glDrawElementsIndirect(enum_converter::convert(connection), enum_converter::convert(type), (void*) (byte_offset));
+}
+void mgl::MultiVertexArray::draw_multiple(size_t index, VertexConnectionType connection, size_t drawcount, int const* counts, int const* firsts) {
+	bind(index);
+	glMultiDrawArrays(enum_converter::convert(connection), (GLint const*) firsts, (GLint const*) counts, GLsizei(drawcount));
+}
+void mgl::MultiVertexArray::draw_multiple_indexed(size_t index, VertexConnectionType connection, size_t drawcount, int const* counts, int const* byte_offsets, DrawIndexType type) {
+	if (GlobalStateController::bound_buffer(mgl::BufferBindingPoint::ElementArrayBuffer).first == nullptr)
+		throw Exceptions::AttribPointerError("Indexed draw is impossible without a buffer with index data being bound to BufferBindingPoint::ElementArrayBuffer.");
+	bind(index);
+	glMultiDrawElements(enum_converter::convert(connection), (GLsizei*) counts, enum_converter::convert(type), (void**) (byte_offsets), GLsizei(drawcount));
+}
+void mgl::MultiVertexArray::draw_multiple_indexed(size_t index, VertexConnectionType connection, size_t drawcount, int const* counts, int const* byte_offsets, int const* base_vertices, DrawIndexType type) {
+	if (GlobalStateController::bound_buffer(mgl::BufferBindingPoint::ElementArrayBuffer).first == nullptr)
+		throw Exceptions::AttribPointerError("Indexed draw is impossible without a buffer with index data being bound to BufferBindingPoint::ElementArrayBuffer.");
+	bind(index);
+	glMultiDrawElementsBaseVertex(enum_converter::convert(connection), (GLsizei*) counts, enum_converter::convert(type), (void**) (byte_offsets), GLsizei(drawcount), (GLint*) base_vertices);
+}
+void mgl::MultiVertexArray::draw_multiple_indirect(size_t index, VertexConnectionType connection, size_t drawcount, size_t byte_offset, size_t stride) {
+	if (GlobalStateController::bound_buffer(mgl::BufferBindingPoint::DrawIndirectBuffer).first == nullptr)
+		throw Exceptions::AttribPointerError("Indirect draw is impossible without a buffer with draw data being bound to BufferBindingPoint::DrawIndirectBuffer.");
+	bind(index);
+	glMultiDrawArraysIndirect(enum_converter::convert(connection), (void*) (byte_offset), GLsizei(drawcount), GLsizei(stride));
+}
+void mgl::MultiVertexArray::draw_multiple_indexed_indirect(size_t index, VertexConnectionType connection, size_t drawcount, DrawIndexType type, size_t byte_offset, size_t stride) {
+	if (GlobalStateController::bound_buffer(mgl::BufferBindingPoint::ElementArrayBuffer).first == nullptr)
+		throw Exceptions::AttribPointerError("Indexed draw is impossible without a buffer with index data being bound to BufferBindingPoint::ElementArrayBuffer.");
+	if (GlobalStateController::bound_buffer(mgl::BufferBindingPoint::DrawIndirectBuffer).first == nullptr)
+		throw Exceptions::AttribPointerError("Indirect draw is impossible without a buffer with draw data being bound to BufferBindingPoint::DrawIndirectBuffer.");
+	bind(index);
+	glMultiDrawElementsIndirect(enum_converter::convert(connection), enum_converter::convert(type), (void*) (byte_offset), GLsizei(drawcount), GLsizei(stride));
+}
