@@ -1,6 +1,9 @@
 #pragma once
 #include "matrix.hpp"
 
+#include "mgl/exceptions.hpp"
+DefineNewMGLException(TransformationError)
+
 namespace mgl::math {
 	template <typename T, size_t S> class basic_transformation;
 	template <typename T> basic_transformation<T, 2> rotation(T const& angle);
@@ -57,7 +60,6 @@ namespace mgl::math {
 			res[i][i] = direction[i];
 		return res;
 	}
-
 	template <typename T>
 	inline basic_transformation<T, 3> rotation_x(T const& angle) {
 		return {{T(1), T(0), T(0), T(0)},
@@ -65,7 +67,6 @@ namespace mgl::math {
 		{T(0), std::sin(angle), std::cos(angle), T(0)},
 		{T(0), T(0), T(0), T(1)}};
 	}
-
 	template <typename T>
 	inline basic_transformation<T, 3> rotation_y(T const& angle) {
 		return {{std::cos(angle), T(0), std::sin(angle), T(0)},
@@ -73,7 +74,6 @@ namespace mgl::math {
 		{-std::sin(angle), T(0), std::cos(angle), T(0)},
 		{T(0), T(0), T(0), T(1)}};
 	}
-
 	template <typename T>
 	inline basic_transformation<T, 3> rotation_z(T const& angle) {
 		return {{std::cos(angle), -std::sin(angle), T(0), T(0)},
@@ -81,7 +81,6 @@ namespace mgl::math {
 		{T(0), T(0), T(1), T(0)},
 		{T(0), T(0), T(0), T(1)}};
 	}
-
 	template <typename T>
 	inline basic_transformation<T, 3> rotation(T const& angle, basic_vector<T, 3> const& axis) {
 		T const c = cos(angle);
@@ -104,10 +103,32 @@ namespace mgl::math {
 
 		return r;
 	}
-
 	template <typename T>
 	inline basic_transformation<T, 2> rotation(T const& angle) {
 		return basic_transformation<T, 2>(rotation_z<T>(angle));
+	}
+
+	template <typename T>
+	inline basic_transformation<T, 3> perspective_projection(T const& l, T const& r, T const& b, T const& t, T const& n, T const& f) {
+		if (l == r || b == t || n == f)
+			throw Exceptions::TransformationError();
+		return basic_transformation<T, 3>{
+			{ n * T(2) / (r - l), T(0), (r + l) / (r - l), T(0) },
+			{T(0), n * T(2) / (t - b), (t + b) / (t - b), T(0) },
+			{T(0), T(0), -(f + n) / (f - n), -f * n * T(2) / (f - n) },
+			{T(0), T(0), T(-1), T(0) }
+		};
+	}
+	template <typename T>
+	inline basic_transformation<T, 3> orthographic_projection(T const& l, T const& r, T const& b, T const& t, T const& n, T const& f) {
+		if (l == r || b == t || n == f)
+			throw Exceptions::TransformationError();
+		return basic_transformation<T, 3>{
+			{ T(2) / (r - l), T(0), T(0), -(r + l) / (r - l) },
+			{ T(0), T(2) / (t - b), T(0), -(t + b) / (t - b) },
+			{ T(0), T(0), T(-2) / (f - n), -(f + n) / (f - n) },
+			{ T(0), T(0), T(0), T(1) }
+		};
 	}
 
 	class transformation2f : public basic_transformation<float, 2u> { public: using basic_transformation::basic_transformation; };
@@ -143,5 +164,18 @@ namespace mgl::math {
 	}
 	inline transformation rotation_z(vector::value_type const& angle) {
 		return rotation_z<vector::value_type>(angle);
+	}
+
+	inline transformation orthographic_projection(basic_vector<vector2f, 3> const& edges) {
+		return orthographic_projection<float>(edges[0][0], edges[0][1], edges[1][0], edges[1][1], edges[2][0], edges[2][1]);
+	}
+	inline transformation orthographic_projection(float left, float right, float bottom, float top, float near, float far) {
+		return orthographic_projection<float>(left, right, bottom, top, near, far);
+	}
+	inline transformation perspective_projection(basic_vector<vector2f, 3> const& edges) {
+		return perspective_projection<float>(edges[0][0], edges[0][1], edges[1][0], edges[1][1], edges[2][0], edges[2][1]);
+	}
+	inline transformation perspective_projection(float left, float right, float bottom, float top, float near, float far) {
+		return orthographic_projection<float>(left, right, bottom, top, near, far);
 	}
 }
