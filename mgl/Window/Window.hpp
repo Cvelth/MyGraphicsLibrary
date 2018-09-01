@@ -8,13 +8,23 @@ namespace mgl {
 		class transformation;
 	}
 	class Color;
+	class EventSystem;
+	class AbstractEventController;
 
 	class AbstractWindow {
+		friend EventSystem;
 	private:
 		GLFWwindow *m_window;
+	protected:
+		std::shared_ptr<AbstractEventController> m_controller;
 	public:
-		explicit AbstractWindow(char const* title, int width, int height, bool is_fullscreen = false);
+		explicit AbstractWindow(char const* title, int width, int height, bool is_fullscreen = false,
+								std::shared_ptr<AbstractEventController> controller = nullptr);
 		virtual ~AbstractWindow();
+		void setEventController(std::shared_ptr<AbstractEventController> controller);
+		inline std::shared_ptr<AbstractEventController> event_controller() const {
+			return m_controller;
+		}
 
 		void update();
 		void pollEvents() const;
