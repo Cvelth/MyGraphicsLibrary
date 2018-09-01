@@ -60,6 +60,7 @@ namespace mgl {
 }
 
 #include <string>
+#include "mgl/GlobalStateController/GlobalStateController.hpp"
 mgl::AbstractWindow::AbstractWindow(char const* title, int width, int height, bool is_fullscreen, std::shared_ptr<AbstractEventController> controller) {
 	if (!glfwInit())
 		throw Exceptions::WindowCreationError();
@@ -84,10 +85,12 @@ mgl::AbstractWindow::AbstractWindow(char const* title, int width, int height, bo
 		throw Exceptions::WindowCreationError((std::string("GLEW initialization error: ") +
 											  (char const*) (glewGetErrorString(error))).c_str());
 	}
+	GlobalStateController::set_initialization(true);
 
 	setEventController(controller);
 }
 mgl::AbstractWindow::~AbstractWindow() {
+	GlobalStateController::set_initialization(false);
 	glfwDestroyWindow(m_window);
 	glfwTerminate();
 }
