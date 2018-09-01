@@ -23,6 +23,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Math", "mgl\Math\Math.vcxpr
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OpenGL", "OpenGL", "{812BA609-D766-4E14-AD5E-AD574E0C526E}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Window", "mgl\Window\Window.vcxproj", "{7B4FD8AD-AFE7-47D1-AE7E-B28C0D1D04F3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -95,6 +97,14 @@ Global
 		{1A5EC97F-543D-4D87-BFD8-0D0C3AB83657}.Release|x64.Build.0 = Release|x64
 		{1A5EC97F-543D-4D87-BFD8-0D0C3AB83657}.Release|x86.ActiveCfg = Release|Win32
 		{1A5EC97F-543D-4D87-BFD8-0D0C3AB83657}.Release|x86.Build.0 = Release|Win32
+		{7B4FD8AD-AFE7-47D1-AE7E-B28C0D1D04F3}.Debug|x64.ActiveCfg = Debug|x64
+		{7B4FD8AD-AFE7-47D1-AE7E-B28C0D1D04F3}.Debug|x64.Build.0 = Debug|x64
+		{7B4FD8AD-AFE7-47D1-AE7E-B28C0D1D04F3}.Debug|x86.ActiveCfg = Debug|Win32
+		{7B4FD8AD-AFE7-47D1-AE7E-B28C0D1D04F3}.Debug|x86.Build.0 = Debug|Win32
+		{7B4FD8AD-AFE7-47D1-AE7E-B28C0D1D04F3}.Release|x64.ActiveCfg = Release|x64
+		{7B4FD8AD-AFE7-47D1-AE7E-B28C0D1D04F3}.Release|x64.Build.0 = Release|x64
+		{7B4FD8AD-AFE7-47D1-AE7E-B28C0D1D04F3}.Release|x86.ActiveCfg = Release|Win32
+		{7B4FD8AD-AFE7-47D1-AE7E-B28C0D1D04F3}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
