@@ -2,10 +2,16 @@
 #include "ShaderProgram.hpp"
 #include "Shader.hpp"
 #include "ShaderVariable.hpp"
+#include "mgl/GlobalStateController/GlobalStateController.hpp"
 mgl::ShaderProgram::ShaderProgram(uint32_t id) : m_is_linked(false), m_id(id) {
+	if (!GlobalStateController::is_initialized())
+		throw Exceptions::InitializationNeeded();
 	if (m_id == 0 || !glIsProgram(m_id)) throw Exceptions::ProgramCreationError();
 }
-mgl::ShaderProgram::ShaderProgram() : ShaderProgram(glCreateProgram()) {}
+mgl::ShaderProgram::ShaderProgram() : ShaderProgram(glCreateProgram()) {
+	if (!GlobalStateController::is_initialized())
+		throw Exceptions::InitializationNeeded();
+}
 mgl::ShaderProgram::ShaderProgram(std::initializer_list<Shader> const& list) : ShaderProgram() {
 	link(list);
 }
@@ -80,7 +86,6 @@ std::list<mgl::ShaderVariable> mgl::ShaderProgram::getVariables() {
 	return ret;
 }
 
-#include "mgl/GlobalStateController/GlobalStateController.hpp"
 void mgl::ShaderProgram::use() {
 	GlobalStateController::use_shader_program(this);
 }

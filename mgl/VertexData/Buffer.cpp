@@ -2,6 +2,8 @@
 #include "Buffer.hpp"
 #include <algorithm>
 mgl::MultiBuffer::MultiBuffer(size_t const number, uint32_t *ids) : m_number(number), m_mapped_id(-1), m_mapped_pointer(nullptr) {
+	if (!GlobalStateController::is_initialized())
+		throw Exceptions::InitializationNeeded();
 	m_ids = new uint32_t[number];
 	std::copy(ids, ids + number, m_ids);
 	for (size_t i = 0; i < number; i++)
@@ -9,6 +11,8 @@ mgl::MultiBuffer::MultiBuffer(size_t const number, uint32_t *ids) : m_number(num
 			throw Exceptions::BufferCreationError();
 }
 mgl::MultiBuffer::MultiBuffer(size_t number) : m_number(number), m_mapped_id(-1), m_mapped_pointer(nullptr) {
+	if (!GlobalStateController::is_initialized())
+		throw Exceptions::InitializationNeeded();
 	m_ids = new uint32_t[number];
 	glGenBuffers(GLsizei(number), m_ids);
 }
