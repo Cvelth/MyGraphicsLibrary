@@ -1,14 +1,19 @@
 #include "mgl/dependencies/OpenGL_Dependency/opengl_dependency.hpp"
 #include "Shader.hpp"
 #include "mgl/EnumConverter/enum_converter.hpp"
+#include "mgl/GlobalStateController/GlobalStateController.hpp"
 
 mgl::Shader::Shader(uint32_t id) : m_id(id) {
+	if (!GlobalStateController::is_initialized())
+		throw Exceptions::InitializationNeeded();
 	if (id == 0 || !glIsShader(id)) throw Exceptions::ShaderCreationError();
 }
 mgl::Shader::Shader(std::string const& source, ShaderType type) : Shader(type) {
 	compileSource(source);
 }
 mgl::Shader::Shader(ShaderType type) : m_id(0) {
+	if (!GlobalStateController::is_initialized())
+		throw Exceptions::InitializationNeeded();
 	try {
 		m_id = glCreateShader(enum_converter::convert(type));
 	} catch (Exceptions::EnumConvertionError) {

@@ -1,6 +1,8 @@
 #include "mgl/dependencies/OpenGL_Dependency/opengl_dependency.hpp"
 #include "VertexArray.hpp"
 mgl::MultiVertexArray::MultiVertexArray(size_t number, uint32_t *ids) : m_number(number) {
+	if (!GlobalStateController::is_initialized())
+		throw Exceptions::InitializationNeeded();
 	m_ids = new uint32_t[number];
 	std::copy(ids, ids + number, m_ids);
 	for (size_t i = 0; i < number; i++)
@@ -8,6 +10,8 @@ mgl::MultiVertexArray::MultiVertexArray(size_t number, uint32_t *ids) : m_number
 			throw Exceptions::VertexArrayCreationError();
 }
 mgl::MultiVertexArray::MultiVertexArray(size_t number) : m_number(number) {
+	if (!GlobalStateController::is_initialized())
+		throw Exceptions::InitializationNeeded();
 	m_ids = new uint32_t[number];
 	glGenVertexArrays(GLsizei(number), m_ids);
 }
