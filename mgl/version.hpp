@@ -2,7 +2,7 @@
 #define Version_Major 2
 #define Version_Minor 0
 #define Version_Patch 1
-#define Version_Build 182
+#define Version_Build 183
 
 namespace mgl {
 	char const* get_version();
