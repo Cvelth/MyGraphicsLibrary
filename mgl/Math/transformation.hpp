@@ -1,5 +1,5 @@
 #pragma once
-#include "matrix.hpp"
+#include "mgl/math/matrix.hpp"
 
 #include "mgl/exceptions.hpp"
 DefineNewMGLException(TransformationError)
