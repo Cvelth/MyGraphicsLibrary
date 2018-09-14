@@ -1,4 +1,5 @@
 #include "mgl/dependencies/OpenGL_Dependency/opengl_dependency.hpp"
+#include "mgl/GlobalStateController/GlobalStateController.hpp"
 #include "VertexArray.hpp"
 mgl::MultiVertexArray::MultiVertexArray(size_t number, uint32_t *ids) : m_number(number) {
 	if (!GlobalStateController::is_initialized())
@@ -20,7 +21,6 @@ mgl::MultiVertexArray::~MultiVertexArray() {
 }
 
 #include "mgl/EnumConverter/enum_converter.hpp"
-#include "mgl/GlobalStateController/GlobalStateController.hpp"
 #include "mgl/ShaderProgram/ShaderVariable.hpp"
 #include "Buffer.hpp"
 void mgl::MultiVertexArray::bind(size_t index) {

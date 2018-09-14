@@ -1,4 +1,5 @@
 #include "mgl/dependencies/OpenGL_Dependency/opengl_dependency.hpp"
+#include "mgl/GlobalStateController/GlobalStateController.hpp"
 #include "Buffer.hpp"
 #include <algorithm>
 mgl::MultiBuffer::MultiBuffer(size_t const number, uint32_t *ids) : m_number(number), m_mapped_id(-1), m_mapped_pointer(nullptr) {
@@ -22,7 +23,6 @@ mgl::MultiBuffer::~MultiBuffer() {
 }
 
 #include "mgl/EnumConverter/enum_converter.hpp"
-#include "mgl/GlobalStateController/GlobalStateController.hpp"
 void mgl::MultiBuffer::bind(size_t index, BufferBindingPoint binding_point) {
 	if (index >= m_number) throw Exceptions::MultiBufferIndexOutOfBounds();
 	GlobalStateController::bind_buffer(binding_point, this, index);
