@@ -240,6 +240,22 @@ namespace mgl::math {
 					res[i][k] += v1[i][j] * v2[j][k];
 		return res;
 	}
+	template<typename T, size_t R, size_t C, typename T_O, size_t S_O, typename = typename std::enable_if<std::is_convertible<T_O, T>::value>::type, typename = typename std::enable_if<(S_O == C)>::type>
+	auto const operator*(basic_matrix<T, R, C> const& v1, basic_vector<T_O, S_O> const& v2) {
+		basic_vector<decltype(v1[0][0] * v2[0]), R> res;
+		for (size_t i = 0; i < R; i++)
+			for (size_t j = 0; j < C; j++)
+				res[i] += v1[i][j] * v2[j];
+		return res;
+	}
+	template<typename T, size_t R, size_t C, typename T_O, size_t S_O, typename = typename std::enable_if<std::is_convertible<T_O, T>::value>::type, typename = typename std::enable_if<(S_O == R)>::type>
+	auto const operator*(basic_vector<T_O, S_O> const& v1, basic_matrix<T, R, C> const& v2) {
+		basic_vector<decltype(v1[0] * v2[0][0]), C> res;
+		for (size_t i = 0; i < R; i++)
+			for (size_t j = 0; j < C; j++)
+				res[j] += v1[i] * v2[i][j];
+		return res;
+	}
 
 	template<typename T, size_t R, size_t C, typename T_O, size_t R_O, size_t C_O, typename = typename std::enable_if<std::is_convertible<T_O, T>::value>::type>
 	auto const operator+(basic_matrix<T, R, C> const& v1, basic_matrix<T_O, R_O, C_O> const& v2) {
