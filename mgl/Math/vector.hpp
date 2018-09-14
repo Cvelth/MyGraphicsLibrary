@@ -113,7 +113,7 @@ namespace mgl::math {
 		template<typename = typename std::enable_if<S >= 2 && S <= 4>::type> void z(T const& value) { data[0] = value; }
 		template<typename = typename std::enable_if<S >= 3 && S <= 4>::type> void w(T const& value) { data[0] = value; }
 		
-		float length() const {
+		T length() const {
 			T sum = T(0);
 			for (size_t i = 0; i < S; i++)
 				sum += data[i] * data[i];
