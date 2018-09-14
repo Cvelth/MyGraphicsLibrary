@@ -138,44 +138,44 @@ namespace mgl::math {
 
 	class transformation : public transformation3f { public: using transformation3f::transformation3f; };
 
-	inline transformation translation(vector const& direction) {
+	inline auto translation(vector const& direction) {
 		return translation<vector::value_type, vector::size_value>(direction);
 	}
-	inline transformation translation(float x, float y, float z) {
+	inline auto translation(float x, float y, float z) {
 		return translation<vector::value_type, vector::size_value>(vector{x,y,z});
 	}
-	inline transformation scaling(vector const& direction) {
+	inline auto scaling(vector const& direction) {
 		return scaling<vector::value_type, vector::size_value>(direction);
 	}
-	inline transformation scaling(float x, float y, float z) {
+	inline auto scaling(float x, float y, float z) {
 		return scaling<vector::value_type, vector::size_value>(vector{x,y,z});
 	}
-	inline transformation rotation(vector::value_type const& angle, vector const& axis) { 
+	inline auto rotation(vector::value_type const& angle, vector const& axis) {
 		return rotation<vector::value_type, vector::value_type>(angle, axis);
 	}
-	inline transformation rotation(vector::value_type const& angle, float x, float y, float z) {
+	inline auto rotation(vector::value_type const& angle, float x, float y, float z) {
 		return rotation<vector::value_type, vector::value_type>(angle, vector{x,y,z});
 	}
-	inline transformation rotation_x(vector::value_type const& angle) {
+	inline auto rotation_x(vector::value_type const& angle) {
 		return rotation_x<vector::value_type>(angle);
 	}
-	inline transformation rotation_y(vector::value_type const& angle) {
+	inline auto rotation_y(vector::value_type const& angle) {
 		return rotation_y<vector::value_type>(angle);
 	}
-	inline transformation rotation_z(vector::value_type const& angle) {
+	inline auto rotation_z(vector::value_type const& angle) {
 		return rotation_z<vector::value_type>(angle);
 	}
 
-	inline transformation orthographic_projection(basic_vector<vector2f, 3> const& edges) {
+	inline auto orthographic_projection(basic_vector<vector2f, 3> const& edges) {
 		return orthographic_projection<float>(edges[0][0], edges[0][1], edges[1][0], edges[1][1], edges[2][0], edges[2][1]);
 	}
-	inline transformation orthographic_projection(float left, float right, float bottom, float top, float near, float far) {
+	inline auto orthographic_projection(float left, float right, float bottom, float top, float near, float far) {
 		return orthographic_projection<float>(left, right, bottom, top, near, far);
 	}
-	inline transformation perspective_projection(basic_vector<vector2f, 3> const& edges) {
+	inline auto perspective_projection(basic_vector<vector2f, 3> const& edges) {
 		return perspective_projection<float>(edges[0][0], edges[0][1], edges[1][0], edges[1][1], edges[2][0], edges[2][1]);
 	}
-	inline transformation perspective_projection(float left, float right, float bottom, float top, float near, float far) {
+	inline auto perspective_projection(float left, float right, float bottom, float top, float near, float far) {
 		return orthographic_projection<float>(left, right, bottom, top, near, far);
 	}
 }
