@@ -2,6 +2,8 @@
 #include "GlobalStateController.hpp"
 #include "mgl/EnumConverter/enum_converter.hpp"
 
+bool mgl::GlobalStateController::m_is_initialized = false;
+
 #include "mgl/ShaderProgram/ShaderProgram.hpp"
 mgl::ShaderProgram *mgl::GlobalStateController::m_shader_program_used = nullptr;
 void mgl::GlobalStateController::use_shader_program(ShaderProgram *program) {
