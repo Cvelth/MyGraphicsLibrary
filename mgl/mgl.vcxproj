@@ -82,6 +82,10 @@
     <ProjectReference>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
     </ProjectReference>
+    <Lib>
+      <AdditionalDependencies>mml.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\..\MyMathematicsLibrary\Debug</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -95,6 +99,10 @@
     <ProjectReference>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
     </ProjectReference>
+    <Lib>
+      <AdditionalDependencies>mml.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\..\MyMathematicsLibrary\x64\Debug</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -114,6 +122,10 @@
     <ProjectReference>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
     </ProjectReference>
+    <Lib>
+      <AdditionalDependencies>mml.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\..\MyMathematicsLibrary\Release</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -133,6 +145,10 @@
     <ProjectReference>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
     </ProjectReference>
+    <Lib>
+      <AdditionalLibraryDirectories>..\..\MyMathematicsLibrary\x64\Release</AdditionalLibraryDirectories>
+      <AdditionalDependencies>mml.lib</AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="exceptions.hpp" />
@@ -157,9 +173,6 @@
     </ProjectReference>
     <ProjectReference Include="GlobalStateController\GlobalStateController.vcxproj">
       <Project>{9728eb77-ae3a-4afc-823d-2089c398f62e}</Project>
-    </ProjectReference>
-    <ProjectReference Include="Math\Math.vcxproj">
-      <Project>{1a5ec97f-543d-4d87-bfd8-0d0c3ab83657}</Project>
     </ProjectReference>
     <ProjectReference Include="ShaderProgram\ShaderProgram.vcxproj">
       <Project>{2699760d-9387-4907-ac77-f9fabbefd1dc}</Project>

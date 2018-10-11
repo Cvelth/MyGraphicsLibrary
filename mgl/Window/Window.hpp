@@ -3,10 +3,10 @@
 
 struct GLFWwindow;
 
+namespace mml {
+	class transformation;
+}
 namespace mgl {
-	namespace math {
-		class transformation;
-	}
 	class Color;
 	class EventSystem;
 	class AbstractEventController;
